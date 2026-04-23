@@ -36,22 +36,46 @@ export default function Home() {
   };
 
   const handleProcess = async () => {
-    if (!matchId || !fullVideo || !highlightVideo) return;
-    setIsProcessing(true);
+    if (!matchId) return alert("Please enter a Match Identifier Base Name!");
+    if (!fullVideo) return alert("Please select the Full Match MP4!");
+    if (!highlightVideo) return alert("Please select the Highlight MP4!");
 
+    setIsProcessing(true);
     setSteps(prev => prev.map(s => ({ ...s, status: "idle", log: "" })));
 
-    // STEP 1: Upload
-    updateStep("upload", "active", "Uploading .mp4 files (this may take time if files are large)...");
+    // STEP 1: Upload Videos using XHR for Progress Tracking
+    updateStep("upload", "active", "Uploading .mp4 files -> 0%");
+    
     try {
-      const formData = new FormData();
-      formData.append("fullVideo", fullVideo);
-      formData.append("highlightVideo", highlightVideo);
-      formData.append("matchId", matchId);
-      
-      const upRes = await fetch("/api/upload-video", { method: "POST", body: formData });
-      if (!upRes.ok) throw new Error("Upload failed. Files may be too large.");
-      updateStep("upload", "done", "Upload successful!");
+      await new Promise((resolve, reject) => {
+        const formData = new FormData();
+        formData.append("fullVideo", fullVideo);
+        formData.append("highlightVideo", highlightVideo);
+        formData.append("matchId", matchId);
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "/api/upload-video", true);
+
+        // Upload progress tracking
+        xhr.upload.onprogress = (event) => {
+          if (event.lengthComputable) {
+            const percentComplete = Math.round((event.loaded / event.total) * 100);
+            updateStep("upload", "active", `Uploading .mp4 files -> ${percentComplete}% \n(${((event.loaded/1024)/1024).toFixed(1)} MB / ${((event.total/1024)/1024).toFixed(1)} MB)`);
+          }
+        };
+
+        xhr.onload = () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            updateStep("upload", "done", "Upload successful!");
+            resolve();
+          } else {
+            reject(new Error("Upload failed. Files may be too large."));
+          }
+        };
+
+        xhr.onerror = () => reject(new Error("Network Error occurred during upload."));
+        xhr.send(formData);
+      });
     } catch (err) {
       updateStep("upload", "error", err.message);
       setIsProcessing(false); return;
@@ -180,7 +204,7 @@ export default function Home() {
                 <button 
                    className="btn" 
                    onClick={handleProcess} 
-                   disabled={!matchId || !fullVideo || !highlightVideo || isProcessing || isMlProcessing}
+                   disabled={isProcessing || isMlProcessing}
                    style={{marginTop: "1rem"}}
                  >
                    {isProcessing ? "Pipeline Running..." : "Start System Pipeline (Step 1-4)"}
@@ -224,6 +248,11 @@ export default function Home() {
                            }}>
                                {step.log}
                            </div>
+                       )}
+                       {step.id === "label" && step.status === "done" && (
+                           <Link href="/label" style={{display:"inline-block", marginTop:"1rem", background:"var(--primary-color)", color:"white", padding:"0.6rem 1rem", borderRadius:"6px", textDecoration:"none", fontWeight:"bold"}}>
+                              Go to Manual Labeling →
+                           </Link>
                        )}
                    </div>
                 ))}
