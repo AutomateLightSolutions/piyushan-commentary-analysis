@@ -56,14 +56,16 @@ def main():
         print("Please place vtt files (e.g. match_01.vtt) and highlights.json in the raw directory.")
         return
 
-    vtt_files = list(RAW_DIR.glob("*.vtt"))
+    vtt_files = list(RAW_DIR.glob("*_full.vtt"))
     if not vtt_files:
-        print("No .vtt files found in data/raw/. Looking for match_**.vtt files.")
+        print("No *_full.vtt files found in data/raw/. Looking for match_**_full.vtt files.")
         return
 
     # Process batch
     for vtt_file in vtt_files:
-        match_id = vtt_file.stem  # e.g., 'match_01'
+        # e.g., 'match_01_full' -> 'match_01'
+        match_id = vtt_file.stem.replace("_full", "")
+        # Since highlights are now _highlights.vtt, we check for highlights_{match_id}.json if legacy JSON provided, or default 0.
         highlights_file = RAW_DIR / f"highlights_{match_id}.json"
         
         process_match(match_id, vtt_file, highlights_file)

@@ -21,9 +21,9 @@ def main():
         return
         
     total_metrics = {
-        "Lexicon Only": {"precision": 0, "recall": 0, "f1": 0},
-        "RoBERTa Only": {"precision": 0, "recall": 0, "f1": 0},
-        "Hybrid Model": {"precision": 0, "recall": 0, "f1": 0}
+        "Lexicon Only": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
+        "RoBERTa Only": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
+        "Hybrid Model": {"precision": 0.0, "recall": 0.0, "f1": 0.0}
     }
     num_files = 0
     
@@ -52,6 +52,8 @@ def main():
                 
         print(f"--- Macro-Averaged Evaluation over {num_files} matches ---")
         print_evaluation_table(total_metrics)
+        with open(OUTPUT_DIR / "final_evaluation_metrics.json", "w", encoding="utf-8") as f:
+            json.dump(total_metrics, f, indent=4)
     else:
         print("No prediction files found.")
 
