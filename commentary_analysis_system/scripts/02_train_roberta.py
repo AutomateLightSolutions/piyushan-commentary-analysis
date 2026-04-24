@@ -9,29 +9,19 @@ def main():
         print("No processed datasets found. Run 01_prepare_data.py first.")
         return
         
-    # Example logic to aggregate up to 25 matches for training
-    all_dfs = []
-    for csv_file in PROCESSED_DATASETS_DIR.glob("*.csv"):
-        df = pd.read_csv(csv_file)
-        all_dfs.append(df)
+    # Retrieve distinct CSV file maps
+    csv_files = [str(f) for f in PROCESSED_DATASETS_DIR.glob("*.csv")]
         
-    if not all_dfs:
+    if not csv_files:
         print("No match CSV data present.")
         return
-
-    master_df = pd.concat(all_dfs, ignore_index=True)
-    master_df.dropna(subset=['text'], inplace=True)
     
-    # Train test split simply
-    train_df = master_df.sample(frac=0.8, random_state=42)
-    val_df = master_df.drop(train_df.index)
-    
-    print(f"Training on {len(train_df)} chunks, validating on {len(val_df)} chunks...")
+    print(f"Beginning training strictly parsing {len(csv_files)} specific files from raw disk...")
     
     roberta = RobertaClassifier()
-    # Can adjust epochs and batch_size
-    roberta.train(train_df, val_df, output_dir="data/output/roberta_finetuned")
-    print("Training finished. Best model saved.")
+    # Can adjust epochs and batch_size (HuggingFace maps arrow batches efficiently)
+    roberta.train(csv_files, output_dir="data/output/roberta_finetuned")
+    print("Training finished. Best model checkpoint saved reliably!")
 
 if __name__ == "__main__":
     import sys

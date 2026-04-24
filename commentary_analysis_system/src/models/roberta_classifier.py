@@ -21,9 +21,27 @@ class RobertaClassifier:
             
         return Dataset.from_dict(dataset_dict)
         
-    def train(self, df_train, df_val, output_dir="./models/roberta_finetuned", epochs=3, batch_size=16):
-        train_dataset = self.prepare_dataset(df_train['text'].tolist(), df_train['label'].tolist())
-        val_dataset = self.prepare_dataset(df_val['text'].tolist(), df_val['label'].tolist())
+    def train(self, data_files, output_dir="./models/roberta_finetuned", epochs=3, batch_size=16):
+        # Convert CSVs safely eliminating massive RAM spikes using Apache Arrow mapping
+        from datasets import load_dataset
+        dataset = load_dataset('csv', data_files=data_files)
+        
+        # Strip corrupted/null text fields
+        dataset = dataset.filter(lambda x: x['text'] is not None)
+        
+        # Dynamic Tokenization across batches
+        def tokenize_func(examples):
+            # Assumes CSVs map text and label accurately
+            tokenized = self.tokenizer(examples['text'], padding="max_length", truncation=True, max_length=128)
+            tokenized['labels'] = examples['label']
+            return tokenized
+            
+        tokenized_datasets = dataset.map(tokenize_func, batched=True, remove_columns=dataset['train'].column_names)
+        
+        # 80/20 train validation split natively
+        split_datasets = tokenized_datasets['train'].train_test_split(test_size=0.2, seed=42)
+        train_dataset = split_datasets['train']
+        val_dataset = split_datasets['test']
 
         training_args = TrainingArguments(
             output_dir=output_dir,
