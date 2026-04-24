@@ -1,15 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import "../globals.css";
 
 export default function LabelingDashboard() {
   const [matchId, setMatchId] = useState("");
+  const [availableMatches, setAvailableMatches] = useState([]);
   const [chunks, setChunks] = useState([]);
   const [highlightText, setHighlightText] = useState("");
   const [isSaving, setIsSaving] = useState(false);
   const [statusMsg, setStatusMsg] = useState("");
+
+  useEffect(() => {
+    fetch("/api/list-matches")
+      .then(r => r.json())
+      .then(d => setAvailableMatches(d.matchIds || []))
+      .catch(console.error);
+  }, []);
 
   const loadData = async () => {
     if (!matchId) return;
@@ -75,11 +83,15 @@ export default function LabelingDashboard() {
       {/* Target Selector */}
       <div style={{display: "flex", gap: "1rem", alignItems: "center"}}>
         <input 
-          placeholder="Enter Match ID (e.g. match_01)" 
+          list="match-options"
+          placeholder="Search or Select Match ID" 
           value={matchId} 
           onChange={e => setMatchId(e.target.value)}
           style={{padding: "0.8rem", borderRadius:"8px", border:"1px solid var(--glass-border)", background: "rgba(0,0,0,0.3)", color: "white", width: "300px"}}
         />
+        <datalist id="match-options">
+          {availableMatches.map(id => <option key={id} value={id} />)}
+        </datalist>
         <button className="btn" style={{width: "auto", margin: 0}} onClick={loadData}>Load Chunks</button>
         <span style={{color: "var(--text-muted)"}}>{statusMsg}</span>
       </div>
