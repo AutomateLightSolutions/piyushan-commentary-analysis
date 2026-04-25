@@ -72,7 +72,7 @@ export default function DatasetsExplorer() {
         <h2 className="card-title">📊 Raw CSV Dataset View</h2>
         <div style={{overflowY: "auto", flexGrow: 1, border: "1px solid var(--glass-border)", borderRadius: "12px", background: "rgba(0,0,0,0.2)"}}>
           <table style={{width: "100%", borderCollapse: "collapse", textAlign: "left"}}>
-            <thead style={{background: "rgba(0,0,0,0.4)", position: "sticky", top: 0, zIndex: 10}}>
+            <thead style={{background: "rgba(0,0,0,0.9)", position: "sticky", top: 0, zIndex: 10}}>
               <tr>
                 <th style={{padding: "1rem", color: "var(--text-muted)", borderBottom: "1px solid var(--glass-border)"}}>Start</th>
                 <th style={{padding: "1rem", color: "var(--text-muted)", borderBottom: "1px solid var(--glass-border)"}}>End</th>
