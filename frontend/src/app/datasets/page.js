@@ -74,9 +74,9 @@ export default function DatasetsExplorer() {
           <table style={{width: "100%", borderCollapse: "collapse", textAlign: "left"}}>
             <thead style={{background: "rgba(0,0,0,0.4)", position: "sticky", top: 0, zIndex: 10}}>
               <tr>
-                <th style={{padding: "1rem", color: "var(--text-muted)", borderBottom: "1px solid var(--glass-border)"}}>Match ID</th>
-                <th style={{padding: "1rem", color: "var(--text-muted)", borderBottom: "1px solid var(--glass-border)"}}>Timestamp (s)</th>
-                <th style={{padding: "1rem", color: "var(--text-muted)", borderBottom: "1px solid var(--glass-border)"}}>Tokenized Transcript Chunk</th>
+                <th style={{padding: "1rem", color: "var(--text-muted)", borderBottom: "1px solid var(--glass-border)"}}>Start</th>
+                <th style={{padding: "1rem", color: "var(--text-muted)", borderBottom: "1px solid var(--glass-border)"}}>End</th>
+                <th style={{padding: "1rem", color: "var(--text-muted)", borderBottom: "1px solid var(--glass-border)"}}>Text</th>
                 <th style={{padding: "1rem", color: "var(--primary-color)", borderBottom: "1px solid var(--glass-border)"}}>Ground Label</th>
               </tr>
             </thead>
@@ -85,8 +85,8 @@ export default function DatasetsExplorer() {
                 <tr><td colSpan="4" style={{padding: "2rem", textAlign: "center", color: "var(--text-muted)"}}>No CSV data loaded.</td></tr>
               ) : rows.map((r, i) => (
                 <tr key={i} style={{borderBottom: "1px solid rgba(255,255,255,0.05)", background: r.label === "1" ? "rgba(236, 72, 153, 0.1)" : "transparent"}}>
-                  <td style={{padding: "1rem", fontSize: "0.9rem"}}>{r.match_id}</td>
-                  <td style={{padding: "1rem", whiteSpace: "nowrap", fontSize: "0.9rem"}}>{r.start} - {r.end}</td>
+                  <td style={{padding: "1rem", fontSize: "0.9rem"}}>{r.start}</td>
+                  <td style={{padding: "1rem", fontSize: "0.9rem"}}>{r.end}</td>
                   <td style={{padding: "1rem", fontSize: "0.95rem"}}>{r.text}</td>
                   <td style={{padding: "1rem", fontWeight: "bold", color: r.label === "1" ? "var(--secondary-color)" : "white"}}>{r.label}</td>
                 </tr>

@@ -31,22 +31,19 @@ export async function GET(req) {
       // Very basic comma split holding text (assuming text doesn't contain unescaped commas that break schema natively, 
       // or we handle safely via regex if needed. For rugby transcripts we'll do simple split up to fixed columns)
       // Since 'text' might have commas natively from VTT, let's parse safely:
-      // We expect: match_id,start,end,text,label
-      const idIdx = line.indexOf(",");
-      const match_id = line.substring(0, idIdx);
-      
-      const startIdx = line.indexOf(",", idIdx + 1);
-      const start = line.substring(idIdx + 1, startIdx);
+      // We expect: start,end,text,label
+      const startIdx = line.indexOf(",");
+      const start = line.substring(0, startIdx).trim();
       
       const endIdx = line.indexOf(",", startIdx + 1);
-      const end = line.substring(startIdx + 1, endIdx);
+      const end = line.substring(startIdx + 1, endIdx).trim();
       
       const lastCommaIdx = line.lastIndexOf(",");
-      const label = line.substring(lastCommaIdx + 1);
+      const label = line.substring(lastCommaIdx + 1).trim();
       
-      const text = line.substring(endIdx + 1, lastCommaIdx);
+      const text = line.substring(endIdx + 1, lastCommaIdx).trim().replace(/^"|"$/g, '');
       
-      return { match_id, start, end, text, label };
+      return { start, end, text, label };
     });
 
     return NextResponse.json({ rows });
