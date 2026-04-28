@@ -13,7 +13,7 @@ export default function Home() {
     { id: "upload", name: "1. Upload Videos to Backend", status: "idle", log: "" },
     { id: "extract", name: "2. Audio Extraction & Whisper Transcription", status: "idle", log: "" },
     { id: "chunk", name: "3. Chunking Timestamped Text", status: "idle", log: "" },
-    { id: "label", name: "4. Proceed to Manual Labeling Center", status: "idle", log: "" }
+    { id: "label", name: "4. Proceed to Manual Labeling module", status: "idle", log: "" }
   ]);
   
   const [mlSteps, setMlSteps] = useState([
