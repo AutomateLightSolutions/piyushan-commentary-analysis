@@ -158,6 +158,9 @@ export default function Home() {
           <p className="subtitle" style={{marginBottom: 0}}>Automated Video Transcription & Chunking Pipeline</p>
         </div>
         <div style={{display: "flex", gap: "1.5rem", alignItems: "center"}}>
+            <Link href="/lexicon" style={{color: "white", textDecoration: "none", fontWeight: "bold", background: "rgba(255,255,255,0.1)", padding: "0.5rem 1rem", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.2)"}}>
+              Manage Lexicon
+            </Link>
             <Link href="/datasets" style={{color: "white", textDecoration: "none", fontWeight: "bold", background: "rgba(255,255,255,0.1)", padding: "0.5rem 1rem", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.2)"}}>
               View Final Datasets CSV
             </Link>
