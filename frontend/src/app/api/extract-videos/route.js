@@ -1,22 +1,51 @@
-import { NextResponse } from "next/server";
-import { exec } from "child_process";
 import path from "path";
-import util from "util";
+import { spawn } from "child_process";
 
-const execAsync = util.promisify(exec);
 const SYSTEM_PATH = path.resolve(process.cwd(), "..", "commentary_analysis_system");
 
 export async function POST() {
-  try {
-    const venvPythonPath = path.join("..", ".venv", "Scripts", "python.exe");
-    const scriptPath = path.join("scripts", "00_extract_transcripts.py");
-    
-    // Executes python ffmpeg whisper extraction script
-    await execAsync(`$env:PYTHONPATH="."; & "${path.resolve(SYSTEM_PATH, venvPythonPath)}" "${path.resolve(SYSTEM_PATH, scriptPath)}"`, { shell: "powershell.exe", cwd: SYSTEM_PATH });
+  const venvPython = path.resolve(SYSTEM_PATH, "..", ".venv", "Scripts", "python.exe");
+  const scriptPath = path.resolve(SYSTEM_PATH, "scripts", "00_extract_transcripts.py");
 
-    return NextResponse.json({ message: "Transcripts extracted from MP4 successfully!" });
-  } catch (err) {
-    console.error("Extraction Error:", err);
-    return NextResponse.json({ message: "Failed to extract VTT from Videos" }, { status: 500 });
-  }
+  const stream = new ReadableStream({
+    start(controller) {
+      const enc = new TextEncoder();
+      const send = (line) => controller.enqueue(enc.encode(`data: ${line}\n\n`));
+
+      const proc = spawn(venvPython, [scriptPath], {
+        cwd: SYSTEM_PATH,
+        env: { ...process.env, PYTHONPATH: ".", PYTHONUNBUFFERED: "1" },
+      });
+
+      proc.stdout.on("data", (chunk) => {
+        chunk.toString().split(/\r?\n/).forEach((line) => { if (line.trim()) send(line); });
+      });
+
+      proc.stderr.on("data", (chunk) => {
+        chunk.toString().split(/\r?\n/).forEach((line) => { if (line.trim()) send(`STDERR:${line}`); });
+      });
+
+      proc.on("close", (code) => {
+        if (code === 0) {
+          send("__DONE__");
+        } else {
+          send(`__ERROR__:Process exited with code ${code}`);
+        }
+        controller.close();
+      });
+
+      proc.on("error", (err) => {
+        send(`__ERROR__:${err.message}`);
+        controller.close();
+      });
+    },
+  });
+
+  return new Response(stream, {
+    headers: {
+      "Content-Type": "text/event-stream",
+      "Cache-Control": "no-cache",
+      Connection: "keep-alive",
+    },
+  });
 }
