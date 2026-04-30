@@ -4,14 +4,25 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import "../globals.css";
 
+function formatBytes(bytes) {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
 export default function ManageMatches() {
   const [matchIds, setMatchIds] = useState([]);
   const [selectedMatchId, setSelectedMatchId] = useState("");
-  const [deleteDatasets, setDeleteDatasets] = useState(false);
+  const [matchFiles, setMatchFiles] = useState([]);
+  const [selectedFiles, setSelectedFiles] = useState({});
+  const [isFetching, setIsFetching] = useState(true);
+  const [isFetchingFiles, setIsFetchingFiles] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [isFetching, setIsFetching] = useState(true);
 
+  // 1. Fetch available match IDs
   const fetchMatches = async () => {
     setIsFetching(true);
     try {
@@ -19,10 +30,11 @@ export default function ManageMatches() {
       if (!res.ok) throw new Error("Failed to fetch matches");
       const data = await res.json();
       setMatchIds(data.matchIds);
-      if (data.matchIds.length > 0) {
+      if (data.matchIds.length > 0 && !selectedMatchId) {
         setSelectedMatchId(data.matchIds[0]);
-      } else {
+      } else if (data.matchIds.length === 0) {
         setSelectedMatchId("");
+        setMatchFiles([]);
       }
     } catch (err) {
       console.error(err);
@@ -36,10 +48,56 @@ export default function ManageMatches() {
     fetchMatches();
   }, []);
 
+  // 2. Fetch specific files when a match ID is selected
+  useEffect(() => {
+    const fetchSpecificFiles = async () => {
+      if (!selectedMatchId) {
+        setMatchFiles([]);
+        setSelectedFiles({});
+        return;
+      }
+      setIsFetchingFiles(true);
+      try {
+        const res = await fetch(`/api/manage-matches?matchId=${encodeURIComponent(selectedMatchId)}`);
+        if (!res.ok) throw new Error("Failed to fetch files");
+        const data = await res.json();
+        setMatchFiles(data.files || []);
+        
+        // Auto-select everything by default
+        const initialSelections = {};
+        (data.files || []).forEach(f => {
+          initialSelections[f.name] = true;
+        });
+        setSelectedFiles(initialSelections);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsFetchingFiles(false);
+      }
+    };
+    fetchSpecificFiles();
+  }, [selectedMatchId]);
+
+  // Handle individual checkbox changes
+  const toggleFile = (filename) => {
+    setSelectedFiles(prev => ({ ...prev, [filename]: !prev[filename] }));
+  };
+
+  // Handle 'Select All' toggle
+  const allSelected = matchFiles.length > 0 && matchFiles.every(f => selectedFiles[f.name]);
+  const toggleSelectAll = () => {
+    const newVal = !allSelected;
+    const newSelections = {};
+    matchFiles.forEach(f => { newSelections[f.name] = newVal; });
+    setSelectedFiles(newSelections);
+  };
+
+  // Perform backend deletion
   const handleDelete = async () => {
-    if (!selectedMatchId) return;
-    
-    if (!confirm(`Are you sure you want to delete data for "${selectedMatchId}"? This action cannot be undone.`)) {
+    const filesToDelete = matchFiles.filter(f => selectedFiles[f.name]);
+    if (filesToDelete.length === 0) return;
+
+    if (!confirm(`Are you sure you want to delete ${filesToDelete.length} file(s) for "${selectedMatchId}"?`)) {
       return;
     }
 
@@ -47,8 +105,13 @@ export default function ManageMatches() {
     setMessage("");
 
     try {
-      const res = await fetch(`/api/manage-matches?matchId=${encodeURIComponent(selectedMatchId)}&deleteDatasets=${deleteDatasets}`, {
-        method: "DELETE"
+      const res = await fetch(`/api/manage-matches`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          matchId: selectedMatchId,
+          filesToDelete: filesToDelete.map(f => ({ name: f.name, category: f.category }))
+        })
       });
       
       const data = await res.json();
@@ -57,8 +120,18 @@ export default function ManageMatches() {
         throw new Error(data.message || "Failed to delete files");
       }
       
-      setMessage(`Successfully deleted ${data.deletedCount} file(s) for "${selectedMatchId}".`);
-      await fetchMatches(); // Refresh list
+      setMessage(`Successfully deleted ${data.deletedCount} file(s).`);
+      
+      // Refresh the match list natively
+      fetchMatches();
+      // Reset selected Match ID so useEffect fetches latest
+      if (filesToDelete.length === matchFiles.length) {
+         setSelectedMatchId(""); // we deleted everything, force it to fall to the next match
+      } else {
+         // trigger fetch of remaining files by cheating a state change
+         const remaining = matchFiles.filter(f => !selectedFiles[f.name]);
+         setMatchFiles(remaining);
+      }
     } catch (err) {
       setMessage(`Error: ${err.message}`);
     } finally {
@@ -66,12 +139,14 @@ export default function ManageMatches() {
     }
   };
 
+  const selectedCount = Object.values(selectedFiles).filter(Boolean).length;
+
   return (
     <div className="app-container" style={{ maxWidth: "800px", margin: "0 auto", padding: "2rem" }}>
       <header className="flex-between" style={{ marginBottom: "2rem", alignItems: "center" }}>
         <div>
           <h1 style={{ margin: 0 }}>Manage Matches</h1>
-          <p className="subtitle" style={{ marginBottom: 0 }}>Delete raw files, chunks, and datasets</p>
+          <p className="subtitle" style={{ marginBottom: 0 }}>Review and delete specific files for any match</p>
         </div>
         <Link href="/" style={{ color: "var(--primary-color)", textDecoration: "none", fontWeight: "bold" }}>
           ← Back to Pipeline
@@ -124,47 +199,68 @@ export default function ManageMatches() {
                 </select>
               </div>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <input 
-                  type="checkbox" 
-                  id="deleteDatasets" 
-                  checked={deleteDatasets} 
-                  onChange={(e) => setDeleteDatasets(e.target.checked)} 
-                  style={{ width: "1.2rem", height: "1.2rem", cursor: "pointer", accentColor: "var(--primary-color)" }}
-                />
-                <label htmlFor="deleteDatasets" style={{ color: "white", cursor: "pointer", userSelect: "none" }}>
-                  Also delete generated Dataset CSVs for this match
-                </label>
-              </div>
+              {isFetchingFiles ? (
+                <div style={{ textAlign: "center", color: "var(--text-muted)", padding: "1rem" }}>
+                  Fetching specific files...
+                </div>
+              ) : matchFiles.length > 0 ? (
+                <>
+                  {/* Granular File Table */}
+                  <div style={{ background: "rgba(0,0,0,0.2)", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.1)", overflow: "hidden" }}>
+                    <div style={{ display: "flex", padding: "1rem", borderBottom: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.05)", fontWeight: "bold" }}>
+                       <div style={{ flex: "0 0 40px" }}>
+                         <input type="checkbox" checked={allSelected} onChange={toggleSelectAll} style={{ width: "1.1rem", height: "1.1rem", cursor: "pointer", accentColor: "#ef4444" }} title="Select All" />
+                       </div>
+                       <div style={{ flex: 1 }}>File Type / Path</div>
+                       <div style={{ flex: "0 0 100px", textAlign: "right" }}>Size</div>
+                    </div>
+                    {matchFiles.map(file => (
+                      <div key={file.name} style={{ display: "flex", padding: "1rem", borderBottom: "1px solid rgba(255,255,255,0.05)", alignItems: "center" }}>
+                        <div style={{ flex: "0 0 40px" }}>
+                          <input 
+                            type="checkbox" 
+                            checked={!!selectedFiles[file.name]} 
+                            onChange={() => toggleFile(file.name)} 
+                            style={{ width: "1.1rem", height: "1.1rem", cursor: "pointer", accentColor: "var(--primary-color)" }} 
+                          />
+                        </div>
+                        <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+                          <span style={{ fontWeight: "bold", color: "white" }}>{file.type}</span>
+                          <span style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontFamily: "'Courier New', monospace" }}>
+                            {file.category} / {file.name}
+                          </span>
+                        </div>
+                        <div style={{ flex: "0 0 100px", textAlign: "right", color: "var(--text-muted)", fontSize: "0.9rem" }}>
+                          {formatBytes(file.sizeBytes)}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
 
-              <div style={{ marginTop: "1rem" }}>
-                <button 
-                  className="btn" 
-                  onClick={handleDelete} 
-                  disabled={isLoading || !selectedMatchId}
-                  style={{
-                    background: "#ef4444",
-                    boxShadow: "0 4px 15px rgba(239, 68, 68, 0.3)",
-                    border: "1px solid rgba(239, 68, 68, 0.5)",
-                    transition: "all 0.3s ease",
-                    opacity: (isLoading || !selectedMatchId) ? 0.6 : 1
-                  }}
-                  onMouseOver={(e) => {
-                    if(!isLoading && selectedMatchId) {
-                      e.target.style.background = "#dc2626";
-                      e.target.style.transform = "translateY(-1px)";
-                    }
-                  }}
-                  onMouseOut={(e) => {
-                    if(!isLoading && selectedMatchId) {
-                      e.target.style.background = "#ef4444";
-                      e.target.style.transform = "translateY(0)";
-                    }
-                  }}
-                >
-                  {isLoading ? "Deleting..." : "🗑️ Delete Selected Match"}
-                </button>
-              </div>
+                  <div style={{ marginTop: "1rem", display: "flex", justifyContent: "flex-end" }}>
+                    <button 
+                      className="btn" 
+                      onClick={handleDelete} 
+                      disabled={isLoading || selectedCount === 0}
+                      style={{
+                        background: "#ef4444",
+                        boxShadow: "0 4px 15px rgba(239, 68, 68, 0.3)",
+                        border: "1px solid rgba(239, 68, 68, 0.5)",
+                        transition: "all 0.3s ease",
+                        width: "auto",
+                        padding: "0.8rem 2rem",
+                        opacity: (isLoading || selectedCount === 0) ? 0.6 : 1
+                      }}
+                    >
+                      {isLoading ? "Processing..." : `🗑️ Delete Selected Data (${selectedCount})`}
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div style={{ textAlign: "center", color: "var(--text-muted)", padding: "1rem", border: "1px dashed rgba(255,255,255,0.2)", borderRadius: "8px" }}>
+                  Match identifier exists but no associated managed files were found.
+                </div>
+              )}
             </div>
           )}
         </section>

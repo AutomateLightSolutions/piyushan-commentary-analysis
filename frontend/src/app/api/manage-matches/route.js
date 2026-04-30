@@ -16,75 +16,105 @@ async function safeReaddir(dir) {
   }
 }
 
-export async function GET() {
+export async function GET(req) {
   try {
-    const rawFiles = await safeReaddir(RAW_DIR);
-    const chunkFiles = await safeReaddir(CHUNKS_DIR);
-    const datasetFiles = await safeReaddir(DATASETS_DIR);
-    
-    let matchIds = new Set();
+    const { searchParams } = new URL(req.url);
+    const matchId = searchParams.get("matchId");
 
-    // Extract from raw
-    rawFiles.forEach(f => {
-      const match = f.match(/^(.*?)_full\.(mp4|wav)$/) 
-                 || f.match(/^(.*?)_highlights\.(mp4|wav)$/)
-                 || f.match(/^highlights_(.*?)\.json$/);
-      if (match) matchIds.add(match[1]);
-      else if (f.endsWith(".vtt")) matchIds.add(f.replace(".vtt", ""));
-    });
+    // If matchId is NOT provided, return aggregate list
+    if (!matchId) {
+      const rawFiles = await safeReaddir(RAW_DIR);
+      const chunkFiles = await safeReaddir(CHUNKS_DIR);
+      const datasetFiles = await safeReaddir(DATASETS_DIR);
+      
+      let matchIds = new Set();
+      
+      // Extract from raw
+      rawFiles.forEach(f => {
+        const match = f.match(/^(.*?)_full\.(mp4|wav)$/) 
+                   || f.match(/^(.*?)_highlights\.(mp4|wav)$/)
+                   || f.match(/^highlights_(.*?)\.json$/);
+        if (match) matchIds.add(match[1]);
+        else if (f.endsWith(".vtt")) matchIds.add(f.replace(".vtt", ""));
+      });
+      // Extract from chunks
+      chunkFiles.forEach(f => {
+        if (f.startsWith("chunks_") && f.endsWith(".json")) {
+          matchIds.add(f.replace("chunks_", "").replace(".json", ""));
+        }
+      });
+      // Extract from datasets
+      datasetFiles.forEach(f => {
+        if (f.startsWith("dataset_") && f.endsWith(".csv")) {
+          matchIds.add(f.replace("dataset_", "").replace(".csv", ""));
+        }
+      });
+      
+      return NextResponse.json({ matchIds: Array.from(matchIds) });
+    }
 
-    // Extract from chunks
-    chunkFiles.forEach(f => {
-      if (f.startsWith("chunks_") && f.endsWith(".json")) {
-        matchIds.add(f.replace("chunks_", "").replace(".json", ""));
+    // IF matchId IS provided, return specifically existing files
+    const expectedFiles = [
+      { path: path.join(RAW_DIR, `${matchId}_full.mp4`), name: `${matchId}_full.mp4`, type: "Raw Video", category: "raw" },
+      { path: path.join(RAW_DIR, `${matchId}_full.wav`), name: `${matchId}_full.wav`, type: "Raw Audio", category: "raw" },
+      { path: path.join(RAW_DIR, `${matchId}_highlights.mp4`), name: `${matchId}_highlights.mp4`, type: "Highlights Video", category: "raw" },
+      { path: path.join(RAW_DIR, `${matchId}_highlights.wav`), name: `${matchId}_highlights.wav`, type: "Highlights Audio", category: "raw" },
+      { path: path.join(RAW_DIR, `${matchId}.vtt`), name: `${matchId}.vtt`, type: "VTT Subtitles", category: "raw" },
+      { path: path.join(RAW_DIR, `highlights_${matchId}.json`), name: `highlights_${matchId}.json`, type: "Raw Highlights", category: "raw" },
+      { path: path.join(CHUNKS_DIR, `chunks_${matchId}.json`), name: `chunks_${matchId}.json`, type: "Processed Chunks", category: "chunks" },
+      { path: path.join(DATASETS_DIR, `dataset_${matchId}.csv`), name: `dataset_${matchId}.csv`, type: "Dataset CSV", category: "datasets" },
+    ];
+
+    const existingFiles = [];
+    for (const fileDef of expectedFiles) {
+      try {
+        const stats = await fs.stat(fileDef.path);
+        existingFiles.push({
+          name: fileDef.name,
+          type: fileDef.type,
+          category: fileDef.category,
+          sizeBytes: stats.size
+        });
+      } catch (err) {
+        // file doesn't exist, ignore
       }
-    });
+    }
 
-    // Extract from datasets
-    datasetFiles.forEach(f => {
-      if (f.startsWith("dataset_") && f.endsWith(".csv")) {
-        matchIds.add(f.replace("dataset_", "").replace(".csv", ""));
-      }
-    });
-
-    return NextResponse.json({ matchIds: Array.from(matchIds) });
+    return NextResponse.json({ files: existingFiles });
   } catch (err) {
     console.error("Manage Matches GET Error:", err);
-    return NextResponse.json({ message: "Failed to fetch match IDs" }, { status: 500 });
+    return NextResponse.json({ message: "Failed to fetch files" }, { status: 500 });
   }
 }
 
 export async function DELETE(req) {
   try {
-    const { searchParams } = new URL(req.url);
-    const matchId = searchParams.get("matchId");
-    const deleteDatasets = searchParams.get("deleteDatasets") === "true";
+    const body = await req.json();
+    const { matchId, filesToDelete } = body;
 
-    if (!matchId) {
-      return NextResponse.json({ message: "Match ID is required" }, { status: 400 });
-    }
-
-    const filesToDelete = [
-      path.join(RAW_DIR, `${matchId}_full.mp4`),
-      path.join(RAW_DIR, `${matchId}_full.wav`),
-      path.join(RAW_DIR, `${matchId}_highlights.mp4`),
-      path.join(RAW_DIR, `${matchId}_highlights.wav`),
-      path.join(RAW_DIR, `${matchId}.vtt`),
-      path.join(RAW_DIR, `highlights_${matchId}.json`),
-      path.join(CHUNKS_DIR, `chunks_${matchId}.json`)
-    ];
-
-    if (deleteDatasets) {
-      filesToDelete.push(path.join(DATASETS_DIR, `dataset_${matchId}.csv`));
+    if (!matchId || !filesToDelete || !Array.isArray(filesToDelete)) {
+      return NextResponse.json({ message: "Invalid request payload" }, { status: 400 });
     }
 
     let deletedCount = 0;
-    for (const filePath of filesToDelete) {
+    for (const file of filesToDelete) {
+      // Validate string securely to prevent traversal attacks
+      if (!file.name.includes(matchId) || file.name.includes("..") || file.name.includes("/") || file.name.includes("\\")) {
+        continue;
+      }
+
+      let targetDir;
+      if (file.category === "raw") targetDir = RAW_DIR;
+      else if (file.category === "chunks") targetDir = CHUNKS_DIR;
+      else if (file.category === "datasets") targetDir = DATASETS_DIR;
+      else continue;
+
+      const filePath = path.join(targetDir, file.name);
+
       try {
         await fs.unlink(filePath);
         deletedCount++;
       } catch (err) {
-        // Ignore ENOENT (file doesn't exist)
         if (err.code !== "ENOENT") {
           console.warn(`Failed to delete ${filePath}:`, err);
         }
