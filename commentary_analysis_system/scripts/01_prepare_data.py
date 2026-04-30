@@ -58,8 +58,8 @@ def main():
 
     vtt_files = list(RAW_DIR.glob("*_full.vtt"))
     if not vtt_files:
-        print("No *_full.vtt files found in data/raw/. Looking for match_**_full.vtt files.")
-        return
+        print("ERROR: No *_full.vtt files found in data/raw/. Whisper transcription may have failed.")
+        sys.exit(1)
 
     # Process batch
     for vtt_file in vtt_files:

@@ -15,9 +15,10 @@ def extract_audio(video_path: Path, output_audio: Path):
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 def transcribe_audio(audio_path: Path, output_dir: Path, model="base"):
+    import sys
     print(f"Transcribing {audio_path.name} with Whisper...")
     cmd = [
-        "whisper", str(audio_path),
+        sys.executable, "-m", "whisper", str(audio_path),
         "--model", model,
         "--output_dir", str(output_dir),
         "--output_format", "vtt"
@@ -47,7 +48,10 @@ def main():
                 if audio_file.exists():
                     os.remove(audio_file)
             except Exception as e:
+                import traceback
                 print(f"Error processing {video_file.name}: {e}")
+                print(traceback.format_exc())
+                sys.exit(1) # Halt the entire extraction step immediately
         else:
             print(f"Transcript already exists for {video_file.name}")
             
