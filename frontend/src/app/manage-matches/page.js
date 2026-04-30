@@ -123,12 +123,20 @@ export default function ManageMatches() {
       setMessage(`Successfully deleted ${data.deletedCount} file(s).`);
       
       // Refresh the match list natively
-      fetchMatches();
+      const freshRes = await fetch("/api/manage-matches");
+      const freshData = await freshRes.json();
+      setMatchIds(freshData.matchIds);
+
       // Reset selected Match ID so useEffect fetches latest
       if (filesToDelete.length === matchFiles.length) {
-         setSelectedMatchId(""); // we deleted everything, force it to fall to the next match
+         if (freshData.matchIds.length > 0) {
+           setSelectedMatchId(freshData.matchIds[0]); // auto-select next
+         } else {
+           setSelectedMatchId("");
+           setMatchFiles([]);
+         }
+         setSelectedFiles({});
       } else {
-         // trigger fetch of remaining files by cheating a state change
          const remaining = matchFiles.filter(f => !selectedFiles[f.name]);
          setMatchFiles(remaining);
       }
