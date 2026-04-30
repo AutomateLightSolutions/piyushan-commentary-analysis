@@ -1,4 +1,5 @@
 import os
+import sys
 import subprocess
 from pathlib import Path
 
@@ -15,10 +16,9 @@ def extract_audio(video_path: Path, output_audio: Path):
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 def transcribe_audio(audio_path: Path, output_dir: Path, model="base"):
-    import sys
     print(f"Transcribing {audio_path.name} with Whisper...")
     cmd = [
-        sys.executable, "-m", "whisper", str(audio_path),
+        "whisper", str(audio_path),
         "--model", model,
         "--output_dir", str(output_dir),
         "--output_format", "vtt"
