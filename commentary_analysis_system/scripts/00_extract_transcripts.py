@@ -23,7 +23,11 @@ def transcribe_audio(audio_path: Path, output_dir: Path, model="base"):
         "--output_dir", str(output_dir),
         "--output_format", "vtt"
     ]
-    subprocess.run(cmd, check=True)
+    # Enforce UTF-8 to prevent cp1252 charmap crashes on Windows when Whisper prints exotic characters
+    env = os.environ.copy()
+    env["PYTHONIOENCODING"] = "utf-8"
+    env["PYTHONUTF8"] = "1"
+    subprocess.run(cmd, env=env, check=True)
 
 def main():
     if not RAW_DIR.exists():

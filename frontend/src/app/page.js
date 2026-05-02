@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
 import "./globals.css";
 
@@ -19,8 +19,16 @@ const INITIAL_ML_STEPS = [
 
 export default function Home() {
   const [matchId, setMatchId] = useState("");
+  const [existingMatches, setExistingMatches] = useState([]);
   const [fullVideo, setFullVideo] = useState(null);
   const [highlightVideo, setHighlightVideo] = useState(null);
+
+  useEffect(() => {
+    fetch("/api/manage-matches")
+      .then(res => res.json())
+      .then(data => setExistingMatches(data.matchIds || []))
+      .catch(err => console.error("Failed to fetch existing matches", err));
+  }, []);
 
   const [steps, setSteps] = useState(INITIAL_STEPS);
   const [mlSteps, setMlSteps] = useState(INITIAL_ML_STEPS);
@@ -138,6 +146,26 @@ export default function Home() {
     catch (err) { mutateStep(setSteps, "chunk", { status: "error", log: err.message }); setIsProcessing(false); return; }
 
     mutateStep(setSteps, "label", { status: "done", log: "Pipeline completely successful! You may now navigate to the Data Annotation Center." });
+    setIsProcessing(false);
+  };
+
+  const handleResume = async () => {
+    if (!matchId) return alert("Please enter the Match Identifier Base Name that you want to resume processing for!");
+    
+    setIsProcessing(true);
+    resetSteps();
+    
+    mutateStep(setSteps, "upload", { status: "done", log: "Skipped raw video upload phase. Searching backend directly..." });
+
+    // STEP 2: Extract (SSE)
+    try { await runStreamStep("/api/extract-videos", "extract", setSteps); }
+    catch (err) { mutateStep(setSteps, "extract", { status: "error", log: err.message }); setIsProcessing(false); return; }
+
+    // STEP 3: Chunk (SSE)
+    try { await runStreamStep("/api/prepare", "chunk", setSteps); }
+    catch (err) { mutateStep(setSteps, "chunk", { status: "error", log: err.message }); setIsProcessing(false); return; }
+
+    mutateStep(setSteps, "label", { status: "done", log: "Pipeline successfully resumed and completed!" });
     setIsProcessing(false);
   };
 
@@ -283,9 +311,22 @@ export default function Home() {
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
               <div>
                 <label style={{ display: "block", marginBottom: "0.5rem", color: "var(--text-muted)" }}>Match Identifier Base Name</label>
-                <input type="text" placeholder="e.g. match_01" value={matchId}
-                  onChange={e => setMatchId(e.target.value)}
-                  style={{ width: "100%", padding: "0.8rem", borderRadius: "8px", border: "1px solid var(--glass-border)", background: "rgba(0,0,0,0.3)", color: "white" }} />
+                <div style={{ display: "flex", gap: "0.5rem" }}>
+                  <input type="text" placeholder="e.g. match_01" value={matchId}
+                    onChange={e => setMatchId(e.target.value)}
+                    style={{ flex: 1, padding: "0.8rem", borderRadius: "8px", border: "1px solid var(--glass-border)", background: "rgba(0,0,0,0.3)", color: "white" }} />
+                  {existingMatches.length > 0 && (
+                    <select 
+                      onChange={e => { if(e.target.value) setMatchId(e.target.value); e.target.value = ""; }}
+                      style={{ padding: "0.8rem", borderRadius: "8px", border: "1px solid var(--glass-border)", background: "rgba(255,255,255,0.05)", color: "var(--primary-color)", fontWeight: "bold", cursor: "pointer", outline: "none" }}
+                    >
+                      <option value="">📋 Select Existing...</option>
+                      {existingMatches.map(id => (
+                        <option key={id} value={id} style={{ background: "#2a2a2a", color: "white" }}>{id}</option>
+                      ))}
+                    </select>
+                  )}
+                </div>
               </div>
               <div>
                 <label style={{ display: "block", marginBottom: "0.5rem", color: "var(--text-muted)" }}>Upload Full Match Video (.mp4)</label>
@@ -297,10 +338,16 @@ export default function Home() {
                 <input type="file" accept="video/mp4" onChange={e => setHighlightVideo(e.target.files[0])}
                   style={{ width: "100%", padding: "0.8rem", borderRadius: "8px", border: "1px dashed var(--secondary-color)", color: "white" }} />
               </div>
-              <button className="btn" onClick={handleProcess}
-                disabled={isProcessing || isMlProcessing} style={{ marginTop: "1rem" }}>
-                {isProcessing ? "Pipeline Running..." : "Start System Pipeline (Step 1-4)"}
-              </button>
+              <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
+                <button className="btn" onClick={handleProcess}
+                  disabled={isProcessing || isMlProcessing} style={{ flex: 1 }}>
+                  {isProcessing ? "Pipeline Running..." : "Start System Pipeline"}
+                </button>
+                <button className="btn" onClick={handleResume}
+                  disabled={isProcessing || isMlProcessing} style={{ flex: 1, background: "var(--secondary-color)", border: "1px solid rgba(255,255,255,0.2)" }}>
+                  Resume Process (Skip Upload)
+                </button>
+              </div>
             </div>
           </section>
 
