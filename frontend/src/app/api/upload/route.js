@@ -26,13 +26,18 @@ export async function POST(req) {
     await writeFile(filePath, buffer);
 
     // 2. Run the Preparation Python Script
-    const venvPythonPath = path.join("..", ".venv", "Scripts", "python.exe");
+    const { getPythonCommand } = await import("../python-env.js");
+    const venvPython = getPythonCommand(SYSTEM_PATH);
     const scriptPath = path.join("scripts", "01_prepare_data.py");
     
-    // Using powershell formatting context if needed, but exec handles it via shell
-    await execAsync(`$env:PYTHONPATH="."; & "${path.resolve(SYSTEM_PATH, venvPythonPath)}" "${path.resolve(SYSTEM_PATH, scriptPath)}"`, { shell: "powershell.exe", cwd: SYSTEM_PATH });
+    const isWindows = process.platform === "win32";
+    if (isWindows) {
+      await execAsync(`$env:PYTHONPATH="."; & "${venvPython}" "${path.resolve(SYSTEM_PATH, scriptPath)}"`, { shell: "powershell.exe", cwd: SYSTEM_PATH });
+    } else {
+      await execAsync(`PYTHONPATH="." "${venvPython}" "${path.resolve(SYSTEM_PATH, scriptPath)}"`, { cwd: SYSTEM_PATH });
+    }
 
-    return NextResponse.json({ message: `Successfully chunked ${file.name}` });
+    return NextResponse.json({ message: `Successfully uploaded ${file.name}` });
   } catch (err) {
     console.error("Upload Error:", err);
     return NextResponse.json({ message: "Upload or Chunking Error" }, { status: 500 });

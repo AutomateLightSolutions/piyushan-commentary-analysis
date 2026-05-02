@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  analyzer-app:
+    build: .
+    container_name: rugby_commentary_system
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      # We map the heavy, generated system data securely to an external volume so it natively persists container replacements!
+      - ./commentary_analysis_system/data:/app/commentary_analysis_system/data
+    restart: unless-stopped

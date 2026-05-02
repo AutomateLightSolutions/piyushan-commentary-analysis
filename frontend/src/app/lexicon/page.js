@@ -37,7 +37,7 @@ export default function LexiconManagement() {
         body: JSON.stringify(config),
       });
       if (res.ok) {
-        setMessage({ type: "success", text: "Lexicon configuration saved successfully!" });
+        setMessage({ type: "success", text: "Lexicon configuration saved successfully" });
       } else {
         throw new Error("Failed to save");
       }
