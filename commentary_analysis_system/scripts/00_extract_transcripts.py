@@ -44,6 +44,10 @@ def main():
                 extract_audio(video_file, audio_file)
                 transcribe_audio(audio_file, RAW_DIR)
                 
+                # Check if whisper actually wrote the VTT output or exited 0 quietly
+                if not vtt_file.exists():
+                    raise FileNotFoundError(f"Whisper executed but failed to save {vtt_file.name}. Review Whisper's error logs.")
+                
                 # Cleanup the .wav file since Whisper is done
                 if audio_file.exists():
                     os.remove(audio_file)

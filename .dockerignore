@@ -1,0 +1,9 @@
+.venv
+node_modules
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+__pycache__
+.next
+.DS_Store

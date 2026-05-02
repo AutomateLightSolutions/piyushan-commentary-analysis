@@ -2,13 +2,14 @@ import path from "path";
 import { spawn } from "child_process";
 import { readFile } from "fs/promises";
 import { registerProc, unregisterProc } from "../process-registry.js";
+import { getPythonCommand } from "../python-env.js";
 
 const SYSTEM_PATH = path.resolve(process.cwd(), "..", "commentary_analysis_system");
 const OUTPUT_DIR = path.resolve(SYSTEM_PATH, "data", "output");
 const PROC_ID = "evaluate";
 
 export async function POST(req) {
-  const venvPython = path.resolve(SYSTEM_PATH, "..", ".venv", "Scripts", "python.exe");
+  const venvPython = getPythonCommand(SYSTEM_PATH);
   const scriptPath = path.resolve(SYSTEM_PATH, "scripts", "04_evaluate.py");
 
   const stream = new ReadableStream({
