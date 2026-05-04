@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import path from "path";
 import { spawn } from "child_process";
 import { registerProc, unregisterProc } from "../process-registry.js";

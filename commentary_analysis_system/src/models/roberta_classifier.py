@@ -48,10 +48,13 @@ class RobertaClassifier:
             num_train_epochs=epochs,
             per_device_train_batch_size=batch_size,
             per_device_eval_batch_size=batch_size,
-            evaluation_strategy="epoch",
+            eval_strategy="epoch",
+            logging_strategy="steps",
+            logging_steps=5,
             logging_dir='./logs',
             save_strategy="epoch",
             load_best_model_at_end=True,
+            disable_tqdm=True,
         )
 
         trainer = Trainer(
