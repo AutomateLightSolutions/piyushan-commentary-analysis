@@ -1,27 +1,27 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import Link from "next/link";
 import "./globals.css";
-
-const INITIAL_STEPS = [
-  { id: "upload",  name: "1. Upload Videos to Backend",                  status: "idle", log: "", lines: [] },
-  { id: "extract", name: "2. Audio Extraction & Whisper Transcription",   status: "idle", log: "", lines: [] },
-  { id: "chunk",   name: "3. Chunking Timestamped Text",                  status: "idle", log: "", lines: [] },
-  { id: "label",   name: "4. Proceed to Manual Labeling module",          status: "idle", log: "", lines: [] },
-];
-
-const INITIAL_ML_STEPS = [
-  { id: "train",    name: "6. Train RoBERTa Highlight Classifier",              status: "idle", log: "", lines: [] },
-  { id: "predict",  name: "7-11. Build Lexicon, Hybrid Score & Merge Predict",  status: "idle", log: "", lines: [] },
-  { id: "evaluate", name: "12. Generate Evaluation Metrics",                    status: "idle", log: "", lines: [] },
-];
+import { PipelineContext } from "./PipelineContext";
 
 export default function Home() {
   const [matchId, setMatchId] = useState("");
   const [existingMatches, setExistingMatches] = useState([]);
   const [fullVideo, setFullVideo] = useState(null);
   const [highlightVideo, setHighlightVideo] = useState(null);
+
+  const {
+    steps,
+    mlSteps,
+    metricsData,
+    isProcessing,
+    isMlProcessing,
+    handleProcess,
+    handleResume,
+    handleMlProcess,
+    handleStop
+  } = useContext(PipelineContext);
 
   useEffect(() => {
     fetch("/api/manage-matches")
@@ -30,165 +30,18 @@ export default function Home() {
       .catch(err => console.error("Failed to fetch existing matches", err));
   }, []);
 
-  const [steps, setSteps] = useState(INITIAL_STEPS);
-  const [mlSteps, setMlSteps] = useState(INITIAL_ML_STEPS);
-
-  const [metricsData, setMetricsData] = useState(null);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [isMlProcessing, setIsMlProcessing] = useState(false);
-
   const logRefs = useRef({});
 
-  // ── State helpers ──────────────────────────────────────────────────────────
-  const resetSteps    = () => setSteps(INITIAL_STEPS.map(s => ({ ...s, lines: [] })));
-  const resetMlSteps  = () => setMlSteps(INITIAL_ML_STEPS.map(s => ({ ...s, lines: [] })));
-
-  const mutateStep = useCallback((setter, id, patch) => {
-    setter(prev => prev.map(s => s.id === id ? { ...s, ...patch } : s));
-  }, []);
-
-  const appendLine = useCallback((setter, id, text, type) => {
-    setter(prev => prev.map(s => {
-      if (s.id !== id) return s;
-      return { ...s, lines: [...s.lines, { text, type }] };
-    }));
-    // auto-scroll
-    requestAnimationFrame(() => {
-      const el = logRefs.current[id];
-      if (el) el.scrollTop = el.scrollHeight;
-    });
-  }, []);
-
-  // ── SSE stream consumer ────────────────────────────────────────────────────
-  const streamSSE = async (url, onLine) => {
-    const res = await fetch(url, { method: "POST" });
-    if (!res.ok || !res.body) throw new Error(`HTTP ${res.status}`);
-
-    const reader = res.body.getReader();
-    const decoder = new TextDecoder();
-    let buffer = "";
-    let extraData = null;
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      buffer += decoder.decode(value, { stream: true });
-
-      const events = buffer.split("\n\n");
-      buffer = events.pop(); // keep incomplete tail
-
-      for (const event of events) {
-        const line = event.replace(/^data: /, "").trim();
-        if (!line) continue;
-        if (line === "__DONE__")           return { ok: true, extraData };
-        if (line.startsWith("__ERROR__:")) throw new Error(line.slice(10));
-        if (line.startsWith("__METRICS__:")) { extraData = JSON.parse(line.slice(12)); continue; }
-        onLine(line.startsWith("STDERR:") ? line.slice(7) : line,
-               line.startsWith("STDERR:") ? "stderr" : "stdout");
-      }
-    }
-    return { ok: true, extraData };
-  };
-
-  // ── Run one SSE step ───────────────────────────────────────────────────────
-  const runStreamStep = async (url, id, setter) => {
-    mutateStep(setter, id, { status: "active", log: "", lines: [] });
-    const result = await streamSSE(url, (text, type) => appendLine(setter, id, text, type));
-    mutateStep(setter, id, { status: "done" });
-    return result;
-  };
-
-  // ── Pipeline handlers ──────────────────────────────────────────────────────
-  const handleProcess = async () => {
+  const onStartProcess = () => {
     if (!matchId)        return alert("Please enter a Match Identifier Base Name!");
     if (!fullVideo)      return alert("Please select the Full Match MP4!");
     if (!highlightVideo) return alert("Please select the Highlight MP4!");
-
-    setIsProcessing(true);
-    resetSteps();
-
-    // STEP 1: Upload via XHR
-    mutateStep(setSteps, "upload", { status: "active", log: "Uploading .mp4 files → 0%", lines: [] });
-    try {
-      await new Promise((resolve, reject) => {
-        const fd = new FormData();
-        fd.append("fullVideo", fullVideo);
-        fd.append("highlightVideo", highlightVideo);
-        fd.append("matchId", matchId);
-
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", "/api/upload-video", true);
-        xhr.upload.onprogress = (e) => {
-          if (e.lengthComputable) {
-            const pct = Math.round((e.loaded / e.total) * 100);
-            mutateStep(setSteps, "upload", {
-              log: `Uploading .mp4 files → ${pct}%\n(${(e.loaded/1048576).toFixed(1)} MB / ${(e.total/1048576).toFixed(1)} MB)`
-            });
-          }
-        };
-        xhr.onload = () => xhr.status >= 200 && xhr.status < 300
-          ? (mutateStep(setSteps, "upload", { status: "done", log: "Upload successful!" }), resolve())
-          : reject(new Error("Upload failed. Files may be too large."));
-        xhr.onerror = () => reject(new Error("Network error during upload."));
-        xhr.send(fd);
-      });
-    } catch (err) {
-      mutateStep(setSteps, "upload", { status: "error", log: err.message });
-      setIsProcessing(false); return;
-    }
-
-    // STEP 2: Extract (SSE)
-    try { await runStreamStep("/api/extract-videos", "extract", setSteps); }
-    catch (err) { mutateStep(setSteps, "extract", { status: "error", log: err.message }); setIsProcessing(false); return; }
-
-    // STEP 3: Chunk (SSE)
-    try { await runStreamStep("/api/prepare", "chunk", setSteps); }
-    catch (err) { mutateStep(setSteps, "chunk", { status: "error", log: err.message }); setIsProcessing(false); return; }
-
-    mutateStep(setSteps, "label", { status: "done", log: "Pipeline completely successful! You may now navigate to the Data Annotation Center." });
-    setIsProcessing(false);
+    handleProcess(matchId, fullVideo, highlightVideo);
   };
 
-  const handleResume = async () => {
+  const onResumeProcess = () => {
     if (!matchId) return alert("Please enter the Match Identifier Base Name that you want to resume processing for!");
-    
-    setIsProcessing(true);
-    resetSteps();
-    
-    mutateStep(setSteps, "upload", { status: "done", log: "Skipped raw video upload phase. Searching backend directly..." });
-
-    // STEP 2: Extract (SSE)
-    try { await runStreamStep("/api/extract-videos", "extract", setSteps); }
-    catch (err) { mutateStep(setSteps, "extract", { status: "error", log: err.message }); setIsProcessing(false); return; }
-
-    // STEP 3: Chunk (SSE)
-    try { await runStreamStep("/api/prepare", "chunk", setSteps); }
-    catch (err) { mutateStep(setSteps, "chunk", { status: "error", log: err.message }); setIsProcessing(false); return; }
-
-    mutateStep(setSteps, "label", { status: "done", log: "Pipeline successfully resumed and completed!" });
-    setIsProcessing(false);
-  };
-
-  const handleMlProcess = async () => {
-    setIsMlProcessing(true);
-    setMetricsData(null);
-    resetMlSteps();
-
-    // Train
-    try { await runStreamStep("/api/train", "train", setMlSteps); }
-    catch (err) { mutateStep(setMlSteps, "train", { status: "error", log: err.message }); setIsMlProcessing(false); return; }
-
-    // Pipeline
-    try { await runStreamStep("/api/pipeline", "predict", setMlSteps); }
-    catch (err) { mutateStep(setMlSteps, "predict", { status: "error", log: err.message }); setIsMlProcessing(false); return; }
-
-    // Evaluate
-    try {
-      const result = await runStreamStep("/api/evaluate", "evaluate", setMlSteps);
-      if (result?.extraData) setMetricsData(result.extraData);
-    } catch (err) { mutateStep(setMlSteps, "evaluate", { status: "error", log: err.message }); setIsMlProcessing(false); return; }
-
-    setIsMlProcessing(false);
+    handleResume(matchId);
   };
 
   // ── Step renderer ──────────────────────────────────────────────────────────
@@ -196,6 +49,13 @@ export default function Home() {
     const setRef = (el) => { if (el) logRefs.current[step.id] = el; };
     const hasLiveLines = step.lines && step.lines.length > 0;
     const showBox = hasLiveLines || step.log || step.status === "active";
+
+    // Auto-scroll logic inside component render is typically best done in effects,
+    // but React refs allow us to do it imperatively
+    useEffect(() => {
+        const el = logRefs.current[step.id];
+        if (el) el.scrollTop = el.scrollHeight;
+    }, [step.lines, step.log, step.id]);
 
     return (
       <div key={step.id} style={{
@@ -283,7 +143,21 @@ export default function Home() {
 
       <header className="flex-between">
         <div>
-          <h1>Rugby Highlight Analyzer</h1>
+          <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
+            <h1>Rugby Highlight Analyzer</h1>
+            {(isProcessing || isMlProcessing) && (
+              <button 
+                onClick={handleStop}
+                style={{
+                  background: "#ef4444", color: "white", border: "none", padding: "0.5rem 1rem", 
+                  borderRadius: "6px", fontWeight: "bold", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.5rem",
+                  boxShadow: "0 0 10px rgba(239, 68, 68, 0.4)", animation: "pulse 1.5s infinite"
+                }}
+              >
+                🛑 Kill Active Process
+              </button>
+            )}
+          </div>
           <p className="subtitle" style={{ marginBottom: 0 }}>Automated Video Transcription &amp; Chunking Pipeline</p>
         </div>
         <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
@@ -339,12 +213,12 @@ export default function Home() {
                   style={{ width: "100%", padding: "0.8rem", borderRadius: "8px", border: "1px dashed var(--secondary-color)", color: "white" }} />
               </div>
               <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
-                <button className="btn" onClick={handleProcess}
-                  disabled={isProcessing || isMlProcessing} style={{ flex: 1 }}>
+                <button className="btn" onClick={onStartProcess}
+                  disabled={isProcessing || isMlProcessing} style={{ flex: 1, opacity: (isProcessing || isMlProcessing) ? 0.5 : 1 }}>
                   {isProcessing ? "Pipeline Running..." : "Start System Pipeline"}
                 </button>
-                <button className="btn" onClick={handleResume}
-                  disabled={isProcessing || isMlProcessing} style={{ flex: 1, background: "var(--secondary-color)", border: "1px solid rgba(255,255,255,0.2)" }}>
+                <button className="btn" onClick={onResumeProcess}
+                  disabled={isProcessing || isMlProcessing} style={{ flex: 1, background: "var(--secondary-color)", border: "1px solid rgba(255,255,255,0.2)", opacity: (isProcessing || isMlProcessing) ? 0.5 : 1 }}>
                   Resume Process (Skip Upload)
                 </button>
               </div>
@@ -366,7 +240,7 @@ export default function Home() {
               <h2 className="card-title" style={{ margin: 0 }}>🧠 3. Advanced ML Execution</h2>
               <button className="btn" onClick={handleMlProcess}
                 disabled={isProcessing || isMlProcessing}
-                style={{ marginTop: 0, padding: "0.6rem 1.2rem", width: "auto" }}>
+                style={{ marginTop: 0, padding: "0.6rem 1.2rem", width: "auto", opacity: (isProcessing || isMlProcessing) ? 0.5 : 1 }}>
                 {isMlProcessing ? "Executing Sequence..." : "Run ML Sequence (Step 6-12)"}
               </button>
             </div>
