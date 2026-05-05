@@ -51,7 +51,6 @@ class RobertaClassifier:
             eval_strategy="epoch",
             logging_strategy="steps",
             logging_steps=5,
-            logging_dir='./logs',
             save_strategy="epoch",
             load_best_model_at_end=True,
             disable_tqdm=True,

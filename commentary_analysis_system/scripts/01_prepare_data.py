@@ -26,7 +26,10 @@ def process_match(match_id: str, vtt_file: Path, highlights_file: Path):
     
     # 3. Label if highlights provided
     if highlights_file.exists():
-        highlights = load_highlights(str(highlights_file))
+        if highlights_file.suffix == '.vtt':
+            highlights = parse_vtt(str(highlights_file))
+        else:
+            highlights = load_highlights(str(highlights_file))
         chunks = label_chunks(chunks, highlights, threshold=0.40)
     else:
         print(f"  Warning: No highlights file for {match_id}, setting default label 0.")
@@ -65,8 +68,11 @@ def main():
     for vtt_file in vtt_files:
         # e.g., 'match_01_full' -> 'match_01'
         match_id = vtt_file.stem.replace("_full", "")
-        # Since highlights are now _highlights.vtt, we check for highlights_{match_id}.json if legacy JSON provided, or default 0.
-        highlights_file = RAW_DIR / f"highlights_{match_id}.json"
+        # Since highlights are now _highlights.vtt, we check for it first, fallback to legacy JSON if provided
+        highlights_vtt_file = RAW_DIR / f"{match_id}_highlights.vtt"
+        highlights_json_file = RAW_DIR / f"highlights_{match_id}.json"
+        
+        highlights_file = highlights_vtt_file if highlights_vtt_file.exists() else highlights_json_file
         
         process_match(match_id, vtt_file, highlights_file)
         
