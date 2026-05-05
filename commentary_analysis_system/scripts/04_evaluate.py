@@ -32,9 +32,9 @@ def main():
             chunks = json.load(f)
             
         # Evaluate for single match
-        lexicon_res = evaluate_method(chunks, "lexicon_score")
-        roberta_res = evaluate_method(chunks, "roberta_score")
-        hybrid_res = evaluate_method(chunks, "hybrid_score")
+        lexicon_res = evaluate_method(chunks, "lexicon_score", threshold=0.10)
+        roberta_res = evaluate_method(chunks, "roberta_score", threshold=0.55)
+        hybrid_res = evaluate_method(chunks, "hybrid_score", threshold=0.40)
         
         # Accumulate sums for macro-average
         for key in ["precision", "recall", "f1"]:

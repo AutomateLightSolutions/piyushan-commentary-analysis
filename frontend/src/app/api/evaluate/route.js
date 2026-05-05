@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import path from "path";
 import { spawn } from "child_process";
 import { readFile } from "fs/promises";

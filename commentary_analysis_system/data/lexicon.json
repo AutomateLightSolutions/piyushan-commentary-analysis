@@ -1,0 +1,52 @@
+{
+  "categories": [
+    {
+      "id": "scoring",
+      "name": "Scoring",
+      "weight": 0.45,
+      "terms": [
+        "try",
+        "score",
+        "conversion",
+        "drop goal",
+        "dive",
+        "over"
+      ]
+    },
+    {
+      "id": "excitement",
+      "name": "Excitement",
+      "weight": 0.35,
+      "terms": [
+        "brilliant",
+        "what a play",
+        "huge moment",
+        "sensational",
+        "wow"
+      ]
+    },
+    {
+      "id": "referee",
+      "name": "Referee",
+      "weight": 0.15,
+      "terms": [
+        "penalty",
+        "advantage",
+        "offside",
+        "knock on",
+        "forward pass"
+      ]
+    },
+    {
+      "id": "set_piece",
+      "name": "Set Piece",
+      "weight": 0.1,
+      "terms": [
+        "scrum",
+        "lineout",
+        "maul",
+        "ruck"
+      ]
+    }
+  ]
+}
