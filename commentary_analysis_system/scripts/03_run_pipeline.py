@@ -37,7 +37,7 @@ def main():
             json.dump(chunks, f, indent=2)
             
         # 4. Extract Highlight Timestamps
-        merged_highlights = merge_chunks(chunks, threshold=0.65)
+        merged_highlights = merge_chunks(chunks, threshold=0.40)
         
         out_clips_path = OUTPUT_DIR / f"highlights_timestamps_{match_id}.json"
         with open(out_clips_path, 'w', encoding='utf-8') as f:

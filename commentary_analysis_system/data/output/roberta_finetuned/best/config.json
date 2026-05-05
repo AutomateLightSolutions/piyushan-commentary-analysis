@@ -20,7 +20,6 @@
   "num_attention_heads": 12,
   "num_hidden_layers": 12,
   "pad_token_id": 1,
-  "problem_type": "single_label_classification",
   "tie_word_embeddings": true,
   "transformers_version": "5.6.2",
   "type_vocab_size": 1,
