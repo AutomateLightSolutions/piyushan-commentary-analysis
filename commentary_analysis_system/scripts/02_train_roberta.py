@@ -20,7 +20,7 @@ def main():
     
     roberta = RobertaClassifier()
     # Can adjust epochs and batch_size (HuggingFace maps arrow batches efficiently)
-    roberta.train(csv_files, output_dir="data/output/roberta_finetuned")
+    roberta.train(csv_files, output_dir="data/output/roberta_finetuned", epochs=5)
     print("Training finished. Best model checkpoint saved reliably!")
 
 if __name__ == "__main__":

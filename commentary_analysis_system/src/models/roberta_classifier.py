@@ -2,6 +2,26 @@ from transformers import RobertaTokenizer, RobertaForSequenceClassification, Tra
 from datasets import Dataset
 import torch
 import pandas as pd
+import torch.nn as nn
+
+class CustomTrainer(Trainer):
+    def __init__(self, *args, class_weights=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.class_weights = class_weights
+
+    def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
+        labels = inputs.pop("labels")
+        outputs = model(**inputs)
+        logits = outputs.logits
+        
+        if self.class_weights is not None:
+            loss_fct = nn.CrossEntropyLoss(weight=self.class_weights.to(model.device))
+            loss = loss_fct(logits.view(-1, self.model.config.num_labels), labels.view(-1))
+        else:
+            loss_fct = nn.CrossEntropyLoss()
+            loss = loss_fct(logits.view(-1, self.model.config.num_labels), labels.view(-1))
+            
+        return (loss, outputs) if return_outputs else loss
 
 class RobertaClassifier:
     def __init__(self, model_name="roberta-base"):
@@ -21,25 +41,46 @@ class RobertaClassifier:
             
         return Dataset.from_dict(dataset_dict)
         
-    def train(self, data_files, output_dir="./models/roberta_finetuned", epochs=3, batch_size=16):
-        # Convert CSVs safely eliminating massive RAM spikes using Apache Arrow mapping
-        from datasets import load_dataset
-        dataset = load_dataset('csv', data_files=data_files)
+    def train(self, data_files, output_dir="./models/roberta_finetuned", epochs=5, batch_size=16):
+        import pandas as pd
         
-        # Strip corrupted/null text fields
-        dataset = dataset.filter(lambda x: x['text'] is not None)
+        # 1. Load CSVs into a single DataFrame
+        dfs = [pd.read_csv(f) for f in data_files]
+        df = pd.concat(dfs, ignore_index=True)
+        df = df.dropna(subset=['text'])
+        
+        # 2. Balance dataset (Option A: Downsample class 0 to 1:2 ratio)
+        df_1 = df[df.label == 1]
+        df_0 = df[df.label == 0]
+        
+        if len(df_0) > len(df_1) * 2:
+            df_0 = df_0.sample(len(df_1) * 2, random_state=42)
+            
+        df_balanced = pd.concat([df_0, df_1]).sample(frac=1, random_state=42).reset_index(drop=True)
+        
+        # 3. Compute class weights for the loss function
+        total_samples = len(df_balanced)
+        count_0 = len(df_balanced[df_balanced.label == 0])
+        count_1 = len(df_balanced[df_balanced.label == 1])
+        
+        weight_0 = total_samples / (2.0 * count_0) if count_0 > 0 else 1.0
+        weight_1 = total_samples / (2.0 * count_1) if count_1 > 0 else 1.0
+        
+        class_weights = torch.tensor([weight_0, weight_1], dtype=torch.float)
+        
+        # 4. Convert back to HuggingFace Dataset
+        dataset = Dataset.from_pandas(df_balanced)
         
         # Dynamic Tokenization across batches
         def tokenize_func(examples):
-            # Assumes CSVs map text and label accurately
             tokenized = self.tokenizer(examples['text'], padding="max_length", truncation=True, max_length=128)
             tokenized['labels'] = examples['label']
             return tokenized
             
-        tokenized_datasets = dataset.map(tokenize_func, batched=True, remove_columns=dataset['train'].column_names)
+        tokenized_datasets = dataset.map(tokenize_func, batched=True)
         
         # 80/20 train validation split natively
-        split_datasets = tokenized_datasets['train'].train_test_split(test_size=0.2, seed=42)
+        split_datasets = tokenized_datasets.train_test_split(test_size=0.2, seed=42)
         train_dataset = split_datasets['train']
         val_dataset = split_datasets['test']
 
@@ -56,11 +97,12 @@ class RobertaClassifier:
             disable_tqdm=True,
         )
 
-        trainer = Trainer(
+        trainer = CustomTrainer(
             model=self.model,
             args=training_args,
             train_dataset=train_dataset,
             eval_dataset=val_dataset,
+            class_weights=class_weights
         )
 
         trainer.train()

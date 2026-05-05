@@ -1,0 +1,17 @@
+{
+    "Lexicon Only": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+    },
+    "RoBERTa Only": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+    },
+    "Hybrid Model": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+    }
+}
