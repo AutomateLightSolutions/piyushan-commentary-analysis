@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import "../globals.css";
 
 export default function LabelingDashboard() {
@@ -69,73 +68,65 @@ export default function LabelingDashboard() {
   };
 
   return (
-    <div className="app-container" style={{maxWidth: "1600px", height: "95vh"}}>
-      <header className="flex-between">
-        <div>
-          <h1 style={{fontSize: "2rem", textAlign: "left"}}>Data Annotation Center</h1>
-          <p className="subtitle" style={{textAlign: "left", marginBottom: 0}}>Manually Label Highlights for RoBERTa Training</p>
-        </div>
-        <Link href="/" style={{color: "var(--primary-color)", textDecoration: "none", fontWeight: "bold"}}>
-          ← Back to Hub
-        </Link>
+    <div className="app-container" style={{ maxWidth: "1600px", height: "calc(100vh - var(--nav-height) - 4rem)" }}>
+      <header className="mb-4">
+        <h1 className="page-title">Data Annotation Center</h1>
+        <p className="page-subtitle">Manually Label Highlights for RoBERTa Training</p>
       </header>
 
       {/* Target Selector */}
-      <div style={{display: "flex", gap: "1rem", alignItems: "center"}}>
+      <div className="flex-between mb-4" style={{ justifyContent: "flex-start", gap: "1rem" }}>
         <input 
           list="match-options"
           placeholder="Search or Select Match ID" 
           value={matchId} 
           onChange={e => setMatchId(e.target.value)}
-          style={{padding: "0.8rem", borderRadius:"8px", border:"1px solid var(--glass-border)", background: "rgba(0,0,0,0.3)", color: "white", width: "300px"}}
+          className="form-input"
+          style={{ width: "300px" }}
         />
         <datalist id="match-options">
           {availableMatches.map(id => <option key={id} value={id} />)}
         </datalist>
-        <button className="btn" style={{width: "auto", margin: 0}} onClick={loadData}>Load Chunks</button>
-        <span style={{color: "var(--text-muted)"}}>{statusMsg}</span>
+        <button className="btn btn-primary" onClick={loadData}>Load Chunks</button>
+        <span className="text-muted" style={{ fontWeight: "500", marginLeft: "1rem" }}>{statusMsg}</span>
       </div>
 
-      <main style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2rem", height: "calc(100% - 140px)"}}>
+      <main className="grid-2" style={{ height: "calc(100% - 160px)", gap: "2rem" }}>
         
         {/* Left Side: Main Chunks that need Labeling */}
-        <section className="glass-card" style={{display: "flex", flexDirection: "column", height: "100%", overflow: "hidden"}}>
-          <div className="flex-between" style={{marginBottom: "1rem"}}>
-            <h2 className="card-title" style={{margin: 0}}>📝 Full Match Chunks</h2>
-            <button className="btn" style={{width: "auto", margin: 0, padding: "0.5rem 1rem"}} disabled={chunks.length===0 || isSaving} onClick={saveLabels}>
+        <section className="glass-card" style={{ display: "flex", flexDirection: "column", height: "100%", padding: 0, overflow: "hidden" }}>
+          <div className="flex-between" style={{ padding: "1.5rem", borderBottom: "1px solid var(--glass-border)", background: "rgba(255,255,255,0.02)" }}>
+            <h2 className="card-title" style={{ margin: 0 }}>📝 Full Match Chunks</h2>
+            <button className="btn btn-primary" disabled={chunks.length === 0 || isSaving} onClick={saveLabels}>
               {isSaving ? "Saving..." : "Save Labels to CSV"}
             </button>
           </div>
 
-          <div style={{overflowY: "auto", flexGrow: 1, paddingRight: "1rem", display: "flex", flexDirection: "column", gap: "0.8rem"}}>
-            {chunks.length === 0 ? <p style={{color: "var(--text-muted)"}}>Enter Match ID to load chunks.</p> : null}
+          <div style={{ overflowY: "auto", flexGrow: 1, padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+            {chunks.length === 0 ? <p className="text-muted text-center py-4">Enter Match ID to load chunks.</p> : null}
             
             {chunks.map((chk, i) => (
               <div key={i} style={{
-                background: chk.label === 1 ? "rgba(236, 72, 153, 0.15)" : "rgba(255,255,255,0.05)",
-                border: `1px solid ${chk.label === 1 ? "var(--secondary-color)" : "transparent"}`,
-                borderRadius: "8px",
-                padding: "1rem",
+                background: chk.label === 1 ? "var(--secondary-glow)" : "rgba(255,255,255,0.03)",
+                border: `1px solid ${chk.label === 1 ? "var(--secondary-color)" : "var(--glass-border)"}`,
+                borderRadius: "12px",
+                padding: "1.2rem",
                 display: "flex",
                 justifyContent: "space-between",
-                alignItems: "center"
+                alignItems: "center",
+                transition: "all 0.2s ease"
               }}>
-                <div>
-                    <div style={{fontSize: "0.85rem", color: "var(--primary-color)", fontWeight: "bold"}}>{chk.start}s - {chk.end}s</div>
-                    <div style={{marginTop: "0.5rem"}}>{chk.text_clean || chk.text_raw}</div>
+                <div style={{ paddingRight: "1rem" }}>
+                    <div style={{ fontSize: "0.85rem", color: chk.label === 1 ? "var(--text-main)" : "var(--primary-color)", fontWeight: "bold", marginBottom: "0.5rem" }}>
+                      {chk.start}s - {chk.end}s
+                    </div>
+                    <div style={{ lineHeight: "1.5" }}>{chk.text_clean || chk.text_raw}</div>
                 </div>
                 
                 <button 
                   onClick={() => toggleLabel(i)}
-                  style={{
-                    background: chk.label === 1 ? "var(--secondary-color)" : "rgba(0,0,0,0.5)",
-                    border: "none",
-                    color: "white",
-                    padding: "0.6rem 1rem",
-                    borderRadius: "8px",
-                    cursor: "pointer",
-                    transition: "all 0.2s ease"
-                  }}
+                  className={`btn ${chk.label === 1 ? 'btn-primary' : 'btn-secondary'}`}
+                  style={{ minWidth: "120px", flexShrink: 0 }}
                 >
                   {chk.label === 1 ? "★ Highlight" : "Normal"}
                 </button>
@@ -145,23 +136,24 @@ export default function LabelingDashboard() {
         </section>
 
         {/* Right Side: Ground Truth Highlight Reference */}
-        <section className="glass-card" style={{display: "flex", flexDirection: "column", height: "100%", overflow: "hidden"}}>
-            <h2 className="card-title">🎥 Highlight Transcript Ref.</h2>
-            <div style={{
-              background: "rgba(0,0,0,0.3)",
-              border: "1px solid var(--glass-border)",
-              borderRadius: "12px",
-              padding: "1.5rem",
-              overflowY: "auto",
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontSize: "0.95rem",
-              lineHeight: "1.6",
-              whiteSpace: "pre-wrap",
-              color: "#a7f3d0"
-            }}>
-                {highlightText}
-            </div>
+        <section className="glass-card" style={{ display: "flex", flexDirection: "column", height: "100%", padding: 0, overflow: "hidden" }}>
+          <div style={{ padding: "1.5rem", borderBottom: "1px solid var(--glass-border)", background: "rgba(255,255,255,0.02)" }}>
+            <h2 className="card-title" style={{ margin: 0 }}>🎥 Highlight Transcript Ref.</h2>
+          </div>
+          <div style={{
+            padding: "1.5rem",
+            overflowY: "auto",
+            flexGrow: 1,
+            fontFamily: "'Cascadia Code', 'Fira Code', 'Courier New', monospace",
+            fontSize: "0.95rem",
+            lineHeight: "1.7",
+            whiteSpace: "pre-wrap",
+            color: "#a7f3d0",
+            background: "rgba(0,0,0,0.5)",
+            boxShadow: "inset 0 2px 10px rgba(0,0,0,0.3)"
+          }}>
+              {highlightText}
+          </div>
         </section>
 
       </main>

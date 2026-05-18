@@ -11,7 +11,7 @@ class HybridModel:
         
     def predict(self, text_list: list[str], roberta_weight=0.7, lexicon_weight=0.3):
         """
-        Generates combined score using formula: w1*(RoBERTa) + w2*(Lexicon)
+        Generates combined score using booster formula: min(1.0, RoBERTa + (Lexicon * lexicon_weight))
         """
         roberta_probs = self.roberta.predict_probs(text_list)
         
@@ -19,7 +19,8 @@ class HybridModel:
         for text, r_prob in zip(text_list, roberta_probs):
             l_prob = self.lexicon.score_chunk(text)
             
-            hybrid_score = (roberta_weight * r_prob) + (lexicon_weight * l_prob)
+            # Booster formula: Lexicon score boosts the RoBERTa base score
+            hybrid_score = min(1.0, r_prob + (l_prob * lexicon_weight))
             
             results.append({
                 "roberta_score": r_prob,

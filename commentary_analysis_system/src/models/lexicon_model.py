@@ -23,22 +23,43 @@ class LexiconModel:
 
     def _count_matches(self, text: str, terms: list[str]) -> int:
         count = 0
+        
+        # Simple negation words to check before the term
+        negations = ["no", "not", "missed", "missed the"]
+        
         for term in terms:
-            # Escape term and wrap in word boundaries if it's just a word
-            # If the term already has regex boundaries like \b, use it as is
-            pattern = term if "\\" in term else rf"\b{re.escape(term)}\b"
-            if re.search(pattern, text, re.IGNORECASE):
-                count += 1
+            if "\\" in term:
+                pattern = term
+            else:
+                escaped_term = re.escape(term)
+                # Allow common suffixes (e.g. score -> scores, scored, scoring)
+                pattern = rf"\b{escaped_term}(?:s|ed|ing|d)?\b"
+                
+            for match in re.finditer(pattern, text, re.IGNORECASE):
+                # Check for negation in the preceding context
+                start_idx = match.start()
+                preceding_text = text[max(0, start_idx - 15):start_idx].lower()
+                
+                is_negated = False
+                for neg in negations:
+                    if preceding_text.strip().endswith(neg):
+                        is_negated = True
+                        break
+                
+                if not is_negated:
+                    count += 1
+                    
         return count
 
     def generate_features(self, text: str) -> dict:
-        """Counts presence/absence of category keywords in the chunk."""
+        """Counts frequency of category keywords in the chunk."""
         text = text.lower()
         features = {}
         for category in self.config.get("categories", []):
             cat_id = category["id"]
             terms = category.get("terms", [])
-            features[cat_id] = 1 if self._count_matches(text, terms) > 0 else 0
+            # Return actual count for frequency scaling instead of binary 1/0
+            features[cat_id] = self._count_matches(text, terms)
         return features
 
     def score_chunk(self, text: str) -> float:

@@ -15,13 +15,15 @@ def extract_audio(video_path: Path, output_audio: Path):
     ]
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-def transcribe_audio(audio_path: Path, output_dir: Path, model="base"):
+def transcribe_audio(audio_path: Path, output_dir: Path, model="small"):
     print(f"Transcribing {audio_path.name} with Whisper...")
     cmd = [
         "whisper", str(audio_path),
         "--model", model,
         "--output_dir", str(output_dir),
-        "--output_format", "vtt"
+        "--output_format", "vtt",
+        "--language", "en",
+        "--initial_prompt", "Rugby commentary, match highlights, scoring a try, scrum, tackle, conversion."
     ]
     # Enforce UTF-8 to prevent cp1252 charmap crashes on Windows when Whisper prints exotic characters
     env = os.environ.copy()

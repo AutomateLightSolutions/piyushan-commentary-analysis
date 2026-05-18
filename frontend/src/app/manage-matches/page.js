@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import "../globals.css";
 
 function formatBytes(bytes) {
@@ -22,7 +21,6 @@ export default function ManageMatches() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  // 1. Fetch available match IDs
   const fetchMatches = async () => {
     setIsFetching(true);
     try {
@@ -48,7 +46,6 @@ export default function ManageMatches() {
     fetchMatches();
   }, []);
 
-  // 2. Fetch specific files when a match ID is selected
   useEffect(() => {
     const fetchSpecificFiles = async () => {
       if (!selectedMatchId) {
@@ -63,7 +60,6 @@ export default function ManageMatches() {
         const data = await res.json();
         setMatchFiles(data.files || []);
         
-        // Auto-select everything by default
         const initialSelections = {};
         (data.files || []).forEach(f => {
           initialSelections[f.name] = true;
@@ -78,12 +74,10 @@ export default function ManageMatches() {
     fetchSpecificFiles();
   }, [selectedMatchId]);
 
-  // Handle individual checkbox changes
   const toggleFile = (filename) => {
     setSelectedFiles(prev => ({ ...prev, [filename]: !prev[filename] }));
   };
 
-  // Handle 'Select All' toggle
   const allSelected = matchFiles.length > 0 && matchFiles.every(f => selectedFiles[f.name]);
   const toggleSelectAll = () => {
     const newVal = !allSelected;
@@ -92,7 +86,6 @@ export default function ManageMatches() {
     setSelectedFiles(newSelections);
   };
 
-  // Perform backend deletion
   const handleDelete = async () => {
     const filesToDelete = matchFiles.filter(f => selectedFiles[f.name]);
     if (filesToDelete.length === 0) return;
@@ -115,22 +108,17 @@ export default function ManageMatches() {
       });
       
       const data = await res.json();
-      
-      if (!res.ok) {
-        throw new Error(data.message || "Failed to delete files");
-      }
+      if (!res.ok) throw new Error(data.message || "Failed to delete files");
       
       setMessage(`Successfully deleted ${data.deletedCount} file(s).`);
       
-      // Refresh the match list natively
       const freshRes = await fetch("/api/manage-matches");
       const freshData = await freshRes.json();
       setMatchIds(freshData.matchIds);
 
-      // Reset selected Match ID so useEffect fetches latest
       if (filesToDelete.length === matchFiles.length) {
          if (freshData.matchIds.length > 0) {
-           setSelectedMatchId(freshData.matchIds[0]); // auto-select next
+           setSelectedMatchId(freshData.matchIds[0]);
          } else {
            setSelectedMatchId("");
            setMatchFiles([]);
@@ -150,122 +138,98 @@ export default function ManageMatches() {
   const selectedCount = Object.values(selectedFiles).filter(Boolean).length;
 
   return (
-    <div className="app-container" style={{ maxWidth: "800px", margin: "0 auto", padding: "2rem" }}>
-      <header className="flex-between" style={{ marginBottom: "2rem", alignItems: "center" }}>
-        <div>
-          <h1 style={{ margin: 0 }}>Manage Matches</h1>
-          <p className="subtitle" style={{ marginBottom: 0 }}>Review and delete specific files for any match</p>
-        </div>
-        <Link href="/" style={{ color: "var(--primary-color)", textDecoration: "none", fontWeight: "bold" }}>
-          ← Back to Pipeline
-        </Link>
+    <div className="app-container" style={{ maxWidth: "800px", margin: "0 auto" }}>
+      <header className="mb-4">
+        <h1 className="page-title">Manage Matches</h1>
+        <p className="page-subtitle">Review and delete specific files for any match</p>
       </header>
 
       <main>
-        <section className="glass-card" style={{ padding: "2rem" }}>
+        <section className="glass-card">
           {message && (
-            <div style={{
-              padding: "1rem", 
-              marginBottom: "1.5rem", 
-              borderRadius: "8px", 
-              background: message.startsWith("Error:") ? "rgba(239, 68, 68, 0.2)" : "rgba(16, 185, 129, 0.2)",
-              border: `1px solid ${message.startsWith("Error:") ? "#ef4444" : "#10b981"}`,
-              color: "white"
-            }}>
+            <div className={`alert ${message.startsWith("Error:") ? 'alert-error' : 'alert-success'}`}>
               {message}
             </div>
           )}
 
           {isFetching ? (
-            <div style={{ textAlign: "center", color: "var(--text-muted)", padding: "2rem 0" }}>
-              Loading matches...
-            </div>
+            <div className="text-center text-muted py-4">Loading matches...</div>
           ) : matchIds.length === 0 ? (
-            <div style={{ textAlign: "center", color: "var(--text-muted)", padding: "2rem 0" }}>
-              No matches found in the system.
-            </div>
+            <div className="text-center text-muted py-4">No matches found in the system.</div>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-              <div>
-                <label style={{ display: "block", marginBottom: "0.5rem", color: "var(--text-muted)" }}>Select Match Identifier</label>
+              <div className="form-group mb-0">
+                <label className="form-label">Select Match Identifier</label>
                 <select 
                   value={selectedMatchId} 
                   onChange={(e) => setSelectedMatchId(e.target.value)}
-                  style={{ 
-                    width: "100%", 
-                    padding: "0.8rem", 
-                    borderRadius: "8px", 
-                    border: "1px solid var(--glass-border)", 
-                    background: "rgba(0,0,0,0.3)", 
-                    color: "white",
-                    fontFamily: "inherit"
-                  }}
+                  className="form-select"
                 >
                   {matchIds.map(id => (
-                    <option key={id} value={id} style={{ background: "#1e1e1e" }}>{id}</option>
+                    <option key={id} value={id}>{id}</option>
                   ))}
                 </select>
               </div>
 
               {isFetchingFiles ? (
-                <div style={{ textAlign: "center", color: "var(--text-muted)", padding: "1rem" }}>
-                  Fetching specific files...
-                </div>
+                <div className="text-center text-muted">Fetching specific files...</div>
               ) : matchFiles.length > 0 ? (
                 <>
-                  {/* Granular File Table */}
-                  <div style={{ background: "rgba(0,0,0,0.2)", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.1)", overflow: "hidden" }}>
-                    <div style={{ display: "flex", padding: "1rem", borderBottom: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.05)", fontWeight: "bold" }}>
-                       <div style={{ flex: "0 0 40px" }}>
-                         <input type="checkbox" checked={allSelected} onChange={toggleSelectAll} style={{ width: "1.1rem", height: "1.1rem", cursor: "pointer", accentColor: "#ef4444" }} title="Select All" />
-                       </div>
-                       <div style={{ flex: 1 }}>File Type / Path</div>
-                       <div style={{ flex: "0 0 100px", textAlign: "right" }}>Size</div>
-                    </div>
-                    {matchFiles.map(file => (
-                      <div key={file.name} style={{ display: "flex", padding: "1rem", borderBottom: "1px solid rgba(255,255,255,0.05)", alignItems: "center" }}>
-                        <div style={{ flex: "0 0 40px" }}>
-                          <input 
-                            type="checkbox" 
-                            checked={!!selectedFiles[file.name]} 
-                            onChange={() => toggleFile(file.name)} 
-                            style={{ width: "1.1rem", height: "1.1rem", cursor: "pointer", accentColor: "var(--primary-color)" }} 
-                          />
-                        </div>
-                        <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-                          <span style={{ fontWeight: "bold", color: "white" }}>{file.type}</span>
-                          <span style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontFamily: "'Courier New', monospace" }}>
-                            {file.category} / {file.name}
-                          </span>
-                        </div>
-                        <div style={{ flex: "0 0 100px", textAlign: "right", color: "var(--text-muted)", fontSize: "0.9rem" }}>
-                          {formatBytes(file.sizeBytes)}
-                        </div>
-                      </div>
-                    ))}
+                  <div className="table-container">
+                    <table className="table-modern">
+                      <thead>
+                        <tr>
+                          <th style={{ width: "50px", textAlign: "center" }}>
+                            <input 
+                              type="checkbox" 
+                              checked={allSelected} 
+                              onChange={toggleSelectAll} 
+                              style={{ width: "1.1rem", height: "1.1rem", cursor: "pointer", accentColor: "var(--primary-color)" }} 
+                              title="Select All" 
+                            />
+                          </th>
+                          <th>File Type / Path</th>
+                          <th style={{ textAlign: "right" }}>Size</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {matchFiles.map(file => (
+                          <tr key={file.name}>
+                            <td style={{ textAlign: "center" }}>
+                              <input 
+                                type="checkbox" 
+                                checked={!!selectedFiles[file.name]} 
+                                onChange={() => toggleFile(file.name)} 
+                                style={{ width: "1.1rem", height: "1.1rem", cursor: "pointer", accentColor: "var(--primary-color)" }} 
+                              />
+                            </td>
+                            <td>
+                              <div style={{ fontWeight: "600", color: "var(--text-main)" }}>{file.type}</div>
+                              <div style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontFamily: "'Courier New', monospace", marginTop: "4px" }}>
+                                {file.category} / {file.name}
+                              </div>
+                            </td>
+                            <td style={{ textAlign: "right", color: "var(--text-muted)", fontSize: "0.95rem" }}>
+                              {formatBytes(file.sizeBytes)}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
 
-                  <div style={{ marginTop: "1rem", display: "flex", justifyContent: "flex-end" }}>
+                  <div style={{ display: "flex", justifyContent: "flex-end" }}>
                     <button 
-                      className="btn" 
+                      className="btn btn-danger" 
                       onClick={handleDelete} 
                       disabled={isLoading || selectedCount === 0}
-                      style={{
-                        background: "#ef4444",
-                        boxShadow: "0 4px 15px rgba(239, 68, 68, 0.3)",
-                        border: "1px solid rgba(239, 68, 68, 0.5)",
-                        transition: "all 0.3s ease",
-                        width: "auto",
-                        padding: "0.8rem 2rem",
-                        opacity: (isLoading || selectedCount === 0) ? 0.6 : 1
-                      }}
                     >
                       {isLoading ? "Processing..." : `🗑️ Delete Selected Data (${selectedCount})`}
                     </button>
                   </div>
                 </>
               ) : (
-                <div style={{ textAlign: "center", color: "var(--text-muted)", padding: "1rem", border: "1px dashed rgba(255,255,255,0.2)", borderRadius: "8px" }}>
+                <div className="text-center text-muted p-4" style={{ border: "1px dashed var(--glass-border)", borderRadius: "8px" }}>
                   Match identifier exists but no associated managed files were found.
                 </div>
               )}
