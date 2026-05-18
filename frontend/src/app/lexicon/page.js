@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import "../globals.css";
 
 export default function LexiconManagement() {
@@ -109,61 +108,40 @@ export default function LexiconManagement() {
 
   if (loading) {
     return (
-      <div className="app-container" style={{ textAlign: "center" }}>
-        <h1>Loading Lexicon...</h1>
+      <div className="app-container text-center">
+        <h1 className="page-title">Loading Lexicon...</h1>
       </div>
     );
   }
 
   return (
-    <div className="app-container" style={{ maxWidth: "1200px" }}>
-      <header className="flex-between">
-        <div>
-          <h1>Lexicon Management</h1>
-          <p className="subtitle" style={{ marginBottom: 0 }}>
-            Configure Rule-Based Parameters for Highlight Generation
-          </p>
-        </div>
-        <Link href="/" style={{ color: "var(--primary-color)", textDecoration: "none", fontWeight: "bold" }}>
-          ← Back to Dashboard
-        </Link>
+    <div className="app-container">
+      <header className="mb-3">
+        <h1 className="page-title">Lexicon Management</h1>
+        <p className="page-subtitle">Configure Rule-Based Parameters for Highlight Generation</p>
       </header>
 
-      <main>
-        <section className="glass-card" style={{ marginBottom: "2rem" }}>
-          <div className="flex-between" style={{ marginBottom: "1.5rem" }}>
+      <main style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+        <section className="glass-card">
+          <div className="flex-between mb-3">
             <h2 className="card-title" style={{ margin: 0 }}>📊 Category Weights</h2>
-            <div style={{ 
-              padding: "0.5rem 1rem", 
-              borderRadius: "8px", 
-              background: totalWeight === 1 ? "rgba(16,185,129,0.2)" : "rgba(239,68,68,0.2)",
-              color: totalWeight === 1 ? "#10b981" : "#ef4444",
-              fontWeight: "bold"
-            }}>
+            <div className={`alert ${totalWeight === 1 ? 'alert-success' : 'alert-error'}`} style={{ margin: 0, padding: "0.5rem 1rem" }}>
               Total Weight: {(totalWeight * 100).toFixed(0)}% {totalWeight !== 1 && "(Should be 100%)"}
             </div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))", gap: "1.5rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1.5rem" }}>
             {config.categories.map((cat) => (
-              <div key={cat.id} className="glass-card" style={{ padding: "1.5rem", background: "rgba(0,0,0,0.2)" }}>
+              <div key={cat.id} className="glass-card" style={{ padding: "1.5rem", background: "rgba(0,0,0,0.3)" }}>
                 <input
                   type="text"
                   value={cat.name}
                   onChange={(e) => updateCategoryName(cat.id, e.target.value)}
-                  style={{ 
-                    background: "transparent", 
-                    border: "none", 
-                    color: "white", 
-                    fontSize: "1.2rem", 
-                    fontWeight: "bold", 
-                    width: "100%",
-                    marginBottom: "0.5rem",
-                    borderBottom: "1px solid var(--glass-border)"
-                  }}
+                  className="form-input mb-2"
+                  style={{ background: "transparent", border: "none", borderBottom: "1px solid var(--glass-border)", borderRadius: 0, fontSize: "1.2rem", fontWeight: "bold", padding: "0.5rem 0" }}
                 />
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                  <label style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>Weight:</label>
+                <div className="flex-between mb-3">
+                  <label className="form-label mb-0">Weight:</label>
                   <input
                     type="number"
                     step="0.05"
@@ -171,28 +149,14 @@ export default function LexiconManagement() {
                     max="1"
                     value={cat.weight}
                     onChange={(e) => updateWeight(cat.id, e.target.value)}
-                    style={{ 
-                      width: "80px", 
-                      padding: "0.3rem", 
-                      borderRadius: "4px", 
-                      border: "1px solid var(--glass-border)", 
-                      background: "rgba(0,0,0,0.3)", 
-                      color: "white" 
-                    }}
+                    className="form-input"
+                    style={{ width: "90px", padding: "0.4rem" }}
                   />
                 </div>
                 <button 
                   onClick={() => removeCategory(cat.id)}
-                  style={{ 
-                    marginTop: "1rem", 
-                    background: "rgba(239,68,68,0.2)", 
-                    color: "#ef4444", 
-                    border: "none", 
-                    padding: "0.4rem 0.8rem", 
-                    borderRadius: "6px", 
-                    cursor: "pointer",
-                    fontSize: "0.8rem"
-                  }}
+                  className="btn btn-danger w-full"
+                  style={{ padding: "0.5rem" }}
                 >
                   Remove Category
                 </button>
@@ -200,22 +164,11 @@ export default function LexiconManagement() {
             ))}
             <button 
               onClick={addCategory}
-              style={{ 
-                border: "2px dashed var(--glass-border)", 
-                borderRadius: "16px", 
-                background: "transparent", 
-                color: "var(--text-muted)", 
-                cursor: "pointer",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "0.5rem",
-                padding: "2rem"
-              }}
+              className="glass-card flex-center"
+              style={{ border: "2px dashed var(--glass-border)", background: "transparent", color: "var(--text-muted)", flexDirection: "column", gap: "1rem", cursor: "pointer" }}
             >
-              <span style={{ fontSize: "2rem" }}>+</span>
-              <span>Add Category</span>
+              <span style={{ fontSize: "2.5rem", fontWeight: "300" }}>+</span>
+              <span style={{ fontWeight: "500" }}>Add Category</span>
             </button>
           </div>
         </section>
@@ -225,14 +178,14 @@ export default function LexiconManagement() {
           <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
             {config.categories.map((cat) => (
               <div key={cat.id} style={{ borderBottom: "1px solid var(--glass-border)", paddingBottom: "1.5rem" }}>
-                <h3 style={{ marginBottom: "1rem", color: "var(--primary-color)" }}>{cat.name}</h3>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.8rem", marginBottom: "1rem" }}>
+                <h3 className="mb-2 text-primary">{cat.name}</h3>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.8rem" }}>
                   {cat.terms.map((term) => (
                     <div 
                       key={term} 
                       style={{ 
                         background: "rgba(255,255,255,0.1)", 
-                        padding: "0.5rem 0.8rem", 
+                        padding: "0.4rem 0.8rem", 
                         borderRadius: "20px", 
                         display: "flex", 
                         alignItems: "center", 
@@ -243,17 +196,9 @@ export default function LexiconManagement() {
                       <span>{term}</span>
                       <button 
                         onClick={() => removeTerm(cat.id, term)}
-                        style={{ 
-                          background: "none", 
-                          border: "none", 
-                          color: "#ef4444", 
-                          cursor: "pointer", 
-                          fontWeight: "bold",
-                          fontSize: "1.1rem",
-                          lineHeight: 1
-                        }}
+                        style={{ background: "none", border: "none", color: "var(--error-color)", cursor: "pointer", fontWeight: "bold", fontSize: "1.2rem", lineHeight: 1 }}
                       >
-                        ×
+                        &times;
                       </button>
                     </div>
                   ))}
@@ -269,26 +214,13 @@ export default function LexiconManagement() {
                     <input 
                       name="term"
                       placeholder="Add term..." 
-                      style={{ 
-                        padding: "0.5rem 1rem", 
-                        borderRadius: "20px", 
-                        border: "1px dashed var(--primary-color)", 
-                        background: "rgba(0,0,0,0.2)", 
-                        color: "white",
-                        width: "150px"
-                      }}
+                      className="form-input"
+                      style={{ padding: "0.4rem 1rem", borderRadius: "20px", width: "160px" }}
                     />
                     <button 
                       type="submit"
-                      style={{ 
-                        background: "var(--primary-color)", 
-                        color: "white", 
-                        border: "none", 
-                        width: "32px", 
-                        height: "32px", 
-                        borderRadius: "50%", 
-                        cursor: "pointer" 
-                      }}
+                      className="btn btn-primary flex-center"
+                      style={{ width: "36px", height: "36px", borderRadius: "50%", padding: 0 }}
                     >
                       +
                     </button>
@@ -299,35 +231,23 @@ export default function LexiconManagement() {
           </div>
         </section>
 
-        <div style={{ marginTop: "2rem", display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
-          {message.text && (
-            <div style={{ 
-              padding: "1rem", 
-              borderRadius: "8px", 
-              background: message.type === "success" ? "rgba(16,185,129,0.2)" : "rgba(239,68,68,0.2)",
-              color: message.type === "success" ? "#10b981" : "#ef4444",
-              display: "flex",
-              alignItems: "center"
-            }}>
-              {message.text}
-            </div>
-          )}
+        <div className="flex-between">
+          <div>
+            {message.text && (
+              <div className={`alert ${message.type === "success" ? 'alert-success' : 'alert-error'}`} style={{ margin: 0 }}>
+                {message.text}
+              </div>
+            )}
+          </div>
           <button 
-            className="btn" 
+            className="btn btn-primary" 
             onClick={handleSave} 
             disabled={saving}
-            style={{ width: "auto", padding: "1rem 3rem" }}
           >
-            {saving ? "Saving..." : "Save Lexicon Configuration"}
+            {saving ? "Saving..." : "Save Configuration"}
           </button>
         </div>
       </main>
-
-      <style jsx>{`
-        .btn {
-          margin-top: 0;
-        }
-      `}</style>
     </div>
   );
 }
