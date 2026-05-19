@@ -68,14 +68,22 @@ export default function LabelingDashboard() {
   };
 
   return (
-    <div className="app-container" style={{ maxWidth: "1600px", height: "calc(100vh - var(--nav-height) - 4rem)" }}>
-      <header className="mb-4">
-        <h1 className="page-title">Data Annotation Center</h1>
-        <p className="page-subtitle">Manually Label Highlights for RoBERTa Training</p>
+    <div className="app-container" style={{ 
+      maxWidth: "1600px", 
+      height: "calc(100vh - var(--nav-height) - 4rem)", 
+      padding: "1.5rem", 
+      gap: "1rem", 
+      display: "flex", 
+      flexDirection: "column",
+      overflow: "hidden"
+    }}>
+      <header style={{ flexShrink: 0 }}>
+        <h1 className="page-title" style={{ fontSize: "2rem", marginBottom: "0.2rem" }}>Data Annotation Center</h1>
+        <p className="page-subtitle" style={{ fontSize: "1rem", marginBottom: "0" }}>Manually Label Highlights for RoBERTa Training</p>
       </header>
 
       {/* Target Selector */}
-      <div className="flex-between mb-4" style={{ justifyContent: "flex-start", gap: "1rem" }}>
+      <div className="flex-between" style={{ justifyContent: "flex-start", gap: "1rem", flexShrink: 0, marginBottom: "0.2rem" }}>
         <input 
           list="match-options"
           placeholder="Search or Select Match ID" 
@@ -91,7 +99,7 @@ export default function LabelingDashboard() {
         <span className="text-muted" style={{ fontWeight: "500", marginLeft: "1rem" }}>{statusMsg}</span>
       </div>
 
-      <main className="grid-2" style={{ height: "calc(100% - 160px)", gap: "2rem" }}>
+      <main className="grid-2" style={{ flex: 1, minHeight: 0, gap: "1.5rem", alignItems: "stretch" }}>
         
         {/* Left Side: Main Chunks that need Labeling */}
         <section className="glass-card" style={{ display: "flex", flexDirection: "column", height: "100%", padding: 0, overflow: "hidden" }}>
