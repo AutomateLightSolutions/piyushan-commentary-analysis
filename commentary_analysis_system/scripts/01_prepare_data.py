@@ -5,7 +5,7 @@ from pathlib import Path
 
 from src.data_processing.parser import parse_vtt
 from src.data_processing.chunker import create_chunks
-from src.data_processing.labeller import load_highlights, label_chunks
+
 
 RAW_DIR = Path("data/raw")
 PROCESSED_CHUNKS_DIR = Path("data/processed/chunks")
@@ -15,7 +15,7 @@ PROCESSED_DATASETS_DIR = Path("data/processed/datasets")
 PROCESSED_CHUNKS_DIR.mkdir(parents=True, exist_ok=True)
 PROCESSED_DATASETS_DIR.mkdir(parents=True, exist_ok=True)
 
-def process_match(match_id: str, vtt_file: Path, highlights_file: Path):
+def process_match(match_id: str, vtt_file: Path):
     print(f"Processing Match {match_id}...")
     
     # 1. Parse VTT
@@ -24,17 +24,9 @@ def process_match(match_id: str, vtt_file: Path, highlights_file: Path):
     # 2. Chunking
     chunks = create_chunks(segments, chunk_size=5, overlap=2)
     
-    # 3. Label if highlights provided
-    if highlights_file.exists():
-        if highlights_file.suffix == '.vtt':
-            highlights = parse_vtt(str(highlights_file))
-        else:
-            highlights = load_highlights(str(highlights_file))
-        chunks = label_chunks(chunks, highlights, threshold=0.40)
-    else:
-        print(f"  Warning: No highlights file for {match_id}, setting default label 0.")
-        for chunk in chunks:
-            chunk['label'] = 0
+    # 3. Set default label to 0 (No pre-labeling, user will manually label highlights)
+    for chunk in chunks:
+        chunk['label'] = 0
 
     # 4. Save chunks JSON
     chunk_json_path = PROCESSED_CHUNKS_DIR / f"chunks_{match_id}.json"
@@ -68,13 +60,8 @@ def main():
     for vtt_file in vtt_files:
         # e.g., 'match_01_full' -> 'match_01'
         match_id = vtt_file.stem.replace("_full", "")
-        # Since highlights are now _highlights.vtt, we check for it first, fallback to legacy JSON if provided
-        highlights_vtt_file = RAW_DIR / f"{match_id}_highlights.vtt"
-        highlights_json_file = RAW_DIR / f"highlights_{match_id}.json"
         
-        highlights_file = highlights_vtt_file if highlights_vtt_file.exists() else highlights_json_file
-        
-        process_match(match_id, vtt_file, highlights_file)
+        process_match(match_id, vtt_file)
         
     print(f"\nSuccessfully processed {len(vtt_files)} matches.")
 
