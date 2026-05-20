@@ -21,7 +21,7 @@ import Navbar from "../components/Navbar";
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <body>
         <PipelineProvider>
           <div className="layout-container">
