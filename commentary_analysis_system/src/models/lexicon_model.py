@@ -72,6 +72,7 @@ class LexiconModel:
         for category in self.config.get("categories", []):
             cat_id = category["id"]
             weight = category.get("weight", 0.0)
-            raw_score += feats.get(cat_id, 0) * weight
+            count = feats.get(cat_id, 0)
+            raw_score += min(1.0, float(count)) * weight
             
         return min(raw_score, 1.0)

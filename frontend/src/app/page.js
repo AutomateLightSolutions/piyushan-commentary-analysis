@@ -20,6 +20,7 @@ export default function Home() {
     handleProcess,
     handleResume,
     handleMlProcess,
+    handleMlProcessSkipTrain,
     handleStop
   } = useContext(PipelineContext);
 
@@ -67,8 +68,20 @@ export default function Home() {
         paddingLeft: "1rem",
       }}>
         {/* Step header */}
-        <div className="flex-between" style={{ fontWeight: "600", fontSize: "1.1rem" }}>
-          <span>{step.name}</span>
+        <div className="flex-between" style={{ fontWeight: "600", fontSize: "1.1rem", alignItems: "center" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            <span>{step.name}</span>
+            {step.id === "predict" && (
+              <button 
+                className="btn btn-secondary" 
+                onClick={handleMlProcessSkipTrain} 
+                disabled={isProcessing || isMlProcessing}
+                style={{ padding: "0.25rem 0.75rem", fontSize: "0.85rem" }}
+              >
+                {isMlProcessing ? "Executing..." : "Run Steps 7-12"}
+              </button>
+            )}
+          </div>
           <span style={{ fontSize: "1rem" }}>
             {step.status === "done"   && "✅"}
             {step.status === "active" && <span style={{ display: "inline-block", animation: "pulse 1.2s ease-in-out infinite" }}>⏳</span>}

@@ -189,6 +189,26 @@ export function PipelineProvider({ children }) {
     setIsMlProcessing(false);
   };
 
+  const handleMlProcessSkipTrain = async () => {
+    setIsMlProcessing(true);
+    setMetricsData(null);
+    resetMlSteps();
+    abortControllerRef.current = new AbortController();
+    const signal = abortControllerRef.current.signal;
+
+    mutateStep(setMlSteps, "train", { status: "done", log: "Skipped training step." });
+
+    try { await runStreamStep("/api/pipeline", "predict", setMlSteps, signal); }
+    catch (err) { mutateStep(setMlSteps, "predict", { status: "error", log: err.message }); setIsMlProcessing(false); return; }
+
+    try {
+      const result = await runStreamStep("/api/evaluate", "evaluate", setMlSteps, signal);
+      if (result?.extraData && !signal.aborted) setMetricsData(result.extraData);
+    } catch (err) { mutateStep(setMlSteps, "evaluate", { status: "error", log: err.message }); setIsMlProcessing(false); return; }
+
+    setIsMlProcessing(false);
+  };
+
   const handleStop = async () => {
     // Abort active fetch/xhr requests
     if (abortControllerRef.current) {
@@ -215,6 +235,7 @@ export function PipelineProvider({ children }) {
     handleProcess,
     handleResume,
     handleMlProcess,
+    handleMlProcessSkipTrain,
     handleStop
   };
 

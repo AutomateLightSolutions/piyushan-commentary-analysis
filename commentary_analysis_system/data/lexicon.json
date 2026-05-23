@@ -3,7 +3,7 @@
     {
       "id": "try_scoring",
       "name": "Try Scoring Events",
-      "weight": 0.22,
+      "weight": 0.40,
       "terms": [
         "try",
         "scores",
@@ -113,8 +113,6 @@
       "name": "Referee Decisions",
       "weight": 0.14,
       "terms": [
-        "penalty",
-        "advantage",
         "offside",
         "forward pass",
         "knock on",
@@ -146,13 +144,9 @@
     {
       "id": "set_piece",
       "name": "Set Piece and Breakdown",
-      "weight": 0.10,
+      "weight": 0.05,
       "terms": [
-        "scrum",
-        "lineout",
-        "maul",
         "driving maul",
-        "ruck",
         "turnover",
         "turnover won",
         "stolen at the breakdown",

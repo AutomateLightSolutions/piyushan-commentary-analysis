@@ -546,8 +546,8 @@
     "text_clean": "sexton finds his full back you go keenan burn is one rolling into the nine such a cunning player with advantage to the irish side now",
     "label": 0,
     "roberta_score": 0.896307647228241,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.938307647228241
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.896307647228241
   },
   {
     "start": 165,
@@ -556,8 +556,8 @@
     "text_clean": "burn is one rolling into the nine such a cunning player with advantage to the irish side now furlong turns it to bundy aki",
     "label": 0,
     "roberta_score": 0.9103745222091675,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.9523745222091675
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9103745222091675
   },
   {
     "start": 168,
@@ -566,8 +566,8 @@
     "text_clean": "such a cunning player with advantage to the irish side now furlong turns it to bundy aki hes 50th international for his country",
     "label": 0,
     "roberta_score": 0.9076439738273621,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.9496439738273621
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9076439738273621
   },
   {
     "start": 171,
@@ -686,8 +686,8 @@
     "text_clean": "less than three seconds per run and they are here to play sexton will pop this one in the corner",
     "label": 0,
     "roberta_score": 0.909143328666687,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9751433286666871
+    "lexicon_score": 0.4,
+    "hybrid_score": 1.0
   },
   {
     "start": 207,
@@ -696,8 +696,8 @@
     "text_clean": "and they are here to play sexton will pop this one in the corner ok jimmy good space good sit up",
     "label": 0,
     "roberta_score": 0.9096542000770569,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9756542000770569
+    "lexicon_score": 0.4,
+    "hybrid_score": 1.0
   },
   {
     "start": 210,
@@ -946,8 +946,8 @@
     "text_clean": "siaf conlici got the penalty",
     "label": 0,
     "roberta_score": 0.8854913115501404,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.9274913115501404
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8854913115501404
   },
   {
     "start": 285,
@@ -956,8 +956,8 @@
     "text_clean": "got the penalty bungie and the nambi big carry from the hooker",
     "label": 0,
     "roberta_score": 0.9030601382255554,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.9450601382255555
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9030601382255554
   },
   {
     "start": 288,
@@ -1016,8 +1016,8 @@
     "text_clean": "vending machine to the right it goes again krill trying to skip through not back",
     "label": 0,
     "roberta_score": 0.9070934653282166,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9730934653282166
+    "lexicon_score": 0.4,
+    "hybrid_score": 1.0
   },
   {
     "start": 306,
@@ -1026,7 +1026,7 @@
     "text_clean": "krill trying to skip through not back and it will be a penalty",
     "label": 0,
     "roberta_score": 0.9070271849632263,
-    "lexicon_score": 0.36,
+    "lexicon_score": 0.4,
     "hybrid_score": 1.0
   },
   {
@@ -1036,8 +1036,8 @@
     "text_clean": "not back and it will be a penalty for south africa its a turning opening",
     "label": 0,
     "roberta_score": 0.9045833945274353,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.9465833945274353
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9045833945274353
   },
   {
     "start": 312,
@@ -1526,8 +1526,8 @@
     "text_clean": "they have it at the halfway line jamison gibson park theres scrum off",
     "label": 0,
     "roberta_score": 0.9069674611091614,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9369674611091614
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9069674611091614
   },
   {
     "start": 459,
@@ -1536,8 +1536,8 @@
     "text_clean": "jamison gibson park theres scrum off one of an instrument",
     "label": 0,
     "roberta_score": 0.8978608250617981,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9278608250617981
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8978608250617981
   },
   {
     "start": 462,
@@ -1696,8 +1696,8 @@
     "text_clean": "against the line speed of south africa its a real challenge he holds his feet still to try and play around the line",
     "label": 0,
     "roberta_score": 0.9014419913291931,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9674419913291932
+    "lexicon_score": 0.4,
+    "hybrid_score": 1.0
   },
   {
     "start": 510,
@@ -1706,8 +1706,8 @@
     "text_clean": "he holds his feet still to try and play around the line its a",
     "label": 0,
     "roberta_score": 0.8878563642501831,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9538563642501832
+    "lexicon_score": 0.4,
+    "hybrid_score": 1.0
   },
   {
     "start": 513,
@@ -1756,8 +1756,8 @@
     "text_clean": "it flies off the line such an acceleration as the scrum off theyve had trouble",
     "label": 0,
     "roberta_score": 0.905088484287262,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.935088484287262
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.905088484287262
   },
   {
     "start": 528,
@@ -1766,8 +1766,8 @@
     "text_clean": "as the scrum off theyve had trouble theyve had trouble",
     "label": 0,
     "roberta_score": 0.905674397945404,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9356743979454041
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.905674397945404
   },
   {
     "start": 531,
@@ -1786,8 +1786,8 @@
     "text_clean": "two knock ons sexton stavriga scrum",
     "label": 0,
     "roberta_score": 0.9001913070678711,
-    "lexicon_score": 0.24000000000000002,
-    "hybrid_score": 0.9721913070678712
+    "lexicon_score": 0.14,
+    "hybrid_score": 0.9421913070678711
   },
   {
     "start": 537,
@@ -1796,8 +1796,8 @@
     "text_clean": "sexton stavriga scrum heol scrums to",
     "label": 0,
     "roberta_score": 0.8999277353286743,
-    "lexicon_score": 0.2,
-    "hybrid_score": 0.9599277353286744
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8999277353286743
   },
   {
     "start": 540,
@@ -1806,8 +1806,8 @@
     "text_clean": "heol scrums to the deck",
     "label": 0,
     "roberta_score": 0.8944374918937683,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9244374918937683
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8944374918937683
   },
   {
     "start": 543,
@@ -1816,8 +1816,8 @@
     "text_clean": "scrums to the deck leah jubrek dum durr",
     "label": 0,
     "roberta_score": 0.9057031273841858,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9357031273841858
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9057031273841858
   },
   {
     "start": 546,
@@ -1846,8 +1846,8 @@
     "text_clean": "well be making the calls scrum the yorkside",
     "label": 0,
     "roberta_score": 0.9018622040748596,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9318622040748596
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9018622040748596
   },
   {
     "start": 555,
@@ -1856,8 +1856,8 @@
     "text_clean": "scrum the yorkside",
     "label": 0,
     "roberta_score": 0.8918097019195557,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9218097019195557
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8918097019195557
   },
   {
     "start": 558,
@@ -1866,8 +1866,8 @@
     "text_clean": "scrum the yorkside their",
     "label": 0,
     "roberta_score": 0.8959348797798157,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9259348797798157
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8959348797798157
   },
   {
     "start": 561,
@@ -1876,8 +1876,8 @@
     "text_clean": "their such a great speed match ups we set scrum time 34 scrumps this year coming into this tournament out of 34 but",
     "label": 0,
     "roberta_score": 0.9034457206726074,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9334457206726074
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9034457206726074
   },
   {
     "start": 564,
@@ -1886,8 +1886,8 @@
     "text_clean": "such a great speed match ups we set scrum time 34 scrumps this year coming into this tournament out of 34 but",
     "label": 0,
     "roberta_score": 0.9040637612342834,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9340637612342835
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9040637612342834
   },
   {
     "start": 567,
@@ -1896,8 +1896,8 @@
     "text_clean": "match ups we set scrum time 34 scrumps this year coming into this tournament out of 34 but",
     "label": 0,
     "roberta_score": 0.9068745970726013,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9368745970726013
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9068745970726013
   },
   {
     "start": 570,
@@ -1906,8 +1906,8 @@
     "text_clean": "match ups we set scrum time 34 scrumps this year coming into this tournament out of 34 but they lost one of their own against romania and one against scotland",
     "label": 0,
     "roberta_score": 0.910710871219635,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.940710871219635
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.910710871219635
   },
   {
     "start": 573,
@@ -1916,8 +1916,8 @@
     "text_clean": "match ups we set scrum time 34 scrumps this year coming into this tournament out of 34 but they lost one of their own against romania and one against scotland",
     "label": 0,
     "roberta_score": 0.910710871219635,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.940710871219635
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.910710871219635
   },
   {
     "start": 576,
@@ -1956,8 +1956,8 @@
     "text_clean": "now the scrum yep we all came in early okay wait for the call im waiting for stability",
     "label": 0,
     "roberta_score": 0.9061765074729919,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.936176507472992
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9061765074729919
   },
   {
     "start": 588,
@@ -1966,8 +1966,8 @@
     "text_clean": "now the scrum yep we all came in early okay wait for the call im waiting for stability",
     "label": 0,
     "roberta_score": 0.9061765074729919,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.936176507472992
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9061765074729919
   },
   {
     "start": 591,
@@ -1976,8 +1976,8 @@
     "text_clean": "now the scrum yep we all came in early okay wait for the call im waiting for stability then ill call set ill be louder i will",
     "label": 0,
     "roberta_score": 0.9063549637794495,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9363549637794495
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9063549637794495
   },
   {
     "start": 594,
@@ -1996,8 +1996,8 @@
     "text_clean": "next ones a penalty wait for the timing of the call",
     "label": 0,
     "roberta_score": 0.9024251699447632,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.9444251699447632
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9024251699447632
   },
   {
     "start": 600,
@@ -2006,8 +2006,8 @@
     "text_clean": "next ones a penalty wait for the timing of the call kitter wants to go again id say furl i wouldnt mind a bit of that",
     "label": 0,
     "roberta_score": 0.8943222165107727,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.9363222165107727
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8943222165107727
   },
   {
     "start": 603,
@@ -2086,8 +2086,8 @@
     "text_clean": "keep it up now chesham colby lurking behind from the clock its scrum time vissa picks up",
     "label": 0,
     "roberta_score": 0.909795880317688,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.939795880317688
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.909795880317688
   },
   {
     "start": 630,
@@ -2096,8 +2096,8 @@
     "text_clean": "chesham colby lurking behind from the clock its scrum time vissa picks up",
     "label": 0,
     "roberta_score": 0.9082362651824951,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9382362651824951
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9082362651824951
   },
   {
     "start": 633,
@@ -2106,8 +2106,8 @@
     "text_clean": "chesham colby lurking behind from the clock its scrum time vissa picks up bashes his way upfield",
     "label": 0,
     "roberta_score": 0.9085986614227295,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9385986614227295
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9085986614227295
   },
   {
     "start": 636,
@@ -2286,8 +2286,8 @@
     "text_clean": "well thank you but it was even its the best just lying on the wrong side tim to be creating a hurdle were playing guys what about that scrum",
     "label": 0,
     "roberta_score": 0.8646777272224426,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.8946777272224427
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8646777272224426
   },
   {
     "start": 690,
@@ -2296,8 +2296,8 @@
     "text_clean": "tim to be creating a hurdle were playing guys what about that scrum",
     "label": 0,
     "roberta_score": 0.8805950284004211,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9105950284004212
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8805950284004211
   },
   {
     "start": 693,
@@ -2306,8 +2306,8 @@
     "text_clean": "tim to be creating a hurdle were playing guys what about that scrum",
     "label": 0,
     "roberta_score": 0.8805950284004211,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9105950284004212
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8805950284004211
   },
   {
     "start": 699,
@@ -2326,8 +2326,8 @@
     "text_clean": "the irish forwards reckon that they took great confidence from that win against south africa back in november even a couple of the backs have attended the scrum sessions this week",
     "label": 0,
     "roberta_score": 0.9074876308441162,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9374876308441162
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9074876308441162
   },
   {
     "start": 705,
@@ -2336,8 +2336,8 @@
     "text_clean": "the irish forwards reckon that they took great confidence from that win against south africa back in november even a couple of the backs have attended the scrum sessions this week",
     "label": 0,
     "roberta_score": 0.9074876308441162,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9374876308441162
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9074876308441162
   },
   {
     "start": 708,
@@ -2346,8 +2346,8 @@
     "text_clean": "back in november even a couple of the backs have attended the scrum sessions this week so some education in the dark arts of course south africa posed such a physical challenge",
     "label": 0,
     "roberta_score": 0.9000368714332581,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9300368714332581
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9000368714332581
   },
   {
     "start": 711,
@@ -2356,8 +2356,8 @@
     "text_clean": "back in november even a couple of the backs have attended the scrum sessions this week so some education in the dark arts of course south africa posed such a physical challenge",
     "label": 0,
     "roberta_score": 0.9000368714332581,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9300368714332581
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9000368714332581
   },
   {
     "start": 714,
@@ -2476,8 +2476,8 @@
     "text_clean": "to clack for the touch line this time nice clearance from the scrum off",
     "label": 0,
     "roberta_score": 0.9047592878341675,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9347592878341675
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9047592878341675
   },
   {
     "start": 756,
@@ -2486,8 +2486,8 @@
     "text_clean": "to clack for the touch line this time nice clearance from the scrum off",
     "label": 0,
     "roberta_score": 0.9047592878341675,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9347592878341675
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9047592878341675
   },
   {
     "start": 759,
@@ -2496,8 +2496,8 @@
     "text_clean": "to clack for the touch line this time nice clearance from the scrum off yes lovely tekkers from fafda klark there he managed to get his side up towards the 10th",
     "label": 0,
     "roberta_score": 0.9113922119140625,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9413922119140625
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9113922119140625
   },
   {
     "start": 762,
@@ -3016,8 +3016,8 @@
     "text_clean": "against england recovered from his car kennedy south africa its gone tight youve gone again twice its now a penalty yes wait for my call please",
     "label": 0,
     "roberta_score": 0.41260161995887756,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.45460161995887755
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.41260161995887756
   },
   {
     "start": 921,
@@ -3026,8 +3026,8 @@
     "text_clean": "against england recovered from his car kennedy south africa its gone tight youve gone again twice its now a penalty yes wait for my call please",
     "label": 0,
     "roberta_score": 0.41260161995887756,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.45460161995887755
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.41260161995887756
   },
   {
     "start": 924,
@@ -3036,8 +3036,8 @@
     "text_clean": "youve gone again twice its now a penalty yes wait for my call please",
     "label": 0,
     "roberta_score": 0.5082049369812012,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.5502049369812012
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.5082049369812012
   },
   {
     "start": 930,
@@ -3276,8 +3276,8 @@
     "text_clean": "theres a crisp seed from levotte to his skipper talked to rowan in timing and he was met pretty smartly by callan doris they try and do the hold up eventually it ends up being a ruck",
     "label": 0,
     "roberta_score": 0.25002527236938477,
-    "lexicon_score": 0.32,
-    "hybrid_score": 0.34602527236938474
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.37002527236938476
   },
   {
     "start": 1002,
@@ -3286,8 +3286,8 @@
     "text_clean": "theres a crisp seed from levotte to his skipper talked to rowan in timing and he was met pretty smartly by callan doris they try and do the hold up eventually it ends up being a ruck",
     "label": 0,
     "roberta_score": 0.25002527236938477,
-    "lexicon_score": 0.32,
-    "hybrid_score": 0.34602527236938474
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.37002527236938476
   },
   {
     "start": 1005,
@@ -3296,8 +3296,8 @@
     "text_clean": "smartly by callan doris they try and do the hold up eventually it ends up being a ruck time off and then burn gets the steal and its the off load from doris i think he might have",
     "label": 0,
     "roberta_score": 0.5507961511611938,
-    "lexicon_score": 0.32,
-    "hybrid_score": 0.6467961511611938
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.6707961511611938
   },
   {
     "start": 1008,
@@ -3306,8 +3306,8 @@
     "text_clean": "smartly by callan doris they try and do the hold up eventually it ends up being a ruck time off and then burn gets the steal and its the off load from doris i think he might have",
     "label": 0,
     "roberta_score": 0.5507961511611938,
-    "lexicon_score": 0.32,
-    "hybrid_score": 0.6467961511611938
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.6707961511611938
   },
   {
     "start": 1011,
@@ -3546,8 +3546,8 @@
     "text_clean": "tendu before its creative okay lets get set and then ill call it back on well see how it goes over the course of this game",
     "label": 0,
     "roberta_score": 0.1472560316324234,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.2132560316324234
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.2672560316324234
   },
   {
     "start": 1083,
@@ -3556,8 +3556,8 @@
     "text_clean": "well see how it goes over the course of this game jacques nainibur admit that there was an element of risk to picking a seven one split on the bench",
     "label": 0,
     "roberta_score": 0.21452321112155914,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.28052321112155915
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.33452321112155914
   },
   {
     "start": 1086,
@@ -3746,8 +3746,8 @@
     "text_clean": "wide ball from fuff binds ardensup good tackle loewe gets in as well its ireland lets stop this attack and draw a penalty as well",
     "label": 0,
     "roberta_score": 0.1719508022069931,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.2139508022069931
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.1719508022069931
   },
   {
     "start": 1143,
@@ -3756,8 +3756,8 @@
     "text_clean": "wide ball from fuff binds ardensup good tackle loewe gets in as well its ireland lets stop this attack and draw a penalty as well what do you think back three players get particularly fired up when they get turned over",
     "label": 0,
     "roberta_score": 0.16177813708782196,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.20377813708782197
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.16177813708782196
   },
   {
     "start": 1146,
@@ -3766,8 +3766,8 @@
     "text_clean": "lets stop this attack and draw a penalty as well what do you think back three players get particularly fired up when they get turned over",
     "label": 0,
     "roberta_score": 0.14403560757637024,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.18603560757637025
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.14403560757637024
   },
   {
     "start": 1149,
@@ -3896,8 +3896,8 @@
     "text_clean": "its the second time tonight its in vilmsa get his naughty feet out theres the turnover manages to get",
     "label": 0,
     "roberta_score": 0.42242076992988586,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.4524207699298859
+    "lexicon_score": 0.05,
+    "hybrid_score": 0.4374207699298859
   },
   {
     "start": 1188,
@@ -3906,8 +3906,8 @@
     "text_clean": "its in vilmsa get his naughty feet out theres the turnover manages to get hand on the ball look at that supporting his own weight nice and low great technique",
     "label": 0,
     "roberta_score": 0.16136623919010162,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.19136623919010162
+    "lexicon_score": 0.05,
+    "hybrid_score": 0.17636623919010164
   },
   {
     "start": 1191,
@@ -3916,8 +3916,8 @@
     "text_clean": "its in vilmsa get his naughty feet out theres the turnover manages to get hand on the ball look at that supporting his own weight nice and low great technique",
     "label": 0,
     "roberta_score": 0.16136623919010162,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.19136623919010162
+    "lexicon_score": 0.05,
+    "hybrid_score": 0.17636623919010164
   },
   {
     "start": 1194,
@@ -4086,8 +4086,8 @@
     "text_clean": "both sides when he break down penalties sevens on the good side nine careful youve got the penalty here it is tide drop the ball",
     "label": 0,
     "roberta_score": 0.1674516797065735,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.2094516797065735
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.1674516797065735
   },
   {
     "start": 1245,
@@ -4096,8 +4096,8 @@
     "text_clean": "youve got the penalty here it is tide drop the ball the wrath on the wrist but faftaclack for rubbing it in",
     "label": 0,
     "roberta_score": 0.11959533393383026,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.16159533393383027
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.11959533393383026
   },
   {
     "start": 1248,
@@ -4106,8 +4106,8 @@
     "text_clean": "youve got the penalty here it is tide drop the ball the wrath on the wrist but faftaclack for rubbing it in weve got the ball as well were having a penalty here",
     "label": 0,
     "roberta_score": 0.1639089435338974,
-    "lexicon_score": 0.28,
-    "hybrid_score": 0.24790894353389742
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.1639089435338974
   },
   {
     "start": 1251,
@@ -4116,8 +4116,8 @@
     "text_clean": "the wrath on the wrist but faftaclack for rubbing it in weve got the ball as well were having a penalty here expect nothing less",
     "label": 0,
     "roberta_score": 0.13768380880355835,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.17968380880355836
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.13768380880355835
   },
   {
     "start": 1254,
@@ -4356,8 +4356,8 @@
     "text_clean": "a kick through from damien villemser and he has timed that to perfection a real celebration the perfect kick just staying the right side of that flag in the corner",
     "label": 0,
     "roberta_score": 0.9000739455223083,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9660739455223084
+    "lexicon_score": 0.4,
+    "hybrid_score": 1.0
   },
   {
     "start": 1329,
@@ -4366,8 +4366,8 @@
     "text_clean": "and he has timed that to perfection a real celebration the perfect kick just staying the right side of that flag in the corner",
     "label": 0,
     "roberta_score": 0.9022843241691589,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.968284324169159
+    "lexicon_score": 0.4,
+    "hybrid_score": 1.0
   },
   {
     "start": 1332,
@@ -4376,8 +4376,8 @@
     "text_clean": "a real celebration the perfect kick just staying the right side of that flag in the corner",
     "label": 0,
     "roberta_score": 0.8996306657791138,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9656306657791138
+    "lexicon_score": 0.4,
+    "hybrid_score": 1.0
   },
   {
     "start": 1335,
@@ -4386,8 +4386,8 @@
     "text_clean": "a real celebration the perfect kick just staying the right side of that flag in the corner",
     "label": 0,
     "roberta_score": 0.8996306657791138,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9656306657791138
+    "lexicon_score": 0.4,
+    "hybrid_score": 1.0
   },
   {
     "start": 1338,
@@ -4396,8 +4396,8 @@
     "text_clean": "a real celebration the perfect kick just staying the right side of that flag in the corner",
     "label": 0,
     "roberta_score": 0.8996306657791138,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9656306657791138
+    "lexicon_score": 0.4,
+    "hybrid_score": 1.0
   },
   {
     "start": 1341,
@@ -4406,8 +4406,8 @@
     "text_clean": "a real celebration the perfect kick just staying the right side of that flag in the corner",
     "label": 0,
     "roberta_score": 0.8996306657791138,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9656306657791138
+    "lexicon_score": 0.4,
+    "hybrid_score": 1.0
   },
   {
     "start": 1347,
@@ -4436,8 +4436,8 @@
     "text_clean": "irelands line at five out stay in the 15 again short in numbers to try to secure position",
     "label": 0,
     "roberta_score": 0.579085111618042,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.645085111618042
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.699085111618042
   },
   {
     "start": 1359,
@@ -4446,8 +4446,8 @@
     "text_clean": "irelands line at five out stay in the 15 again short in numbers to try to secure position",
     "label": 0,
     "roberta_score": 0.579085111618042,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.645085111618042
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.699085111618042
   },
   {
     "start": 1362,
@@ -4456,8 +4456,8 @@
     "text_clean": "irelands line at five out stay in the 15 again short in numbers to try to secure position",
     "label": 0,
     "roberta_score": 0.579085111618042,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.645085111618042
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.699085111618042
   },
   {
     "start": 1365,
@@ -4466,8 +4466,8 @@
     "text_clean": "irelands line at five out stay in the 15 again short in numbers to try to secure position",
     "label": 0,
     "roberta_score": 0.579085111618042,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.645085111618042
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.699085111618042
   },
   {
     "start": 1368,
@@ -4476,8 +4476,8 @@
     "text_clean": "irelands line at five out stay in the 15 again short in numbers to try to secure position james ryan is accurate gibson park moves it away here comes kaelin doris",
     "label": 0,
     "roberta_score": 0.8671202659606934,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9331202659606934
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.9871202659606934
   },
   {
     "start": 1371,
@@ -4566,8 +4566,8 @@
     "text_clean": "thats a big obstacle isnt it when youre trying to box out of there",
     "label": 0,
     "roberta_score": 0.26205551624298096,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.32805551624298096
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.38205551624298095
   },
   {
     "start": 1404,
@@ -4576,8 +4576,8 @@
     "text_clean": "thats a big obstacle isnt it when youre trying to box out of there putman i keep it to you hes offside but just about right side of the line",
     "label": 0,
     "roberta_score": 0.18559785187244415,
-    "lexicon_score": 0.36,
-    "hybrid_score": 0.29359785187244414
+    "lexicon_score": 0.54,
+    "hybrid_score": 0.3475978518724442
   },
   {
     "start": 1407,
@@ -4896,8 +4896,8 @@
     "text_clean": "robbie hinge youre coming in and hell need all 70 caps experience now 71 to defend this scrum",
     "label": 0,
     "roberta_score": 0.8254871368408203,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.8554871368408203
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8254871368408203
   },
   {
     "start": 1503,
@@ -4906,8 +4906,8 @@
     "text_clean": "now 71 to defend this scrum",
     "label": 0,
     "roberta_score": 0.8925389051437378,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9225389051437378
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8925389051437378
   },
   {
     "start": 1506,
@@ -5006,8 +5006,8 @@
     "text_clean": "south africa scrum taken back",
     "label": 0,
     "roberta_score": 0.8968151211738586,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9268151211738587
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8968151211738586
   },
   {
     "start": 1536,
@@ -5016,8 +5016,8 @@
     "text_clean": "south africa scrum taken back south africa scrum no its been ripped by greenie levin and its gone back into in goal",
     "label": 0,
     "roberta_score": 0.3444156050682068,
-    "lexicon_score": 0.2,
-    "hybrid_score": 0.4044156050682068
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.3444156050682068
   },
   {
     "start": 1539,
@@ -5026,8 +5026,8 @@
     "text_clean": "south africa scrum no its been ripped by greenie levin and its gone back into in goal",
     "label": 0,
     "roberta_score": 0.17590990662574768,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.20590990662574768
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.17590990662574768
   },
   {
     "start": 1542,
@@ -5656,8 +5656,8 @@
     "text_clean": "for all money that was going to be a score and heres the turnover just a little knock on in there",
     "label": 0,
     "roberta_score": 0.11371639370918274,
-    "lexicon_score": 0.24000000000000002,
-    "hybrid_score": 0.18571639370918275
+    "lexicon_score": 0.19,
+    "hybrid_score": 0.17071639370918273
   },
   {
     "start": 1737,
@@ -5666,8 +5666,8 @@
     "text_clean": "and heres the turnover just a little knock on in there james lowes fired up and why not",
     "label": 0,
     "roberta_score": 0.16445700824260712,
-    "lexicon_score": 0.24000000000000002,
-    "hybrid_score": 0.23645700824260713
+    "lexicon_score": 0.19,
+    "hybrid_score": 0.2214570082426071
   },
   {
     "start": 1740,
@@ -6146,8 +6146,8 @@
     "text_clean": "almost peeled out never think that must be for gibson park trying to box",
     "label": 0,
     "roberta_score": 0.20497651398181915,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.27097651398181916
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.32497651398181915
   },
   {
     "start": 1899,
@@ -6156,8 +6156,8 @@
     "text_clean": "never think that must be for gibson park trying to box kick under that pressure and thats a bit",
     "label": 0,
     "roberta_score": 0.1251719444990158,
-    "lexicon_score": 0.32,
-    "hybrid_score": 0.2211719444990158
+    "lexicon_score": 0.45,
+    "hybrid_score": 0.2601719444990158
   },
   {
     "start": 1902,
@@ -6336,8 +6336,8 @@
     "text_clean": "what an occasion were going to restart the scrum on the ball",
     "label": 0,
     "roberta_score": 0.8734436631202698,
-    "lexicon_score": 0.2,
-    "hybrid_score": 0.9334436631202698
+    "lexicon_score": 0.05,
+    "hybrid_score": 0.8884436631202698
   },
   {
     "start": 1956,
@@ -6346,8 +6346,8 @@
     "text_clean": "were going to restart the scrum on the ball theyll be here watching the sevens in the olympics next year",
     "label": 0,
     "roberta_score": 0.8473406434059143,
-    "lexicon_score": 0.2,
-    "hybrid_score": 0.9073406434059144
+    "lexicon_score": 0.05,
+    "hybrid_score": 0.8623406434059143
   },
   {
     "start": 1959,
@@ -6506,8 +6506,8 @@
     "text_clean": "lets go this is it please weve been waiting too long who said the scrum weve got the ball",
     "label": 0,
     "roberta_score": 0.8005293607711792,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.8305293607711792
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8005293607711792
   },
   {
     "start": 2007,
@@ -6516,8 +6516,8 @@
     "text_clean": "who said the scrum weve got the ball nearly half an hour play at 3 0",
     "label": 0,
     "roberta_score": 0.9051682949066162,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9351682949066162
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9051682949066162
   },
   {
     "start": 2010,
@@ -6776,8 +6776,8 @@
     "text_clean": "gibson park shifts it to the right as ireland trying to make some progress here in the 22 sexton just at wall of white jerseys with the toy again",
     "label": 0,
     "roberta_score": 0.9099481105804443,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9759481105804444
+    "lexicon_score": 0.4,
+    "hybrid_score": 1.0
   },
   {
     "start": 2088,
@@ -6786,8 +6786,8 @@
     "text_clean": "trying to make some progress here in the 22 sexton just at wall of white jerseys with the toy again",
     "label": 0,
     "roberta_score": 0.90294349193573,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.96894349193573
+    "lexicon_score": 0.4,
+    "hybrid_score": 1.0
   },
   {
     "start": 2091,
@@ -6806,8 +6806,8 @@
     "text_clean": "sexton just at wall of white jerseys with the toy again behind the back ball trying to unlock",
     "label": 0,
     "roberta_score": 0.3449868857860565,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.4109868857860565
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.4649868857860565
   },
   {
     "start": 2097,
@@ -6816,8 +6816,8 @@
     "text_clean": "behind the back ball trying to unlock to the left",
     "label": 0,
     "roberta_score": 0.7876023054122925,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.8536023054122925
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.9076023054122925
   },
   {
     "start": 2100,
@@ -6826,8 +6826,8 @@
     "text_clean": "behind the back ball trying to unlock to the left josh vanderfleer",
     "label": 0,
     "roberta_score": 0.8327130675315857,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.8987130675315858
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.9527130675315857
   },
   {
     "start": 2103,
@@ -6906,8 +6906,8 @@
     "text_clean": "nice dummy from the front row forward from lenster a free play here for the irish side with advantage",
     "label": 0,
     "roberta_score": 0.9022068977355957,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.9442068977355957
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9022068977355957
   },
   {
     "start": 2127,
@@ -6916,8 +6916,8 @@
     "text_clean": "a free play here for the irish side with advantage gibson park still got the pinnally advantage",
     "label": 0,
     "roberta_score": 0.9036107659339905,
-    "lexicon_score": 0.28,
-    "hybrid_score": 0.9876107659339904
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9036107659339905
   },
   {
     "start": 2130,
@@ -6926,8 +6926,8 @@
     "text_clean": "a free play here for the irish side with advantage gibson park still got the pinnally advantage across theyll go the cross kick from henshaw",
     "label": 0,
     "roberta_score": 0.9114890694618225,
-    "lexicon_score": 0.28,
-    "hybrid_score": 0.9954890694618225
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9114890694618225
   },
   {
     "start": 2133,
@@ -7106,8 +7106,8 @@
     "text_clean": "theyre really off celebrate really off the ball you get a look at the penalty there to see he went all never released the tackle player",
     "label": 0,
     "roberta_score": 0.15309154987335205,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.19509154987335206
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.15309154987335205
   },
   {
     "start": 2187,
@@ -7116,8 +7116,8 @@
     "text_clean": "you get a look at the penalty there to see he went all never released the tackle player before he then got on the ball",
     "label": 0,
     "roberta_score": 0.1365228295326233,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.1785228295326233
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.1365228295326233
   },
   {
     "start": 2190,
@@ -7526,8 +7526,8 @@
     "text_clean": "he qualifies for ireland through his irish born mother and he has another try on the big stage",
     "label": 0,
     "roberta_score": 0.8681853413581848,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9341853413581849
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.9881853413581848
   },
   {
     "start": 2316,
@@ -7536,8 +7536,8 @@
     "text_clean": "and he has another try on the big stage hes head of the head of this game",
     "label": 0,
     "roberta_score": 0.25323373079299927,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.31923373079299927
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.37323373079299926
   },
   {
     "start": 2319,
@@ -7656,8 +7656,8 @@
     "text_clean": "does sexton its straight through the middle its straight through the middle",
     "label": 0,
     "roberta_score": 0.9008249640464783,
-    "lexicon_score": 0.36,
-    "hybrid_score": 1.0
+    "lexicon_score": 0.18,
+    "hybrid_score": 0.9548249640464783
   },
   {
     "start": 2355,
@@ -7926,8 +7926,8 @@
     "text_clean": "ireland running upfield now doris penalty ireland this will help them get down the field",
     "label": 0,
     "roberta_score": 0.24015632271766663,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.2821563227176666
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.24015632271766663
   },
   {
     "start": 2436,
@@ -7936,8 +7936,8 @@
     "text_clean": "penalty ireland this will help them get down the field fabulous carry from doris",
     "label": 0,
     "roberta_score": 0.33567097783088684,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.3776709778308868
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.33567097783088684
   },
   {
     "start": 2439,
@@ -8516,8 +8516,8 @@
     "text_clean": "hey crosses over little pull then it comes",
     "label": 0,
     "roberta_score": 0.8946515321731567,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9606515321731568
+    "lexicon_score": 0.4,
+    "hybrid_score": 1.0
   },
   {
     "start": 2616,
@@ -8526,8 +8526,8 @@
     "text_clean": "hey crosses over little pull then it comes cross new zealand italy uruguay namibia",
     "label": 0,
     "roberta_score": 0.5409373641014099,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.60693736410141
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.6609373641014099
   },
   {
     "start": 2619,
@@ -8626,8 +8626,8 @@
     "text_clean": "to chester and colby he spins up good tackle on him score to try in the rugby world cup final in japan last year",
     "label": 0,
     "roberta_score": 0.3352964520454407,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.4012964520454407
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.45529645204544067
   },
   {
     "start": 2649,
@@ -8636,8 +8636,8 @@
     "text_clean": "good tackle on him score to try in the rugby world cup final in japan last year",
     "label": 0,
     "roberta_score": 0.2477576583623886,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.3137576583623886
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.3677576583623886
   },
   {
     "start": 2652,
@@ -8646,8 +8646,8 @@
     "text_clean": "score to try in the rugby world cup final in japan last year and that breakdown has been run by ireland",
     "label": 0,
     "roberta_score": 0.23183317482471466,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.29783317482471466
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.35183317482471466
   },
   {
     "start": 2655,
@@ -9086,8 +9086,8 @@
     "text_clean": "both countries scored two tries each in the second half the difference being a single penalty by johnny sexton",
     "label": 0,
     "roberta_score": 0.8673635125160217,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.9093635125160218
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8673635125160217
   },
   {
     "start": 2787,
@@ -9096,8 +9096,8 @@
     "text_clean": "the difference being a single penalty by johnny sexton but tonight at start to france its 7 3",
     "label": 0,
     "roberta_score": 0.8941927552223206,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.9361927552223206
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8941927552223206
   },
   {
     "start": 2790,
@@ -9236,8 +9236,8 @@
     "text_clean": "one of the best to have done it out there on the dingaling record try score a full south africa",
     "label": 0,
     "roberta_score": 0.22572337090969086,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.29172337090969086
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.34572337090969085
   },
   {
     "start": 2832,
@@ -9246,8 +9246,8 @@
     "text_clean": "record try score a full south africa he watches on bungie ember numbie",
     "label": 0,
     "roberta_score": 0.29823097586631775,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.36423097586631775
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.41823097586631774
   },
   {
     "start": 2835,
@@ -9256,8 +9256,8 @@
     "text_clean": "record try score a full south africa he watches on bungie ember numbie gears up for our second half",
     "label": 0,
     "roberta_score": 0.3147769868373871,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.3807769868373871
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.4347769868373871
   },
   {
     "start": 2838,
@@ -10276,8 +10276,8 @@
     "text_clean": "the way the lifters are getting the speed with which those jumps are getting the eggs the lifters are trying them getting right close together",
     "label": 0,
     "roberta_score": 0.8634740114212036,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9294740114212037
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.9834740114212036
   },
   {
     "start": 3144,
@@ -10286,8 +10286,8 @@
     "text_clean": "the speed with which those jumps are getting the eggs the lifters are trying them getting right close together so theyre getting the jumper to the maximum height",
     "label": 0,
     "roberta_score": 0.8863489627838135,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9523489627838135
+    "lexicon_score": 0.4,
+    "hybrid_score": 1.0
   },
   {
     "start": 3147,
@@ -10426,8 +10426,8 @@
     "text_clean": "he lets his forwards attack a bit more penalty south africa",
     "label": 0,
     "roberta_score": 0.9016025066375732,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.9436025066375733
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9016025066375732
   },
   {
     "start": 3189,
@@ -10436,8 +10436,8 @@
     "text_clean": "penalty south africa",
     "label": 0,
     "roberta_score": 0.8873855471611023,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.9293855471611023
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8873855471611023
   },
   {
     "start": 3192,
@@ -10596,8 +10596,8 @@
     "text_clean": "heres the light you mentioned fuff the clock will line up this penalty attempt",
     "label": 0,
     "roberta_score": 0.8536913990974426,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.8956913990974427
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8536913990974426
   },
   {
     "start": 3240,
@@ -10606,8 +10606,8 @@
     "text_clean": "heres the light you mentioned fuff the clock will line up this penalty attempt",
     "label": 0,
     "roberta_score": 0.8536913990974426,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.8956913990974427
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8536913990974426
   },
   {
     "start": 3243,
@@ -10616,8 +10616,8 @@
     "text_clean": "fuff the clock will line up this penalty attempt third most kept",
     "label": 0,
     "roberta_score": 0.8586573004722595,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.9006573004722596
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8586573004722595
   },
   {
     "start": 3246,
@@ -10716,8 +10716,8 @@
     "text_clean": "umba nabis there this may work out better for the springbox if they do score a try",
     "label": 0,
     "roberta_score": 0.908374011516571,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9743740115165711
+    "lexicon_score": 0.4,
+    "hybrid_score": 1.0
   },
   {
     "start": 3276,
@@ -10726,8 +10726,8 @@
     "text_clean": "this may work out better for the springbox if they do score a try jasper visser crunches forward",
     "label": 0,
     "roberta_score": 0.9124481678009033,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9784481678009034
+    "lexicon_score": 0.4,
+    "hybrid_score": 1.0
   },
   {
     "start": 3279,
@@ -11106,8 +11106,8 @@
     "text_clean": "ireland pick it up the back they hit the deck and south africa rewarded with a penalty five out",
     "label": 0,
     "roberta_score": 0.9063190221786499,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.9483190221786499
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9063190221786499
   },
   {
     "start": 3393,
@@ -11116,8 +11116,8 @@
     "text_clean": "they hit the deck and south africa rewarded with a penalty five out",
     "label": 0,
     "roberta_score": 0.9015970826148987,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.9435970826148987
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9015970826148987
   },
   {
     "start": 3396,
@@ -11126,8 +11126,8 @@
     "text_clean": "and south africa rewarded with a penalty five out there it is number 12 ceiling hands on the ground",
     "label": 0,
     "roberta_score": 0.8381221890449524,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.8801221890449524
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8381221890449524
   },
   {
     "start": 3399,
@@ -11366,8 +11366,8 @@
     "text_clean": "weve got to keep the height to the side the both of you 155 is watching the scrums and being in them",
     "label": 0,
     "roberta_score": 0.7148870825767517,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.7448870825767517
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.7148870825767517
   },
   {
     "start": 3489,
@@ -11376,8 +11376,8 @@
     "text_clean": "155 is watching the scrums and being in them",
     "label": 0,
     "roberta_score": 0.8661338686943054,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.8961338686943054
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8661338686943054
   },
   {
     "start": 3492,
@@ -11386,8 +11386,8 @@
     "text_clean": "155 is watching the scrums and being in them",
     "label": 0,
     "roberta_score": 0.8661338686943054,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.8961338686943054
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8661338686943054
   },
   {
     "start": 3495,
@@ -11496,7 +11496,7 @@
     "text_clean": "the elendi beautiful ball on the outside south africa will power over",
     "label": 0,
     "roberta_score": 0.9037995338439941,
-    "lexicon_score": 0.38,
+    "lexicon_score": 0.56,
     "hybrid_score": 1.0
   },
   {
@@ -11506,8 +11506,8 @@
     "text_clean": "south africa will power over cheslam colby with the drive",
     "label": 0,
     "roberta_score": 0.9060909152030945,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9720909152030945
+    "lexicon_score": 0.4,
+    "hybrid_score": 1.0
   },
   {
     "start": 3531,
@@ -11646,8 +11646,8 @@
     "text_clean": "he dots down and its a statement score for the spring box after those two scrums where they absolutely pushed ireland",
     "label": 0,
     "roberta_score": 0.8960491418838501,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9260491418838501
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8960491418838501
   },
   {
     "start": 3582,
@@ -11656,8 +11656,8 @@
     "text_clean": "he dots down and its a statement score for the spring box after those two scrums where they absolutely pushed ireland back towards their own tri line",
     "label": 0,
     "roberta_score": 0.9022331237792969,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9322331237792969
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9022331237792969
   },
   {
     "start": 3585,
@@ -11666,8 +11666,8 @@
     "text_clean": "after those two scrums where they absolutely pushed ireland back towards their own tri line and you called it the wood from colby just lurking on this left hand touch line",
     "label": 0,
     "roberta_score": 0.9051233530044556,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9351233530044556
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9051233530044556
   },
   {
     "start": 3588,
@@ -11896,8 +11896,8 @@
     "text_clean": "but so now we go on front 8 7 thanks to this try from chesham colby",
     "label": 0,
     "roberta_score": 0.9015184044837952,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9675184044837952
+    "lexicon_score": 0.4,
+    "hybrid_score": 1.0
   },
   {
     "start": 3666,
@@ -11906,8 +11906,8 @@
     "text_clean": "thanks to this try from chesham colby 2 5 2 5 we can restart",
     "label": 0,
     "roberta_score": 0.8453789949417114,
-    "lexicon_score": 0.32,
-    "hybrid_score": 0.9413789949417114
+    "lexicon_score": 0.45,
+    "hybrid_score": 0.9803789949417114
   },
   {
     "start": 3669,
@@ -11916,8 +11916,8 @@
     "text_clean": "2 5 2 5 we can restart well we just saw a picture there it was mack hansen",
     "label": 0,
     "roberta_score": 0.7512505054473877,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.7812505054473877
+    "lexicon_score": 0.05,
+    "hybrid_score": 0.7662505054473877
   },
   {
     "start": 3672,
@@ -12376,8 +12376,8 @@
     "text_clean": "charge down is there from anfield snowman advantage low with a kick",
     "label": 0,
     "roberta_score": 0.24239611625671387,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.28439611625671385
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.24239611625671387
   },
   {
     "start": 3816,
@@ -12386,8 +12386,8 @@
     "text_clean": "advantage low with a kick offside play the spike ping is towards the upper tower",
     "label": 0,
     "roberta_score": 0.8892937302589417,
-    "lexicon_score": 0.28,
-    "hybrid_score": 0.9732937302589416
+    "lexicon_score": 0.14,
+    "hybrid_score": 0.9312937302589417
   },
   {
     "start": 3819,
@@ -12876,8 +12876,8 @@
     "text_clean": "happen to collide here its penalty to ireland",
     "label": 0,
     "roberta_score": 0.8318039178848267,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.8738039178848267
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8318039178848267
   },
   {
     "start": 3972,
@@ -12886,8 +12886,8 @@
     "text_clean": "its penalty to ireland thats the back of the scrum what a scrum",
     "label": 0,
     "roberta_score": 0.8997602462768555,
-    "lexicon_score": 0.34,
-    "hybrid_score": 1.0
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8997602462768555
   },
   {
     "start": 3975,
@@ -12896,8 +12896,8 @@
     "text_clean": "thats the back of the scrum what a scrum careful guys careful careful careful careful",
     "label": 0,
     "roberta_score": 0.8259211182594299,
-    "lexicon_score": 0.2,
-    "hybrid_score": 0.88592111825943
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8259211182594299
   },
   {
     "start": 3978,
@@ -13816,8 +13816,8 @@
     "text_clean": "okay olen youre going to restart",
     "label": 0,
     "roberta_score": 0.214737206697464,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.244737206697464
+    "lexicon_score": 0.05,
+    "hybrid_score": 0.229737206697464
   },
   {
     "start": 4281,
@@ -13826,8 +13826,8 @@
     "text_clean": "okay olen youre going to restart fan r embaixo",
     "label": 0,
     "roberta_score": 0.1372724026441574,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.1672724026441574
+    "lexicon_score": 0.05,
+    "hybrid_score": 0.15227240264415742
   },
   {
     "start": 4284,
@@ -14006,8 +14006,8 @@
     "text_clean": "fongi shot the props of the island scrum so water just for the kick in arnau",
     "label": 0,
     "roberta_score": 0.9048203825950623,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9348203825950623
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9048203825950623
   },
   {
     "start": 4362,
@@ -14016,8 +14016,8 @@
     "text_clean": "the props of the island scrum so water just for the kick in arnau being demolished on this occasion",
     "label": 0,
     "roberta_score": 0.901300847530365,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.931300847530365
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.901300847530365
   },
   {
     "start": 4365,
@@ -14456,8 +14456,8 @@
     "text_clean": "debbie tuntin south africa history ranis first cap is nearly 36 years of age and now we have a penalty the halfway line",
     "label": 0,
     "roberta_score": 0.8046751618385315,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.8466751618385315
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8046751618385315
   },
   {
     "start": 4497,
@@ -14466,8 +14466,8 @@
     "text_clean": "and now we have a penalty the halfway line",
     "label": 0,
     "roberta_score": 0.899106502532959,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.941106502532959
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.899106502532959
   },
   {
     "start": 4500,
@@ -15226,8 +15226,8 @@
     "text_clean": "time bit gone fath lively as ever is made trying to make the difference for his team",
     "label": 0,
     "roberta_score": 0.12336856126785278,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.1893685612678528
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.24336856126785278
   },
   {
     "start": 4734,
@@ -15236,8 +15236,8 @@
     "text_clean": "fath lively as ever is made trying to make the difference for his team theyre charging that one down and deflecting it out for this line up",
     "label": 0,
     "roberta_score": 0.8838849067687988,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.9498849067687989
+    "lexicon_score": 0.4,
+    "hybrid_score": 1.0
   },
   {
     "start": 4737,
@@ -15586,8 +15586,8 @@
     "text_clean": "and i think that toy was just trying to lift it its always winger outside him as aronson",
     "label": 0,
     "roberta_score": 0.15272754430770874,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.21872754430770874
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.27272754430770874
   },
   {
     "start": 4845,
@@ -15596,8 +15596,8 @@
     "text_clean": "and i think that toy was just trying to lift it its always winger outside him as aronson",
     "label": 0,
     "roberta_score": 0.15272754430770874,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.21872754430770874
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.27272754430770874
   },
   {
     "start": 4848,
@@ -15626,8 +15626,8 @@
     "text_clean": "its party time at the rugby world cup ok were going to restart its party time in the stands",
     "label": 0,
     "roberta_score": 0.15845945477485657,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.18845945477485657
+    "lexicon_score": 0.05,
+    "hybrid_score": 0.17345945477485658
   },
   {
     "start": 4857,
@@ -15636,8 +15636,8 @@
     "text_clean": "ok were going to restart its party time in the stands its a little bit more tense on the pitch",
     "label": 0,
     "roberta_score": 0.16388171911239624,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.19388171911239624
+    "lexicon_score": 0.05,
+    "hybrid_score": 0.17888171911239625
   },
   {
     "start": 4860,
@@ -15786,8 +15786,8 @@
     "text_clean": "friends in this rugby world cup pool game advantage for the springboks theyre inside the 22",
     "label": 0,
     "roberta_score": 0.9003956317901611,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.9423956317901612
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9003956317901611
   },
   {
     "start": 4905,
@@ -15796,8 +15796,8 @@
     "text_clean": "advantage for the springboks theyre inside the 22 but the clock pushing a few bodies away",
     "label": 0,
     "roberta_score": 0.9053033590316772,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.9473033590316773
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9053033590316772
   },
   {
     "start": 4908,
@@ -15806,8 +15806,8 @@
     "text_clean": "theyre inside the 22 but the clock pushing a few bodies away little advantage here comes kochesma",
     "label": 0,
     "roberta_score": 0.9029138684272766,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.9449138684272766
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9029138684272766
   },
   {
     "start": 4911,
@@ -15816,8 +15816,8 @@
     "text_clean": "little advantage here comes kochesma hes hit hard",
     "label": 0,
     "roberta_score": 0.7988874912261963,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.8408874912261963
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.7988874912261963
   },
   {
     "start": 4914,
@@ -16586,8 +16586,8 @@
     "text_clean": "south africa theyve got turnover at the last breaktime",
     "label": 0,
     "roberta_score": 0.3789592385292053,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.40895923852920535
+    "lexicon_score": 0.05,
+    "hybrid_score": 0.39395923852920534
   },
   {
     "start": 5145,
@@ -16596,8 +16596,8 @@
     "text_clean": "theyve got turnover at the last breaktime may have lost it again arlen an attack here they come",
     "label": 0,
     "roberta_score": 0.30199500918388367,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.3319950091838837
+    "lexicon_score": 0.05,
+    "hybrid_score": 0.3169950091838837
   },
   {
     "start": 5148,
@@ -17266,8 +17266,8 @@
     "text_clean": "you can barely watch two points on the scoreboard five minutes to play irelands setting up camp at the scrum",
     "label": 0,
     "roberta_score": 0.8858426809310913,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.9158426809310913
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8858426809310913
   },
   {
     "start": 5358,
@@ -17276,8 +17276,8 @@
     "text_clean": "five minutes to play irelands setting up camp at the scrum five metres off its an african line",
     "label": 0,
     "roberta_score": 0.88316810131073,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.91316810131073
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.88316810131073
   },
   {
     "start": 5361,
@@ -17286,8 +17286,8 @@
     "text_clean": "irelands setting up camp at the scrum five metres off its an african line the experience of connemore to put into this scrum",
     "label": 0,
     "roberta_score": 0.9052634835243225,
-    "lexicon_score": 0.2,
-    "hybrid_score": 0.9652634835243226
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.9052634835243225
   },
   {
     "start": 5364,
@@ -17296,8 +17296,8 @@
     "text_clean": "the experience of connemore to put into this scrum coach",
     "label": 0,
     "roberta_score": 0.869597315788269,
-    "lexicon_score": 0.1,
-    "hybrid_score": 0.8995973157882691
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.869597315788269
   },
   {
     "start": 5367,
@@ -17916,8 +17916,8 @@
     "text_clean": "fountains second man hands on in the advantage for south africa villams up",
     "label": 0,
     "roberta_score": 0.8686572909355164,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.9106572909355164
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8686572909355164
   },
   {
     "start": 5568,
@@ -17926,8 +17926,8 @@
     "text_clean": "in the advantage for south africa villams up they pass away in the tackle and then eventually",
     "label": 0,
     "roberta_score": 0.8900524377822876,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.9320524377822876
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.8900524377822876
   },
   {
     "start": 5571,
@@ -17946,8 +17946,8 @@
     "text_clean": "they pass away in the tackle and then eventually beep ok youve got two penalties one penalty here for offi",
     "label": 0,
     "roberta_score": 0.6278002262115479,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.6698002262115479
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.6278002262115479
   },
   {
     "start": 5577,
@@ -17956,8 +17956,8 @@
     "text_clean": "ok youve got two penalties one penalty here for offi up again",
     "label": 0,
     "roberta_score": 0.5305026769638062,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.5725026769638062
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.5305026769638062
   },
   {
     "start": 5580,
@@ -17966,8 +17966,8 @@
     "text_clean": "one penalty here for offi up again",
     "label": 0,
     "roberta_score": 0.5304245352745056,
-    "lexicon_score": 0.14,
-    "hybrid_score": 0.5724245352745057
+    "lexicon_score": 0.0,
+    "hybrid_score": 0.5304245352745056
   },
   {
     "start": 5583,
@@ -18216,8 +18216,8 @@
     "text_clean": "theyve defended supposedly where is it theyre trying to dig us out",
     "label": 0,
     "roberta_score": 0.2255525141954422,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.2915525141954422
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.3455525141954422
   },
   {
     "start": 5658,
@@ -18226,8 +18226,8 @@
     "text_clean": "where is it theyre trying to dig us out its there has it come out",
     "label": 0,
     "roberta_score": 0.22683370113372803,
-    "lexicon_score": 0.22,
-    "hybrid_score": 0.29283370113372803
+    "lexicon_score": 0.4,
+    "hybrid_score": 0.346833701133728
   },
   {
     "start": 5661,
