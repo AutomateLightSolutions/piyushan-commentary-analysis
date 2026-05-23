@@ -1,17 +1,15 @@
-{
-  "events": [
-    "Try",
-    "Penalty",
-    "Penalty Goal",
-    "Conversion",
-    "Kick",
-    "Tackle",
-    "Scrum",
-    "Lineout",
-    "Knock-On",
-    "Turnover",
-    "Yellow Card",
-    "Red Card",
-    "No Event"
-  ]
-}
+[
+  "Try",
+  "Penalty",
+  "Penalty Goal",
+  "Conversion",
+  "Kick",
+  "Tackle",
+  "Scrum",
+  "Lineout",
+  "Knock-On",
+  "Turnover",
+  "Yellow Card",
+  "Red Card",
+  "No Event"
+]
