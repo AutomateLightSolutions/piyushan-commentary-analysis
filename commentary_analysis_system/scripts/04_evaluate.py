@@ -15,7 +15,7 @@ def evaluate_method(chunks: list[dict], score_key: str, threshold: float = 0.65)
         # Assuming event schema is used, we derived label in training, but in chunks it might be 'event'
         # Let's derive ground truth 'label' safely
         event = chunk.get("event")
-        if event and str(event).strip() not in ['', '-', 'None']:
+        if event and str(event).strip() not in ['', '-', 'None', 'No Event']:
             label = 1
         else:
             label = chunk.get("label", 0)

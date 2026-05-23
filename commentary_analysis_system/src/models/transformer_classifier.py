@@ -4,22 +4,40 @@ import torch
 import pandas as pd
 import torch.nn as nn
 
+import torch.nn.functional as F
+
+class FocalLoss(nn.Module):
+    def __init__(self, alpha=None, gamma=2.0, reduction='mean'):
+        super(FocalLoss, self).__init__()
+        self.alpha = alpha
+        self.gamma = gamma
+        self.reduction = reduction
+
+    def forward(self, inputs, targets):
+        ce_loss = F.cross_entropy(inputs, targets, weight=self.alpha, reduction='none')
+        pt = torch.exp(-ce_loss) # Prevents nans
+        focal_loss = ((1 - pt) ** self.gamma) * ce_loss
+        
+        if self.reduction == 'mean':
+            return focal_loss.mean()
+        elif self.reduction == 'sum':
+            return focal_loss.sum()
+        return focal_loss
+
 class CustomTrainer(Trainer):
     def __init__(self, *args, class_weights=None, **kwargs):
         super().__init__(*args, **kwargs)
-        self.class_weights = class_weights
+        self.loss_fct = FocalLoss(alpha=class_weights, gamma=2.0)
 
     def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
         labels = inputs.pop("labels")
         outputs = model(**inputs)
         logits = outputs.logits
         
-        if self.class_weights is not None:
-            loss_fct = nn.CrossEntropyLoss(weight=self.class_weights.to(model.device))
-            loss = loss_fct(logits.view(-1, self.model.config.num_labels), labels.view(-1))
-        else:
-            loss_fct = nn.CrossEntropyLoss()
-            loss = loss_fct(logits.view(-1, self.model.config.num_labels), labels.view(-1))
+        if self.loss_fct.alpha is not None and self.loss_fct.alpha.device != logits.device:
+            self.loss_fct.alpha = self.loss_fct.alpha.to(logits.device)
+            
+        loss = self.loss_fct(logits.view(-1, self.model.config.num_labels), labels.view(-1))
             
         return (loss, outputs) if return_outputs else loss
 
@@ -51,7 +69,7 @@ class TransformerClassifier:
                 d = pd.read_csv(f)
                 # Map new event schema to legacy binary label for training
                 if 'event' in d.columns:
-                    d['label'] = d['event'].apply(lambda x: 1 if pd.notna(x) and str(x).strip() not in ['', '-', 'None'] else 0)
+                    d['label'] = d['event'].apply(lambda x: 1 if pd.notna(x) and str(x).strip() not in ['', '-', 'None', 'No Event'] else 0)
                 elif 'label' not in d.columns:
                     continue # Cannot use this data
                 dfs.append(d)
@@ -64,14 +82,8 @@ class TransformerClassifier:
         df = pd.concat(dfs, ignore_index=True)
         df = df.dropna(subset=['text'])
         
-        # 2. Balance dataset (Option A: Downsample class 0 to 1:2 ratio)
-        df_1 = df[df.label == 1]
-        df_0 = df[df.label == 0]
-        
-        if len(df_0) > len(df_1) * 2:
-            df_0 = df_0.sample(len(df_1) * 2, random_state=42)
-            
-        df_balanced = pd.concat([df_0, df_1]).sample(frac=1, random_state=42).reset_index(drop=True)
+        # 2. Balance dataset - We keep all negative data and rely on Focal Loss to handle imbalance
+        df_balanced = df.sample(frac=1, random_state=42).reset_index(drop=True)
         
         # 3. Compute class weights for the loss function
         total_samples = len(df_balanced)
