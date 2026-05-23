@@ -31,6 +31,12 @@ export default function Navbar() {
           Matches
         </Link>
         <Link 
+          href="/manage-events" 
+          className={`nav-link ${pathname === "/manage-events" ? "active" : ""}`}
+        >
+          Events
+        </Link>
+        <Link 
           href="/datasets" 
           className={`nav-link ${pathname === "/datasets" ? "active" : ""}`}
         >

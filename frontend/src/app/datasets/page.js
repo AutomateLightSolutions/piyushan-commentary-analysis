@@ -70,23 +70,27 @@ export default function DatasetsExplorer() {
                 <th>Start</th>
                 <th>End</th>
                 <th>Text</th>
-                <th className="text-primary">Ground Label</th>
+                <th className="text-primary">Event</th>
+                <th className="text-primary">Score</th>
               </tr>
             </thead>
             <tbody>
               {rows.length === 0 ? (
                 <tr>
-                  <td colSpan="4" className="text-center text-muted" style={{ padding: "3rem" }}>
+                  <td colSpan="5" className="text-center text-muted" style={{ padding: "3rem" }}>
                     No CSV data loaded.
                   </td>
                 </tr>
               ) : rows.map((r, i) => (
-                <tr key={i} style={{ background: r.label === "1" ? "var(--secondary-glow)" : "transparent" }}>
+                <tr key={i} style={{ background: r.event ? "var(--secondary-glow)" : "transparent" }}>
                   <td style={{ width: "100px" }}>{r.start}</td>
                   <td style={{ width: "100px" }}>{r.end}</td>
                   <td>{r.text}</td>
-                  <td style={{ width: "150px", fontWeight: "bold", color: r.label === "1" ? "var(--secondary-color)" : "inherit" }}>
-                    {r.label}
+                  <td style={{ width: "150px", fontWeight: "bold", color: r.event ? "var(--secondary-color)" : "inherit" }}>
+                    {r.event || "-"}
+                  </td>
+                  <td style={{ width: "100px", fontWeight: "bold" }}>
+                    {r.score || "-"}
                   </td>
                 </tr>
               ))}

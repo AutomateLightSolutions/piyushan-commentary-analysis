@@ -3,7 +3,7 @@
     {
       "id": "try_scoring",
       "name": "Try Scoring Events",
-      "weight": 0.40,
+      "weight": 0.35,
       "terms": [
         "try",
         "scores",
@@ -45,7 +45,7 @@
     {
       "id": "conversion_penalty_points",
       "name": "Conversions and Penalty Scores",
-      "weight": 0.18,
+      "weight": 0.16,
       "terms": [
         "conversion",
         "penalty goal",
@@ -72,7 +72,7 @@
     {
       "id": "attacking_pressure",
       "name": "Attacking Pressure",
-      "weight": 0.16,
+      "weight": 0.14,
       "terms": [
         "advantage being played",
         "playing advantage",
@@ -111,7 +111,7 @@
     {
       "id": "referee_decisions",
       "name": "Referee Decisions",
-      "weight": 0.14,
+      "weight": 0.12,
       "terms": [
         "offside",
         "forward pass",
@@ -169,7 +169,7 @@
     {
       "id": "crowd_commentary_excitement",
       "name": "Crowd and Commentary Excitement",
-      "weight": 0.12,
+      "weight": 0.11,
       "terms": [
         "brilliant",
         "sensational",
@@ -203,7 +203,7 @@
     {
       "id": "defensive_intensity",
       "name": "Defensive Intensity",
-      "weight": 0.08,
+      "weight": 0.07,
       "terms": [
         "big tackle",
         "dominant tackle",

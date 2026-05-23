@@ -15,7 +15,7 @@ def extract_audio(video_path: Path, output_audio: Path):
     ]
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-def transcribe_audio(audio_path: Path, output_dir: Path, model="medium"):
+def transcribe_audio(audio_path: Path, output_dir: Path, model="large-v3"):
     print(f"Transcribing {audio_path.name} with Whisper...")
     initial_prompt = (
         "Rugby union commentary. Teams: Ireland, South Africa, England, France, New Zealand, Australia, Wales, Scotland. "

@@ -23,27 +23,28 @@ export async function GET(req) {
     const csvPath = path.resolve(DATASETS_DIR, `dataset_${matchId}.csv`);
     const csvData = await readFile(csvPath, "utf-8");
     
-    // Naive CSV parsing strictly for viewer logic (assumes headers: match_id,start,end,text,label)
+    // Naive CSV parsing strictly for viewer logic (assumes headers: start,end,text,event,score)
     const lines = csvData.trim().split(/\r?\n/);
-    const headers = lines[0].split(",");
     
     const rows = lines.slice(1).map(line => {
-      // Very basic comma split holding text (assuming text doesn't contain unescaped commas that break schema natively, 
-      // or we handle safely via regex if needed. For rugby transcripts we'll do simple split up to fixed columns)
-      // Since 'text' might have commas natively from VTT, let's parse safely:
-      // We expect: start,end,text,label
-      const startIdx = line.indexOf(",");
-      const start = line.substring(0, startIdx).trim();
-      
-      const endIdx = line.indexOf(",", startIdx + 1);
-      const end = line.substring(startIdx + 1, endIdx).trim();
-      
-      const lastCommaIdx = line.lastIndexOf(",");
-      const label = line.substring(lastCommaIdx + 1).trim();
-      
-      const text = line.substring(endIdx + 1, lastCommaIdx).trim().replace(/^"|"$/g, '');
-      
-      return { start, end, text, label };
+      // Regex to parse: start,end,"text",event,score
+      // We assume text is quoted.
+      // E.g. 0,5,"a referee is ben okeefe from new zealand",Try,0.8
+      // or 0,5,a referee is ben okeefe from new zealand,Try,0.8
+      // Let's use a robust regex to handle quoted text that might have commas.
+      const match = line.match(/^([^,]+),([^,]+),(".*?"|[^,]*),(.*),(.*)$/);
+      if (match) {
+        return {
+          start: match[1].trim(),
+          end: match[2].trim(),
+          text: match[3].replace(/^"|"$/g, '').replace(/""/g, '"').trim(),
+          event: match[4].trim(),
+          score: match[5].trim()
+        };
+      } else {
+        // Fallback for broken lines
+        return { start: "", end: "", text: line, event: "", score: "" };
+      }
     });
 
     return NextResponse.json({ rows });
