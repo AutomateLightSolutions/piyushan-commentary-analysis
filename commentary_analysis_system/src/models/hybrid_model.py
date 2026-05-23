@@ -1,9 +1,9 @@
-from src.models.roberta_classifier import RobertaClassifier
+from src.models.transformer_classifier import TransformerClassifier
 from src.models.lexicon_model import LexiconModel
 
 class HybridModel:
-    def __init__(self, roberta_model_path=None):
-        self.roberta = RobertaClassifier()
+    def __init__(self, roberta_model_path=None, model_name="roberta-base"):
+        self.roberta = TransformerClassifier(model_name=model_name)
         if roberta_model_path:
             self.roberta.load_model(roberta_model_path)
             

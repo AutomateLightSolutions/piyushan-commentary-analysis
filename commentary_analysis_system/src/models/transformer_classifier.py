@@ -1,4 +1,4 @@
-from transformers import RobertaTokenizer, RobertaForSequenceClassification, Trainer, TrainingArguments
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer, TrainingArguments
 from datasets import Dataset
 import torch
 import pandas as pd
@@ -23,11 +23,11 @@ class CustomTrainer(Trainer):
             
         return (loss, outputs) if return_outputs else loss
 
-class RobertaClassifier:
+class TransformerClassifier:
     def __init__(self, model_name="roberta-base"):
-        self.tokenizer = RobertaTokenizer.from_pretrained(model_name)
+        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         # 2 labels: 0 for non-highlight, 1 for highlight
-        self.model = RobertaForSequenceClassification.from_pretrained(model_name, num_labels=2)
+        self.model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=2)
         
     def prepare_dataset(self, text_list, labels=None):
         encodings = self.tokenizer(text_list, truncation=True, padding=True, max_length=128)
@@ -41,11 +41,26 @@ class RobertaClassifier:
             
         return Dataset.from_dict(dataset_dict)
         
-    def train(self, data_files, output_dir="./models/roberta_finetuned", epochs=5, batch_size=16):
+    def train(self, data_files, output_dir="./models/finetuned", epochs=5, batch_size=16):
         import pandas as pd
         
         # 1. Load CSVs into a single DataFrame
-        dfs = [pd.read_csv(f) for f in data_files]
+        dfs = []
+        for f in data_files:
+            try:
+                d = pd.read_csv(f)
+                # Map new event schema to legacy binary label for training
+                if 'event' in d.columns:
+                    d['label'] = d['event'].apply(lambda x: 1 if pd.notna(x) and str(x).strip() not in ['', '-', 'None'] else 0)
+                elif 'label' not in d.columns:
+                    continue # Cannot use this data
+                dfs.append(d)
+            except Exception as e:
+                pass
+                
+        if not dfs:
+            raise ValueError("No valid training data found.")
+            
         df = pd.concat(dfs, ignore_index=True)
         df = df.dropna(subset=['text'])
         
@@ -110,8 +125,8 @@ class RobertaClassifier:
         self.tokenizer.save_pretrained(f"{output_dir}/best")
         
     def load_model(self, model_path):
-        self.model = RobertaForSequenceClassification.from_pretrained(model_path)
-        self.tokenizer = RobertaTokenizer.from_pretrained(model_path)
+        self.model = AutoModelForSequenceClassification.from_pretrained(model_path)
+        self.tokenizer = AutoTokenizer.from_pretrained(model_path)
         
     def predict_probs(self, text_list):
         """Returns the probability of class 1 (highlight)"""
@@ -121,7 +136,6 @@ class RobertaClassifier:
         self.model.eval()
         
         # For simplicity without dataloader, suitable for batches
-        # Can be scaled using Trainer.predict()
         inputs = self.tokenizer(text_list, padding=True, truncation=True, return_tensors="pt")
         with torch.no_grad():
             outputs = self.model(**inputs)

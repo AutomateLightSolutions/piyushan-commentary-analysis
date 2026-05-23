@@ -9,15 +9,18 @@ const SYSTEM_PATH = path.resolve(process.cwd(), "..", "commentary_analysis_syste
 const PROC_ID = "train";
 
 export async function POST(req) {
+  const url = new URL(req.url);
+  const modelName = url.searchParams.get("modelName") || "roberta-base";
+  
   const venvPython = getPythonCommand(SYSTEM_PATH);
-  const scriptPath = path.resolve(SYSTEM_PATH, "scripts", "02_train_roberta.py");
+  const scriptPath = path.resolve(SYSTEM_PATH, "scripts", "02_train.py");
 
   const stream = new ReadableStream({
     start(controller) {
       const enc = new TextEncoder();
       const send = (line) => { try { controller.enqueue(enc.encode(`data: ${line}\n\n`)); } catch {} };
 
-      const proc = spawn(venvPython, [scriptPath], {
+      const proc = spawn(venvPython, [scriptPath, "--model_name", modelName], {
         cwd: SYSTEM_PATH,
         env: { ...process.env, PYTHONPATH: ".", PYTHONUNBUFFERED: "1" },
       });

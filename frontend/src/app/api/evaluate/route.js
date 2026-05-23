@@ -11,6 +11,9 @@ const OUTPUT_DIR = path.resolve(SYSTEM_PATH, "data", "output");
 const PROC_ID = "evaluate";
 
 export async function POST(req) {
+  const url = new URL(req.url);
+  const modelName = url.searchParams.get("modelName") || "roberta-base";
+
   const venvPython = getPythonCommand(SYSTEM_PATH);
   const scriptPath = path.resolve(SYSTEM_PATH, "scripts", "04_evaluate.py");
 
@@ -19,7 +22,7 @@ export async function POST(req) {
       const enc = new TextEncoder();
       const send = (line) => { try { controller.enqueue(enc.encode(`data: ${line}\n\n`)); } catch {} };
 
-      const proc = spawn(venvPython, [scriptPath], {
+      const proc = spawn(venvPython, [scriptPath, "--model_name", modelName], {
         cwd: SYSTEM_PATH,
         env: { ...process.env, PYTHONPATH: ".", PYTHONUNBUFFERED: "1" },
       });
@@ -42,14 +45,7 @@ export async function POST(req) {
       proc.on("close", async (code) => {
         unregisterProc(PROC_ID);
         if (code === 0) {
-          try {
-            const metricsPath = path.join(OUTPUT_DIR, "final_evaluation_metrics.json");
-            const fileData = await readFile(metricsPath, "utf-8");
-            send(`__METRICS__:${fileData.trim()}`);
-            send("__DONE__");
-          } catch (e) {
-            send(`__ERROR__:Could not read metrics file: ${e.message}`);
-          }
+          send("__DONE__");
         } else {
           send(`__ERROR__:Process exited with code ${code}`);
         }

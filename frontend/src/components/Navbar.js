@@ -43,6 +43,12 @@ export default function Navbar() {
           Datasets
         </Link>
         <Link 
+          href="/compare-models" 
+          className={`nav-link ${pathname === "/compare-models" ? "active" : ""}`}
+        >
+          Compare Models
+        </Link>
+        <Link 
           href="/label" 
           className="nav-link-cta"
         >

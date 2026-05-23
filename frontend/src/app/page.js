@@ -15,6 +15,8 @@ export default function Home() {
     steps,
     mlSteps,
     metricsData,
+    selectedModel,
+    setSelectedModel,
     isProcessing,
     isMlProcessing,
     handleProcess,
@@ -208,11 +210,25 @@ export default function Home() {
         {/* ── Right Column ── */}
         <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
           <section className="glass-card">
-            <div className="flex-between mb-3">
+            <div className="flex-between mb-3" style={{ flexWrap: "wrap", gap: "1rem" }}>
               <h2 className="card-title" style={{ margin: 0 }}>🧠 3. Advanced ML Execution</h2>
-              <button className="btn btn-primary" onClick={handleMlProcess} disabled={isProcessing || isMlProcessing}>
-                {isMlProcessing ? "Executing..." : "Run ML Sequence"}
-              </button>
+              <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+                <select 
+                  className="form-select" 
+                  value={selectedModel} 
+                  onChange={(e) => setSelectedModel(e.target.value)}
+                  disabled={isProcessing || isMlProcessing}
+                  style={{ width: "auto" }}
+                >
+                  <option value="roberta-base">Roberta</option>
+                  <option value="microsoft/deberta-base">DeBERTa</option>
+                  <option value="answerdotai/ModernBERT-base">ModernBERT</option>
+                  <option value="bert-base-uncased">BERT</option>
+                </select>
+                <button className="btn btn-primary" onClick={handleMlProcess} disabled={isProcessing || isMlProcessing}>
+                  {isMlProcessing ? "Executing..." : "Run ML Sequence"}
+                </button>
+              </div>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
               {mlSteps.map(s => renderStep(s, "var(--secondary-color)"))}
