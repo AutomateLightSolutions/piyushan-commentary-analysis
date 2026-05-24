@@ -36,7 +36,7 @@ export default function DatasetsExplorer() {
   };
 
   return (
-    <div className="app-container" style={{ maxWidth: "1400px", height: "calc(100vh - var(--nav-height) - 4rem)" }}>
+    <div className="app-container" style={{ maxWidth: "1400px", minHeight: "85vh", display: "flex", flexDirection: "column" }}>
       <header className="mb-4">
         <h1 className="page-title">Dataset Verification Explorer</h1>
         <p className="page-subtitle">Verify labeled CSV structure pre-training</p>
@@ -58,12 +58,12 @@ export default function DatasetsExplorer() {
         <span className="text-muted" style={{ fontWeight: "500", marginLeft: "1rem" }}>{statusMsg}</span>
       </div>
 
-      <main className="glass-card" style={{ height: "calc(100% - 160px)", display: "flex", flexDirection: "column", padding: 0, overflow: "hidden" }}>
+      <main className="glass-card" style={{ flex: 1, display: "flex", flexDirection: "column", padding: 0, overflow: "hidden" }}>
         <div style={{ padding: "1.5rem", borderBottom: "1px solid var(--glass-border)", background: "rgba(255,255,255,0.02)" }}>
           <h2 className="card-title" style={{ margin: 0 }}>📊 Raw CSV Dataset View</h2>
         </div>
         
-        <div className="table-container" style={{ borderRadius: 0, border: "none", flexGrow: 1 }}>
+        <div className="table-container" style={{ borderRadius: 0, border: "none", flex: 1, overflow: "auto" }}>
           <table className="table-modern">
             <thead>
               <tr>
