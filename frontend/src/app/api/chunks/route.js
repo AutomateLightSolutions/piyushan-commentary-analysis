@@ -6,6 +6,9 @@ const SYSTEM_PATH = path.resolve(process.cwd(), "..", "commentary_analysis_syste
 const PROCESSED_CHUNKS_DIR = path.resolve(SYSTEM_PATH, "data", "processed", "chunks");
 const RAW_DIR = path.resolve(SYSTEM_PATH, "data", "raw");
 
+const PROCESSED_DATA_DIR = path.resolve(SYSTEM_PATH, "data", "processed", "datasets");
+import { parse } from "csv-parse/sync";
+
 export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
@@ -23,6 +26,28 @@ export async function GET(req) {
         chunks = JSON.parse(fileData);
     } catch {
         return NextResponse.json({ message: `Full match chunks not found. Run prepare_data first for ${matchId}` }, { status: 404 });
+    }
+
+    // Overlay CSV data if it exists, so manual CSV edits reflect in UI
+    const csvFile = path.join(PROCESSED_DATA_DIR, `dataset_${matchId}.csv`);
+    try {
+        const csvData = await readFile(csvFile, "utf-8");
+        const records = parse(csvData, { columns: true, skip_empty_lines: true });
+        
+        const recordMap = {};
+        for (const r of records) {
+            recordMap[`${r.start}_${r.end}`] = r;
+        }
+
+        for (const c of chunks) {
+            const key = `${c.start}_${c.end}`;
+            if (recordMap[key]) {
+                if (recordMap[key].event) c.event = recordMap[key].event;
+                if (recordMap[key].score) c.score = recordMap[key].score;
+            }
+        }
+    } catch (csvErr) {
+        // If CSV doesn't exist, we just ignore and continue with raw JSON chunks
     }
 
     // Attempt to load associated highlight vtt
