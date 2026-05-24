@@ -40,6 +40,24 @@ export default function CompareModels() {
 
   const groupedMetrics = groupMetricsByModel();
 
+  const [filterModel, setFilterModel] = useState("All");
+  const [filterTrainRound, setFilterTrainRound] = useState("All");
+  const [filterEvalRound, setFilterEvalRound] = useState("All");
+  const [filterMatchName, setFilterMatchName] = useState("All");
+
+  const uniqueModels = ["All", ...new Set(metrics.map(m => m.model_used))];
+  const uniqueTrainRounds = ["All", ...new Set(metrics.map(m => m.training_round))].sort();
+  const uniqueEvalRounds = ["All", ...new Set(metrics.map(m => m.evaluation_round || 1))].sort();
+  const uniqueMatchNames = ["All", ...new Set(metrics.map(m => m.match_id))];
+
+  const filteredMetrics = metrics.filter(m => {
+    if (filterModel !== "All" && m.model_used !== filterModel) return false;
+    if (filterTrainRound !== "All" && m.training_round.toString() !== filterTrainRound.toString()) return false;
+    if (filterEvalRound !== "All" && (m.evaluation_round || 1).toString() !== filterEvalRound.toString()) return false;
+    if (filterMatchName !== "All" && m.match_id !== filterMatchName) return false;
+    return true;
+  });
+
   return (
     <div className="app-container">
       <div className="mb-3">
@@ -84,6 +102,35 @@ export default function CompareModels() {
           {/* Detailed Runs Table */}
           <section className="glass-card" style={{ gridColumn: "1 / -1" }}>
             <h2 className="card-title">📋 Detailed Evaluation Runs</h2>
+            
+            {/* Filter UI */}
+            <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginBottom: "1rem", padding: "1rem", background: "rgba(0,0,0,0.2)", borderRadius: "8px" }}>
+              <div style={{ flex: "1 1 150px" }}>
+                <label className="form-label" style={{ fontSize: "0.85rem" }}>Model Used</label>
+                <select className="form-input" style={{ padding: "0.5rem" }} value={filterModel} onChange={e => setFilterModel(e.target.value)}>
+                  {uniqueModels.map(u => <option key={u} value={u}>{u}</option>)}
+                </select>
+              </div>
+              <div style={{ flex: "1 1 150px" }}>
+                <label className="form-label" style={{ fontSize: "0.85rem" }}>Match Name</label>
+                <select className="form-input" style={{ padding: "0.5rem" }} value={filterMatchName} onChange={e => setFilterMatchName(e.target.value)}>
+                  {uniqueMatchNames.map(u => <option key={u} value={u}>{u}</option>)}
+                </select>
+              </div>
+              <div style={{ flex: "1 1 150px" }}>
+                <label className="form-label" style={{ fontSize: "0.85rem" }}>Training Round</label>
+                <select className="form-input" style={{ padding: "0.5rem" }} value={filterTrainRound} onChange={e => setFilterTrainRound(e.target.value)}>
+                  {uniqueTrainRounds.map(u => <option key={u} value={u}>{u === "All" ? "All" : `Round ${u}`}</option>)}
+                </select>
+              </div>
+              <div style={{ flex: "1 1 150px" }}>
+                <label className="form-label" style={{ fontSize: "0.85rem" }}>Eval Round</label>
+                <select className="form-input" style={{ padding: "0.5rem" }} value={filterEvalRound} onChange={e => setFilterEvalRound(e.target.value)}>
+                  {uniqueEvalRounds.map(u => <option key={u} value={u}>{u === "All" ? "All" : `Eval ${u}`}</option>)}
+                </select>
+              </div>
+            </div>
+
             <div className="table-container" style={{ overflowX: "auto" }}>
               <table className="table-modern" style={{ minWidth: "1000px" }}>
                 <thead>
@@ -100,7 +147,11 @@ export default function CompareModels() {
                   </tr>
                 </thead>
                 <tbody>
-                  {[...metrics].reverse().map(m => (
+                  {filteredMetrics.length === 0 ? (
+                    <tr>
+                      <td colSpan="9" style={{ textAlign: "center", padding: "2rem" }}>No metrics match the selected filters.</td>
+                    </tr>
+                  ) : [...filteredMetrics].reverse().map(m => (
                     <tr key={m.id}>
                       <td style={{ fontWeight: "600" }}>{m.match_id}</td>
                       <td>{m.dataset_name}</td>
