@@ -32,10 +32,22 @@ export default function CompareModels() {
     return grouped;
   };
 
-  const calculateAverageF1 = (modelMetrics) => {
-    if (!modelMetrics || modelMetrics.length === 0) return 0;
-    const sum = modelMetrics.reduce((acc, m) => acc + (m.metrics?.["Hybrid Model"]?.f1 || 0), 0);
-    return (sum / modelMetrics.length).toFixed(2);
+  const calculateAverageMetrics = (modelMetrics) => {
+    if (!modelMetrics || modelMetrics.length === 0) return { p: "0.00", r: "0.00", f1: "0.00" };
+    const sums = modelMetrics.reduce((acc, m) => {
+      const metric = m.metrics?.["ML Model Only"] || {};
+      return {
+        p: acc.p + (metric.precision || 0),
+        r: acc.r + (metric.recall || 0),
+        f1: acc.f1 + (metric.f1 || 0)
+      };
+    }, { p: 0, r: 0, f1: 0 });
+    
+    return {
+      p: (sums.p / modelMetrics.length).toFixed(2),
+      r: (sums.r / modelMetrics.length).toFixed(2),
+      f1: (sums.f1 / modelMetrics.length).toFixed(2)
+    };
   };
 
   const groupedMetrics = groupMetricsByModel();
@@ -90,10 +102,31 @@ export default function CompareModels() {
                   <div style={{ fontSize: "0.9rem", color: "var(--text-muted)", marginBottom: "1rem" }}>
                     {groupedMetrics[model].length} Run(s)
                   </div>
-                  <div style={{ fontSize: "2rem", fontWeight: "bold", color: "var(--success-color)", textShadow: "0 0 10px rgba(16,185,129,0.3)" }}>
-                    {calculateAverageF1(groupedMetrics[model])}
-                  </div>
-                  <div style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>Avg Hybrid F1</div>
+                  {(() => {
+                    const avg = calculateAverageMetrics(groupedMetrics[model]);
+                    return (
+                      <div style={{ display: "flex", justifyContent: "space-around", alignItems: "center" }}>
+                        <div>
+                          <div style={{ fontSize: "1.5rem", fontWeight: "bold", color: "var(--primary-color)" || "#3b82f6" }}>
+                            {avg.p}
+                          </div>
+                          <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>Avg Precision</div>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: "1.5rem", fontWeight: "bold", color: "var(--secondary-color)" || "#a855f7" }}>
+                            {avg.r}
+                          </div>
+                          <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>Avg Recall</div>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: "1.5rem", fontWeight: "bold", color: "var(--success-color)", textShadow: "0 0 10px rgba(16,185,129,0.3)" }}>
+                            {avg.f1}
+                          </div>
+                          <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>Avg F1</div>
+                        </div>
+                      </div>
+                    );
+                  })()}
                 </div>
               ))}
             </div>
