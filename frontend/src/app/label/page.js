@@ -121,8 +121,8 @@ export default function LabelingDashboard() {
             
             {chunks.map((chk, i) => (
               <div key={i} style={{
-                background: chk.event ? "var(--secondary-glow)" : "rgba(255,255,255,0.03)",
-                border: `1px solid ${chk.event ? "var(--secondary-color)" : "var(--glass-border)"}`,
+                background: (chk.event && chk.event !== "normal_play") ? "var(--secondary-glow)" : "rgba(255,255,255,0.03)",
+                border: `1px solid ${(chk.event && chk.event !== "normal_play") ? "var(--secondary-color)" : "var(--glass-border)"}`,
                 borderRadius: "12px",
                 padding: "1.2rem",
                 display: "flex",
@@ -131,7 +131,7 @@ export default function LabelingDashboard() {
                 transition: "all 0.2s ease"
               }}>
                 <div style={{ paddingRight: "1rem", flex: 1 }}>
-                    <div style={{ fontSize: "0.85rem", color: chk.event ? "var(--text-main)" : "var(--primary-color)", fontWeight: "bold", marginBottom: "0.5rem" }}>
+                    <div style={{ fontSize: "0.85rem", color: (chk.event && chk.event !== "normal_play") ? "var(--text-main)" : "var(--primary-color)", fontWeight: "bold", marginBottom: "0.5rem" }}>
                       {chk.start}s - {chk.end}s
                     </div>
                     <div style={{ lineHeight: "1.5" }}>{chk.text_clean || chk.text_raw}</div>
@@ -141,10 +141,10 @@ export default function LabelingDashboard() {
                   <select 
                     className="form-input" 
                     style={{ padding: "0.5rem" }}
-                    value={chk.event || ""} 
+                    value={chk.event || "normal_play"} 
                     onChange={(e) => updateChunkField(i, 'event', e.target.value)}
                   >
-                    <option value="">None (No Event)</option>
+                    <option value="normal_play">normal_play</option>
                     {availableEvents.map(evt => (
                       <option key={evt} value={evt}>{evt}</option>
                     ))}
@@ -160,7 +160,7 @@ export default function LabelingDashboard() {
                     placeholder="Score (e.g. 0.8)" 
                     value={chk.score || ""} 
                     onChange={(e) => updateChunkField(i, 'score', e.target.value)}
-                    disabled={!chk.event}
+                    disabled={!chk.event || chk.event === "normal_play"}
                   />
                 </div>
               </div>

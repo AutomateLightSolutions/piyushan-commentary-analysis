@@ -69,7 +69,7 @@ class TransformerClassifier:
                 d = pd.read_csv(f)
                 # Map new event schema to legacy binary label for training
                 if 'event' in d.columns:
-                    d['label'] = d['event'].apply(lambda x: 1 if pd.notna(x) and str(x).strip() not in ['', '-', 'None', 'No Event'] else 0)
+                    d['label'] = d['event'].apply(lambda x: 1 if pd.notna(x) and str(x).strip() not in ['', '-', 'None', 'normal_play'] else 0)
                 elif 'label' not in d.columns:
                     continue # Cannot use this data
                 dfs.append(d)
