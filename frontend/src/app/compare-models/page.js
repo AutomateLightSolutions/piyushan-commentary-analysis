@@ -21,6 +21,26 @@ export default function CompareModels() {
       });
   }, []);
 
+  const handleDelete = async (id) => {
+    if (!confirm("Are you sure you want to delete this evaluation run?")) return;
+    try {
+      const res = await fetch("/api/metrics", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id })
+      });
+      if (res.ok) {
+        setMetrics(prev => prev.filter(m => m.id !== id));
+      } else {
+        const error = await res.json();
+        alert(`Failed to delete: ${error.error || "Unknown error"}`);
+      }
+    } catch (err) {
+      console.error("Failed to delete", err);
+      alert("Failed to delete record.");
+    }
+  };
+
   const groupMetricsByModel = () => {
     const grouped = {};
     metrics.forEach(m => {
@@ -177,12 +197,13 @@ export default function CompareModels() {
                     <th className="text-secondary">Model Metrics</th>
                     <th style={{ color: "var(--success-color)" }}>Hybrid Metrics</th>
                     <th>Timestamp</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredMetrics.length === 0 ? (
                     <tr>
-                      <td colSpan="9" style={{ textAlign: "center", padding: "2rem" }}>No metrics match the selected filters.</td>
+                      <td colSpan="10" style={{ textAlign: "center", padding: "2rem" }}>No metrics match the selected filters.</td>
                     </tr>
                   ) : [...filteredMetrics].reverse().map(m => (
                     <tr key={m.id}>
@@ -217,6 +238,25 @@ export default function CompareModels() {
                       </td>
                       <td style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
                         {new Date(m.timestamp).toLocaleString()}
+                      </td>
+                      <td>
+                        <button 
+                          onClick={() => handleDelete(m.id)}
+                          style={{
+                            background: "rgba(239, 68, 68, 0.2)",
+                            color: "#f87171",
+                            border: "1px solid rgba(239, 68, 68, 0.3)",
+                            padding: "0.3rem 0.6rem",
+                            borderRadius: "4px",
+                            cursor: "pointer",
+                            fontSize: "0.8rem",
+                            transition: "all 0.2s"
+                          }}
+                          onMouseOver={(e) => { e.currentTarget.style.background = "rgba(239, 68, 68, 0.4)"; }}
+                          onMouseOut={(e) => { e.currentTarget.style.background = "rgba(239, 68, 68, 0.2)"; }}
+                        >
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   ))}

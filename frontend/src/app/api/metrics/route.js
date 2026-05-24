@@ -19,3 +19,34 @@ export async function GET(req) {
     return NextResponse.json({ error: "Failed to read metrics database", details: err.message }, { status: 500 });
   }
 }
+
+export async function DELETE(req) {
+  try {
+    const { id } = await req.json();
+    if (!id) {
+      return NextResponse.json({ error: "ID is required" }, { status: 400 });
+    }
+
+    let fileData = "[]";
+    try {
+      fileData = await readFile(DB_FILE, "utf-8");
+    } catch (err) {
+      if (err.code !== "ENOENT") throw err;
+    }
+
+    let metrics = JSON.parse(fileData);
+    const initialLength = metrics.length;
+    metrics = metrics.filter(m => m.id !== id);
+
+    if (metrics.length === initialLength) {
+      return NextResponse.json({ error: "Record not found" }, { status: 404 });
+    }
+
+    const { writeFile } = await import("fs/promises");
+    await writeFile(DB_FILE, JSON.stringify(metrics, null, 2), "utf-8");
+
+    return NextResponse.json({ success: true, message: "Record deleted successfully" });
+  } catch (err) {
+    return NextResponse.json({ error: "Failed to delete metric record", details: err.message }, { status: 500 });
+  }
+}
