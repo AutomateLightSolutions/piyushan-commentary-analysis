@@ -48,9 +48,17 @@ def main():
     else:
         metrics_db = []
         
-    # Find max training round for this model
-    existing_rounds = [m.get("training_round", 1) for m in metrics_db if m.get("model_used") == args.model_name]
-    current_round = max(existing_rounds) + 1 if existing_rounds else 1
+    state_file = OUTPUT_DIR / "model_states.json"
+    if state_file.exists():
+        with open(state_file, 'r') as f:
+            states = json.load(f)
+        current_training_round = states.get(args.model_name, {}).get("training_round", 1)
+    else:
+        current_training_round = 1
+        
+    # Find evaluation round for this specific training round
+    existing_evals = [m for m in metrics_db if m.get("model_used") == args.model_name and m.get("training_round") == current_training_round]
+    current_eval_round = len(existing_evals) + 1
     
     total_metrics = {
         "Lexicon Only": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
@@ -75,10 +83,11 @@ def main():
         
         # Append to DB
         record = {
-            "id": f"{match_id}_{current_round}_{int(datetime.now().timestamp())}",
+            "id": f"{match_id}_{current_training_round}_{current_eval_round}_{int(datetime.now().timestamp())}",
             "match_id": match_id,
             "dataset_name": dataset_name,
-            "training_round": current_round,
+            "training_round": current_training_round,
+            "evaluation_round": current_eval_round,
             "model_used": args.model_name,
             "timestamp": timestamp,
             "metrics": {
@@ -107,7 +116,7 @@ def main():
             for key in ["precision", "recall", "f1"]:
                 total_metrics[method][key] = round(total_metrics[method][key] / num_files, 2)
                 
-        print(f"--- Macro-Averaged Evaluation over {num_files} matches for {args.model_name} (Round {current_round}) ---")
+        print(f"--- Macro-Averaged Evaluation over {num_files} matches for {args.model_name} (Training Round {current_training_round}, Eval {current_eval_round}) ---")
         print_evaluation_table(total_metrics)
         # We output this JSON to stdout line by line or emit it via SSE
         print(f"__METRICS__:{json.dumps(total_metrics)}")

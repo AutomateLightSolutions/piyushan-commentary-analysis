@@ -28,9 +28,23 @@ def main():
     safe_name = args.model_name.replace("/", "_")
     output_dir = f"data/output/{safe_name}_finetuned"
     
-    # Can adjust epochs and batch_size (HuggingFace maps arrow batches efficiently)
     classifier.train(csv_files, output_dir=output_dir, epochs=5)
-    print("Training finished. Best model checkpoint saved reliably!")
+    
+    # Update model state tracking
+    import json
+    state_file = Path("data/output/model_states.json")
+    states = {}
+    if state_file.exists():
+        with open(state_file, 'r') as f:
+            states = json.load(f)
+            
+    current_round = states.get(args.model_name, {}).get("training_round", 0) + 1
+    states[args.model_name] = {"training_round": current_round}
+    
+    with open(state_file, 'w') as f:
+        json.dump(states, f, indent=4)
+        
+    print(f"Training finished. Best model checkpoint saved reliably! Recorded as Training Round {current_round}.")
 
 if __name__ == "__main__":
     import sys

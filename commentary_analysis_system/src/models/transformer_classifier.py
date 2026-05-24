@@ -140,18 +140,21 @@ class TransformerClassifier:
         self.model = AutoModelForSequenceClassification.from_pretrained(model_path)
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
         
-    def predict_probs(self, text_list):
+    def predict_probs(self, text_list, batch_size=32):
         """Returns the probability of class 1 (highlight)"""
-        dataset = self.prepare_dataset(text_list)
-        
-        # Disable gradient calc for inference
         self.model.eval()
+        device = next(self.model.parameters()).device
         
-        # For simplicity without dataloader, suitable for batches
-        inputs = self.tokenizer(text_list, padding=True, truncation=True, return_tensors="pt")
-        with torch.no_grad():
-            outputs = self.model(**inputs)
-            logits = outputs.logits
-            probs = torch.softmax(logits, dim=-1)
+        all_probs = []
+        for i in range(0, len(text_list), batch_size):
+            batch_texts = text_list[i:i+batch_size]
+            inputs = self.tokenizer(batch_texts, padding=True, truncation=True, return_tensors="pt")
+            inputs = {k: v.to(device) for k, v in inputs.items()}
             
-        return probs[:, 1].tolist()
+            with torch.no_grad():
+                outputs = self.model(**inputs)
+                logits = outputs.logits
+                probs = torch.softmax(logits, dim=-1)
+                all_probs.extend(probs[:, 1].tolist())
+                
+        return all_probs

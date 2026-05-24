@@ -92,9 +92,10 @@ export default function CompareModels() {
                     <th>Dataset</th>
                     <th>Model Used</th>
                     <th>Training Round</th>
-                    <th className="text-primary">Lexicon F1</th>
-                    <th className="text-secondary">Model F1</th>
-                    <th style={{ color: "var(--success-color)" }}>Hybrid F1</th>
+                    <th>Eval Round</th>
+                    <th className="text-primary">Lexicon Metrics</th>
+                    <th className="text-secondary">Model Metrics</th>
+                    <th style={{ color: "var(--success-color)" }}>Hybrid Metrics</th>
                     <th>Timestamp</th>
                   </tr>
                 </thead>
@@ -111,10 +112,24 @@ export default function CompareModels() {
                         fontSize: "0.85rem"
                       }}>{m.model_used}</span></td>
                       <td>Round {m.training_round}</td>
-                      <td>{m.metrics?.["Lexicon Only"]?.f1?.toFixed(2) || "0.00"}</td>
-                      <td>{m.metrics?.["ML Model Only"]?.f1?.toFixed(2) || "0.00"}</td>
-                      <td style={{ fontWeight: "bold", color: "var(--success-color)" }}>
-                        {m.metrics?.["Hybrid Model"]?.f1?.toFixed(2) || "0.00"}
+                      <td>Eval {m.evaluation_round || 1}</td>
+                      <td>
+                        <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginBottom: "2px" }}>
+                          P: {m.metrics?.["Lexicon Only"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.["Lexicon Only"]?.recall?.toFixed(2) || "0.00"}
+                        </div>
+                        <div>F1: {m.metrics?.["Lexicon Only"]?.f1?.toFixed(2) || "0.00"}</div>
+                      </td>
+                      <td>
+                        <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginBottom: "2px" }}>
+                          P: {m.metrics?.["ML Model Only"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.["ML Model Only"]?.recall?.toFixed(2) || "0.00"}
+                        </div>
+                        <div>F1: {m.metrics?.["ML Model Only"]?.f1?.toFixed(2) || "0.00"}</div>
+                      </td>
+                      <td style={{ color: "var(--success-color)" }}>
+                        <div style={{ fontSize: "0.75rem", opacity: 0.8, marginBottom: "2px" }}>
+                          P: {m.metrics?.["Hybrid Model"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.["Hybrid Model"]?.recall?.toFixed(2) || "0.00"}
+                        </div>
+                        <div style={{ fontWeight: "bold" }}>F1: {m.metrics?.["Hybrid Model"]?.f1?.toFixed(2) || "0.00"}</div>
                       </td>
                       <td style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
                         {new Date(m.timestamp).toLocaleString()}

@@ -32,6 +32,29 @@ def main():
         with open(chunk_file, 'r', encoding='utf-8') as f:
             chunks = json.load(f)
             
+        # Overlay CSV data if it exists so predictions file gets the true labels
+        csv_path = Path(f"data/processed/datasets/dataset_{match_id}.csv")
+        if csv_path.exists():
+            import pandas as pd
+            try:
+                df = pd.read_csv(csv_path)
+                record_map = {}
+                for _, row in df.iterrows():
+                    record_map[f"{row['start']}_{row['end']}"] = {
+                        "event": row.get("event"),
+                        "score": row.get("score")
+                    }
+                
+                for c in chunks:
+                    key = f"{c['start']}_{c['end']}"
+                    if key in record_map:
+                        if pd.notna(record_map[key]["event"]):
+                            c["event"] = record_map[key]["event"]
+                        if pd.notna(record_map[key]["score"]):
+                            c["score"] = record_map[key]["score"]
+            except Exception as e:
+                print(f"Warning: Could not overlay CSV labels for {match_id}: {e}")
+            
         texts = [c["text_clean"] for c in chunks]
         
         # 1. Predict
