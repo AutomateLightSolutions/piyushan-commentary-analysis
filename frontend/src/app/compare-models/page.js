@@ -116,7 +116,9 @@ export default function CompareModels() {
                   padding: "1.5rem", 
                   borderRadius: "8px",
                   border: "1px solid rgba(255,255,255,0.1)",
-                  textAlign: "center"
+                  textAlign: "center",
+                  display: "flex",
+                  flexDirection: "column"
                 }}>
                   <h3 style={{ margin: "0 0 0.5rem 0", fontSize: "1.1rem" }}>{model}</h3>
                   <div style={{ fontSize: "0.9rem", color: "var(--text-muted)", marginBottom: "1rem" }}>
@@ -125,24 +127,24 @@ export default function CompareModels() {
                   {(() => {
                     const avg = calculateAverageMetrics(groupedMetrics[model]);
                     return (
-                      <div style={{ display: "flex", justifyContent: "space-around", alignItems: "center" }}>
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.5rem", alignItems: "start", marginTop: "auto" }}>
                         <div>
-                          <div style={{ fontSize: "1.5rem", fontWeight: "bold", color: "var(--primary-color)" || "#3b82f6" }}>
+                          <div style={{ fontSize: "1.3rem", fontWeight: "bold", color: "var(--primary-color)" || "#3b82f6" }}>
                             {avg.p}
                           </div>
-                          <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>Avg Precision</div>
+                          <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", lineHeight: 1.2 }}>Avg Precision</div>
                         </div>
                         <div>
-                          <div style={{ fontSize: "1.5rem", fontWeight: "bold", color: "var(--secondary-color)" || "#a855f7" }}>
+                          <div style={{ fontSize: "1.3rem", fontWeight: "bold", color: "var(--secondary-color)" || "#a855f7" }}>
                             {avg.r}
                           </div>
-                          <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>Avg Recall</div>
+                          <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", lineHeight: 1.2 }}>Avg Recall</div>
                         </div>
                         <div>
-                          <div style={{ fontSize: "1.5rem", fontWeight: "bold", color: "var(--success-color)", textShadow: "0 0 10px rgba(16,185,129,0.3)" }}>
+                          <div style={{ fontSize: "1.3rem", fontWeight: "bold", color: "var(--success-color)", textShadow: "0 0 10px rgba(16,185,129,0.3)" }}>
                             {avg.f1}
                           </div>
-                          <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>Avg F1</div>
+                          <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", lineHeight: 1.2 }}>Avg F1</div>
                         </div>
                       </div>
                     );
