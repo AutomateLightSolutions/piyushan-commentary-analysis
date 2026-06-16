@@ -1,4 +1,8 @@
-def merge_chunks(chunks_with_predictions: list[dict], threshold: float = 0.65, padding_before: int = 2, padding_after: int = 3) -> list[dict]:
+from src.utils.config import get_threshold
+
+def merge_chunks(chunks_with_predictions: list[dict], threshold: float = None, padding_before: int = 2, padding_after: int = 3) -> list[dict]:
+    if threshold is None:
+        threshold = get_threshold("merger_threshold")
     """
     Takes chunks with 'hybrid_score', applies threshold, merges contiguous positives.
     """

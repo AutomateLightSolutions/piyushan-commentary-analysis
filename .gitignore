@@ -129,3 +129,5 @@ ehthumbs.db
 !tsconfig.json
 !next.config.mjs
 !jsconfig.json
+
+docs/

@@ -3,6 +3,7 @@ import argparse
 from pathlib import Path
 from datetime import datetime
 from src.pipeline.evaluator import compute_metrics, print_evaluation_table
+from src.utils.config import get_threshold
 
 OUTPUT_DIR = Path("data/output")
 DB_FILE = OUTPUT_DIR / "evaluation_metrics.json"
@@ -77,9 +78,9 @@ def main():
             chunks = json.load(f)
             
         # Evaluate for single match
-        lexicon_res = evaluate_method(chunks, "lexicon_score", threshold=0.10)
-        roberta_res = evaluate_method(chunks, "roberta_score", threshold=0.55)
-        hybrid_res = evaluate_method(chunks, "hybrid_score", threshold=0.40)
+        lexicon_res = evaluate_method(chunks, "lexicon_score", threshold=get_threshold("lexicon_threshold"))
+        roberta_res = evaluate_method(chunks, "roberta_score", threshold=get_threshold("ml_threshold"))
+        hybrid_res = evaluate_method(chunks, "hybrid_score", threshold=get_threshold("hybrid_threshold"))
         
         # Append to DB
         record = {

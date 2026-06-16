@@ -3,6 +3,7 @@ import argparse
 from pathlib import Path
 from src.models.hybrid_model import HybridModel
 from src.pipeline.merger import merge_chunks
+from src.utils.config import get_threshold
 
 PROCESSED_CHUNKS_DIR = Path("data/processed/chunks")
 OUTPUT_DIR = Path("data/output")
@@ -70,7 +71,7 @@ def main():
             json.dump(chunks, f, indent=2)
             
         # 4. Extract Highlight Timestamps
-        merged_highlights = merge_chunks(chunks, threshold=0.40)
+        merged_highlights = merge_chunks(chunks, threshold=get_threshold("merger_threshold"))
         
         out_clips_path = OUTPUT_DIR / f"highlights_timestamps_{safe_name}_{match_id}.json"
         with open(out_clips_path, 'w', encoding='utf-8') as f:
