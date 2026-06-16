@@ -16,6 +16,10 @@ export default function ManageThresholds() {
   const [isSaving, setIsSaving] = useState(false);
   const [message, setMessage] = useState("");
 
+  const [isOptimizing, setIsOptimizing] = useState(false);
+  const [optimizationResults, setOptimizationResults] = useState(null);
+  const [optimizationModel, setOptimizationModel] = useState("roberta-base");
+
   useEffect(() => {
     fetchSettings();
   }, []);
@@ -52,6 +56,32 @@ export default function ManageThresholds() {
       setMessage(`Error: ${err.message}`);
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const runOptimization = async () => {
+    setIsOptimizing(true);
+    setOptimizationResults(null);
+    try {
+      const res = await fetch("/api/optimize-thresholds", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ modelName: optimizationModel, scoreKey: "hybrid_score" })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Optimization failed");
+      setOptimizationResults(data);
+    } catch (err) {
+      setMessage(`Optimization Error: ${err.message}`);
+    } finally {
+      setIsOptimizing(false);
+    }
+  };
+
+  const applyOptimal = () => {
+    if (optimizationResults?.best) {
+      handleChange("hybrid_threshold", optimizationResults.best.threshold);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -155,6 +185,80 @@ export default function ManageThresholds() {
               </div>
 
             </div>
+          )}
+        </section>
+
+        <section className="glass-card" style={{ marginTop: "2rem" }}>
+          <header className="mb-4">
+            <h2 className="page-subtitle" style={{ fontSize: "1.2rem", fontWeight: "600", color: "var(--text-main)" }}>
+              Empirical Tuning (Grid Search)
+            </h2>
+            <p className="page-subtitle" style={{ fontSize: "0.9rem" }}>
+              Run an automated evaluation sweep over the validation chunks to find the mathematically optimal Hybrid Threshold that maximizes the F1-Score.
+            </p>
+          </header>
+
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.5rem" }}>
+             <select 
+                className="form-select" 
+                style={{ maxWidth: "250px" }}
+                value={optimizationModel}
+                onChange={(e) => setOptimizationModel(e.target.value)}
+              >
+                <option value="roberta-base">roberta-base</option>
+                <option value="bert-base-uncased">bert-base-uncased</option>
+                <option value="answerdotai/ModernBERT-base">answerdotai/ModernBERT-base</option>
+                <option value="microsoft/deberta-base">microsoft/deberta-base</option>
+             </select>
+             <button 
+                className="btn btn-primary" 
+                onClick={runOptimization}
+                disabled={isOptimizing}
+             >
+                {isOptimizing ? "Running Sweep..." : "Run Optimization Sweep"}
+             </button>
+          </div>
+
+          {optimizationResults && optimizationResults.results && (
+             <div className="table-container">
+                <table className="table-modern">
+                  <thead>
+                    <tr>
+                      <th style={{ width: "100px" }}>Threshold</th>
+                      <th>Precision</th>
+                      <th>Recall</th>
+                      <th>F1-Score</th>
+                      <th style={{ width: "150px" }}></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {optimizationResults.results.map((row, idx) => (
+                      <tr key={idx} style={{ backgroundColor: row.is_best ? 'rgba(76, 175, 80, 0.1)' : 'transparent' }}>
+                        <td style={{ fontWeight: row.is_best ? "bold" : "normal", color: row.is_best ? "var(--primary-color)" : "inherit" }}>
+                          {row.threshold.toFixed(2)}
+                        </td>
+                        <td>{row.precision.toFixed(2)}</td>
+                        <td>{row.recall.toFixed(2)}</td>
+                        <td style={{ fontWeight: row.is_best ? "bold" : "normal" }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                            <span style={{ width: "35px" }}>{row.f1.toFixed(2)}</span>
+                            <div style={{ flex: 1, backgroundColor: "var(--glass-border)", height: "8px", borderRadius: "4px", overflow: "hidden" }}>
+                               <div style={{ width: `${row.f1 * 100}%`, height: "100%", backgroundColor: row.is_best ? "var(--primary-color)" : "rgba(255,255,255,0.3)" }}></div>
+                            </div>
+                          </div>
+                        </td>
+                        <td style={{ textAlign: "right" }}>
+                           {row.is_best && (
+                              <button className="btn" style={{ fontSize: "0.8rem", padding: "4px 8px" }} onClick={applyOptimal}>
+                                Apply Best
+                              </button>
+                           )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+             </div>
           )}
         </section>
       </main>
