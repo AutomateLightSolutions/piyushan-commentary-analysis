@@ -49,6 +49,12 @@ export default function Navbar() {
           Thresholds
         </Link>
         <Link 
+          href="/optimize-weights" 
+          className={`nav-link ${pathname === "/optimize-weights" ? "active" : ""}`}
+        >
+          Weights
+        </Link>
+        <Link 
           href="/compare-models" 
           className={`nav-link ${pathname === "/compare-models" ? "active" : ""}`}
         >
