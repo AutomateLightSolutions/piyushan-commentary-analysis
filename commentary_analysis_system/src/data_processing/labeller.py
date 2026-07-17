@@ -11,7 +11,11 @@ def load_highlights(file_path: str) -> list[dict]:
 def get_overlap(a_start: float, a_end: float, b_start: float, b_end: float) -> float:
     return max(0, min(a_end, b_end) - max(a_start, b_start))
 
-def label_chunks(chunks: list[dict], highlights: list[dict], threshold: float = 0.40) -> list[dict]:
+from src.utils.config import get_threshold
+
+def label_chunks(chunks: list[dict], highlights: list[dict], threshold: float = None) -> list[dict]:
+    if threshold is None:
+        threshold = get_threshold("labeller_threshold")
     """
     Checks if a chunk overlaps significantly (> threshold) with a known ground truth highlight
     """

@@ -22,12 +22,14 @@ export async function POST(req) {
     const csvFile = path.join(PROCESSED_DATA_DIR, `dataset_${matchId}.csv`);
     
     // Build CSV Content
-    let csvContent = "start,end,text,label\n";
+    let csvContent = "start,end,text,event,score\n";
     for (const c of chunks) {
         if (c.text_clean && c.text_clean.trim() !== "") {
             // Encode CSV safely
             const safeText = c.text_clean.replace(/"/g, '""');
-            csvContent += `${c.start},${c.end},"${safeText}",${c.label || 0}\n`;
+            const eventStr = c.event || "";
+            const scoreStr = c.score !== undefined && c.score !== null && c.score !== "" ? c.score : "";
+            csvContent += `${c.start},${c.end},"${safeText}",${eventStr},${scoreStr}\n`;
         }
     }
 

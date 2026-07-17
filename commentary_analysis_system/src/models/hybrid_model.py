@@ -1,15 +1,15 @@
-from src.models.roberta_classifier import RobertaClassifier
+from src.models.transformer_classifier import TransformerClassifier
 from src.models.lexicon_model import LexiconModel
 
 class HybridModel:
-    def __init__(self, roberta_model_path=None):
-        self.roberta = RobertaClassifier()
+    def __init__(self, roberta_model_path=None, model_name="roberta-base"):
+        self.roberta = TransformerClassifier(model_name=model_name)
         if roberta_model_path:
             self.roberta.load_model(roberta_model_path)
             
         self.lexicon = LexiconModel()
         
-    def predict(self, text_list: list[str], roberta_weight=0.7, lexicon_weight=0.3):
+    def predict(self, text_list: list[str], lexicon_weight=0.3):
         """
         Generates combined score using booster formula: min(1.0, RoBERTa + (Lexicon * lexicon_weight))
         """

@@ -1,0 +1,105 @@
+[
+    {
+        "id": "match1_Ireland_vs_South_Africa_2_1779584780",
+        "match_id": "match1_Ireland_vs_South_Africa",
+        "dataset_name": "dataset_match1_Ireland_vs_South_Africa",
+        "training_round": 2,
+        "model_used": "microsoft/deberta-base",
+        "timestamp": "2026-05-24T06:36:20.586981",
+        "metrics": {
+            "Lexicon Only": {
+                "precision": 0.44,
+                "recall": 0.2,
+                "f1": 0.27
+            },
+            "ML Model Only": {
+                "precision": 0.98,
+                "recall": 0.99,
+                "f1": 0.99
+            },
+            "Hybrid Model": {
+                "precision": 0.98,
+                "recall": 0.99,
+                "f1": 0.99
+            }
+        }
+    },
+    {
+        "id": "match1_Ireland_vs_South_Africa_1_1_1779589047",
+        "match_id": "match1_Ireland_vs_South_Africa",
+        "dataset_name": "dataset_match1_Ireland_vs_South_Africa",
+        "training_round": 1,
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-05-24T07:47:27.746298",
+        "metrics": {
+            "Lexicon Only": {
+                "precision": 0.44,
+                "recall": 0.2,
+                "f1": 0.27
+            },
+            "ML Model Only": {
+                "precision": 0.99,
+                "recall": 0.99,
+                "f1": 0.99
+            },
+            "Hybrid Model": {
+                "precision": 0.99,
+                "recall": 0.99,
+                "f1": 0.99
+            }
+        }
+    },
+    {
+        "id": "match1_Ireland_vs_South_Africa_1_1_1779633407",
+        "match_id": "match1_Ireland_vs_South_Africa",
+        "dataset_name": "dataset_match1_Ireland_vs_South_Africa",
+        "training_round": 1,
+        "evaluation_round": 1,
+        "model_used": "answerdotai/ModernBERT-base",
+        "timestamp": "2026-05-24T20:06:47.560194",
+        "metrics": {
+            "Lexicon Only": {
+                "precision": 0.97,
+                "recall": 0.08,
+                "f1": 0.15
+            },
+            "ML Model Only": {
+                "precision": 0.99,
+                "recall": 0.38,
+                "f1": 0.55
+            },
+            "Hybrid Model": {
+                "precision": 0.99,
+                "recall": 0.84,
+                "f1": 0.91
+            }
+        }
+    },
+    {
+        "id": "match1_Ireland_vs_South_Africa_1_1_1779636944",
+        "match_id": "match1_Ireland_vs_South_Africa",
+        "dataset_name": "dataset_match1_Ireland_vs_South_Africa",
+        "training_round": 1,
+        "evaluation_round": 1,
+        "model_used": "bert-base-uncased",
+        "timestamp": "2026-05-24T21:05:44.518318",
+        "metrics": {
+            "Lexicon Only": {
+                "precision": 0.97,
+                "recall": 0.08,
+                "f1": 0.15
+            },
+            "ML Model Only": {
+                "precision": 0.99,
+                "recall": 0.23,
+                "f1": 0.37
+            },
+            "Hybrid Model": {
+                "precision": 0.99,
+                "recall": 0.81,
+                "f1": 0.89
+            }
+        }
+    }
+]

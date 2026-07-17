@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { writeFile } from "fs/promises";
+import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 
 const SYSTEM_PATH = path.resolve(process.cwd(), "..", "commentary_analysis_system");
@@ -15,6 +15,9 @@ export async function POST(req) {
     if (!fullVideo || !highlightVideo || !matchId) {
       return NextResponse.json({ message: "Missing required MP4 files or match ID" }, { status: 400 });
     }
+
+    // Ensure the raw directory exists before writing files
+    await mkdir(RAW_DIR, { recursive: true });
 
     // Write Full Video
     const fullBuffer = Buffer.from(await fullVideo.arrayBuffer());

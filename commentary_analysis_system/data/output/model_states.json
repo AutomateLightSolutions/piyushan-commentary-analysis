@@ -1,0 +1,11 @@
+{
+    "roberta-base": {
+        "training_round": 1
+    },
+    "answerdotai/ModernBERT-base": {
+        "training_round": 1
+    },
+    "bert-base-uncased": {
+        "training_round": 1
+    }
+}

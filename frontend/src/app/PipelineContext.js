@@ -12,7 +12,7 @@ const INITIAL_STEPS = [
 ];
 
 const INITIAL_ML_STEPS = [
-  { id: "train",    name: "6. Train RoBERTa Highlight Classifier",              status: "idle", log: "", lines: [] },
+  { id: "train",    name: "6. Train Classifier",              status: "idle", log: "", lines: [] },
   { id: "predict",  name: "7-11. Build Lexicon, Hybrid Score & Merge Predict",  status: "idle", log: "", lines: [] },
   { id: "evaluate", name: "12. Generate Evaluation Metrics",                    status: "idle", log: "", lines: [] },
 ];
@@ -21,6 +21,7 @@ export function PipelineProvider({ children }) {
   const [steps, setSteps] = useState(INITIAL_STEPS);
   const [mlSteps, setMlSteps] = useState(INITIAL_ML_STEPS);
   const [metricsData, setMetricsData] = useState(null);
+  const [selectedModel, setSelectedModel] = useState("roberta-base");
   
   const [isProcessing, setIsProcessing] = useState(false);
   const [isMlProcessing, setIsMlProcessing] = useState(false);
@@ -174,15 +175,39 @@ export function PipelineProvider({ children }) {
     resetMlSteps();
     abortControllerRef.current = new AbortController();
     const signal = abortControllerRef.current.signal;
+    
+    const params = `?modelName=${encodeURIComponent(selectedModel)}`;
 
-    try { await runStreamStep("/api/train", "train", setMlSteps, signal); }
+    try { await runStreamStep(`/api/train${params}`, "train", setMlSteps, signal); }
     catch (err) { mutateStep(setMlSteps, "train", { status: "error", log: err.message }); setIsMlProcessing(false); return; }
 
-    try { await runStreamStep("/api/pipeline", "predict", setMlSteps, signal); }
+    try { await runStreamStep(`/api/pipeline${params}`, "predict", setMlSteps, signal); }
     catch (err) { mutateStep(setMlSteps, "predict", { status: "error", log: err.message }); setIsMlProcessing(false); return; }
 
     try {
-      const result = await runStreamStep("/api/evaluate", "evaluate", setMlSteps, signal);
+      const result = await runStreamStep(`/api/evaluate${params}`, "evaluate", setMlSteps, signal);
+      if (result?.extraData && !signal.aborted) setMetricsData(result.extraData);
+    } catch (err) { mutateStep(setMlSteps, "evaluate", { status: "error", log: err.message }); setIsMlProcessing(false); return; }
+
+    setIsMlProcessing(false);
+  };
+
+  const handleMlProcessSkipTrain = async () => {
+    setIsMlProcessing(true);
+    setMetricsData(null);
+    resetMlSteps();
+    abortControllerRef.current = new AbortController();
+    const signal = abortControllerRef.current.signal;
+    
+    const params = `?modelName=${encodeURIComponent(selectedModel)}`;
+
+    mutateStep(setMlSteps, "train", { status: "done", log: "Skipped training step." });
+
+    try { await runStreamStep(`/api/pipeline${params}`, "predict", setMlSteps, signal); }
+    catch (err) { mutateStep(setMlSteps, "predict", { status: "error", log: err.message }); setIsMlProcessing(false); return; }
+
+    try {
+      const result = await runStreamStep(`/api/evaluate${params}`, "evaluate", setMlSteps, signal);
       if (result?.extraData && !signal.aborted) setMetricsData(result.extraData);
     } catch (err) { mutateStep(setMlSteps, "evaluate", { status: "error", log: err.message }); setIsMlProcessing(false); return; }
 
@@ -210,11 +235,14 @@ export function PipelineProvider({ children }) {
     steps,
     mlSteps,
     metricsData,
+    selectedModel,
+    setSelectedModel,
     isProcessing,
     isMlProcessing,
     handleProcess,
     handleResume,
     handleMlProcess,
+    handleMlProcessSkipTrain,
     handleStop
   };
 

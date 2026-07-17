@@ -6,6 +6,7 @@ import "../globals.css";
 export default function LabelingDashboard() {
   const [matchId, setMatchId] = useState("");
   const [availableMatches, setAvailableMatches] = useState([]);
+  const [availableEvents, setAvailableEvents] = useState([]);
   const [chunks, setChunks] = useState([]);
   const [highlightText, setHighlightText] = useState("");
   const [isSaving, setIsSaving] = useState(false);
@@ -15,6 +16,11 @@ export default function LabelingDashboard() {
     fetch("/api/list-matches")
       .then(r => r.json())
       .then(d => setAvailableMatches(d.matchIds || []))
+      .catch(console.error);
+
+    fetch("/api/events")
+      .then(r => r.json())
+      .then(d => setAvailableEvents(d.events || []))
       .catch(console.error);
   }, []);
 
@@ -38,9 +44,9 @@ export default function LabelingDashboard() {
     }
   };
 
-  const toggleLabel = (index) => {
+  const updateChunkField = (index, field, value) => {
     const updated = [...chunks];
-    updated[index].label = updated[index].label === 1 ? 0 : 1;
+    updated[index][field] = value;
     setChunks(updated);
   };
 
@@ -68,14 +74,22 @@ export default function LabelingDashboard() {
   };
 
   return (
-    <div className="app-container" style={{ maxWidth: "1600px", height: "calc(100vh - var(--nav-height) - 4rem)" }}>
-      <header className="mb-4">
-        <h1 className="page-title">Data Annotation Center</h1>
-        <p className="page-subtitle">Manually Label Highlights for RoBERTa Training</p>
+    <div className="app-container" style={{ 
+      maxWidth: "1600px", 
+      height: "calc(100vh - var(--nav-height) - 4rem)", 
+      padding: "1.5rem", 
+      gap: "1rem", 
+      display: "flex", 
+      flexDirection: "column",
+      overflow: "hidden"
+    }}>
+      <header style={{ flexShrink: 0 }}>
+        <h1 className="page-title" style={{ fontSize: "2rem", marginBottom: "0.2rem" }}>Data Annotation Center</h1>
+        <p className="page-subtitle" style={{ fontSize: "1rem", marginBottom: "0" }}>Manually Label Highlights for RoBERTa Training</p>
       </header>
 
       {/* Target Selector */}
-      <div className="flex-between mb-4" style={{ justifyContent: "flex-start", gap: "1rem" }}>
+      <div className="flex-between" style={{ justifyContent: "flex-start", gap: "1rem", flexShrink: 0, marginBottom: "0.2rem" }}>
         <input 
           list="match-options"
           placeholder="Search or Select Match ID" 
@@ -91,7 +105,7 @@ export default function LabelingDashboard() {
         <span className="text-muted" style={{ fontWeight: "500", marginLeft: "1rem" }}>{statusMsg}</span>
       </div>
 
-      <main className="grid-2" style={{ height: "calc(100% - 160px)", gap: "2rem" }}>
+      <main className="grid-2" style={{ flex: 1, minHeight: 0, gap: "1.5rem", alignItems: "stretch" }}>
         
         {/* Left Side: Main Chunks that need Labeling */}
         <section className="glass-card" style={{ display: "flex", flexDirection: "column", height: "100%", padding: 0, overflow: "hidden" }}>
@@ -107,8 +121,8 @@ export default function LabelingDashboard() {
             
             {chunks.map((chk, i) => (
               <div key={i} style={{
-                background: chk.label === 1 ? "var(--secondary-glow)" : "rgba(255,255,255,0.03)",
-                border: `1px solid ${chk.label === 1 ? "var(--secondary-color)" : "var(--glass-border)"}`,
+                background: (chk.event && chk.event !== "normal_play") ? "var(--secondary-glow)" : "rgba(255,255,255,0.03)",
+                border: `1px solid ${(chk.event && chk.event !== "normal_play") ? "var(--secondary-color)" : "var(--glass-border)"}`,
                 borderRadius: "12px",
                 padding: "1.2rem",
                 display: "flex",
@@ -116,20 +130,39 @@ export default function LabelingDashboard() {
                 alignItems: "center",
                 transition: "all 0.2s ease"
               }}>
-                <div style={{ paddingRight: "1rem" }}>
-                    <div style={{ fontSize: "0.85rem", color: chk.label === 1 ? "var(--text-main)" : "var(--primary-color)", fontWeight: "bold", marginBottom: "0.5rem" }}>
+                <div style={{ paddingRight: "1rem", flex: 1 }}>
+                    <div style={{ fontSize: "0.85rem", color: (chk.event && chk.event !== "normal_play") ? "var(--text-main)" : "var(--primary-color)", fontWeight: "bold", marginBottom: "0.5rem" }}>
                       {chk.start}s - {chk.end}s
                     </div>
                     <div style={{ lineHeight: "1.5" }}>{chk.text_clean || chk.text_raw}</div>
                 </div>
                 
-                <button 
-                  onClick={() => toggleLabel(i)}
-                  className={`btn ${chk.label === 1 ? 'btn-primary' : 'btn-secondary'}`}
-                  style={{ minWidth: "120px", flexShrink: 0 }}
-                >
-                  {chk.label === 1 ? "★ Highlight" : "Normal"}
-                </button>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", width: "160px", flexShrink: 0 }}>
+                  <select 
+                    className="form-input" 
+                    style={{ padding: "0.5rem" }}
+                    value={chk.event || "normal_play"} 
+                    onChange={(e) => updateChunkField(i, 'event', e.target.value)}
+                  >
+                    <option value="normal_play">normal_play</option>
+                    {availableEvents.map(evt => (
+                      <option key={evt} value={evt}>{evt}</option>
+                    ))}
+                  </select>
+                  
+                  <input 
+                    type="number" 
+                    step="0.1" 
+                    min="0" 
+                    max="1"
+                    className="form-input" 
+                    style={{ padding: "0.5rem" }}
+                    placeholder="Score (e.g. 0.8)" 
+                    value={chk.score || ""} 
+                    onChange={(e) => updateChunkField(i, 'score', e.target.value)}
+                    disabled={!chk.event || chk.event === "normal_play"}
+                  />
+                </div>
               </div>
             ))}
           </div>

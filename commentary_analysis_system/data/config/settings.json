@@ -1,0 +1,7 @@
+{
+    "lexicon_threshold": 0.10,
+    "ml_threshold": 0.55,
+    "hybrid_threshold": 0.40,
+    "merger_threshold": 0.40,
+    "labeller_threshold": 0.40
+}

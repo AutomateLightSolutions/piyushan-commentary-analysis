@@ -31,10 +31,34 @@ export default function Navbar() {
           Matches
         </Link>
         <Link 
+          href="/manage-events" 
+          className={`nav-link ${pathname === "/manage-events" ? "active" : ""}`}
+        >
+          Events
+        </Link>
+        <Link 
           href="/datasets" 
           className={`nav-link ${pathname === "/datasets" ? "active" : ""}`}
         >
           Datasets
+        </Link>
+        <Link 
+          href="/manage-thresholds" 
+          className={`nav-link ${pathname === "/manage-thresholds" ? "active" : ""}`}
+        >
+          Thresholds
+        </Link>
+        <Link 
+          href="/optimize-weights" 
+          className={`nav-link ${pathname === "/optimize-weights" ? "active" : ""}`}
+        >
+          Weights
+        </Link>
+        <Link 
+          href="/compare-models" 
+          className={`nav-link ${pathname === "/compare-models" ? "active" : ""}`}
+        >
+          Compare Models
         </Link>
         <Link 
           href="/label" 
