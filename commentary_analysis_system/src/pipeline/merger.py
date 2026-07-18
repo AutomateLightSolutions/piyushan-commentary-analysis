@@ -1,6 +1,6 @@
 from src.utils.config import get_threshold
 
-def merge_chunks(chunks_with_predictions: list[dict], threshold: float = None, padding_before: int = 2, padding_after: int = 3) -> list[dict]:
+def merge_chunks(chunks_with_predictions: list[dict], threshold: float = None, padding_before: int = 4, padding_after: int = 2) -> list[dict]:
     if threshold is None:
         threshold = get_threshold("merger_threshold")
     """
