@@ -47,10 +47,10 @@ function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSe
   return (
     <div style={{
       position: "fixed", top: 0, left: 0, right: 0, bottom: 0, 
-      backgroundColor: "rgba(0,0,0,0.85)", display: "flex", justifyContent: "center", alignItems: "center", zIndex: 1000
+      backgroundColor: "rgba(0,0,0,0.8)", backdropFilter: "blur(8px)", display: "flex", justifyContent: "center", alignItems: "center", zIndex: 1000
     }}>
-      <div className="glass-card" style={{ width: "95%", maxWidth: "1200px", maxHeight: "90vh", display: "flex", flexDirection: "column", position: "relative" }}>
-        <button onClick={onClose} style={{ position: "absolute", top: "1.5rem", right: "1.5rem", background: "transparent", border: "none", color: "white", fontSize: "1.5rem", cursor: "pointer", padding: "0.5rem" }}>×</button>
+      <div className="glass-card" style={{ width: "95%", maxWidth: "1200px", maxHeight: "90vh", display: "flex", flexDirection: "column", position: "relative", backgroundColor: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)" }}>
+        <button onClick={onClose} style={{ position: "absolute", top: "1.5rem", right: "1.5rem", background: "transparent", border: "none", color: "white", fontSize: "1.5rem", cursor: "pointer", padding: "0.5rem", zIndex: 20 }}>×</button>
         
         <h2 className="card-title mb-1">Choose a dataset to execute the ML pipeline.</h2>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
