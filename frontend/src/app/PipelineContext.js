@@ -23,6 +23,8 @@ export function PipelineProvider({ children }) {
   const [metricsData, setMetricsData] = useState(null);
   const [selectedModel, setSelectedModel] = useState("roberta-base");
   
+  const [selectedDataset, setSelectedDataset] = useState("all");
+  
   const [isProcessing, setIsProcessing] = useState(false);
   const [isMlProcessing, setIsMlProcessing] = useState(false);
 
@@ -176,7 +178,7 @@ export function PipelineProvider({ children }) {
     abortControllerRef.current = new AbortController();
     const signal = abortControllerRef.current.signal;
     
-    const params = `?modelName=${encodeURIComponent(selectedModel)}`;
+    const params = `?modelName=${encodeURIComponent(selectedModel)}&dataset=${encodeURIComponent(selectedDataset)}`;
 
     try { await runStreamStep(`/api/train${params}`, "train", setMlSteps, signal); }
     catch (err) { mutateStep(setMlSteps, "train", { status: "error", log: err.message }); setIsMlProcessing(false); return; }
@@ -199,7 +201,7 @@ export function PipelineProvider({ children }) {
     abortControllerRef.current = new AbortController();
     const signal = abortControllerRef.current.signal;
     
-    const params = `?modelName=${encodeURIComponent(selectedModel)}`;
+    const params = `?modelName=${encodeURIComponent(selectedModel)}&dataset=${encodeURIComponent(selectedDataset)}`;
 
     mutateStep(setMlSteps, "train", { status: "done", log: "Skipped training step." });
 
@@ -237,6 +239,8 @@ export function PipelineProvider({ children }) {
     metricsData,
     selectedModel,
     setSelectedModel,
+    selectedDataset,
+    setSelectedDataset,
     isProcessing,
     isMlProcessing,
     handleProcess,

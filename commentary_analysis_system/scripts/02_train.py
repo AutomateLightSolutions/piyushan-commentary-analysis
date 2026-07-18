@@ -8,6 +8,7 @@ PROCESSED_DATASETS_DIR = Path("data/processed/datasets")
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_name", type=str, default="roberta-base", help="HuggingFace model string")
+    parser.add_argument("--dataset", type=str, default="all", help="Specific dataset to train on, or 'all'")
     args = parser.parse_args()
     
     if not PROCESSED_DATASETS_DIR.exists():
@@ -15,7 +16,13 @@ def main():
         return
         
     # Retrieve distinct CSV file maps
-    csv_files = [str(f) for f in PROCESSED_DATASETS_DIR.glob("*.csv")]
+    if args.dataset != "all":
+        csv_files = [str(PROCESSED_DATASETS_DIR / f"dataset_{args.dataset}.csv")]
+        if not Path(csv_files[0]).exists():
+            print(f"Dataset {args.dataset} not found.")
+            return
+    else:
+        csv_files = [str(f) for f in PROCESSED_DATASETS_DIR.glob("*.csv")]
         
     if not csv_files:
         print("No match CSV data present.")

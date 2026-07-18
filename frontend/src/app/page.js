@@ -17,6 +17,8 @@ export default function Home() {
     metricsData,
     selectedModel,
     setSelectedModel,
+    selectedDataset,
+    setSelectedDataset,
     isProcessing,
     isMlProcessing,
     handleProcess,
@@ -215,10 +217,24 @@ export default function Home() {
               <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
                 <select 
                   className="form-select" 
+                  value={selectedDataset} 
+                  onChange={(e) => setSelectedDataset(e.target.value)}
+                  disabled={isProcessing || isMlProcessing}
+                  style={{ width: "auto" }}
+                  title="Select Dataset"
+                >
+                  <option value="all">All Datasets</option>
+                  {existingMatches.map(id => (
+                    <option key={id} value={id}>{id}</option>
+                  ))}
+                </select>
+                <select 
+                  className="form-select" 
                   value={selectedModel} 
                   onChange={(e) => setSelectedModel(e.target.value)}
                   disabled={isProcessing || isMlProcessing}
                   style={{ width: "auto" }}
+                  title="Select Model"
                 >
                   <option value="roberta-base">Roberta</option>
                   <option value="microsoft/deberta-base">DeBERTa</option>
