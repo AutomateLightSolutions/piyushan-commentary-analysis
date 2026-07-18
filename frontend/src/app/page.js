@@ -8,6 +8,7 @@ import { PipelineContext } from "./PipelineContext";
 function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSelectedDataset }) {
   const [history, setHistory] = useState([]);
   const [expandedMetrics, setExpandedMetrics] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     if (isOpen) {
@@ -28,10 +29,12 @@ function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSe
   ];
 
   const datasetOptions = ["all", ...existingMatches];
+  const filteredDatasets = datasetOptions.filter(ds => 
+    ds === "all" ? "all datasets".includes(searchQuery.toLowerCase()) : ds.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const getHistoryFor = (dataset, modelId) => {
     if (dataset === "all") return [];
-    // Find the latest evaluation round for this match_id and model_used
     const records = history.filter(h => h.match_id === dataset && h.model_used === modelId);
     return records.sort((a, b) => b.training_round - a.training_round || b.evaluation_round - a.evaluation_round);
   };
@@ -44,102 +47,154 @@ function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSe
   return (
     <div style={{
       position: "fixed", top: 0, left: 0, right: 0, bottom: 0, 
-      backgroundColor: "rgba(0,0,0,0.7)", display: "flex", justifyContent: "center", alignItems: "center", zIndex: 1000
+      backgroundColor: "rgba(0,0,0,0.85)", display: "flex", justifyContent: "center", alignItems: "center", zIndex: 1000
     }}>
-      <div className="glass-card" style={{ width: "90%", maxWidth: "900px", maxHeight: "90vh", overflowY: "auto", position: "relative" }}>
-        <button onClick={onClose} style={{ position: "absolute", top: "1rem", right: "1rem", background: "transparent", border: "none", color: "white", fontSize: "1.5rem", cursor: "pointer" }}>×</button>
-        <h2 className="card-title">Select Dataset</h2>
-        <p className="page-subtitle" style={{ fontSize: "0.9rem" }}>View previous trainings and evaluation metrics for each model.</p>
+      <div className="glass-card" style={{ width: "95%", maxWidth: "1200px", maxHeight: "90vh", display: "flex", flexDirection: "column", position: "relative" }}>
+        <button onClick={onClose} style={{ position: "absolute", top: "1.5rem", right: "1.5rem", background: "transparent", border: "none", color: "white", fontSize: "1.5rem", cursor: "pointer", padding: "0.5rem" }}>×</button>
         
-        <div className="table-container mt-3">
-          <table className="table-modern">
-            <thead>
-              <tr>
-                <th>Dataset</th>
-                {models.map(m => <th key={m.id} style={{ textAlign: "center" }}>{m.label}</th>)}
-                <th style={{ textAlign: "right" }}>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {datasetOptions.map(ds => (
-                <React.Fragment key={ds}>
-                  <tr>
-                    <td style={{ fontWeight: "bold" }}>{ds === "all" ? "All Datasets" : ds}</td>
-                    {models.map(m => {
-                      const records = getHistoryFor(ds, m.id);
-                      const hasTrained = records.length > 0;
-                      return (
-                        <td key={m.id} style={{ textAlign: "center" }}>
-                          {ds === "all" ? "-" : hasTrained ? (
-                            <button 
-                              onClick={() => toggleMetrics(ds, m.id)}
-                              style={{ background: "transparent", border: "none", cursor: "pointer", color: "var(--primary-color)" }}
-                              title="Click to view metrics"
-                            >
-                              ✅ <small style={{ color: "#a1a1aa" }}>(v{records[0].training_round})</small>
-                            </button>
-                          ) : (
-                            <span style={{ opacity: 0.5 }}>❌</span>
-                          )}
+        <h2 className="card-title mb-1">Choose a dataset to execute the ML pipeline.</h2>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
+          <p className="page-subtitle" style={{ fontSize: "1rem", margin: 0 }}>
+            Showing {filteredDatasets.length} of {datasetOptions.length} datasets
+          </p>
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            <div style={{ fontSize: "0.85rem", display: "flex", gap: "1rem", color: "#a1a1aa" }}>
+              <span><span style={{ display: "inline-block", width: "10px", height: "10px", borderRadius: "50%", backgroundColor: "var(--success-color)", marginRight: "4px" }}></span>Trained</span>
+              <span><span style={{ display: "inline-block", width: "10px", height: "10px", borderRadius: "50%", backgroundColor: "#52525b", marginRight: "4px" }}></span>Not Trained</span>
+            </div>
+            <input 
+              type="text" 
+              className="form-input" 
+              placeholder="🔍 Search Dataset..." 
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              style={{ padding: "0.4rem 0.8rem", maxWidth: "250px" }}
+            />
+          </div>
+        </div>
+        
+        <div className="table-container" style={{ flex: 1, overflowY: "auto", overflowX: "auto" }}>
+          {filteredDatasets.length === 0 ? (
+            <div style={{ padding: "3rem", textAlign: "center", color: "#a1a1aa" }}>No datasets available matching your search.</div>
+          ) : (
+            <table className="table-modern" style={{ width: "100%", borderCollapse: "collapse" }}>
+              <thead style={{ position: "sticky", top: 0, zIndex: 10, background: "rgba(15, 23, 42, 0.95)", backdropFilter: "blur(4px)" }}>
+                <tr>
+                  <th style={{ padding: "1rem", textAlign: "left" }}>Dataset</th>
+                  {models.map(m => <th key={m.id} style={{ padding: "1rem", textAlign: "center" }}>{m.label}</th>)}
+                  <th style={{ padding: "1rem", textAlign: "center" }}>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredDatasets.map(ds => {
+                  const isSelected = selectedDataset === ds;
+                  return (
+                    <React.Fragment key={ds}>
+                      <tr style={{ 
+                        backgroundColor: isSelected ? "rgba(139, 92, 246, 0.15)" : "transparent",
+                        borderLeft: isSelected ? "4px solid var(--primary-color)" : "4px solid transparent",
+                        borderBottom: "1px solid rgba(255,255,255,0.05)",
+                        transition: "background-color 0.2s"
+                      }}>
+                        <td style={{ padding: "0.75rem 1rem", fontWeight: "bold", maxWidth: "250px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }} title={ds === "all" ? "All Datasets" : ds}>
+                          {ds === "all" ? "All Datasets" : ds}
                         </td>
-                      );
-                    })}
-                    <td style={{ textAlign: "right" }}>
-                      <button 
-                        className={`btn ${selectedDataset === ds ? "btn-primary" : "btn-secondary"}`}
-                        onClick={() => { setSelectedDataset(ds); onClose(); }}
-                        style={{ padding: "0.4rem 1rem", fontSize: "0.85rem" }}
-                      >
-                        {selectedDataset === ds ? "Selected" : "Select"}
-                      </button>
-                    </td>
-                  </tr>
-                  
-                  {/* Expanded Metrics Row */}
-                  {models.map(m => {
-                    const key = `${ds}-${m.id}`;
-                    if (expandedMetrics === key) {
-                      const records = getHistoryFor(ds, m.id);
-                      const latest = records[0];
-                      if (!latest) return null;
+                        {models.map(m => {
+                          const records = getHistoryFor(ds, m.id);
+                          const hasTrained = records.length > 0;
+                          return (
+                            <td key={m.id} style={{ padding: "0.75rem 1rem", textAlign: "center" }}>
+                              {ds === "all" ? <span style={{ color: "#52525b" }}>-</span> : hasTrained ? (
+                                <button 
+                                  onClick={() => toggleMetrics(ds, m.id)}
+                                  style={{ 
+                                    background: "rgba(16, 185, 129, 0.1)", 
+                                    border: "1px solid rgba(16, 185, 129, 0.3)", 
+                                    color: "var(--success-color)",
+                                    borderRadius: "12px",
+                                    padding: "0.2rem 0.6rem",
+                                    fontSize: "0.8rem",
+                                    cursor: "pointer",
+                                    transition: "all 0.2s"
+                                  }}
+                                  title="Click to view evaluation metrics"
+                                >
+                                  v{records[0].training_round} Available
+                                </button>
+                              ) : (
+                                <span style={{ 
+                                  background: "rgba(82, 82, 91, 0.1)", 
+                                  border: "1px solid rgba(82, 82, 91, 0.3)", 
+                                  color: "#a1a1aa",
+                                  borderRadius: "12px",
+                                  padding: "0.2rem 0.6rem",
+                                  fontSize: "0.8rem",
+                                  display: "inline-block"
+                                }}>
+                                  Not Trained
+                                </span>
+                              )}
+                            </td>
+                          );
+                        })}
+                        <td style={{ padding: "0.75rem 1rem", textAlign: "center" }}>
+                          <button 
+                            className={`btn ${isSelected ? "btn-primary" : "btn-secondary"}`}
+                            onClick={() => { setSelectedDataset(ds); onClose(); }}
+                            style={{ padding: "0.4rem 0", width: "100px", fontSize: "0.85rem", fontWeight: isSelected ? "bold" : "normal" }}
+                          >
+                            {isSelected ? "Selected ✓" : "Select"}
+                          </button>
+                        </td>
+                      </tr>
                       
-                      return (
-                        <tr key={`metrics-${key}`} style={{ backgroundColor: "rgba(0,0,0,0.3)" }}>
-                          <td colSpan={6} style={{ padding: "1rem" }}>
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
-                              <h4 style={{ margin: 0, color: "var(--primary-color)" }}>{m.label} Evaluation (Round {latest.training_round})</h4>
-                              <small style={{ color: "#a1a1aa" }}>{new Date(latest.timestamp).toLocaleString()}</small>
-                            </div>
-                            <table className="table-modern" style={{ fontSize: "0.85rem", background: "rgba(255,255,255,0.02)" }}>
-                              <thead>
-                                <tr>
-                                  <th>Approach</th>
-                                  <th>Precision</th>
-                                  <th>Recall</th>
-                                  <th>F1 Score</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {Object.entries(latest.metrics).map(([approach, vals]) => (
-                                  <tr key={approach}>
-                                    <td>{approach}</td>
-                                    <td>{vals.precision?.toFixed(2)}</td>
-                                    <td>{vals.recall?.toFixed(2)}</td>
-                                    <td style={{ color: "var(--success-color)", fontWeight: "bold" }}>{vals.f1?.toFixed(2)}</td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-                          </td>
-                        </tr>
-                      );
-                    }
-                    return null;
-                  })}
-                </React.Fragment>
-              ))}
-            </tbody>
-          </table>
+                      {/* Expanded Metrics Row */}
+                      {models.map(m => {
+                        const key = `${ds}-${m.id}`;
+                        if (expandedMetrics === key) {
+                          const records = getHistoryFor(ds, m.id);
+                          const latest = records[0];
+                          if (!latest) return null;
+                          
+                          return (
+                            <tr key={`metrics-${key}`} style={{ backgroundColor: "rgba(0,0,0,0.4)" }}>
+                              <td colSpan={6} style={{ padding: "1.5rem" }}>
+                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.75rem" }}>
+                                  <h4 style={{ margin: 0, color: "var(--primary-color)", fontSize: "1.1rem" }}>{m.label} Evaluation (Round {latest.training_round})</h4>
+                                  <small style={{ color: "#a1a1aa", fontSize: "0.9rem" }}>{new Date(latest.timestamp).toLocaleString()}</small>
+                                </div>
+                                <table className="table-modern" style={{ fontSize: "0.95rem", background: "rgba(255,255,255,0.03)", width: "100%" }}>
+                                  <thead>
+                                    <tr>
+                                      <th style={{ padding: "0.75rem" }}>Approach</th>
+                                      <th style={{ padding: "0.75rem" }}>Precision</th>
+                                      <th style={{ padding: "0.75rem" }}>Recall</th>
+                                      <th style={{ padding: "0.75rem" }}>F1 Score</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {Object.entries(latest.metrics).map(([approach, vals]) => (
+                                      <tr key={approach}>
+                                        <td style={{ padding: "0.75rem" }}>{approach}</td>
+                                        <td style={{ padding: "0.75rem" }}>{vals.precision?.toFixed(2)}</td>
+                                        <td style={{ padding: "0.75rem" }}>{vals.recall?.toFixed(2)}</td>
+                                        <td style={{ padding: "0.75rem", color: "var(--success-color)", fontWeight: "bold" }}>{vals.f1?.toFixed(2)}</td>
+                                      </tr>
+                                    ))}
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          );
+                        }
+                        return null;
+                      })}
+                    </React.Fragment>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>
