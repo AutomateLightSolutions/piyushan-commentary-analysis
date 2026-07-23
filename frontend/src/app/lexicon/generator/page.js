@@ -8,15 +8,61 @@ export default function AutoLexiconGenerator() {
   const [data, setData] = useState({ available_runs: [], current_view: { events: [], sources: [] } });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [extracting, setExtracting] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
   const [selectedRun, setSelectedRun] = useState('cumulative');
+  const [datasets, setDatasets] = useState([]);
+  const [selectedDataset, setSelectedDataset] = useState("");
 
   // Structure: { [eventId]: { weight: 0.1, topN: 30, selectedTerms: Set() } }
   const [configState, setConfigState] = useState({});
 
   useEffect(() => {
+    fetchDatasets();
+  }, []);
+
+  useEffect(() => {
     fetchAutoLexicon(selectedRun);
   }, [selectedRun]);
+
+  const fetchDatasets = async () => {
+      try {
+          const res = await fetch('/api/run-extraction');
+          const data = await res.json();
+          if (data.datasets) {
+              setDatasets(data.datasets);
+              if (data.datasets.length > 0) setSelectedDataset(data.datasets[0]);
+          }
+      } catch (err) {
+          console.error("Failed to fetch datasets", err);
+      }
+  };
+
+  const handleRunExtraction = async () => {
+      if (!selectedDataset) return;
+      setExtracting(true);
+      setMessage({ type: "", text: "" });
+      try {
+          const res = await fetch('/api/run-extraction', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ dataset: selectedDataset })
+          });
+          const result = await res.json();
+          
+          if (!res.ok) throw new Error(result.error || "Failed to extract");
+          
+          setMessage({ type: "success", text: `Successfully extracted keywords from ${result.source}` });
+          // Refresh the cumulative view to include the new run
+          setSelectedRun('cumulative');
+          await fetchAutoLexicon('cumulative');
+      } catch (err) {
+          console.error(err);
+          setMessage({ type: "error", text: `Extraction failed: ${err.message}` });
+      } finally {
+          setExtracting(false);
+      }
+  };
 
   const fetchAutoLexicon = async (runId) => {
     setLoading(true);
@@ -151,6 +197,36 @@ export default function AutoLexiconGenerator() {
             </Link>
         </div>
       </header>
+
+      <div className="glass-card mb-3" style={{ padding: "1.5rem", borderLeft: "4px solid var(--accent-color)" }}>
+          <h3 style={{ margin: "0 0 1rem 0" }}>⚡ Run New Keyword Extraction</h3>
+          <p style={{ color: "var(--text-muted)", marginBottom: "1rem" }}>
+              Select a processed match dataset to run the NLP keyword extraction algorithm on it. The keywords will automatically be added to your cumulative totals.
+          </p>
+          <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+              <select 
+                  className="form-input" 
+                  style={{ width: "400px" }}
+                  value={selectedDataset}
+                  onChange={(e) => setSelectedDataset(e.target.value)}
+                  disabled={extracting}
+              >
+                  {datasets.length === 0 ? (
+                      <option value="">No datasets found in data/processed/datasets/</option>
+                  ) : (
+                      datasets.map(ds => <option key={ds} value={ds}>{ds}</option>)
+                  )}
+              </select>
+              <button 
+                  className="btn btn-primary" 
+                  onClick={handleRunExtraction}
+                  disabled={extracting || datasets.length === 0}
+                  style={{ background: "var(--accent-color)" }}
+              >
+                  {extracting ? "Extracting Keywords..." : "Extract Keywords"}
+              </button>
+          </div>
+      </div>
 
       <div className="glass-card mb-3" style={{ padding: "1.5rem" }}>
          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
