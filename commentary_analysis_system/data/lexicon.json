@@ -2,215 +2,207 @@
   "categories": [
     {
       "id": "try_scoring",
-      "name": "Try Scoring Events",
+      "name": "Try Scoring",
       "weight": 0.35,
       "terms": [
         {
           "text": "try",
-          "weight": 0.9
+          "weight": 0.0667
         },
         {
           "text": "scores",
-          "weight": 0.7
+          "weight": 0.0333
+        },
+        {
+          "text": "brilliant",
+          "weight": 0.0333
+        },
+        {
+          "text": "corner",
+          "weight": 0.0333
         },
         {
           "text": "he scores",
-          "weight": 0.9
+          "weight": 0.0333
         },
         {
-          "text": "touchdown",
-          "weight": 0.8
+          "text": "scores a",
+          "weight": 0.0333
         },
         {
-          "text": "grounds the ball",
-          "weight": 0.8
+          "text": "a brilliant",
+          "weight": 0.0333
         },
         {
-          "text": "gets it down",
-          "weight": 0.8
+          "text": "brilliant try",
+          "weight": 0.0333
         },
         {
-          "text": "dives over",
-          "weight": 0.8
+          "text": "try in",
+          "weight": 0.0333
         },
         {
-          "text": "dives in",
-          "weight": 0.9
+          "text": "the corner",
+          "weight": 0.0333
         },
         {
-          "text": "over the line",
-          "weight": 0.8
+          "text": "he scores a",
+          "weight": 0.0333
         },
         {
-          "text": "he's over",
-          "weight": 0.8
+          "text": "scores a brilliant",
+          "weight": 0.0333
         },
         {
-          "text": "under the posts",
-          "weight": 0.8
+          "text": "a brilliant try",
+          "weight": 0.0333
+        },
+        {
+          "text": "brilliant try in",
+          "weight": 0.0333
+        },
+        {
+          "text": "try in the",
+          "weight": 0.0333
         },
         {
           "text": "in the corner",
-          "weight": 0.8
+          "weight": 0.0333
         },
         {
-          "text": "finishes it",
-          "weight": 0.8
+          "text": "finish",
+          "weight": 0.0333
         },
         {
-          "text": "crosses over",
-          "weight": 0.9
+          "text": "dives",
+          "weight": 0.0333
         },
         {
-          "text": "try time",
-          "weight": 0.9
+          "text": "a finish",
+          "weight": 0.0333
+        },
+        {
+          "text": "finish he",
+          "weight": 0.0333
+        },
+        {
+          "text": "he dives",
+          "weight": 0.0333
+        },
+        {
+          "text": "dives over",
+          "weight": 0.0333
+        },
+        {
+          "text": "the try",
+          "weight": 0.0333
         },
         {
           "text": "what a finish",
-          "weight": 0.8
+          "weight": 0.0333
         },
         {
-          "text": "puts it down",
-          "weight": 0.9
+          "text": "a finish he",
+          "weight": 0.0333
         },
         {
-          "text": "reaches out",
-          "weight": 0.8
+          "text": "finish he dives",
+          "weight": 0.0333
         },
         {
-          "text": "slides over",
-          "weight": 0.8
+          "text": "he dives over",
+          "weight": 0.0333
         },
         {
-          "text": "goes over",
-          "weight": 0.9
+          "text": "dives over for",
+          "weight": 0.0333
         },
         {
-          "text": "power over",
-          "weight": 0.8
-        },
-        {
-          "text": "powers through",
-          "weight": 0.8
-        },
-        {
-          "text": "through the tackle",
-          "weight": 0.8
-        },
-        {
-          "text": "unstoppable",
-          "weight": 0.8
-        },
-        {
-          "text": "individual brilliance",
-          "weight": 0.6
-        },
-        {
-          "text": "what a try",
-          "weight": 0.9
-        },
-        {
-          "text": "sensational try",
-          "weight": 0.9
-        },
-        {
-          "text": "brilliant finish",
-          "weight": 0.9
-        },
-        {
-          "text": "amazing score",
-          "weight": 0.9
-        },
-        {
-          "text": "world class",
-          "weight": 0.8
-        },
-        {
-          "text": "special finish",
-          "weight": 0.8
+          "text": "for the try",
+          "weight": 0.0333
         }
       ]
     },
     {
       "id": "conversion_penalty_points",
-      "name": "Conversions and Penalty Scores",
+      "name": "Conversion Penalty Points",
       "weight": 0.16,
       "terms": [
         {
-          "text": "conversion",
-          "weight": 1
+          "text": "converts",
+          "weight": 0.0526
         },
         {
-          "text": "penalty goal",
-          "weight": 1
+          "text": "penalty",
+          "weight": 0.0526
         },
         {
-          "text": "drop goal",
-          "weight": 1
+          "text": "goal",
+          "weight": 0.0526
         },
         {
-          "text": "adds the extras",
-          "weight": 1
+          "text": "straight",
+          "weight": 0.0526
         },
         {
-          "text": "straight through",
-          "weight": 1
-        },
-        {
-          "text": "between the posts",
-          "weight": 1
-        },
-        {
-          "text": "from the tee",
-          "weight": 1
-        },
-        {
-          "text": "slots it",
-          "weight": 1
-        },
-        {
-          "text": "nails it",
-          "weight": 1
+          "text": "posts",
+          "weight": 0.0526
         },
         {
           "text": "he converts",
-          "weight": 1
+          "weight": 0.0526
         },
         {
-          "text": "successful conversion",
-          "weight": 1
+          "text": "converts the",
+          "weight": 0.0526
         },
         {
-          "text": "three more points",
-          "weight": 1
+          "text": "the penalty",
+          "weight": 0.0526
         },
         {
-          "text": "takes the points",
-          "weight": 1
+          "text": "penalty goal",
+          "weight": 0.0526
         },
         {
-          "text": "kick is good",
-          "weight": 1
+          "text": "goal straight",
+          "weight": 0.0526
         },
         {
-          "text": "right down the middle",
-          "weight": 1
+          "text": "straight through",
+          "weight": 0.0526
         },
         {
-          "text": "extends the lead",
-          "weight": 1
+          "text": "the posts",
+          "weight": 0.0526
         },
         {
-          "text": "reduces the deficit",
-          "weight": 1
+          "text": "he converts the",
+          "weight": 0.0526
         },
         {
-          "text": "important points",
-          "weight": 1
+          "text": "converts the penalty",
+          "weight": 0.0526
         },
         {
-          "text": "huge kick",
-          "weight": 1
+          "text": "the penalty goal",
+          "weight": 0.0526
+        },
+        {
+          "text": "penalty goal straight",
+          "weight": 0.0526
+        },
+        {
+          "text": "goal straight through",
+          "weight": 0.0526
+        },
+        {
+          "text": "straight through the",
+          "weight": 0.0526
+        },
+        {
+          "text": "through the posts",
+          "weight": 0.0526
         }
       ]
     },
@@ -351,104 +343,124 @@
       "weight": 0.12,
       "terms": [
         {
-          "text": "offside",
-          "weight": 1
+          "text": "tackle",
+          "weight": 0.0606
         },
         {
-          "text": "forward pass",
-          "weight": 1
+          "text": "referee",
+          "weight": 0.0303
         },
         {
-          "text": "knock on",
-          "weight": 1
-        },
-        {
-          "text": "high tackle",
-          "weight": 1
-        },
-        {
-          "text": "dangerous tackle",
-          "weight": 1
-        },
-        {
-          "text": "not releasing",
-          "weight": 1
-        },
-        {
-          "text": "holding on",
-          "weight": 1
-        },
-        {
-          "text": "side entry",
-          "weight": 1
-        },
-        {
-          "text": "collapsing the maul",
-          "weight": 1
-        },
-        {
-          "text": "collapsed scrum",
-          "weight": 1
-        },
-        {
-          "text": "yellow card",
-          "weight": 1
-        },
-        {
-          "text": "red card",
-          "weight": 1
-        },
-        {
-          "text": "sin bin",
-          "weight": 1
+          "text": "checks",
+          "weight": 0.0303
         },
         {
           "text": "tmo",
-          "weight": 1
+          "weight": 0.0303
         },
         {
-          "text": "referee checking",
-          "weight": 1
+          "text": "dangerous",
+          "weight": 0.0303
         },
         {
-          "text": "go upstairs",
-          "weight": 1
+          "text": "the referee",
+          "weight": 0.0303
         },
         {
-          "text": "decision pending",
-          "weight": 1
+          "text": "referee checks",
+          "weight": 0.0303
         },
         {
-          "text": "no try",
-          "weight": 1
+          "text": "checks the",
+          "weight": 0.0303
         },
         {
-          "text": "try awarded",
-          "weight": 1
+          "text": "the tmo",
+          "weight": 0.0303
         },
         {
-          "text": "penalty try",
-          "weight": 1
+          "text": "tmo for",
+          "weight": 0.0303
         },
         {
-          "text": "free kick",
-          "weight": 1
+          "text": "a dangerous",
+          "weight": 0.0303
         },
         {
-          "text": "illegal entry",
-          "weight": 1
+          "text": "dangerous tackle",
+          "weight": 0.0303
         },
         {
-          "text": "hands in the ruck",
-          "weight": 1
+          "text": "the referee checks",
+          "weight": 0.0303
         },
         {
-          "text": "obstruction",
-          "weight": 1
+          "text": "referee checks the",
+          "weight": 0.0303
         },
         {
-          "text": "double movement",
-          "weight": 1
+          "text": "checks the tmo",
+          "weight": 0.0303
+        },
+        {
+          "text": "the tmo for",
+          "weight": 0.0303
+        },
+        {
+          "text": "tmo for a",
+          "weight": 0.0303
+        },
+        {
+          "text": "for a dangerous",
+          "weight": 0.0303
+        },
+        {
+          "text": "a dangerous tackle",
+          "weight": 0.0303
+        },
+        {
+          "text": "yellow",
+          "weight": 0.0303
+        },
+        {
+          "text": "card",
+          "weight": 0.0303
+        },
+        {
+          "text": "given",
+          "weight": 0.0303
+        },
+        {
+          "text": "high",
+          "weight": 0.0303
+        },
+        {
+          "text": "yellow card",
+          "weight": 0.0303
+        },
+        {
+          "text": "card given",
+          "weight": 0.0303
+        },
+        {
+          "text": "given for",
+          "weight": 0.0303
+        },
+        {
+          "text": "for high",
+          "weight": 0.0303
+        },
+        {
+          "text": "high tackle",
+          "weight": 0.0303
+        },
+        {
+          "text": "yellow card given",
+          "weight": 0.0303
+        },
+        {
+          "text": "card given for",
+          "weight": 0.0303
         }
       ]
     },

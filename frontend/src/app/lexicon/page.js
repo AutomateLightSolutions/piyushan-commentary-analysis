@@ -128,9 +128,16 @@ export default function LexiconManagement() {
 
   return (
     <div className="app-container">
-      <header className="mb-3">
-        <h1 className="page-title">Lexicon Management</h1>
-        <p className="page-subtitle">Configure Rule-Based Parameters for Highlight Generation</p>
+      <header className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div>
+          <h1 className="page-title">Lexicon Management</h1>
+          <p className="page-subtitle">Configure Rule-Based Parameters for Highlight Generation</p>
+        </div>
+        <a href="/lexicon/generator" style={{ textDecoration: "none" }}>
+          <button className="btn btn-primary" style={{ background: "var(--accent-color)" }}>
+            ✨ Auto-Generate Lexicon
+          </button>
+        </a>
       </header>
 
       <main style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
