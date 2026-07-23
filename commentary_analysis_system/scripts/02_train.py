@@ -3,7 +3,7 @@ import pandas as pd
 from pathlib import Path
 from src.models.transformer_classifier import TransformerClassifier
 
-PROCESSED_DATASETS_DIR = Path("data/processed/datasets")
+PROCESSED_DATASETS_DIR = Path("data/processed/datasets/ml")
 
 def main():
     parser = argparse.ArgumentParser()

@@ -7,7 +7,7 @@ import util from 'util';
 const execPromise = util.promisify(exec);
 
 const BACKEND_DIR = path.join(process.cwd(), '..', 'commentary_analysis_system');
-const DATASETS_DIR = path.join(BACKEND_DIR, 'data', 'processed', 'datasets');
+const DATASETS_DIR = path.join(BACKEND_DIR, 'data', 'processed', 'datasets', 'lexicon');
 
 // We use the Python executable in the virtual environment
 const PYTHON_EXEC = path.join(BACKEND_DIR, '.venv', 'Scripts', 'python.exe');

@@ -64,7 +64,7 @@ export default function Navbar() {
           href="/label" 
           className="nav-link-cta"
         >
-          Manual Labeling →
+          Import Dataset →
         </Link>
       </div>
     </nav>

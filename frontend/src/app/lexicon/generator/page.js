@@ -212,7 +212,7 @@ export default function AutoLexiconGenerator() {
                   disabled={extracting}
               >
                   {datasets.length === 0 ? (
-                      <option value="">No datasets found in data/processed/datasets/</option>
+                      <option value="">No datasets found in data/processed/datasets/lexicon/</option>
                   ) : (
                       datasets.map(ds => <option key={ds} value={ds}>{ds}</option>)
                   )}

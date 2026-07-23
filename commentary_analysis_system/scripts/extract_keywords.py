@@ -7,7 +7,7 @@ import json
 sys.path.append(str(Path(__file__).parent.parent))
 from src.data_processing.lexicon_builder import LexiconBuilder
 
-DATASETS_DIR = Path("data/processed/datasets")
+DATASETS_DIR = Path("data/processed/datasets/lexicon")
 
 def main():
     parser = argparse.ArgumentParser(description="Extract keywords from a dataset CSV")
@@ -25,8 +25,11 @@ def main():
         print(json.dumps({"error": f"Failed to read CSV: {str(e)}"}))
         sys.exit(1)
 
+    if 'Text' in df.columns:
+        df = df.rename(columns={'Text': 'text'})
+
     if 'text' not in df.columns or 'event_class' not in df.columns:
-        print(json.dumps({"error": f"CSV must contain 'text' and 'event_class' columns. Found: {list(df.columns)}"}))
+        print(json.dumps({"error": f"CSV must contain 'Text' and 'event_class' columns. Found: {list(df.columns)}"}))
         sys.exit(1)
 
     # Convert dataframe to list of dicts mapped to what LexiconBuilder expects

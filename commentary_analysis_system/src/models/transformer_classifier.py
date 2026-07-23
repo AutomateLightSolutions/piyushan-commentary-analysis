@@ -94,7 +94,9 @@ class TransformerClassifier:
             try:
                 d = pd.read_csv(f)
                 # Map new event schema to specific event label for training
-                if 'event' in d.columns:
+                if 'event_class' in d.columns:
+                    d['label'] = d['event_class'].apply(lambda x: self.label2id.get(str(x).strip(), 0) if pd.notna(x) else 0)
+                elif 'event' in d.columns:
                     d['label'] = d['event'].apply(lambda x: self.label2id.get(str(x).strip(), 0) if pd.notna(x) else 0)
                 elif 'label' not in d.columns:
                     continue # Cannot use this data
@@ -106,6 +108,10 @@ class TransformerClassifier:
             raise ValueError("No valid training data found.")
             
         df = pd.concat(dfs, ignore_index=True)
+        # Handle column naming differences
+        if 'Text' in df.columns and 'text' not in df.columns:
+            df = df.rename(columns={'Text': 'text'})
+            
         df = df.dropna(subset=['text'])
         
         # 2. Balance dataset - We keep all negative data and rely on Focal Loss to handle imbalance

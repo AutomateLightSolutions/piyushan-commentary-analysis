@@ -16,6 +16,19 @@ async function safeReaddir(dir) {
   }
 }
 
+async function safeReaddirDatasets() {
+  let files = [];
+  try {
+      const mlFiles = await fs.readdir(path.join(DATASETS_DIR, 'ml'));
+      files = files.concat(mlFiles.map(f => path.join('ml', f)));
+  } catch(e) {}
+  try {
+      const lexFiles = await fs.readdir(path.join(DATASETS_DIR, 'lexicon'));
+      files = files.concat(lexFiles.map(f => path.join('lexicon', f)));
+  } catch(e) {}
+  return files;
+}
+
 export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
@@ -25,7 +38,7 @@ export async function GET(req) {
     if (!matchId) {
       const rawFiles = await safeReaddir(RAW_DIR);
       const chunkFiles = await safeReaddir(CHUNKS_DIR);
-      const datasetFiles = await safeReaddir(DATASETS_DIR);
+      const datasetFiles = await safeReaddirDatasets();
       
       let matchIds = new Set();
       
@@ -45,8 +58,9 @@ export async function GET(req) {
       });
       // Extract from datasets
       datasetFiles.forEach(f => {
-        if (f.startsWith("dataset_") && f.endsWith(".csv")) {
-          matchIds.add(f.replace("dataset_", "").replace(".csv", ""));
+        const basename = path.basename(f);
+        if (basename.startsWith("dataset_") && basename.endsWith(".csv")) {
+          matchIds.add(basename.replace("dataset_", "").replace(".csv", ""));
         }
       });
       
@@ -62,7 +76,8 @@ export async function GET(req) {
       { path: path.join(RAW_DIR, `${matchId}.vtt`), name: `${matchId}.vtt`, type: "VTT Subtitles", category: "raw" },
       { path: path.join(RAW_DIR, `highlights_${matchId}.json`), name: `highlights_${matchId}.json`, type: "Raw Highlights", category: "raw" },
       { path: path.join(CHUNKS_DIR, `chunks_${matchId}.json`), name: `chunks_${matchId}.json`, type: "Processed Chunks", category: "chunks" },
-      { path: path.join(DATASETS_DIR, `dataset_${matchId}.csv`), name: `dataset_${matchId}.csv`, type: "Dataset CSV", category: "datasets" },
+      { path: path.join(DATASETS_DIR, "ml", `dataset_${matchId}.csv`), name: `dataset_${matchId}.csv (ML)`, type: "Dataset CSV (ML)", category: "datasets/ml" },
+      { path: path.join(DATASETS_DIR, "lexicon", `dataset_${matchId}.csv`), name: `dataset_${matchId}.csv (Lexicon)`, type: "Dataset CSV (Lexicon)", category: "datasets/lexicon" },
     ];
 
     const existingFiles = [];
@@ -106,7 +121,7 @@ export async function DELETE(req) {
       let targetDir;
       if (file.category === "raw") targetDir = RAW_DIR;
       else if (file.category === "chunks") targetDir = CHUNKS_DIR;
-      else if (file.category === "datasets") targetDir = DATASETS_DIR;
+      else if (file.category.startsWith("datasets")) targetDir = path.join(DATASETS_DIR, file.category.split('/')[1]);
       else continue;
 
       const filePath = path.join(targetDir, file.name);

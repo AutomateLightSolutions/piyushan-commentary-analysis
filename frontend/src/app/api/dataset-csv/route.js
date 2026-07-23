@@ -3,35 +3,38 @@ import { readdir, readFile } from "fs/promises";
 import path from "path";
 
 const SYSTEM_PATH = path.resolve(process.cwd(), "..", "commentary_analysis_system");
-const DATASETS_DIR = path.resolve(SYSTEM_PATH, "data", "processed", "datasets");
 
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const matchId = searchParams.get("matchId");
+  const type = searchParams.get("type") || "ml"; // 'ml' or 'lexicon'
+
+  const datasetsDir = path.resolve(SYSTEM_PATH, "data", "processed", "datasets", type);
 
   try {
     if (!matchId) {
         // List datasets mode
-        const files = await readdir(DATASETS_DIR);
-        const matchIds = files
-          .filter(f => f.startsWith("dataset_") && f.endsWith(".csv"))
-          .map(f => f.replace("dataset_", "").replace(".csv", ""));
-        return NextResponse.json({ matchIds });
+        try {
+            const files = await readdir(datasetsDir);
+            const matchIds = files
+              .filter(f => f.startsWith("dataset_") && f.endsWith(".csv"))
+              .map(f => f.replace("dataset_", "").replace(".csv", ""));
+            return NextResponse.json({ matchIds });
+        } catch (e) {
+            if (e.code === "ENOENT") return NextResponse.json({ matchIds: [] });
+            throw e;
+        }
     }
 
     // Retrieve specific dataset CSV mode
-    const csvPath = path.resolve(DATASETS_DIR, `dataset_${matchId}.csv`);
+    const csvPath = path.resolve(datasetsDir, `dataset_${matchId}.csv`);
     const csvData = await readFile(csvPath, "utf-8");
     
-    // Naive CSV parsing strictly for viewer logic (assumes headers: start,end,text,event,score)
+    // Naive CSV parsing strictly for viewer logic
     const lines = csvData.trim().split(/\r?\n/);
     
     const rows = lines.slice(1).map(line => {
-      // Regex to parse: start,end,"text",event,score
-      // We assume text is quoted.
-      // E.g. 0,5,"a referee is ben okeefe from new zealand",Try,0.8
-      // or 0,5,a referee is ben okeefe from new zealand,Try,0.8
-      // Let's use a robust regex to handle quoted text that might have commas.
+      // Regex to parse: start_time,end_time,"Text",event_class,highlight_score
       const match = line.match(/^([^,]+),([^,]+),(".*?"|[^,]*),(.*),(.*)$/);
       if (match) {
         return {
