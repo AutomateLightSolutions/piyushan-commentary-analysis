@@ -56,12 +56,24 @@ export default function LexiconManagement() {
     }));
   };
 
+  const updateTermWeight = (catId, termText, newWeight) => {
+    setConfig((prev) => ({
+      ...prev,
+      categories: prev.categories.map((cat) =>
+        cat.id === catId ? {
+          ...cat,
+          terms: cat.terms.map((t) => t.text === termText ? { ...t, weight: parseFloat(newWeight) || 0 } : t)
+        } : cat
+      ),
+    }));
+  };
+
   const addTerm = (catId, term) => {
     if (!term.trim()) return;
     setConfig((prev) => ({
       ...prev,
       categories: prev.categories.map((cat) =>
-        cat.id === catId ? { ...cat, terms: [...cat.terms, term.trim()] } : cat
+        cat.id === catId ? { ...cat, terms: [...cat.terms, { text: term.trim(), weight: 1.0 }] } : cat
       ),
     }));
   };
@@ -71,7 +83,7 @@ export default function LexiconManagement() {
       ...prev,
       categories: prev.categories.map((cat) =>
         cat.id === catId
-          ? { ...cat, terms: cat.terms.filter((t) => t !== termToRemove) }
+          ? { ...cat, terms: cat.terms.filter((t) => t.text !== termToRemove) }
           : cat
       ),
     }));
@@ -182,10 +194,10 @@ export default function LexiconManagement() {
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "0.8rem" }}>
                   {cat.terms.map((term) => (
                     <div 
-                      key={term} 
+                      key={term.text} 
                       style={{ 
                         background: "rgba(255,255,255,0.1)", 
-                        padding: "0.4rem 0.8rem", 
+                        padding: "0.2rem 0.2rem 0.2rem 0.8rem", 
                         borderRadius: "20px", 
                         display: "flex", 
                         alignItems: "center", 
@@ -193,10 +205,28 @@ export default function LexiconManagement() {
                         border: "1px solid var(--glass-border)"
                       }}
                     >
-                      <span>{term}</span>
+                      <span>{term.text}</span>
+                      <input 
+                        type="number"
+                        step="0.1"
+                        min="0"
+                        max="2"
+                        value={term.weight}
+                        onChange={(e) => updateTermWeight(cat.id, term.text, e.target.value)}
+                        style={{
+                          width: "60px",
+                          background: "rgba(0,0,0,0.2)",
+                          border: "1px solid var(--glass-border)",
+                          color: "white",
+                          borderRadius: "10px",
+                          padding: "0.2rem",
+                          fontSize: "0.9rem",
+                          textAlign: "center"
+                        }}
+                      />
                       <button 
-                        onClick={() => removeTerm(cat.id, term)}
-                        style={{ background: "none", border: "none", color: "var(--error-color)", cursor: "pointer", fontWeight: "bold", fontSize: "1.2rem", lineHeight: 1 }}
+                        onClick={() => removeTerm(cat.id, term.text)}
+                        style={{ background: "none", border: "none", color: "var(--error-color)", cursor: "pointer", fontWeight: "bold", fontSize: "1.2rem", lineHeight: 1, paddingRight: "0.4rem" }}
                       >
                         &times;
                       </button>

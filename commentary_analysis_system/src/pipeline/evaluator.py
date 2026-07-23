@@ -24,6 +24,37 @@ def compute_metrics(y_true: list[int], y_pred: list[int]) -> dict:
         "f1": round(f1, 2)
     }
 
+def compute_multiclass_metrics(y_true: list[str], y_pred: list[str]) -> dict:
+    classes = set(y_true + y_pred)
+    if "normal_play" in classes:
+        classes.remove("normal_play")
+        
+    if not classes:
+        return {"precision": 0.0, "recall": 0.0, "f1": 0.0}
+        
+    macro_p, macro_r, macro_f1 = 0.0, 0.0, 0.0
+    
+    for cls in classes:
+        tp = sum(1 for yt, yp in zip(y_true, y_pred) if yt == cls and yp == cls)
+        fp = sum(1 for yt, yp in zip(y_true, y_pred) if yt != cls and yp == cls)
+        fn = sum(1 for yt, yp in zip(y_true, y_pred) if yt == cls and yp != cls)
+        
+        p = tp / (tp + fp) if (tp + fp) > 0 else 0.0
+        r = tp / (tp + fn) if (tp + fn) > 0 else 0.0
+        f1 = 2 * p * r / (p + r) if (p + r) > 0 else 0.0
+        
+        macro_p += p
+        macro_r += r
+        macro_f1 += f1
+        
+    num_classes = len(classes)
+    
+    return {
+        "precision": round(macro_p / num_classes, 2),
+        "recall": round(macro_r / num_classes, 2),
+        "f1": round(macro_f1 / num_classes, 2)
+    }
+
 def print_evaluation_table(eval_results: dict):
     print(f"{'Method':<15} | {'Precision':<10} | {'Recall':<10} | {'F1':<10}")
     print("-" * 55)

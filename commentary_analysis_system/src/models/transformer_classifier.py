@@ -3,6 +3,8 @@ from datasets import Dataset
 import torch
 import pandas as pd
 import torch.nn as nn
+import json
+import os
 
 import torch.nn.functional as F
 
@@ -42,10 +44,34 @@ class CustomTrainer(Trainer):
         return (loss, outputs) if return_outputs else loss
 
 class TransformerClassifier:
+    def _load_events(self):
+        try:
+            base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            events_path = os.path.join(base_dir, "data", "events.json")
+            with open(events_path, 'r') as f:
+                events = json.load(f)
+            
+            label2id = {"normal_play": 0}
+            id2label = {0: "normal_play"}
+            for i, evt in enumerate(events, start=1):
+                label2id[evt] = i
+                id2label[i] = evt
+            return label2id, id2label
+        except Exception:
+            return {"normal_play": 0, "highlight": 1}, {0: "normal_play", 1: "highlight"}
+
     def __init__(self, model_name="roberta-base"):
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        # 2 labels: 0 for non-highlight, 1 for highlight
-        self.model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=2)
+        self.label2id, self.id2label = self._load_events()
+        self.num_labels = len(self.label2id)
+        
+        self.model = AutoModelForSequenceClassification.from_pretrained(
+            model_name, 
+            num_labels=self.num_labels,
+            id2label=self.id2label,
+            label2id=self.label2id,
+            ignore_mismatched_sizes=True
+        )
         
     def prepare_dataset(self, text_list, labels=None):
         encodings = self.tokenizer(text_list, truncation=True, padding=True, max_length=128)
@@ -67,9 +93,9 @@ class TransformerClassifier:
         for f in data_files:
             try:
                 d = pd.read_csv(f)
-                # Map new event schema to legacy binary label for training
+                # Map new event schema to specific event label for training
                 if 'event' in d.columns:
-                    d['label'] = d['event'].apply(lambda x: 1 if pd.notna(x) and str(x).strip() not in ['', '-', 'None', 'normal_play'] else 0)
+                    d['label'] = d['event'].apply(lambda x: self.label2id.get(str(x).strip(), 0) if pd.notna(x) else 0)
                 elif 'label' not in d.columns:
                     continue # Cannot use this data
                 dfs.append(d)
@@ -87,13 +113,15 @@ class TransformerClassifier:
         
         # 3. Compute class weights for the loss function
         total_samples = len(df_balanced)
-        count_0 = len(df_balanced[df_balanced.label == 0])
-        count_1 = len(df_balanced[df_balanced.label == 1])
+        class_counts = df_balanced['label'].value_counts().to_dict()
         
-        weight_0 = total_samples / (2.0 * count_0) if count_0 > 0 else 1.0
-        weight_1 = total_samples / (2.0 * count_1) if count_1 > 0 else 1.0
-        
-        class_weights = torch.tensor([weight_0, weight_1], dtype=torch.float)
+        weights = []
+        for i in range(self.num_labels):
+            count = class_counts.get(i, 0)
+            w = total_samples / (self.num_labels * count) if count > 0 else 1.0
+            weights.append(w)
+            
+        class_weights = torch.tensor(weights, dtype=torch.float)
         
         # 4. Convert back to HuggingFace Dataset
         dataset = Dataset.from_pandas(df_balanced)
@@ -139,9 +167,12 @@ class TransformerClassifier:
     def load_model(self, model_path):
         self.model = AutoModelForSequenceClassification.from_pretrained(model_path)
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
+        self.num_labels = self.model.config.num_labels
+        self.id2label = self.model.config.id2label
+        self.label2id = self.model.config.label2id
         
     def predict_probs(self, text_list, batch_size=32):
-        """Returns the probability of class 1 (highlight)"""
+        """Returns the full probability distribution across all classes."""
         self.model.eval()
         device = next(self.model.parameters()).device
         
@@ -155,6 +186,6 @@ class TransformerClassifier:
                 outputs = self.model(**inputs)
                 logits = outputs.logits
                 probs = torch.softmax(logits, dim=-1)
-                all_probs.extend(probs[:, 1].tolist())
+                all_probs.extend(probs.tolist())
                 
         return all_probs

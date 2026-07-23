@@ -5,221 +5,704 @@
       "name": "Try Scoring Events",
       "weight": 0.35,
       "terms": [
-        "try",
-        "scores",
-        "he scores",
-        "she scores",
-        "touchdown",
-        "grounds the ball",
-        "gets it down",
-        "dives over",
-        "dives in",
-        "over the line",
-        "he's over",
-        "she's over",
-        "under the posts",
-        "in the corner",
-        "finishes it",
-        "crosses over",
-        "five pointer",
-        "try time",
-        "what a finish",
-        "puts it down",
-        "reaches out",
-        "slides over",
-        "goes over",
-        "power over",
-        "powers through",
-        "through the tackle",
-        "unstoppable",
-        "individual brilliance",
-        "what a try",
-        "sensational try",
-        "brilliant finish",
-        "amazing score",
-        "world class",
-        "special finish"
+        {
+          "text": "try",
+          "weight": 0.9
+        },
+        {
+          "text": "scores",
+          "weight": 0.7
+        },
+        {
+          "text": "he scores",
+          "weight": 0.9
+        },
+        {
+          "text": "touchdown",
+          "weight": 0.8
+        },
+        {
+          "text": "grounds the ball",
+          "weight": 0.8
+        },
+        {
+          "text": "gets it down",
+          "weight": 0.8
+        },
+        {
+          "text": "dives over",
+          "weight": 0.8
+        },
+        {
+          "text": "dives in",
+          "weight": 0.9
+        },
+        {
+          "text": "over the line",
+          "weight": 0.8
+        },
+        {
+          "text": "he's over",
+          "weight": 0.8
+        },
+        {
+          "text": "under the posts",
+          "weight": 0.8
+        },
+        {
+          "text": "in the corner",
+          "weight": 0.8
+        },
+        {
+          "text": "finishes it",
+          "weight": 0.8
+        },
+        {
+          "text": "crosses over",
+          "weight": 0.9
+        },
+        {
+          "text": "try time",
+          "weight": 0.9
+        },
+        {
+          "text": "what a finish",
+          "weight": 0.8
+        },
+        {
+          "text": "puts it down",
+          "weight": 0.9
+        },
+        {
+          "text": "reaches out",
+          "weight": 0.8
+        },
+        {
+          "text": "slides over",
+          "weight": 0.8
+        },
+        {
+          "text": "goes over",
+          "weight": 0.9
+        },
+        {
+          "text": "power over",
+          "weight": 0.8
+        },
+        {
+          "text": "powers through",
+          "weight": 0.8
+        },
+        {
+          "text": "through the tackle",
+          "weight": 0.8
+        },
+        {
+          "text": "unstoppable",
+          "weight": 0.8
+        },
+        {
+          "text": "individual brilliance",
+          "weight": 0.6
+        },
+        {
+          "text": "what a try",
+          "weight": 0.9
+        },
+        {
+          "text": "sensational try",
+          "weight": 0.9
+        },
+        {
+          "text": "brilliant finish",
+          "weight": 0.9
+        },
+        {
+          "text": "amazing score",
+          "weight": 0.9
+        },
+        {
+          "text": "world class",
+          "weight": 0.8
+        },
+        {
+          "text": "special finish",
+          "weight": 0.8
+        }
       ]
     },
-
     {
       "id": "conversion_penalty_points",
       "name": "Conversions and Penalty Scores",
       "weight": 0.16,
       "terms": [
-        "conversion",
-        "penalty goal",
-        "drop goal",
-        "adds the extras",
-        "straight through",
-        "between the posts",
-        "from the tee",
-        "slots it",
-        "nails it",
-        "he converts",
-        "successful conversion",
-        "three more points",
-        "takes the points",
-        "kick is good",
-        "right down the middle",
-        "extends the lead",
-        "reduces the deficit",
-        "important points",
-        "huge kick"
+        {
+          "text": "conversion",
+          "weight": 1
+        },
+        {
+          "text": "penalty goal",
+          "weight": 1
+        },
+        {
+          "text": "drop goal",
+          "weight": 1
+        },
+        {
+          "text": "adds the extras",
+          "weight": 1
+        },
+        {
+          "text": "straight through",
+          "weight": 1
+        },
+        {
+          "text": "between the posts",
+          "weight": 1
+        },
+        {
+          "text": "from the tee",
+          "weight": 1
+        },
+        {
+          "text": "slots it",
+          "weight": 1
+        },
+        {
+          "text": "nails it",
+          "weight": 1
+        },
+        {
+          "text": "he converts",
+          "weight": 1
+        },
+        {
+          "text": "successful conversion",
+          "weight": 1
+        },
+        {
+          "text": "three more points",
+          "weight": 1
+        },
+        {
+          "text": "takes the points",
+          "weight": 1
+        },
+        {
+          "text": "kick is good",
+          "weight": 1
+        },
+        {
+          "text": "right down the middle",
+          "weight": 1
+        },
+        {
+          "text": "extends the lead",
+          "weight": 1
+        },
+        {
+          "text": "reduces the deficit",
+          "weight": 1
+        },
+        {
+          "text": "important points",
+          "weight": 1
+        },
+        {
+          "text": "huge kick",
+          "weight": 1
+        }
       ]
     },
-
     {
       "id": "attacking_pressure",
       "name": "Attacking Pressure",
       "weight": 0.14,
       "terms": [
-        "advantage being played",
-        "playing advantage",
-        "quick hands",
-        "goes wide",
-        "spreads it wide",
-        "on the outside",
-        "inside ball",
-        "offload",
-        "support runner",
-        "counter attack",
-        "line break",
-        "breaks through",
-        "through the gap",
-        "steps inside",
-        "beats the defender",
-        "burst of pace",
-        "intercept",
-        "chip and chase",
-        "regather",
-        "attacking opportunity",
-        "deep into the 22",
-        "camped on the line",
-        "pressure mounting",
-        "knocking on the door",
-        "driving forward",
-        "momentum building",
-        "attacking phase",
-        "patient build up",
-        "fast phase play",
-        "quick recycle",
-        "ball retention"
+        {
+          "text": "advantage being played",
+          "weight": 1
+        },
+        {
+          "text": "playing advantage",
+          "weight": 1
+        },
+        {
+          "text": "quick hands",
+          "weight": 1
+        },
+        {
+          "text": "goes wide",
+          "weight": 1
+        },
+        {
+          "text": "spreads it wide",
+          "weight": 1
+        },
+        {
+          "text": "on the outside",
+          "weight": 1
+        },
+        {
+          "text": "inside ball",
+          "weight": 1
+        },
+        {
+          "text": "offload",
+          "weight": 1
+        },
+        {
+          "text": "support runner",
+          "weight": 1
+        },
+        {
+          "text": "counter attack",
+          "weight": 1
+        },
+        {
+          "text": "line break",
+          "weight": 1
+        },
+        {
+          "text": "breaks through",
+          "weight": 1
+        },
+        {
+          "text": "through the gap",
+          "weight": 1
+        },
+        {
+          "text": "steps inside",
+          "weight": 1
+        },
+        {
+          "text": "beats the defender",
+          "weight": 1
+        },
+        {
+          "text": "burst of pace",
+          "weight": 1
+        },
+        {
+          "text": "intercept",
+          "weight": 1
+        },
+        {
+          "text": "chip and chase",
+          "weight": 1
+        },
+        {
+          "text": "regather",
+          "weight": 1
+        },
+        {
+          "text": "attacking opportunity",
+          "weight": 1
+        },
+        {
+          "text": "deep into the 22",
+          "weight": 1
+        },
+        {
+          "text": "camped on the line",
+          "weight": 1
+        },
+        {
+          "text": "pressure mounting",
+          "weight": 1
+        },
+        {
+          "text": "knocking on the door",
+          "weight": 1
+        },
+        {
+          "text": "driving forward",
+          "weight": 1
+        },
+        {
+          "text": "momentum building",
+          "weight": 1
+        },
+        {
+          "text": "attacking phase",
+          "weight": 1
+        },
+        {
+          "text": "patient build up",
+          "weight": 1
+        },
+        {
+          "text": "fast phase play",
+          "weight": 1
+        },
+        {
+          "text": "quick recycle",
+          "weight": 1
+        },
+        {
+          "text": "ball retention",
+          "weight": 1
+        }
       ]
     },
-
     {
       "id": "referee_decisions",
       "name": "Referee Decisions",
       "weight": 0.12,
       "terms": [
-        "offside",
-        "forward pass",
-        "knock on",
-        "high tackle",
-        "dangerous tackle",
-        "not releasing",
-        "holding on",
-        "side entry",
-        "collapsing the maul",
-        "collapsed scrum",
-        "yellow card",
-        "red card",
-        "sin bin",
-        "tmo",
-        "referee checking",
-        "go upstairs",
-        "decision pending",
-        "no try",
-        "try awarded",
-        "penalty try",
-        "free kick",
-        "illegal entry",
-        "hands in the ruck",
-        "obstruction",
-        "double movement"
+        {
+          "text": "offside",
+          "weight": 1
+        },
+        {
+          "text": "forward pass",
+          "weight": 1
+        },
+        {
+          "text": "knock on",
+          "weight": 1
+        },
+        {
+          "text": "high tackle",
+          "weight": 1
+        },
+        {
+          "text": "dangerous tackle",
+          "weight": 1
+        },
+        {
+          "text": "not releasing",
+          "weight": 1
+        },
+        {
+          "text": "holding on",
+          "weight": 1
+        },
+        {
+          "text": "side entry",
+          "weight": 1
+        },
+        {
+          "text": "collapsing the maul",
+          "weight": 1
+        },
+        {
+          "text": "collapsed scrum",
+          "weight": 1
+        },
+        {
+          "text": "yellow card",
+          "weight": 1
+        },
+        {
+          "text": "red card",
+          "weight": 1
+        },
+        {
+          "text": "sin bin",
+          "weight": 1
+        },
+        {
+          "text": "tmo",
+          "weight": 1
+        },
+        {
+          "text": "referee checking",
+          "weight": 1
+        },
+        {
+          "text": "go upstairs",
+          "weight": 1
+        },
+        {
+          "text": "decision pending",
+          "weight": 1
+        },
+        {
+          "text": "no try",
+          "weight": 1
+        },
+        {
+          "text": "try awarded",
+          "weight": 1
+        },
+        {
+          "text": "penalty try",
+          "weight": 1
+        },
+        {
+          "text": "free kick",
+          "weight": 1
+        },
+        {
+          "text": "illegal entry",
+          "weight": 1
+        },
+        {
+          "text": "hands in the ruck",
+          "weight": 1
+        },
+        {
+          "text": "obstruction",
+          "weight": 1
+        },
+        {
+          "text": "double movement",
+          "weight": 1
+        }
       ]
     },
-
     {
       "id": "set_piece",
       "name": "Set Piece and Breakdown",
       "weight": 0.05,
       "terms": [
-        "driving maul",
-        "turnover",
-        "turnover won",
-        "stolen at the breakdown",
-        "dominant scrum",
-        "scrum penalty",
-        "lineout steal",
-        "clean ball",
-        "quick throw",
-        "contest in the air",
-        "box kick",
-        "contestable kick",
-        "restart",
-        "phase play",
-        "pick and go",
-        "rolling maul",
-        "set piece dominance"
+        {
+          "text": "driving maul",
+          "weight": 1
+        },
+        {
+          "text": "turnover",
+          "weight": 1
+        },
+        {
+          "text": "turnover won",
+          "weight": 1
+        },
+        {
+          "text": "stolen at the breakdown",
+          "weight": 1
+        },
+        {
+          "text": "dominant scrum",
+          "weight": 1
+        },
+        {
+          "text": "scrum penalty",
+          "weight": 1
+        },
+        {
+          "text": "lineout steal",
+          "weight": 1
+        },
+        {
+          "text": "clean ball",
+          "weight": 1
+        },
+        {
+          "text": "quick throw",
+          "weight": 1
+        },
+        {
+          "text": "contest in the air",
+          "weight": 1
+        },
+        {
+          "text": "box kick",
+          "weight": 1
+        },
+        {
+          "text": "contestable kick",
+          "weight": 1
+        },
+        {
+          "text": "restart",
+          "weight": 1
+        },
+        {
+          "text": "phase play",
+          "weight": 1
+        },
+        {
+          "text": "pick and go",
+          "weight": 1
+        },
+        {
+          "text": "rolling maul",
+          "weight": 1
+        },
+        {
+          "text": "set piece dominance",
+          "weight": 1
+        }
       ]
     },
-
     {
       "id": "crowd_commentary_excitement",
       "name": "Crowd and Commentary Excitement",
       "weight": 0.11,
       "terms": [
-        "brilliant",
-        "sensational",
-        "unbelievable",
-        "incredible",
-        "extraordinary",
-        "magnificent",
-        "outstanding",
-        "special moment",
-        "listen to this crowd",
-        "the stadium erupts",
-        "crowd on their feet",
-        "what a moment",
-        "huge moment",
-        "dramatic finish",
-        "remarkable",
-        "pure class",
-        "absolutely stunning",
-        "wow",
-        "what a play",
-        "electric atmosphere",
-        "massive play",
-        "game changing",
-        "this is huge",
-        "phenomenal",
-        "magic from",
-        "the fans love it"
+        {
+          "text": "brilliant",
+          "weight": 1
+        },
+        {
+          "text": "sensational",
+          "weight": 1
+        },
+        {
+          "text": "unbelievable",
+          "weight": 1
+        },
+        {
+          "text": "incredible",
+          "weight": 1
+        },
+        {
+          "text": "extraordinary",
+          "weight": 1
+        },
+        {
+          "text": "magnificent",
+          "weight": 1
+        },
+        {
+          "text": "outstanding",
+          "weight": 1
+        },
+        {
+          "text": "special moment",
+          "weight": 1
+        },
+        {
+          "text": "listen to this crowd",
+          "weight": 1
+        },
+        {
+          "text": "the stadium erupts",
+          "weight": 1
+        },
+        {
+          "text": "crowd on their feet",
+          "weight": 1
+        },
+        {
+          "text": "what a moment",
+          "weight": 1
+        },
+        {
+          "text": "huge moment",
+          "weight": 1
+        },
+        {
+          "text": "dramatic finish",
+          "weight": 1
+        },
+        {
+          "text": "remarkable",
+          "weight": 1
+        },
+        {
+          "text": "pure class",
+          "weight": 1
+        },
+        {
+          "text": "absolutely stunning",
+          "weight": 1
+        },
+        {
+          "text": "wow",
+          "weight": 1
+        },
+        {
+          "text": "what a play",
+          "weight": 1
+        },
+        {
+          "text": "electric atmosphere",
+          "weight": 1
+        },
+        {
+          "text": "massive play",
+          "weight": 1
+        },
+        {
+          "text": "game changing",
+          "weight": 1
+        },
+        {
+          "text": "this is huge",
+          "weight": 1
+        },
+        {
+          "text": "phenomenal",
+          "weight": 1
+        },
+        {
+          "text": "magic from",
+          "weight": 1
+        },
+        {
+          "text": "the fans love it",
+          "weight": 1
+        }
       ]
     },
-
     {
       "id": "defensive_intensity",
       "name": "Defensive Intensity",
       "weight": 0.07,
       "terms": [
-        "big tackle",
-        "dominant tackle",
-        "try saving tackle",
-        "held up over the line",
-        "defensive stand",
-        "massive defence",
-        "turns him over",
-        "forced backwards",
-        "driven back",
-        "under pressure",
-        "scrambling defence",
-        "goal line defence",
-        "desperate defence",
-        "huge collision",
-        "crunching tackle"
+        {
+          "text": "big tackle",
+          "weight": 1
+        },
+        {
+          "text": "dominant tackle",
+          "weight": 1
+        },
+        {
+          "text": "try saving tackle",
+          "weight": 1
+        },
+        {
+          "text": "held up over the line",
+          "weight": 1
+        },
+        {
+          "text": "defensive stand",
+          "weight": 1
+        },
+        {
+          "text": "massive defence",
+          "weight": 1
+        },
+        {
+          "text": "turns him over",
+          "weight": 1
+        },
+        {
+          "text": "forced backwards",
+          "weight": 1
+        },
+        {
+          "text": "driven back",
+          "weight": 1
+        },
+        {
+          "text": "under pressure",
+          "weight": 1
+        },
+        {
+          "text": "scrambling defence",
+          "weight": 1
+        },
+        {
+          "text": "goal line defence",
+          "weight": 1
+        },
+        {
+          "text": "desperate defence",
+          "weight": 1
+        },
+        {
+          "text": "huge collision",
+          "weight": 1
+        },
+        {
+          "text": "crunching tackle",
+          "weight": 1
+        }
       ]
     }
   ]

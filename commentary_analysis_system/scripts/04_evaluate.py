@@ -2,7 +2,7 @@ import json
 import argparse
 from pathlib import Path
 from datetime import datetime
-from src.pipeline.evaluator import compute_metrics, print_evaluation_table
+from src.pipeline.evaluator import compute_metrics, print_evaluation_table, compute_multiclass_metrics
 from src.utils.config import get_threshold
 
 OUTPUT_DIR = Path("data/output")
@@ -25,6 +25,20 @@ def evaluate_method(chunks: list[dict], score_key: str, threshold: float = 0.65)
         y_pred.append(1 if chunk.get(score_key, 0.0) >= threshold else 0)
         
     return compute_metrics(y_true, y_pred)
+
+def evaluate_multiclass(chunks: list[dict]) -> dict:
+    y_true = []
+    y_pred = []
+    for chunk in chunks:
+        event = chunk.get("event")
+        if not event or str(event).strip() in ['', '-', 'None']:
+            event = "normal_play"
+        y_true.append(event)
+        
+        pred_event = chunk.get("predicted_event", "normal_play")
+        y_pred.append(pred_event)
+        
+    return compute_multiclass_metrics(y_true, y_pred)
 
 def main():
     parser = argparse.ArgumentParser()
@@ -64,7 +78,8 @@ def main():
     total_metrics = {
         "Lexicon Only": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
         "ML Model Only": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
-        "Hybrid Model": {"precision": 0.0, "recall": 0.0, "f1": 0.0}
+        "Hybrid Model": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
+        "Specific Event (Multi-class)": {"precision": 0.0, "recall": 0.0, "f1": 0.0}
     }
     
     num_files = 0
@@ -81,6 +96,7 @@ def main():
         lexicon_res = evaluate_method(chunks, "lexicon_score", threshold=get_threshold("lexicon_threshold"))
         roberta_res = evaluate_method(chunks, "roberta_score", threshold=get_threshold("ml_threshold"))
         hybrid_res = evaluate_method(chunks, "hybrid_score", threshold=get_threshold("hybrid_threshold"))
+        multiclass_res = evaluate_multiclass(chunks)
         
         # Append to DB
         record = {
@@ -94,7 +110,8 @@ def main():
             "metrics": {
                 "Lexicon Only": lexicon_res,
                 "ML Model Only": roberta_res,
-                "Hybrid Model": hybrid_res
+                "Hybrid Model": hybrid_res,
+                "Specific Event (Multi-class)": multiclass_res
             }
         }
         metrics_db.append(record)
@@ -104,6 +121,7 @@ def main():
             total_metrics["Lexicon Only"][key] += lexicon_res[key]
             total_metrics["ML Model Only"][key] += roberta_res[key]
             total_metrics["Hybrid Model"][key] += hybrid_res[key]
+            total_metrics["Specific Event (Multi-class)"][key] += multiclass_res[key]
             
         num_files += 1
         

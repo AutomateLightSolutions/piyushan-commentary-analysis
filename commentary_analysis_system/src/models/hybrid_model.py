@@ -16,16 +16,32 @@ class HybridModel:
         roberta_probs = self.roberta.predict_probs(text_list)
         
         results = []
-        for text, r_prob in zip(text_list, roberta_probs):
+        for text, r_probs in zip(text_list, roberta_probs):
             l_prob = self.lexicon.score_chunk(text)
             
+            # r_probs is a list of probabilities for each class
+            # Highlight probability is 1.0 - probability of normal_play (index 0)
+            base_highlight_prob = 1.0 - r_probs[0]
+            
+            # Predict the specific event (argmax)
+            max_prob = -1
+            predicted_event_id = 0
+            for i, p in enumerate(r_probs):
+                if p > max_prob:
+                    max_prob = p
+                    predicted_event_id = i
+                    
+            predicted_event = self.roberta.id2label.get(predicted_event_id, "normal_play")
+            
             # Booster formula: Lexicon score boosts the RoBERTa base score
-            hybrid_score = min(1.0, r_prob + (l_prob * lexicon_weight))
+            hybrid_score = min(1.0, base_highlight_prob + (l_prob * lexicon_weight))
             
             results.append({
-                "roberta_score": r_prob,
+                "roberta_score": base_highlight_prob,
                 "lexicon_score": l_prob,
-                "hybrid_score": hybrid_score
+                "hybrid_score": hybrid_score,
+                "predicted_event": predicted_event,
+                "predicted_event_prob": max_prob
             })
             
         return results

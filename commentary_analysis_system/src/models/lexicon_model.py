@@ -21,13 +21,22 @@ class LexiconModel:
             # Fallback to empty if file not found
             self.config = {"categories": []}
 
-    def _count_matches(self, text: str, terms: list[str]) -> int:
-        count = 0
+    def _count_matches_weighted(self, text: str, terms: list[dict]) -> float:
+        score = 0.0
         
         # Simple negation words to check before the term
         negations = ["no", "not", "missed", "missed the"]
         
-        for term in terms:
+        for term_obj in terms:
+            if isinstance(term_obj, str):
+                term = term_obj
+                weight = 1.0
+            else:
+                term = term_obj.get("text", "")
+                weight = float(term_obj.get("weight", 1.0))
+            
+            if not term: continue
+            
             if "\\" in term:
                 pattern = term
             else:
@@ -47,19 +56,19 @@ class LexiconModel:
                         break
                 
                 if not is_negated:
-                    count += 1
+                    score += weight
                     
-        return count
+        return score
 
     def generate_features(self, text: str) -> dict:
-        """Counts frequency of category keywords in the chunk."""
+        """Counts weighted frequency of category keywords in the chunk."""
         text = text.lower()
         features = {}
         for category in self.config.get("categories", []):
             cat_id = category["id"]
             terms = category.get("terms", [])
-            # Return actual count for frequency scaling instead of binary 1/0
-            features[cat_id] = self._count_matches(text, terms)
+            # Return weighted score instead of binary 1/0
+            features[cat_id] = self._count_matches_weighted(text, terms)
         return features
 
     def score_chunk(self, text: str) -> float:
