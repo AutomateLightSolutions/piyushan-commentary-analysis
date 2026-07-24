@@ -101,7 +101,7 @@ export function PipelineProvider({ children }) {
   };
 
   // ── Pipeline handlers ──────────────────────────────────────────────────────
-  const handleProcess = async (matchId, fullVideo, highlightVideo) => {
+  const handleProcess = async (matchId, fullVideo) => {
     setIsProcessing(true);
     resetSteps();
     abortControllerRef.current = new AbortController();
@@ -112,7 +112,6 @@ export function PipelineProvider({ children }) {
       await new Promise((resolve, reject) => {
         const fd = new FormData();
         fd.append("fullVideo", fullVideo);
-        fd.append("highlightVideo", highlightVideo);
         fd.append("matchId", matchId);
 
         const xhr = new XMLHttpRequest();

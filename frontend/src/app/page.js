@@ -296,7 +296,6 @@ export default function Home() {
   const [matchId, setMatchId] = useState("");
   const [existingMatches, setExistingMatches] = useState([]);
   const [fullVideo, setFullVideo] = useState(null);
-  const [highlightVideo, setHighlightVideo] = useState(null);
   const [activeTab, setActiveTab] = useState(1);
   const [showDatasetModal, setShowDatasetModal] = useState(false);
 
@@ -327,8 +326,7 @@ export default function Home() {
   const onStartProcess = () => {
     if (!matchId)        return alert("Please enter a Match Identifier Base Name!");
     if (!fullVideo)      return alert("Please select the Full Match MP4!");
-    if (!highlightVideo) return alert("Please select the Highlight MP4!");
-    handleProcess(matchId, fullVideo, highlightVideo);
+    handleProcess(matchId, fullVideo);
     setActiveTab(2);
   };
 
@@ -404,10 +402,6 @@ export default function Home() {
             <div className="form-group">
               <label className="form-label">Upload Full Match Video (.mp4)</label>
               <input type="file" className="form-file" accept="video/mp4" onChange={e => setFullVideo(e.target.files[0])} />
-            </div>
-            <div className="form-group">
-              <label className="form-label">Upload Highlight Video (.mp4)</label>
-              <input type="file" className="form-file" accept="video/mp4" onChange={e => setHighlightVideo(e.target.files[0])} />
             </div>
             <div className="flex-between mt-3" style={{ gap: "1rem" }}>
               <button className="btn btn-primary w-full" onClick={onStartProcess} disabled={isProcessing || isMlProcessing}>

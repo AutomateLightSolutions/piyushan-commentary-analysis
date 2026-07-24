@@ -9,6 +9,7 @@ export default function DatasetsExplorer() {
   const [rows, setRows] = useState([]);
   const [statusMsg, setStatusMsg] = useState("");
   const [datasetType, setDatasetType] = useState("ml"); // "ml" or "lexicon"
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     // Fetch available matches for the selected dataset type
@@ -62,18 +63,84 @@ export default function DatasetsExplorer() {
         </button>
       </div>
 
-      <div className="flex-between mb-4" style={{ justifyContent: "flex-start", gap: "1rem" }}>
-        <input 
-          list="dataset-options"
-          placeholder={`Search ${datasetType.toUpperCase()} Dataset ID`} 
-          value={matchId} 
-          onChange={e => setMatchId(e.target.value)}
-          className="form-input"
-          style={{ width: "300px" }}
-        />
-        <datalist id="dataset-options">
-          {availableMatches.map(id => <option key={id} value={id} />)}
-        </datalist>
+      <div className="flex-between mb-4" style={{ justifyContent: "flex-start", gap: "1rem", position: "relative" }}>
+        <div style={{ position: "relative" }}>
+          <input 
+            placeholder={`Search ${datasetType.toUpperCase()} Dataset ID`} 
+            value={matchId} 
+            onChange={e => {
+              setMatchId(e.target.value);
+              setIsDropdownOpen(true);
+            }}
+            onFocus={() => setIsDropdownOpen(true)}
+            onBlur={() => setTimeout(() => setIsDropdownOpen(false), 200)}
+            onKeyDown={e => {
+              if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                setIsDropdownOpen(true);
+              }
+            }}
+            className="form-input"
+            style={{ width: "300px", paddingRight: "2.5rem" }}
+          />
+          <div 
+            style={{
+              position: "absolute",
+              right: "0.75rem",
+              top: "50%",
+              transform: "translateY(-50%)",
+              pointerEvents: "none",
+              color: "var(--text-muted)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+          {isDropdownOpen && availableMatches.length > 0 && (
+            <ul style={{
+              position: "absolute",
+              top: "100%",
+              left: 0,
+              width: "100%",
+              maxHeight: "200px",
+              overflowY: "auto",
+              background: "var(--glass-bg)",
+              backdropFilter: "blur(12px)",
+              border: "1px solid var(--glass-border)",
+              borderRadius: "0 0 8px 8px",
+              listStyle: "none",
+              padding: 0,
+              margin: 0,
+              zIndex: 10,
+              boxShadow: "0 4px 6px rgba(0,0,0,0.1)"
+            }}>
+              {availableMatches
+                .filter(id => id.toLowerCase().includes(matchId.toLowerCase()))
+                .map(id => (
+                  <li 
+                    key={id}
+                    onClick={() => {
+                      setMatchId(id);
+                      setIsDropdownOpen(false);
+                    }}
+                    style={{
+                      padding: "0.5rem 1rem",
+                      cursor: "pointer",
+                      borderBottom: "1px solid rgba(255,255,255,0.05)",
+                    }}
+                    onMouseOver={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
+                    onMouseOut={e => e.currentTarget.style.background = "transparent"}
+                  >
+                    {id}
+                  </li>
+              ))}
+            </ul>
+          )}
+        </div>
         <button className="btn btn-primary" onClick={loadData}>Load Dataset CSV</button>
         <span className="text-muted" style={{ fontWeight: "500", marginLeft: "1rem" }}>{statusMsg}</span>
       </div>
