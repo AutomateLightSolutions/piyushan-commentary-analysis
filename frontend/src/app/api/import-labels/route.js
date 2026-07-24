@@ -6,6 +6,7 @@ import { exec } from 'child_process';
 import util from 'util';
 import path from 'path';
 import { existsSync, mkdirSync } from 'fs';
+import { getPythonCommand } from '../python-env';
 
 const execPromise = util.promisify(exec);
 const SYSTEM_PATH = path.resolve(process.cwd(), "..", "commentary_analysis_system");
@@ -37,7 +38,7 @@ export async function POST(request) {
 
     // Execute Python script to process the dataset
     const scriptPath = path.join(SYSTEM_PATH, "scripts", "import_dataset.py");
-    const pythonExecutable = path.join(SYSTEM_PATH, ".venv", "Scripts", "python.exe"); // Windows path, adjust if needed
+    const pythonExecutable = getPythonCommand(SYSTEM_PATH);
     
     // Check if python executable exists, fallback to just 'python' if not in venv
     const pythonCmd = existsSync(pythonExecutable) ? `"${pythonExecutable}"` : "python";

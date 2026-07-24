@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { exec } from 'child_process';
 import util from 'util';
+import { getPythonCommand } from '../python-env';
 
 const execPromise = util.promisify(exec);
 
@@ -10,7 +11,7 @@ const BACKEND_DIR = path.join(process.cwd(), '..', 'commentary_analysis_system')
 const DATASETS_DIR = path.join(BACKEND_DIR, 'data', 'processed', 'datasets', 'lexicon');
 
 // We use the Python executable in the virtual environment
-const PYTHON_EXEC = path.join(BACKEND_DIR, '.venv', 'Scripts', 'python.exe');
+const PYTHON_EXEC = getPythonCommand(BACKEND_DIR);
 const SCRIPT_PATH = path.join(BACKEND_DIR, 'scripts', 'extract_keywords.py');
 
 export async function GET() {
