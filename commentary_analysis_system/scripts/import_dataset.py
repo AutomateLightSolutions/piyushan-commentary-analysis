@@ -5,10 +5,11 @@ import csv
 from pathlib import Path
 import argparse
 
+SYSTEM_PATH = Path(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(str(SYSTEM_PATH))
+
 from src.data_processing.chunker import create_chunks
 from src.data_processing.mapper import map_labels
-
-SYSTEM_PATH = Path(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 PROCESSED_SEGMENTS_DIR = SYSTEM_PATH / "data" / "processed" / "segments"
 DATASETS_ML_DIR = SYSTEM_PATH / "data" / "processed" / "datasets" / "ml"
 DATASETS_LEXICON_DIR = SYSTEM_PATH / "data" / "processed" / "datasets" / "lexicon"
