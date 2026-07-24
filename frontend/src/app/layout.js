@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { PipelineProvider } from "./PipelineContext";
+import GlobalTerminal from "../components/GlobalTerminal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
             <main className="main-content">
               {children}
             </main>
+            <GlobalTerminal />
           </div>
         </PipelineProvider>
       </body>

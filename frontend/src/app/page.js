@@ -337,6 +337,14 @@ export default function Home() {
   };
 
   useEffect(() => {
+    if (isMlProcessing) {
+      setActiveTab(3);
+    } else if (isProcessing) {
+      setActiveTab(2);
+    }
+  }, []);
+
+  useEffect(() => {
     const labelStep = steps.find(s => s.id === "label");
     if (activeTab === 2 && labelStep && labelStep.status === "done" && !isProcessing) {
       setActiveTab(3);
