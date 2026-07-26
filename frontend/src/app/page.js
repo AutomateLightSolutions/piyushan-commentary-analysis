@@ -5,10 +5,12 @@ import Link from "next/link";
 import "./globals.css";
 import { PipelineContext } from "./PipelineContext";
 
-function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSelectedDataset }) {
+function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSelectedDataset, refreshMatches }) {
   const [history, setHistory] = useState([]);
   const [expandedMetrics, setExpandedMetrics] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [viewingDataset, setViewingDataset] = useState(null);
+  const [datasetRows, setDatasetRows] = useState([]);
 
   useEffect(() => {
     if (isOpen) {
@@ -42,6 +44,40 @@ function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSe
   const toggleMetrics = (dataset, modelId) => {
     const key = `${dataset}-${modelId}`;
     setExpandedMetrics(expandedMetrics === key ? null : key);
+  };
+
+  const handleDelete = async (ds) => {
+    if (ds === "all") return;
+    if (!window.confirm(`Are you sure you want to completely delete dataset "${ds}"? This cannot be undone.`)) return;
+    try {
+      const res = await fetch("/api/manage-matches", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ matchId: ds, filesToDelete: "all" })
+      });
+      if (res.ok) {
+        if (selectedDataset === ds) setSelectedDataset("all");
+        if (refreshMatches) refreshMatches();
+      } else {
+        alert("Failed to delete dataset.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error deleting dataset.");
+    }
+  };
+
+  const handleViewDataset = async (ds) => {
+    if (ds === "all") return;
+    try {
+      const res = await fetch(`/api/dataset-csv?matchId=${ds}`);
+      const data = await res.json();
+      setDatasetRows(data.rows || []);
+      setViewingDataset(ds);
+    } catch (err) {
+      console.error(err);
+      alert("Error loading dataset");
+    }
   };
 
   return (
@@ -138,13 +174,35 @@ function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSe
                           );
                         })}
                         <td style={{ padding: "0.75rem 1rem", textAlign: "center" }}>
-                          <button 
-                            className={`btn ${isSelected ? "btn-primary" : "btn-secondary"}`}
-                            onClick={() => { setSelectedDataset(ds); onClose(); }}
-                            style={{ padding: "0.4rem 0", width: "100px", fontSize: "0.85rem", fontWeight: isSelected ? "bold" : "normal" }}
-                          >
-                            {isSelected ? "Selected ✓" : "Select"}
-                          </button>
+                          <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center" }}>
+                            <button 
+                              className={`btn ${isSelected ? "btn-primary" : "btn-secondary"}`}
+                              onClick={() => { setSelectedDataset(ds); onClose(); }}
+                              style={{ padding: "0.4rem 0", width: "80px", fontSize: "0.85rem", fontWeight: isSelected ? "bold" : "normal" }}
+                            >
+                              {isSelected ? "Selected ✓" : "Select"}
+                            </button>
+                            {ds !== "all" && (
+                              <>
+                                <button 
+                                  className="btn"
+                                  onClick={() => handleViewDataset(ds)}
+                                  style={{ padding: "0.4rem 0", width: "40px", fontSize: "0.85rem", background: "rgba(59, 130, 246, 0.2)", border: "1px solid rgba(59, 130, 246, 0.4)", color: "#60a5fa", cursor: "pointer", borderRadius: "8px" }}
+                                  title="View Dataset"
+                                >
+                                  👁️
+                                </button>
+                                <button 
+                                  className="btn"
+                                  onClick={() => handleDelete(ds)}
+                                  style={{ padding: "0.4rem 0", width: "40px", fontSize: "0.85rem", background: "rgba(239, 68, 68, 0.2)", border: "1px solid rgba(239, 68, 68, 0.4)", color: "#f87171", cursor: "pointer", borderRadius: "8px" }}
+                                  title="Delete Dataset"
+                                >
+                                  🗑️
+                                </button>
+                              </>
+                            )}
+                          </div>
                         </td>
                       </tr>
                       
@@ -196,6 +254,43 @@ function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSe
             </table>
           )}
         </div>
+        
+        {viewingDataset && (
+          <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: "rgba(0,0,0,0.8)", zIndex: 1100, display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <div className="glass-card" style={{ width: "90%", maxWidth: "900px", maxHeight: "85vh", display: "flex", flexDirection: "column", position: "relative", backgroundColor: "#1e293b", padding: "1.5rem" }}>
+              <button onClick={() => setViewingDataset(null)} style={{ position: "absolute", top: "1rem", right: "1rem", background: "transparent", border: "none", color: "white", fontSize: "1.5rem", cursor: "pointer" }}>×</button>
+              <h3 style={{ margin: "0 0 1rem 0" }}>Dataset: {viewingDataset}</h3>
+              <div style={{ overflowY: "auto", flex: 1 }}>
+                <table className="table-modern" style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem" }}>
+                  <thead style={{ position: "sticky", top: 0, background: "#0f172a" }}>
+                    <tr>
+                      <th style={{ padding: "0.5rem" }}>Start</th>
+                      <th style={{ padding: "0.5rem" }}>End</th>
+                      <th style={{ padding: "0.5rem" }}>Text</th>
+                      <th style={{ padding: "0.5rem" }}>Event</th>
+                      <th style={{ padding: "0.5rem" }}>Score</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {datasetRows.length === 0 ? (
+                      <tr><td colSpan={5} style={{ textAlign: "center", padding: "2rem" }}>No data found</td></tr>
+                    ) : (
+                      datasetRows.map((row, i) => (
+                        <tr key={i} style={{ borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+                          <td style={{ padding: "0.5rem", whiteSpace: "nowrap" }}>{row.start}</td>
+                          <td style={{ padding: "0.5rem", whiteSpace: "nowrap" }}>{row.end}</td>
+                          <td style={{ padding: "0.5rem", maxWidth: "400px", whiteSpace: "normal" }}>{row.text}</td>
+                          <td style={{ padding: "0.5rem", whiteSpace: "nowrap", color: row.event && row.event !== "no_event" && row.event !== "" ? "var(--success-color)" : "inherit" }}>{row.event}</td>
+                          <td style={{ padding: "0.5rem" }}>{row.score}</td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -316,11 +411,15 @@ export default function Home() {
     handleStop
   } = useContext(PipelineContext);
 
-  useEffect(() => {
+  const fetchMatches = () => {
     fetch("/api/manage-matches")
       .then(res => res.json())
       .then(data => setExistingMatches(data.matchIds || []))
       .catch(err => console.error("Failed to fetch existing matches", err));
+  };
+
+  useEffect(() => {
+    fetchMatches();
   }, []);
 
   const onStartProcess = () => {
@@ -360,6 +459,7 @@ export default function Home() {
         existingMatches={existingMatches}
         selectedDataset={selectedDataset}
         setSelectedDataset={setSelectedDataset}
+        refreshMatches={fetchMatches}
       />
       <div className="flex-between mb-2">
         <div>

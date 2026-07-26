@@ -32,7 +32,7 @@ def map_labels(our_chunks: list[dict], imported_data: list[dict]) -> list[dict]:
         new_chunk = {
             "start_time": c_start,
             "end_time": c_end,
-            "Text": chunk.get("text_clean", chunk.get("text_raw", "")),
+            "text": chunk.get("text_clean", chunk.get("text_raw", "")),
             "event_class": best_event,
             "highlight_score": best_score
         }

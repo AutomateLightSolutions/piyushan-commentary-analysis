@@ -6,6 +6,7 @@ import requests
 import zipfile
 import shutil
 import json
+import sys
 
 PROCESSED_DATASETS_DIR = Path("data/processed/datasets/ml")
 
@@ -27,24 +28,24 @@ def main():
     colab_url = get_colab_url()
     if not colab_url:
         print("ERROR: COLAB_NGROK_URL not found in .env file.")
-        return
+        sys.exit(1)
         
     if not PROCESSED_DATASETS_DIR.exists():
         print("No processed datasets found. Run 01_prepare_data.py first.")
-        return
+        sys.exit(1)
         
     # Retrieve distinct CSV file maps
     if args.dataset != "all":
         csv_files = [str(PROCESSED_DATASETS_DIR / f"dataset_{args.dataset}.csv")]
         if not Path(csv_files[0]).exists():
             print(f"Dataset {args.dataset} not found.")
-            return
+            sys.exit(1)
     else:
         csv_files = [str(f) for f in PROCESSED_DATASETS_DIR.glob("*.csv")]
         
     if not csv_files:
         print("No match CSV data present.")
-        return
+        sys.exit(1)
     
     print(f"Preparing to send {len(csv_files)} files to Colab for training {args.model_name}...")
     
@@ -70,12 +71,12 @@ def main():
             
         if response.status_code != 200:
             print(f"Colab API Error {response.status_code}: {response.text}")
-            return
+            sys.exit(1)
             
         task_id = response.json().get("task_id")
         if not task_id:
             print("Did not receive task_id from Colab")
-            return
+            sys.exit(1)
             
         print(f"Task started in Colab (ID: {task_id}). Streaming logs...")
         status_endpoint = f"{colab_url.rstrip('/')}/status/{task_id}"
@@ -95,7 +96,7 @@ def main():
                         break
                     elif status == "failed":
                         print("Colab Training Task Failed.")
-                        return
+                        sys.exit(1)
             except requests.exceptions.ConnectionError:
                 print("Connection error while polling, retrying...", flush=True)
                 
@@ -125,7 +126,7 @@ def main():
         
     except Exception as e:
         print(f"Error during training request: {e}")
-        return
+        sys.exit(1)
     finally:
         # Cleanup temp zips
         if temp_zip_path.exists():

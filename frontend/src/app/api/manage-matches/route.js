@@ -107,12 +107,32 @@ export async function DELETE(req) {
     const body = await req.json();
     const { matchId, filesToDelete } = body;
 
-    if (!matchId || !filesToDelete || !Array.isArray(filesToDelete)) {
+    if (!matchId || !filesToDelete) {
+      return NextResponse.json({ message: "Invalid request payload" }, { status: 400 });
+    }
+
+    let filesProcess = filesToDelete;
+    
+    // If "all" is specified, gather all associated files automatically
+    if (filesToDelete === "all") {
+      const expectedFiles = [
+        { path: path.join(RAW_DIR, `${matchId}_full.mp4`), name: `${matchId}_full.mp4`, category: "raw" },
+        { path: path.join(RAW_DIR, `${matchId}_full.wav`), name: `${matchId}_full.wav`, category: "raw" },
+        { path: path.join(RAW_DIR, `${matchId}_highlights.mp4`), name: `${matchId}_highlights.mp4`, category: "raw" },
+        { path: path.join(RAW_DIR, `${matchId}_highlights.wav`), name: `${matchId}_highlights.wav`, category: "raw" },
+        { path: path.join(RAW_DIR, `${matchId}.vtt`), name: `${matchId}.vtt`, category: "raw" },
+        { path: path.join(RAW_DIR, `highlights_${matchId}.json`), name: `highlights_${matchId}.json`, category: "raw" },
+        { path: path.join(CHUNKS_DIR, `chunks_${matchId}.json`), name: `chunks_${matchId}.json`, category: "chunks" },
+        { path: path.join(DATASETS_DIR, "ml", `dataset_${matchId}.csv`), name: `dataset_${matchId}.csv`, category: "datasets/ml" },
+        { path: path.join(DATASETS_DIR, "lexicon", `dataset_${matchId}.csv`), name: `dataset_${matchId}.csv`, category: "datasets/lexicon" },
+      ];
+      filesProcess = expectedFiles;
+    } else if (!Array.isArray(filesToDelete)) {
       return NextResponse.json({ message: "Invalid request payload" }, { status: 400 });
     }
 
     let deletedCount = 0;
-    for (const file of filesToDelete) {
+    for (const file of filesProcess) {
       // Validate string securely to prevent traversal attacks
       if (!file.name.includes(matchId) || file.name.includes("..") || file.name.includes("/") || file.name.includes("\\")) {
         continue;

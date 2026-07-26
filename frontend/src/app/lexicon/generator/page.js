@@ -98,7 +98,7 @@ export default function AutoLexiconGenerator() {
     try {
       const res = await fetch(`/api/auto-lexicon?run_id=${runId}`, { method: 'DELETE' });
       if (!res.ok) throw new Error("Failed to delete");
-      setMessage({ type: "success", text: "Run deleted successfully." });
+      setMessage({ type: "success", text: "Successfully Deleted." });
       setSelectedRun('cumulative');
     } catch (err) {
       console.error(err);

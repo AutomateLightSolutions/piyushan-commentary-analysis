@@ -49,13 +49,13 @@ def parse_imported_csv(csv_path: str) -> list[dict]:
 def save_dataset(chunks: list[dict], path: Path):
     with open(path, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
-        writer.writerow(["start_time", "end_time", "Text", "event_class", "highlight_score"])
+        writer.writerow(["start_time", "end_time", "text", "event_class", "highlight_score"])
         for c in chunks:
-            if c.get("Text"):
+            if c.get("text"):
                 writer.writerow([
                     c["start_time"], 
                     c["end_time"], 
-                    c["Text"], 
+                    c["text"], 
                     c.get("event_class", "normal_play"), 
                     c.get("highlight_score", 0.0)
                 ])

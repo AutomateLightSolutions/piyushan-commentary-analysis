@@ -288,7 +288,7 @@ print(f"=======================================================\n")
 
 # Start Uvicorn in a background thread so it doesn't fight Jupyter's event loop
 def run_server():
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000, access_log=False)
 
 threading.Thread(target=run_server, daemon=True).start()
 
