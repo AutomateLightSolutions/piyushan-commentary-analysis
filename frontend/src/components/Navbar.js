@@ -2,16 +2,30 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="navbar">
       <Link href="/" className="nav-brand">
         Rugby Highlight Analyzer
       </Link>
-      <div className="nav-links">
+      
+      <button 
+        className="mobile-menu-btn" 
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label="Toggle menu"
+      >
+        {isOpen ? "✕" : "☰"}
+      </button>
+
+      <div 
+        className={`nav-links ${isOpen ? "open" : ""}`}
+        onClick={() => setIsOpen(false)}
+      >
         <Link 
           href="/" 
           className={`nav-link ${pathname === "/" ? "active" : ""}`}
@@ -63,6 +77,7 @@ export default function Navbar() {
         <Link 
           href="/label" 
           className="nav-link-cta"
+          onClick={() => setIsOpen(false)}
         >
           Import Dataset →
         </Link>

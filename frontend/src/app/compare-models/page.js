@@ -6,6 +6,17 @@ import "../globals.css";
 export default function CompareModels() {
   const [metrics, setMetrics] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState("detailed");
+
+  const formatModelName = (name) => {
+    switch (name) {
+      case "roberta-base": return "Roberta";
+      case "microsoft/deberta-base": return "DeBERTa";
+      case "answerdotai/ModernBERT-base": return "ModernBERT";
+      case "bert-base-uncased": return "BERT";
+      default: return name;
+    }
+  };
 
   useEffect(() => {
     fetch("/api/metrics")
@@ -72,6 +83,63 @@ export default function CompareModels() {
 
   const groupedMetrics = groupMetricsByModel();
 
+  const getMacroAverages = () => {
+    const groups = {};
+    metrics.forEach(m => {
+      const key = `${m.model_used}_${m.training_round}_${m.evaluation_round || 1}`;
+      if (!groups[key]) {
+        groups[key] = {
+          model_used: m.model_used,
+          training_round: m.training_round,
+          evaluation_round: m.evaluation_round || 1,
+          timestamp: m.timestamp,
+          count: 0,
+          totals: {
+            "Lexicon Only": { p: 0, r: 0, f1: 0 },
+            "ML Model Only": { p: 0, r: 0, f1: 0 },
+            "Hybrid Model": { p: 0, r: 0, f1: 0 },
+            "Specific Event (Multi-class)": { p: 0, r: 0, f1: 0 }
+          }
+        };
+      }
+      groups[key].count += 1;
+      if (new Date(m.timestamp) > new Date(groups[key].timestamp)) {
+        groups[key].timestamp = m.timestamp;
+      }
+      
+      const approaches = ["Lexicon Only", "ML Model Only", "Hybrid Model", "Specific Event (Multi-class)"];
+      approaches.forEach(app => {
+        if (m.metrics && m.metrics[app]) {
+          groups[key].totals[app].p += (m.metrics[app].precision || 0);
+          groups[key].totals[app].r += (m.metrics[app].recall || 0);
+          groups[key].totals[app].f1 += (m.metrics[app].f1 || 0);
+        }
+      });
+    });
+
+    return Object.values(groups).map(g => {
+      const avg = {
+        model_used: g.model_used,
+        training_round: g.training_round,
+        evaluation_round: g.evaluation_round,
+        timestamp: g.timestamp,
+        count: g.count,
+        metrics: {}
+      };
+      const approaches = ["Lexicon Only", "ML Model Only", "Hybrid Model", "Specific Event (Multi-class)"];
+      approaches.forEach(app => {
+        avg.metrics[app] = {
+          precision: g.totals[app].p / g.count,
+          recall: g.totals[app].r / g.count,
+          f1: g.totals[app].f1 / g.count
+        };
+      });
+      return avg;
+    }).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+  };
+
+  const macroAverages = getMacroAverages();
+
   const [filterModel, setFilterModel] = useState("All");
   const [filterTrainRound, setFilterTrainRound] = useState("All");
   const [filterEvalRound, setFilterEvalRound] = useState("All");
@@ -120,7 +188,7 @@ export default function CompareModels() {
                   display: "flex",
                   flexDirection: "column"
                 }}>
-                  <h3 style={{ margin: "0 0 0.5rem 0", fontSize: "1.1rem" }}>{model}</h3>
+                  <h3 style={{ margin: "0 0 0.5rem 0", fontSize: "1.1rem" }}>{formatModelName(model)}</h3>
                   <div style={{ fontSize: "0.9rem", color: "var(--text-muted)", marginBottom: "1rem" }}>
                     {groupedMetrics[model].length} Run(s)
                   </div>
@@ -154,16 +222,36 @@ export default function CompareModels() {
             </div>
           </section>
 
-          {/* Detailed Runs Table */}
+          {/* Detailed Runs and Macro-Averages */}
           <section className="glass-card" style={{ gridColumn: "1 / -1" }}>
-            <h2 className="card-title">📋 Detailed Evaluation Runs</h2>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+              <h2 className="card-title" style={{ margin: 0 }}>📋 Evaluation Runs</h2>
+              <div className="tabs-container" style={{ margin: 0, padding: 0, background: "transparent", border: "none" }}>
+                <button 
+                  className={`tab-btn ${activeTab === 'detailed' ? 'active' : ''}`} 
+                  onClick={() => setActiveTab('detailed')}
+                  style={{ padding: "0.5rem 1rem", fontSize: "0.9rem" }}
+                >
+                  Detailed Runs
+                </button>
+                <button 
+                  className={`tab-btn ${activeTab === 'macro' ? 'active' : ''}`} 
+                  onClick={() => setActiveTab('macro')}
+                  style={{ padding: "0.5rem 1rem", fontSize: "0.9rem" }}
+                >
+                  Macro-Averaged Results
+                </button>
+              </div>
+            </div>
             
-            {/* Filter UI */}
+            {activeTab === "detailed" ? (
+              <>
+                {/* Filter UI */}
             <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginBottom: "1rem", padding: "1rem", background: "rgba(0,0,0,0.2)", borderRadius: "8px" }}>
               <div style={{ flex: "1 1 150px" }}>
                 <label className="form-label" style={{ fontSize: "0.85rem" }}>Model Used</label>
                 <select className="form-input" style={{ padding: "0.5rem" }} value={filterModel} onChange={e => setFilterModel(e.target.value)}>
-                  {uniqueModels.map(u => <option key={u} value={u}>{u}</option>)}
+                  {uniqueModels.map(u => <option key={u} value={u}>{u === "All" ? "All" : formatModelName(u)}</option>)}
                 </select>
               </div>
               <div style={{ flex: "1 1 150px" }}>
@@ -217,23 +305,23 @@ export default function CompareModels() {
                         padding: "0.2rem 0.5rem",
                         borderRadius: "4px",
                         fontSize: "0.85rem"
-                      }}>{m.model_used}</span></td>
+                      }}>{formatModelName(m.model_used)}</span></td>
                       <td>Round {m.training_round}</td>
                       <td>Eval {m.evaluation_round || 1}</td>
                       <td>
-                        <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginBottom: "2px" }}>
+                        <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginBottom: "2px", whiteSpace: "nowrap" }}>
                           P: {m.metrics?.["Lexicon Only"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.["Lexicon Only"]?.recall?.toFixed(2) || "0.00"}
                         </div>
                         <div>F1: {m.metrics?.["Lexicon Only"]?.f1?.toFixed(2) || "0.00"}</div>
                       </td>
                       <td>
-                        <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginBottom: "2px" }}>
+                        <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginBottom: "2px", whiteSpace: "nowrap" }}>
                           P: {m.metrics?.["ML Model Only"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.["ML Model Only"]?.recall?.toFixed(2) || "0.00"}
                         </div>
                         <div>F1: {m.metrics?.["ML Model Only"]?.f1?.toFixed(2) || "0.00"}</div>
                       </td>
                       <td style={{ color: "var(--success-color)" }}>
-                        <div style={{ fontSize: "0.75rem", opacity: 0.8, marginBottom: "2px" }}>
+                        <div style={{ fontSize: "0.75rem", opacity: 0.8, marginBottom: "2px", whiteSpace: "nowrap" }}>
                           P: {m.metrics?.["Hybrid Model"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.["Hybrid Model"]?.recall?.toFixed(2) || "0.00"}
                         </div>
                         <div style={{ fontWeight: "bold" }}>F1: {m.metrics?.["Hybrid Model"]?.f1?.toFixed(2) || "0.00"}</div>
@@ -265,6 +353,66 @@ export default function CompareModels() {
                 </tbody>
               </table>
             </div>
+              </>
+            ) : (
+              <div className="table-container" style={{ overflowX: "auto" }}>
+                <table className="table-modern" style={{ minWidth: "1000px" }}>
+                  <thead>
+                    <tr>
+                      <th>Model Used</th>
+                      <th>Datasets Count</th>
+                      <th>Training Round</th>
+                      <th>Eval Round</th>
+                      <th className="text-primary">Lexicon Metrics</th>
+                      <th className="text-secondary">Model Metrics</th>
+                      <th style={{ color: "var(--success-color)" }}>Hybrid Metrics</th>
+                      <th>Latest Timestamp</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {macroAverages.length === 0 ? (
+                      <tr>
+                        <td colSpan="8" style={{ textAlign: "center", padding: "2rem" }}>No macro-averaged metrics available.</td>
+                      </tr>
+                    ) : macroAverages.map((m, idx) => (
+                      <tr key={idx}>
+                        <td><span style={{ 
+                          background: "rgba(59, 130, 246, 0.2)", 
+                          color: "#93c5fd",
+                          padding: "0.2rem 0.5rem",
+                          borderRadius: "4px",
+                          fontSize: "0.85rem"
+                        }}>{formatModelName(m.model_used)}</span></td>
+                        <td>{m.count} dataset(s)</td>
+                        <td>Round {m.training_round}</td>
+                        <td>Eval {m.evaluation_round}</td>
+                        <td>
+                          <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginBottom: "2px", whiteSpace: "nowrap" }}>
+                            P: {m.metrics?.["Lexicon Only"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.["Lexicon Only"]?.recall?.toFixed(2) || "0.00"}
+                          </div>
+                          <div>F1: {m.metrics?.["Lexicon Only"]?.f1?.toFixed(2) || "0.00"}</div>
+                        </td>
+                        <td>
+                          <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginBottom: "2px", whiteSpace: "nowrap" }}>
+                            P: {m.metrics?.["ML Model Only"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.["ML Model Only"]?.recall?.toFixed(2) || "0.00"}
+                          </div>
+                          <div>F1: {m.metrics?.["ML Model Only"]?.f1?.toFixed(2) || "0.00"}</div>
+                        </td>
+                        <td style={{ color: "var(--success-color)" }}>
+                          <div style={{ fontSize: "0.75rem", opacity: 0.8, marginBottom: "2px", whiteSpace: "nowrap" }}>
+                            P: {m.metrics?.["Hybrid Model"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.["Hybrid Model"]?.recall?.toFixed(2) || "0.00"}
+                          </div>
+                          <div style={{ fontWeight: "bold" }}>F1: {m.metrics?.["Hybrid Model"]?.f1?.toFixed(2) || "0.00"}</div>
+                        </td>
+                        <td style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
+                          {new Date(m.timestamp).toLocaleString()}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </section>
         </div>
       )}
