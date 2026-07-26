@@ -82,11 +82,13 @@ def main():
         status_endpoint = f"{colab_url.rstrip('/')}/status/{task_id}"
         
         import time
+        error_count = 0
         while True:
             time.sleep(2)
             try:
                 stat_res = requests.get(status_endpoint, headers=headers)
                 if stat_res.status_code == 200:
+                    error_count = 0 # reset on success
                     stat_data = stat_res.json()
                     for log_line in stat_data.get("logs", []):
                         print(log_line, flush=True)
@@ -97,8 +99,17 @@ def main():
                     elif status == "failed":
                         print("Colab Training Task Failed.")
                         sys.exit(1)
+                else:
+                    error_count += 1
+                    if error_count > 5:
+                        print(f"Colab API returned error {stat_res.status_code} multiple times. The Colab session likely crashed.")
+                        sys.exit(1)
             except requests.exceptions.ConnectionError:
+                error_count += 1
                 print("Connection error while polling, retrying...", flush=True)
+                if error_count > 5:
+                    print("Lost connection to Colab permanently. The Colab session likely crashed.")
+                    sys.exit(1)
                 
         # 3. Receive trained model zip
         print("Training complete! Downloading trained model...")

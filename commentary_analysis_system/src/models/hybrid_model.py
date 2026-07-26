@@ -9,9 +9,9 @@ class HybridModel:
             
         self.lexicon = LexiconModel()
         
-    def predict(self, text_list: list[str], lexicon_weight=0.3):
+    def predict(self, text_list: list[str], lexicon_weight=0.3, roberta_weight=1.0):
         """
-        Generates combined score using booster formula: min(1.0, RoBERTa + (Lexicon * lexicon_weight))
+        Generates combined score using booster formula: min(1.0, (RoBERTa * roberta_weight) + (Lexicon * lexicon_weight))
         """
         roberta_probs = self.roberta.predict_probs(text_list)
         
@@ -34,7 +34,7 @@ class HybridModel:
             predicted_event = self.roberta.id2label.get(predicted_event_id, "normal_play")
             
             # Booster formula: Lexicon score boosts the RoBERTa base score
-            hybrid_score = min(1.0, base_highlight_prob + (l_prob * lexicon_weight))
+            hybrid_score = min(1.0, (base_highlight_prob * roberta_weight) + (l_prob * lexicon_weight))
             
             results.append({
                 "roberta_score": base_highlight_prob,

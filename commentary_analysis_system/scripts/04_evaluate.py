@@ -43,6 +43,7 @@ def evaluate_multiclass(chunks: list[dict]) -> dict:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_name", type=str, default="roberta-base", help="HuggingFace model string")
+    parser.add_argument("--dataset", type=str, default="all", help="Specific dataset to run on, or 'all'")
     args = parser.parse_args()
     
     if not OUTPUT_DIR.exists():
@@ -50,7 +51,11 @@ def main():
         return
         
     safe_name = args.model_name.replace("/", "_")
-    prediction_files = list(OUTPUT_DIR.glob(f"predictions_{safe_name}_*.json"))
+    
+    if args.dataset != "all":
+        prediction_files = list(OUTPUT_DIR.glob(f"predictions_{safe_name}_{args.dataset}.json"))
+    else:
+        prediction_files = list(OUTPUT_DIR.glob(f"predictions_{safe_name}_*.json"))
     
     if not prediction_files:
         print(f"No prediction files found for model {args.model_name}.")

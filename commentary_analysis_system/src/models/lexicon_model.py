@@ -82,6 +82,10 @@ class LexiconModel:
             cat_id = category["id"]
             weight = category.get("weight", 0.0)
             count = feats.get(cat_id, 0)
-            raw_score += min(1.0, float(count)) * weight
+            
+            # Term weights are fractional (often < 0.05). Scale them up so that 
+            # finding even one solid keyword (e.g. 0.01) triggers the category fully.
+            scaled_count = float(count) * 100.0
+            raw_score += min(1.0, scaled_count) * weight
             
         return min(raw_score, 1.0)
