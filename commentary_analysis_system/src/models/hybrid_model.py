@@ -9,9 +9,9 @@ class HybridModel:
             
         self.lexicon = LexiconModel()
         
-    def predict(self, text_list: list[str], lexicon_weight=0.3, roberta_weight=1.0):
+    def predict(self, text_list: list[str], highlight_lexicon_weight=0.3, event_lexicon_weight=0.3, roberta_weight=1.0):
         """
-        Generates combined score using booster formula: min(1.0, (RoBERTa * roberta_weight) + (Lexicon * lexicon_weight))
+        Generates combined score using booster formula: min(1.0, (RoBERTa * roberta_weight) + (Lexicon * highlight_lexicon_weight))
         """
         roberta_probs = self.roberta.predict_probs(text_list)
         
@@ -25,7 +25,7 @@ class HybridModel:
             base_highlight_prob = 1.0 - r_probs[0]
             
             # Booster formula: Lexicon score boosts the RoBERTa base score
-            hybrid_score = min(1.0, (base_highlight_prob * roberta_weight) + (l_prob * lexicon_weight))
+            hybrid_score = min(1.0, (base_highlight_prob * roberta_weight) + (l_prob * highlight_lexicon_weight))
             
             # Predict the specific event using event-specific lexicon features
             lexicon_features = self.lexicon.generate_features(text)
@@ -43,7 +43,7 @@ class HybridModel:
                 l_prob_normalized = min(1.0, float(l_prob_for_event) * 100.0)
                 
                 # Combine them for this specific event
-                event_hybrid_prob = (p * roberta_weight) + (l_prob_normalized * lexicon_weight)
+                event_hybrid_prob = (p * roberta_weight) + (l_prob_normalized * event_lexicon_weight)
                 
                 if event_hybrid_prob > max_hybrid_prob:
                     max_hybrid_prob = event_hybrid_prob

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceDot } from "recharts";
 import "../globals.css";
 
@@ -10,6 +10,46 @@ export default function OptimizeWeights() {
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [results, setResults] = useState(null);
   const [message, setMessage] = useState("");
+  const [currentSettings, setCurrentSettings] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/thresholds')
+      .then(r => r.json())
+      .then(setCurrentSettings)
+      .catch(console.error);
+  }, []);
+
+  const applyWeight = async () => {
+    if (!results || !results.best || !currentSettings) return;
+    
+    const keyToUpdate = mode === "event" ? "event_lexicon_weight" : "highlight_lexicon_weight";
+    const newWeight = results.best.lexicon_weight;
+    const newSettings = { ...currentSettings, [keyToUpdate]: newWeight };
+    
+    await saveSettings(newSettings, `Success: Automatically applied ${newWeight.toFixed(2)} to ${mode === 'event' ? 'Event' : 'Highlight'} Pipeline!`);
+  };
+
+  const saveSettings = async (settingsToSave, successMessage = "Configuration saved successfully!") => {
+    try {
+      const res = await fetch('/api/thresholds', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(settingsToSave)
+      });
+      if (res.ok) {
+        setCurrentSettings(settingsToSave);
+        setMessage(successMessage);
+      } else {
+        setMessage("Error saving configuration.");
+      }
+    } catch (err) {
+      setMessage(`Error saving configuration: ${err.message}`);
+    }
+  };
+
+  const handleManualChange = (key, val) => {
+    setCurrentSettings(prev => ({ ...prev, [key]: parseFloat(val) }));
+  };
 
   const runOptimization = async () => {
     setIsOptimizing(true);
@@ -78,8 +118,47 @@ export default function OptimizeWeights() {
             </button>
           </div>
           {message && (
-            <div className="alert alert-error" style={{ marginTop: "1rem" }}>
+            <div className={`alert ${message.startsWith('Success') ? 'alert-success' : 'alert-error'}`} style={{ marginTop: "1rem" }}>
               {message}
+            </div>
+          )}
+          
+          {currentSettings && (
+            <div style={{ marginTop: "1.5rem", padding: "1.5rem", backgroundColor: "rgba(255,255,255,0.03)", borderRadius: "8px", border: "1px solid var(--glass-border)" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+                <h3 style={{ margin: "0", fontSize: "1.1rem" }}>Current Active Pipeline Config</h3>
+                <button 
+                  className="btn" 
+                  onClick={() => saveSettings(currentSettings, "Manual configuration saved successfully!")}
+                  style={{ padding: "0.3rem 0.8rem", fontSize: "0.85rem", border: "1px solid var(--glass-border)", backgroundColor: "rgba(255,255,255,0.1)" }}
+                >
+                  Save Configuration
+                </button>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                  <span style={{ width: "200px", fontWeight: "600", fontSize: "0.95rem" }}>Highlight Lexicon Weight:</span>
+                  <input 
+                    type="range" 
+                    min="0" max="1" step="0.01" 
+                    value={currentSettings.highlight_lexicon_weight || 0.3} 
+                    onChange={(e) => handleManualChange("highlight_lexicon_weight", e.target.value)}
+                    style={{ flex: 1, accentColor: 'var(--primary-color)' }}
+                  />
+                  <span style={{ fontWeight: "bold", minWidth: "40px" }}>{(currentSettings.highlight_lexicon_weight || 0.3).toFixed(2)}</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                  <span style={{ width: "200px", fontWeight: "600", fontSize: "0.95rem" }}>Event Lexicon Weight:</span>
+                  <input 
+                    type="range" 
+                    min="0" max="1" step="0.01" 
+                    value={currentSettings.event_lexicon_weight || 0.3} 
+                    onChange={(e) => handleManualChange("event_lexicon_weight", e.target.value)}
+                    style={{ flex: 1, accentColor: 'var(--primary-color)' }}
+                  />
+                  <span style={{ fontWeight: "bold", minWidth: "40px" }}>{(currentSettings.event_lexicon_weight || 0.3).toFixed(2)}</span>
+                </div>
+              </div>
             </div>
           )}
         </section>
@@ -138,8 +217,17 @@ export default function OptimizeWeights() {
               </ResponsiveContainer>
             </div>
 
-            <div className="alert alert-success" style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-              <h3 style={{ margin: 0, fontSize: "1.1rem", fontWeight: "bold" }}>Optimal Lexicon Weight: {results.best.lexicon_weight.toFixed(2)}</h3>
+            <div className="alert alert-success" style={{ display: "flex", flexDirection: "column", gap: "0.5rem", position: "relative" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <h3 style={{ margin: 0, fontSize: "1.1rem", fontWeight: "bold" }}>Optimal Lexicon Weight: {results.best.lexicon_weight.toFixed(2)}</h3>
+                <button 
+                  className="btn btn-primary" 
+                  onClick={applyWeight}
+                  style={{ padding: "0.4rem 1rem", fontSize: "0.9rem" }}
+                >
+                  Apply Optimal Weight
+                </button>
+              </div>
               <p style={{ margin: 0, opacity: 0.9 }}>
                 By plotting the F1 score across all possible weights on the validation set, the system mathematically proves that a 
                 <strong> Lexicon Weight of {results.best.lexicon_weight.toFixed(2)} </strong> yields the highest F1 Score 

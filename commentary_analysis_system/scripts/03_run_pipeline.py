@@ -64,7 +64,16 @@ def main():
         texts = [c["text_clean"] for c in chunks]
         
         # 1. Predict
-        predictions = hybrid_model.predict(texts, roberta_weight=0.7, lexicon_weight=0.3)
+        # Load dynamic weights from configuration
+        highlight_lexicon_weight = get_threshold("highlight_lexicon_weight", 0.3)
+        event_lexicon_weight = get_threshold("event_lexicon_weight", 0.3)
+        
+        predictions = hybrid_model.predict(
+            texts, 
+            roberta_weight=1.0, 
+            highlight_lexicon_weight=highlight_lexicon_weight,
+            event_lexicon_weight=event_lexicon_weight
+        )
         
         # 2. Attach predictions back to chunks
         for i, pred in enumerate(predictions):

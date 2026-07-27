@@ -11,7 +11,9 @@ const defaultSettings = {
     ml_threshold: 0.55,
     hybrid_threshold: 0.40,
     merger_threshold: 0.40,
-    labeller_threshold: 0.40
+    labeller_threshold: 0.40,
+    highlight_lexicon_weight: 0.30,
+    event_lexicon_weight: 0.30
 };
 
 export async function GET() {

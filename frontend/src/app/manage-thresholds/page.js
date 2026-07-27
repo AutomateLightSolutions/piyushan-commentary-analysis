@@ -125,7 +125,7 @@ export default function ManageThresholds() {
                     </tr>
                   </thead>
                   <tbody>
-                    {Object.keys(settings).map((key) => (
+                    {Object.keys(settings).filter(key => !key.endsWith('_weight')).map((key) => (
                       <tr key={key}>
                         <td>
                           <div style={{ fontWeight: "600", color: "var(--text-main)" }}>
