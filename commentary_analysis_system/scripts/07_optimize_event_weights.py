@@ -35,18 +35,32 @@ def main():
         print(json.dumps({"error": f"No prediction files found for model {args.model_name}."}))
         return
 
-    # Need TransformerClassifier just to get id2label mapping for consistency
-    tc = TransformerClassifier(model_name=args.model_name)
+    # Build id2label manually to avoid loading the heavy Transformer model (which causes timeouts)
+    events_path = Path(__file__).parent.parent / "data" / "events.json"
+    try:
+        with open(events_path, "r") as f:
+            events = json.load(f)
+        id2label = {0: "normal_play"}
+        for i, evt in enumerate(events, start=1):
+            id2label[i] = evt
+    except Exception:
+        id2label = {0: "normal_play", 1: "highlight"}
     
     # Load all chunks across all files
     all_chunks = []
+    missing_files = 0
     for pred_file in prediction_files:
         with open(pred_file, "r", encoding="utf-8") as f:
-            all_chunks.extend(json.load(f))
+            chunks = json.load(f)
+            # Only include files that have the cached probabilities
+            if chunks and "raw_roberta_probs" in chunks[0]:
+                all_chunks.extend(chunks)
+            else:
+                missing_files += 1
             
     # Check if caching is available
-    if not all_chunks or "raw_roberta_probs" not in all_chunks[0]:
-        print(json.dumps({"error": "Predictions are missing raw probability caching. Please re-run 03_run_pipeline.py first."}))
+    if not all_chunks:
+        print(json.dumps({"error": "Predictions are missing raw probability caching. Please re-run 03_run_pipeline.py (Steps 7-12) first."}))
         return
 
     results = []
@@ -77,7 +91,7 @@ def main():
             predicted_event_id = 0
             
             for i, p in enumerate(r_probs):
-                event_name = tc.id2label.get(i, "normal_play")
+                event_name = id2label.get(i, "normal_play")
                 
                 # Get the lexicon score specifically for this event
                 l_prob_for_event = lexicon_features.get(event_name, 0.0)
@@ -92,11 +106,11 @@ def main():
                     max_hybrid_prob = event_hybrid_prob
                     predicted_event_id = i
                     
-            predicted_event = tc.id2label.get(predicted_event_id, "normal_play")
+            predicted_event = id2label.get(predicted_event_id, "normal_play")
             y_pred.append(predicted_event)
             
         # 4. Evaluate metrics for this weight
-        metrics = compute_event_metrics(y_true, y_pred, tc.id2label)
+        metrics = compute_event_metrics(y_true, y_pred, id2label)
         
         results.append({
             "lexicon_weight": weight,

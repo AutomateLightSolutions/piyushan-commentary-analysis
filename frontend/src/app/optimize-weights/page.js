@@ -6,6 +6,7 @@ import "../globals.css";
 
 export default function OptimizeWeights() {
   const [modelName, setModelName] = useState("roberta-base");
+  const [mode, setMode] = useState("highlight");
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [results, setResults] = useState(null);
   const [message, setMessage] = useState("");
@@ -15,7 +16,8 @@ export default function OptimizeWeights() {
     setMessage("");
     setResults(null);
     try {
-      const res = await fetch("/api/optimize-weights", {
+      const endpoint = mode === "event" ? "/api/optimize-event-weights" : "/api/optimize-weights";
+      const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ modelName })
@@ -57,6 +59,15 @@ export default function OptimizeWeights() {
               <option value="bert-base-uncased">bert-base-uncased</option>
               <option value="answerdotai/ModernBERT-base">answerdotai/ModernBERT-base</option>
               <option value="microsoft/deberta-base">microsoft/deberta-base</option>
+            </select>
+            <select 
+              className="form-select" 
+              style={{ maxWidth: "280px" }}
+              value={mode}
+              onChange={(e) => { setMode(e.target.value); setResults(null); }}
+            >
+              <option value="highlight">Highlight Detection (Binary)</option>
+              <option value="event">Specific Event (Multi-class)</option>
             </select>
             <button 
               className="btn btn-primary" 
@@ -144,9 +155,15 @@ export default function OptimizeWeights() {
                 <thead>
                   <tr>
                     <th>Lexicon Weight</th>
-                    <th>Precision</th>
-                    <th>Recall</th>
-                    <th>F1-Score</th>
+                    {mode === "highlight" ? (
+                      <>
+                        <th>Precision</th>
+                        <th>Recall</th>
+                      </>
+                    ) : (
+                      <th>Accuracy</th>
+                    )}
+                    <th>{mode === "highlight" ? "F1-Score" : "Metric Score"}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -155,8 +172,14 @@ export default function OptimizeWeights() {
                       <td style={{ fontWeight: row.is_best ? "bold" : "normal", color: row.is_best ? "var(--primary-color)" : "inherit" }}>
                         {row.lexicon_weight.toFixed(2)}
                       </td>
-                      <td>{row.precision.toFixed(3)}</td>
-                      <td>{row.recall.toFixed(3)}</td>
+                      {mode === "highlight" ? (
+                        <>
+                          <td>{row.precision ? row.precision.toFixed(3) : '-'}</td>
+                          <td>{row.recall ? row.recall.toFixed(3) : '-'}</td>
+                        </>
+                      ) : (
+                        <td>{row.accuracy ? row.accuracy.toFixed(3) : '-'}</td>
+                      )}
                       <td style={{ fontWeight: row.is_best ? "bold" : "normal" }}>
                         {row.f1.toFixed(3)}
                       </td>
