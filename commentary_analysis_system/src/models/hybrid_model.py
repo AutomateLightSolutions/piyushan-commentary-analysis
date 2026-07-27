@@ -13,16 +13,15 @@ class HybridModel:
         """
         Generates combined score using booster formula: min(1.0, (RoBERTa * roberta_weight) + (Lexicon * highlight_lexicon_weight))
         """
-        roberta_probs = self.roberta.predict_probs(text_list)
+        roberta_event_probs, roberta_highlight_scores = self.roberta.predict_probs(text_list)
         
         results = []
-        for text, r_probs in zip(text_list, roberta_probs):
+        for text, r_probs, r_h_score in zip(text_list, roberta_event_probs, roberta_highlight_scores):
             # Overall highlight score from lexicon
             l_prob = self.lexicon.score_chunk(text)
             
-            # r_probs is a list of probabilities for each class
-            # Highlight probability is 1.0 - probability of normal_play (index 0)
-            base_highlight_prob = 1.0 - r_probs[0]
+            # r_h_score is the direct highlight probability from the new highlight head
+            base_highlight_prob = r_h_score
             
             # Booster formula: Lexicon score boosts the RoBERTa base score
             hybrid_score = min(1.0, (base_highlight_prob * roberta_weight) + (l_prob * highlight_lexicon_weight))

@@ -221,26 +221,53 @@ function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSe
                                   <h4 style={{ margin: 0, color: "var(--primary-color)", fontSize: "1.1rem" }}>{m.label} Evaluation (Round {latest.training_round})</h4>
                                   <small style={{ color: "#a1a1aa", fontSize: "0.9rem" }}>{new Date(latest.timestamp).toLocaleString()}</small>
                                 </div>
-                                <table className="table-modern" style={{ fontSize: "0.95rem", background: "rgba(255,255,255,0.03)", width: "100%" }}>
-                                  <thead>
-                                    <tr>
-                                      <th style={{ padding: "0.75rem" }}>Approach</th>
-                                      <th style={{ padding: "0.75rem" }}>Precision</th>
-                                      <th style={{ padding: "0.75rem" }}>Recall</th>
-                                      <th style={{ padding: "0.75rem" }}>F1 Score</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    {Object.entries(latest.metrics).map(([approach, vals]) => (
-                                      <tr key={approach}>
-                                        <td style={{ padding: "0.75rem" }}>{approach}</td>
-                                        <td style={{ padding: "0.75rem" }}>{vals.precision?.toFixed(2)}</td>
-                                        <td style={{ padding: "0.75rem" }}>{vals.recall?.toFixed(2)}</td>
-                                        <td style={{ padding: "0.75rem", color: "var(--success-color)", fontWeight: "bold" }}>{vals.f1?.toFixed(2)}</td>
-                                      </tr>
-                                    ))}
-                                  </tbody>
-                                </table>
+                                <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+                                  <div style={{ flex: "1 1 45%" }}>
+                                    <h5 style={{ margin: "0 0 0.5rem 0", color: "#e2e8f0" }}>🎯 Event Detection (Classification)</h5>
+                                    <table className="table-modern" style={{ fontSize: "0.95rem", background: "rgba(255,255,255,0.03)", width: "100%" }}>
+                                      <thead>
+                                        <tr>
+                                          <th style={{ padding: "0.75rem" }}>Approach</th>
+                                          <th style={{ padding: "0.75rem" }}>Precision</th>
+                                          <th style={{ padding: "0.75rem" }}>Recall</th>
+                                          <th style={{ padding: "0.75rem" }}>F1 Score</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {latest.metrics?.Classification && Object.entries(latest.metrics.Classification).map(([approach, vals]) => (
+                                          <tr key={approach}>
+                                            <td style={{ padding: "0.75rem" }}>{approach}</td>
+                                            <td style={{ padding: "0.75rem" }}>{vals.precision?.toFixed(2)}</td>
+                                            <td style={{ padding: "0.75rem" }}>{vals.recall?.toFixed(2)}</td>
+                                            <td style={{ padding: "0.75rem", color: "var(--success-color)", fontWeight: "bold" }}>{vals.f1?.toFixed(2)}</td>
+                                          </tr>
+                                        ))}
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                  
+                                  <div style={{ flex: "1 1 45%" }}>
+                                    <h5 style={{ margin: "0 0 0.5rem 0", color: "#e2e8f0" }}>📈 Highlight Scoring (Regression)</h5>
+                                    <table className="table-modern" style={{ fontSize: "0.95rem", background: "rgba(255,255,255,0.03)", width: "100%" }}>
+                                      <thead>
+                                        <tr>
+                                          <th style={{ padding: "0.75rem" }}>Approach</th>
+                                          <th style={{ padding: "0.75rem" }}>MSE</th>
+                                          <th style={{ padding: "0.75rem" }}>MAE</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {latest.metrics?.Regression && Object.entries(latest.metrics.Regression).map(([approach, vals]) => (
+                                          <tr key={approach}>
+                                            <td style={{ padding: "0.75rem" }}>{approach}</td>
+                                            <td style={{ padding: "0.75rem", color: "#fca5a5" }}>{vals.mse?.toFixed(4)}</td>
+                                            <td style={{ padding: "0.75rem", color: "#fca5a5" }}>{vals.mae?.toFixed(4)}</td>
+                                          </tr>
+                                        ))}
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
                               </td>
                             </tr>
                           );
@@ -597,32 +624,66 @@ export default function Home() {
               </div>
             </section>
 
-            {metricsData && (
+            {metricsData && metricsData.Classification && (
               <section className="glass-card">
                 <h2 className="card-title">📊 Final Evaluation Metrics</h2>
-                <div className="table-container">
-                  <table className="table-modern">
-                    <thead>
-                      <tr>
-                        <th>Model Approach</th>
-                        <th className="text-primary">Precision</th>
-                        <th className="text-secondary">Recall</th>
-                        <th style={{ color: "var(--success-color)" }}>F1 Score</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {Object.entries(metricsData).map(([model, metrics]) => (
-                        <tr key={model}>
-                          <td style={{ fontWeight: "600" }}>{model}</td>
-                          <td>{metrics.precision?.toFixed(2) || "0.00"}</td>
-                          <td>{metrics.recall?.toFixed(2) || "0.00"}</td>
-                          <td style={{ fontWeight: "bold", textShadow: "0 0 10px rgba(16,185,129,0.3)" }}>
-                            {metrics.f1?.toFixed(2) || "0.00"}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                
+                <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+                  <div style={{ flex: "1 1 45%" }}>
+                    <h3 style={{ margin: "0 0 1rem 0", fontSize: "1.1rem", color: "#e2e8f0", borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: "0.5rem" }}>
+                      🎯 Event Detection (Classification)
+                    </h3>
+                    <div className="table-container">
+                      <table className="table-modern">
+                        <thead>
+                          <tr>
+                            <th>Model Approach</th>
+                            <th className="text-primary">Precision</th>
+                            <th className="text-secondary">Recall</th>
+                            <th style={{ color: "var(--success-color)" }}>F1 Score</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {Object.entries(metricsData.Classification).map(([model, metrics]) => (
+                            <tr key={model}>
+                              <td style={{ fontWeight: "600" }}>{model}</td>
+                              <td>{metrics.precision?.toFixed(2) || "0.00"}</td>
+                              <td>{metrics.recall?.toFixed(2) || "0.00"}</td>
+                              <td style={{ fontWeight: "bold", textShadow: "0 0 10px rgba(16,185,129,0.3)" }}>
+                                {metrics.f1?.toFixed(2) || "0.00"}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div style={{ flex: "1 1 45%" }}>
+                    <h3 style={{ margin: "0 0 1rem 0", fontSize: "1.1rem", color: "#e2e8f0", borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: "0.5rem" }}>
+                      📈 Highlight Scoring (Regression)
+                    </h3>
+                    <div className="table-container">
+                      <table className="table-modern">
+                        <thead>
+                          <tr>
+                            <th>Model Approach</th>
+                            <th style={{ color: "#fca5a5" }}>MSE (Mean Squared Error)</th>
+                            <th style={{ color: "#fca5a5" }}>MAE (Mean Absolute Error)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {Object.entries(metricsData.Regression).map(([model, metrics]) => (
+                            <tr key={model}>
+                              <td style={{ fontWeight: "600" }}>{model}</td>
+                              <td style={{ color: "#fca5a5" }}>{metrics.mse?.toFixed(4) || "0.0000"}</td>
+                              <td style={{ color: "#fca5a5" }}>{metrics.mae?.toFixed(4) || "0.0000"}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
               </section>
             )}

@@ -18,7 +18,7 @@ from fastapi.responses import FileResponse
 import uvicorn
 
 import whisper
-from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer, TrainingArguments
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer, TrainingArguments, AutoModel
 from datasets import Dataset
 import torch
 import torch.nn as nn
@@ -56,6 +56,42 @@ tasks = {} # Store task state: {"status": "running|completed|failed", "result_fi
 # ==========================================
 # Transformer Classifier Logic
 # ==========================================
+
+from transformers.modeling_outputs import ModelOutput
+from dataclasses import dataclass
+from typing import Optional
+import torch
+
+@dataclass
+class DualHeadRoBERTaOutput(ModelOutput):
+    loss: Optional[torch.FloatTensor] = None
+    logits: torch.FloatTensor = None
+    highlight_scores: torch.FloatTensor = None
+
+class DualHeadRoBERTa(nn.Module):
+    def __init__(self, model_name, num_labels, id2label, label2id):
+        super().__init__()
+        self.config = AutoModel.from_pretrained(model_name).config
+        self.config.num_labels = num_labels
+        self.config.id2label = id2label
+        self.config.label2id = label2id
+        
+        self.roberta = AutoModel.from_pretrained(model_name)
+        
+        # Dual Heads
+        self.event_classifier = nn.Linear(self.config.hidden_size, num_labels)
+        self.highlight_scorer = nn.Linear(self.config.hidden_size, 1)
+
+    def forward(self, input_ids, attention_mask, labels=None, highlight_labels=None, **kwargs):
+        outputs = self.roberta(input_ids=input_ids, attention_mask=attention_mask)
+        pooled_output = outputs.pooler_output
+        if pooled_output is None:
+            pooled_output = outputs.last_hidden_state[:, 0, :]
+            
+        event_logits = self.event_classifier(pooled_output)
+        highlight_score = torch.sigmoid(self.highlight_scorer(pooled_output))
+        
+        return DualHeadRoBERTaOutput(logits=event_logits, highlight_scores=highlight_score)
 class FocalLoss(nn.Module):
     def __init__(self, alpha=None, gamma=2.0, reduction='mean'):
         super(FocalLoss, self).__init__()
@@ -74,15 +110,26 @@ class FocalLoss(nn.Module):
 class CustomTrainer(Trainer):
     def __init__(self, *args, class_weights=None, **kwargs):
         super().__init__(*args, **kwargs)
-        self.loss_fct = FocalLoss(alpha=class_weights, gamma=2.0)
+        self.loss_fct_events = FocalLoss(alpha=class_weights, gamma=2.0)
+        self.loss_fct_highlights = nn.MSELoss()
 
     def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
         labels = inputs.pop("labels")
+        highlight_labels = inputs.pop("highlight_labels")
+        
         outputs = model(**inputs)
         logits = outputs.logits
-        if self.loss_fct.alpha is not None and self.loss_fct.alpha.device != logits.device:
-            self.loss_fct.alpha = self.loss_fct.alpha.to(logits.device)
-        loss = self.loss_fct(logits.view(-1, self.model.config.num_labels), labels.view(-1))
+        highlight_scores = outputs.highlight_scores
+        
+        if self.loss_fct_events.alpha is not None and self.loss_fct_events.alpha.device != logits.device:
+            self.loss_fct_events.alpha = self.loss_fct_events.alpha.to(logits.device)
+            
+        event_loss = self.loss_fct_events(logits.view(-1, self.model.config.num_labels), labels.view(-1))
+        highlight_loss = self.loss_fct_highlights(highlight_scores.view(-1), highlight_labels.view(-1).to(highlight_scores.dtype))
+        
+        # Weights: 1.0 for Events, 3.0 for Highlights (since MSE loss is naturally very small, this keeps Event Detection dominating)
+        loss = event_loss + (3.0 * highlight_loss)
+            
         return (loss, outputs) if return_outputs else loss
 
 # ==========================================
@@ -162,8 +209,8 @@ def run_train(task_id, zip_path, model_name):
         num_labels = len(label2id)
         print("Loading HuggingFace model into VRAM...")
         tokenizer = AutoTokenizer.from_pretrained(model_name)
-        model = AutoModelForSequenceClassification.from_pretrained(
-            model_name, num_labels=num_labels, id2label=id2label, label2id=label2id, ignore_mismatched_sizes=True
+        model = DualHeadRoBERTa(
+            model_name, num_labels=num_labels, id2label=id2label, label2id=label2id
         )
         
         csv_files = [os.path.join(extract_dir, f) for f in os.listdir(extract_dir) if f.endswith('.csv')]
@@ -174,6 +221,12 @@ def run_train(task_id, zip_path, model_name):
                 d['label'] = d['event_class'].apply(lambda x: label2id.get(str(x).strip(), 0) if pd.notna(x) else 0)
             elif 'event' in d.columns:
                 d['label'] = d['event'].apply(lambda x: label2id.get(str(x).strip(), 0) if pd.notna(x) else 0)
+            
+            if 'highlight_score' in d.columns:
+                d['highlight_label'] = pd.to_numeric(d['highlight_score'], errors='coerce').fillna(0.0)
+            else:
+                d['highlight_label'] = 0.0
+                
             dfs.append(d)
             
         df = pd.concat(dfs, ignore_index=True).dropna(subset=['text'])
@@ -188,6 +241,7 @@ def run_train(task_id, zip_path, model_name):
         def tokenize_func(examples):
             tokenized = tokenizer(examples['text'], padding="max_length", truncation=True, max_length=128)
             tokenized['labels'] = examples['label']
+            tokenized['highlight_labels'] = examples['highlight_label']
             return tokenized
             
         tokenized_datasets = dataset.map(tokenize_func, batched=True)
@@ -218,7 +272,9 @@ def run_train(task_id, zip_path, model_name):
         trainer.train()
         
         best_dir = os.path.join(output_dir, "best")
-        model.save_pretrained(best_dir)
+        os.makedirs(best_dir, exist_ok=True)
+        torch.save(model.state_dict(), os.path.join(best_dir, "pytorch_model.bin"))
+        model.config.save_pretrained(best_dir)
         tokenizer.save_pretrained(best_dir)
         
         history_path = os.path.join(best_dir, "training_history.json")
@@ -276,7 +332,7 @@ async def download_result(task_id: str):
 
 
 # Start server
-NGROK_TOKEN = "YOUR_NGROK_TOKEN" # <-- PASTE YOUR NGROK TOKEN HERE
+NGROK_TOKEN = "3GwEt4nSMyyoJasWtZ7aOR6Uf89_5pWtkqYXVtPwUsxc4yJYM" # <-- PASTE YOUR NGROK TOKEN HERE
 ngrok.set_auth_token(NGROK_TOKEN)
 ngrok.kill()
 public_url = ngrok.connect(8000).public_url

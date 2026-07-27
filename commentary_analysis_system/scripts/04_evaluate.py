@@ -2,29 +2,37 @@ import json
 import argparse
 from pathlib import Path
 from datetime import datetime
-from src.pipeline.evaluator import compute_metrics, print_evaluation_table, compute_multiclass_metrics
+from src.pipeline.evaluator import compute_metrics, compute_regression_metrics, print_classification_table, print_regression_table, compute_multiclass_metrics
 from src.utils.config import get_threshold
 
 OUTPUT_DIR = Path("data/output")
 DB_FILE = OUTPUT_DIR / "evaluation_metrics.json"
 
 def evaluate_method(chunks: list[dict], score_key: str, threshold: float = 0.65) -> dict:
-    y_true = []
-    y_pred = []
+    y_true_class = []
+    y_pred_class = []
+    y_true_reg = []
+    y_pred_reg = []
     
     for chunk in chunks:
-        # Assuming event schema is used, we derived label in training, but in chunks it might be 'event'
-        # Let's derive ground truth 'label' safely
+        # Classification (Event presence)
         event = chunk.get("event")
         if event and str(event).strip() not in ['', '-', 'None', 'normal_play']:
             label = 1
         else:
             label = chunk.get("label", 0)
             
-        y_true.append(label)
-        y_pred.append(1 if chunk.get(score_key, 0.0) >= threshold else 0)
+        y_true_class.append(label)
+        y_pred_class.append(1 if chunk.get(score_key, 0.0) >= threshold else 0)
         
-    return compute_metrics(y_true, y_pred)
+        # Regression (Continuous score)
+        y_true_reg.append(float(chunk.get("score", 0.0)))
+        y_pred_reg.append(float(chunk.get(score_key, 0.0)))
+        
+    class_metrics = compute_metrics(y_true_class, y_pred_class)
+    reg_metrics = compute_regression_metrics(y_true_reg, y_pred_reg)
+    
+    return {"classification": class_metrics, "regression": reg_metrics}
 
 def evaluate_multiclass(chunks: list[dict]) -> dict:
     y_true = []
@@ -81,10 +89,17 @@ def main():
     current_eval_round = len(existing_evals) + 1
     
     total_metrics = {
-        "Lexicon Only": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
-        "ML Model Only": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
-        "Hybrid Model": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
-        "Specific Event (Multi-class)": {"precision": 0.0, "recall": 0.0, "f1": 0.0}
+        "Classification": {
+            "Lexicon Only": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
+            "ML Model Only": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
+            "Hybrid Model": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
+            "Specific Event (Multi-class)": {"precision": 0.0, "recall": 0.0, "f1": 0.0}
+        },
+        "Regression": {
+            "Lexicon Only": {"mse": 0.0, "mae": 0.0},
+            "ML Model Only": {"mse": 0.0, "mae": 0.0},
+            "Hybrid Model": {"mse": 0.0, "mae": 0.0}
+        }
     }
     
     num_files = 0
@@ -113,20 +128,32 @@ def main():
             "model_used": args.model_name,
             "timestamp": timestamp,
             "metrics": {
-                "Lexicon Only": lexicon_res,
-                "ML Model Only": roberta_res,
-                "Hybrid Model": hybrid_res,
-                "Specific Event (Multi-class)": multiclass_res
+                "Classification": {
+                    "Lexicon Only": lexicon_res["classification"],
+                    "ML Model Only": roberta_res["classification"],
+                    "Hybrid Model": hybrid_res["classification"],
+                    "Specific Event (Multi-class)": multiclass_res
+                },
+                "Regression": {
+                    "Lexicon Only": lexicon_res["regression"],
+                    "ML Model Only": roberta_res["regression"],
+                    "Hybrid Model": hybrid_res["regression"]
+                }
             }
         }
         metrics_db.append(record)
         
         # Accumulate sums for macro-average
         for key in ["precision", "recall", "f1"]:
-            total_metrics["Lexicon Only"][key] += lexicon_res[key]
-            total_metrics["ML Model Only"][key] += roberta_res[key]
-            total_metrics["Hybrid Model"][key] += hybrid_res[key]
-            total_metrics["Specific Event (Multi-class)"][key] += multiclass_res[key]
+            total_metrics["Classification"]["Lexicon Only"][key] += lexicon_res["classification"][key]
+            total_metrics["Classification"]["ML Model Only"][key] += roberta_res["classification"][key]
+            total_metrics["Classification"]["Hybrid Model"][key] += hybrid_res["classification"][key]
+            total_metrics["Classification"]["Specific Event (Multi-class)"][key] += multiclass_res[key]
+            
+        for key in ["mse", "mae"]:
+            total_metrics["Regression"]["Lexicon Only"][key] += lexicon_res["regression"][key]
+            total_metrics["Regression"]["ML Model Only"][key] += roberta_res["regression"][key]
+            total_metrics["Regression"]["Hybrid Model"][key] += hybrid_res["regression"][key]
             
         num_files += 1
         
@@ -135,13 +162,20 @@ def main():
         json.dump(metrics_db, f, indent=4)
         
     if num_files > 0:
-        # Average
-        for method in total_metrics:
+        # Average Classification
+        for method in total_metrics["Classification"]:
             for key in ["precision", "recall", "f1"]:
-                total_metrics[method][key] = round(total_metrics[method][key] / num_files, 2)
+                total_metrics["Classification"][method][key] = round(total_metrics["Classification"][method][key] / num_files, 2)
+                
+        # Average Regression
+        for method in total_metrics["Regression"]:
+            for key in ["mse", "mae"]:
+                total_metrics["Regression"][method][key] = round(total_metrics["Regression"][method][key] / num_files, 4)
                 
         print(f"--- Macro-Averaged Evaluation over {num_files} matches for {args.model_name} (Training Round {current_training_round}, Eval {current_eval_round}) ---")
-        print_evaluation_table(total_metrics)
+        print_classification_table(total_metrics["Classification"])
+        print_regression_table(total_metrics["Regression"])
+        
         # We output this JSON to stdout line by line or emit it via SSE
         print(f"__METRICS__:{json.dumps(total_metrics)}")
 
