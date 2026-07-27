@@ -66,7 +66,7 @@ export default function CompareModels() {
   const calculateAverageMetrics = (modelMetrics) => {
     if (!modelMetrics || modelMetrics.length === 0) return { p: "0.00", r: "0.00", f1: "0.00" };
     const sums = modelMetrics.reduce((acc, m) => {
-      const metric = m.metrics?.["ML Model Only"] || {};
+      const metric = m.metrics?.Classification?.["ML Model Only"] || {};
       return {
         p: acc.p + (metric.precision || 0),
         r: acc.r + (metric.recall || 0),
@@ -95,10 +95,17 @@ export default function CompareModels() {
           timestamp: m.timestamp,
           count: 0,
           totals: {
-            "Lexicon Only": { p: 0, r: 0, f1: 0 },
-            "ML Model Only": { p: 0, r: 0, f1: 0 },
-            "Hybrid Model": { p: 0, r: 0, f1: 0 },
-            "Specific Event (Multi-class)": { p: 0, r: 0, f1: 0 }
+            Classification: {
+              "Lexicon Only": { p: 0, r: 0, f1: 0 },
+              "ML Model Only": { p: 0, r: 0, f1: 0 },
+              "Hybrid Model": { p: 0, r: 0, f1: 0 },
+              "Specific Event (Multi-class)": { p: 0, r: 0, f1: 0 }
+            },
+            Regression: {
+              "Lexicon Only": { mse: 0, mae: 0 },
+              "ML Model Only": { mse: 0, mae: 0 },
+              "Hybrid Model": { mse: 0, mae: 0 }
+            }
           }
         };
       }
@@ -109,10 +116,14 @@ export default function CompareModels() {
       
       const approaches = ["Lexicon Only", "ML Model Only", "Hybrid Model", "Specific Event (Multi-class)"];
       approaches.forEach(app => {
-        if (m.metrics && m.metrics[app]) {
-          groups[key].totals[app].p += (m.metrics[app].precision || 0);
-          groups[key].totals[app].r += (m.metrics[app].recall || 0);
-          groups[key].totals[app].f1 += (m.metrics[app].f1 || 0);
+        if (m.metrics?.Classification?.[app]) {
+          groups[key].totals.Classification[app].p += (m.metrics.Classification[app].precision || 0);
+          groups[key].totals.Classification[app].r += (m.metrics.Classification[app].recall || 0);
+          groups[key].totals.Classification[app].f1 += (m.metrics.Classification[app].f1 || 0);
+        }
+        if (app !== "Specific Event (Multi-class)" && m.metrics?.Regression?.[app]) {
+          groups[key].totals.Regression[app].mse += (m.metrics.Regression[app].mse || 0);
+          groups[key].totals.Regression[app].mae += (m.metrics.Regression[app].mae || 0);
         }
       });
     });
@@ -124,15 +135,21 @@ export default function CompareModels() {
         evaluation_round: g.evaluation_round,
         timestamp: g.timestamp,
         count: g.count,
-        metrics: {}
+        metrics: { Classification: {}, Regression: {} }
       };
       const approaches = ["Lexicon Only", "ML Model Only", "Hybrid Model", "Specific Event (Multi-class)"];
       approaches.forEach(app => {
-        avg.metrics[app] = {
-          precision: g.totals[app].p / g.count,
-          recall: g.totals[app].r / g.count,
-          f1: g.totals[app].f1 / g.count
+        avg.metrics.Classification[app] = {
+          precision: g.totals.Classification[app].p / g.count,
+          recall: g.totals.Classification[app].r / g.count,
+          f1: g.totals.Classification[app].f1 / g.count
         };
+        if (app !== "Specific Event (Multi-class)") {
+          avg.metrics.Regression[app] = {
+            mse: g.totals.Regression[app].mse / g.count,
+            mae: g.totals.Regression[app].mae / g.count
+          };
+        }
       });
       return avg;
     }).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
@@ -310,21 +327,24 @@ export default function CompareModels() {
                       <td>Eval {m.evaluation_round || 1}</td>
                       <td>
                         <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginBottom: "2px", whiteSpace: "nowrap" }}>
-                          P: {m.metrics?.["Lexicon Only"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.["Lexicon Only"]?.recall?.toFixed(2) || "0.00"}
+                          P: {m.metrics?.Classification?.["Lexicon Only"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.Classification?.["Lexicon Only"]?.recall?.toFixed(2) || "0.00"}
                         </div>
-                        <div>F1: {m.metrics?.["Lexicon Only"]?.f1?.toFixed(2) || "0.00"}</div>
+                        <div style={{ fontSize: "0.85rem", marginBottom: "2px" }}>F1: {m.metrics?.Classification?.["Lexicon Only"]?.f1?.toFixed(2) || "0.00"}</div>
+                        <div style={{ fontSize: "0.7rem", color: "#fca5a5", opacity: 0.8 }}>MSE: {m.metrics?.Regression?.["Lexicon Only"]?.mse?.toFixed(4) || "0.0000"} &bull; MAE: {m.metrics?.Regression?.["Lexicon Only"]?.mae?.toFixed(4) || "0.0000"}</div>
                       </td>
                       <td>
                         <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginBottom: "2px", whiteSpace: "nowrap" }}>
-                          P: {m.metrics?.["ML Model Only"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.["ML Model Only"]?.recall?.toFixed(2) || "0.00"}
+                          P: {m.metrics?.Classification?.["ML Model Only"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.Classification?.["ML Model Only"]?.recall?.toFixed(2) || "0.00"}
                         </div>
-                        <div>F1: {m.metrics?.["ML Model Only"]?.f1?.toFixed(2) || "0.00"}</div>
+                        <div style={{ fontSize: "0.85rem", marginBottom: "2px" }}>F1: {m.metrics?.Classification?.["ML Model Only"]?.f1?.toFixed(2) || "0.00"}</div>
+                        <div style={{ fontSize: "0.7rem", color: "#fca5a5", opacity: 0.8 }}>MSE: {m.metrics?.Regression?.["ML Model Only"]?.mse?.toFixed(4) || "0.0000"} &bull; MAE: {m.metrics?.Regression?.["ML Model Only"]?.mae?.toFixed(4) || "0.0000"}</div>
                       </td>
                       <td style={{ color: "var(--success-color)" }}>
                         <div style={{ fontSize: "0.75rem", opacity: 0.8, marginBottom: "2px", whiteSpace: "nowrap" }}>
-                          P: {m.metrics?.["Hybrid Model"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.["Hybrid Model"]?.recall?.toFixed(2) || "0.00"}
+                          P: {m.metrics?.Classification?.["Hybrid Model"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.Classification?.["Hybrid Model"]?.recall?.toFixed(2) || "0.00"}
                         </div>
-                        <div style={{ fontWeight: "bold" }}>F1: {m.metrics?.["Hybrid Model"]?.f1?.toFixed(2) || "0.00"}</div>
+                        <div style={{ fontWeight: "bold", fontSize: "0.85rem", marginBottom: "2px" }}>F1: {m.metrics?.Classification?.["Hybrid Model"]?.f1?.toFixed(2) || "0.00"}</div>
+                        <div style={{ fontSize: "0.7rem", color: "#fca5a5", opacity: 0.8 }}>MSE: {m.metrics?.Regression?.["Hybrid Model"]?.mse?.toFixed(4) || "0.0000"} &bull; MAE: {m.metrics?.Regression?.["Hybrid Model"]?.mae?.toFixed(4) || "0.0000"}</div>
                       </td>
                       <td style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
                         {new Date(m.timestamp).toLocaleString()}
@@ -388,21 +408,24 @@ export default function CompareModels() {
                         <td>Eval {m.evaluation_round}</td>
                         <td>
                           <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginBottom: "2px", whiteSpace: "nowrap" }}>
-                            P: {m.metrics?.["Lexicon Only"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.["Lexicon Only"]?.recall?.toFixed(2) || "0.00"}
+                            P: {m.metrics?.Classification?.["Lexicon Only"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.Classification?.["Lexicon Only"]?.recall?.toFixed(2) || "0.00"}
                           </div>
-                          <div>F1: {m.metrics?.["Lexicon Only"]?.f1?.toFixed(2) || "0.00"}</div>
+                          <div style={{ fontSize: "0.85rem", marginBottom: "2px" }}>F1: {m.metrics?.Classification?.["Lexicon Only"]?.f1?.toFixed(2) || "0.00"}</div>
+                          <div style={{ fontSize: "0.7rem", color: "#fca5a5", opacity: 0.8 }}>MSE: {m.metrics?.Regression?.["Lexicon Only"]?.mse?.toFixed(4) || "0.0000"} &bull; MAE: {m.metrics?.Regression?.["Lexicon Only"]?.mae?.toFixed(4) || "0.0000"}</div>
                         </td>
                         <td>
                           <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginBottom: "2px", whiteSpace: "nowrap" }}>
-                            P: {m.metrics?.["ML Model Only"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.["ML Model Only"]?.recall?.toFixed(2) || "0.00"}
+                            P: {m.metrics?.Classification?.["ML Model Only"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.Classification?.["ML Model Only"]?.recall?.toFixed(2) || "0.00"}
                           </div>
-                          <div>F1: {m.metrics?.["ML Model Only"]?.f1?.toFixed(2) || "0.00"}</div>
+                          <div style={{ fontSize: "0.85rem", marginBottom: "2px" }}>F1: {m.metrics?.Classification?.["ML Model Only"]?.f1?.toFixed(2) || "0.00"}</div>
+                          <div style={{ fontSize: "0.7rem", color: "#fca5a5", opacity: 0.8 }}>MSE: {m.metrics?.Regression?.["ML Model Only"]?.mse?.toFixed(4) || "0.0000"} &bull; MAE: {m.metrics?.Regression?.["ML Model Only"]?.mae?.toFixed(4) || "0.0000"}</div>
                         </td>
                         <td style={{ color: "var(--success-color)" }}>
                           <div style={{ fontSize: "0.75rem", opacity: 0.8, marginBottom: "2px", whiteSpace: "nowrap" }}>
-                            P: {m.metrics?.["Hybrid Model"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.["Hybrid Model"]?.recall?.toFixed(2) || "0.00"}
+                            P: {m.metrics?.Classification?.["Hybrid Model"]?.precision?.toFixed(2) || "0.00"} &bull; R: {m.metrics?.Classification?.["Hybrid Model"]?.recall?.toFixed(2) || "0.00"}
                           </div>
-                          <div style={{ fontWeight: "bold" }}>F1: {m.metrics?.["Hybrid Model"]?.f1?.toFixed(2) || "0.00"}</div>
+                          <div style={{ fontWeight: "bold", fontSize: "0.85rem", marginBottom: "2px" }}>F1: {m.metrics?.Classification?.["Hybrid Model"]?.f1?.toFixed(2) || "0.00"}</div>
+                          <div style={{ fontSize: "0.7rem", color: "#fca5a5", opacity: 0.8 }}>MSE: {m.metrics?.Regression?.["Hybrid Model"]?.mse?.toFixed(4) || "0.0000"} &bull; MAE: {m.metrics?.Regression?.["Hybrid Model"]?.mae?.toFixed(4) || "0.0000"}</div>
                         </td>
                         <td style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
                           {new Date(m.timestamp).toLocaleString()}
