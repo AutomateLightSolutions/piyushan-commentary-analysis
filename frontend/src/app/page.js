@@ -393,6 +393,7 @@ export default function Home() {
   const [fullVideo, setFullVideo] = useState(null);
   const [activeTab, setActiveTab] = useState(1);
   const [showDatasetModal, setShowDatasetModal] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   const {
     steps,
@@ -450,6 +451,31 @@ export default function Home() {
     }
   }, [steps, isProcessing, activeTab]);
 
+  const handleDownloadModel = async () => {
+    setIsDownloading(true);
+    try {
+      const res = await fetch(`/api/download-model?modelName=${encodeURIComponent(selectedModel)}&checkOnly=true`);
+      if (!res.ok) {
+        const errorData = await res.json();
+        alert(errorData.error || 'Failed to download model');
+        setIsDownloading(false);
+        return;
+      }
+      
+      // If check passes, trigger browser native download 
+      window.location.href = `/api/download-model?modelName=${encodeURIComponent(selectedModel)}`;
+      
+      // Revert button text after a short delay
+      setTimeout(() => {
+        setIsDownloading(false);
+      }, 3000);
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred while downloading the model.");
+      setIsDownloading(false);
+    }
+  };
+
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
     <div className="app-container">
@@ -481,6 +507,7 @@ export default function Home() {
         <button className={`tab-btn ${activeTab === 1 ? 'active' : ''}`} onClick={() => setActiveTab(1)}>1. Context &amp; Videos</button>
         <button className={`tab-btn ${activeTab === 2 ? 'active' : ''}`} onClick={() => setActiveTab(2)}>2. Pipeline Progress</button>
         <button className={`tab-btn ${activeTab === 3 ? 'active' : ''}`} onClick={() => setActiveTab(3)}>3. ML Execution</button>
+        <button className={`tab-btn ${activeTab === 4 ? 'active' : ''}`} onClick={() => setActiveTab(4)}>4. Download Model</button>
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
@@ -600,6 +627,38 @@ export default function Home() {
               </section>
             )}
           </>
+        )}
+
+        {/* ── Tab 4 ── */}
+        {activeTab === 4 && (
+          <section className="glass-card">
+            <h2 className="card-title">📥 4. Download Trained Model</h2>
+            <p className="page-subtitle" style={{ marginBottom: "1.5rem" }}>
+              Download the fully fine-tuned model package as a zip archive.
+            </p>
+            <div className="form-group" style={{ maxWidth: "400px" }}>
+              <label className="form-label">Select Model</label>
+              <select 
+                className="form-select mb-3" 
+                value={selectedModel} 
+                onChange={(e) => setSelectedModel(e.target.value)}
+              >
+                <option value="roberta-base">Roberta</option>
+                <option value="microsoft/deberta-base">DeBERTa</option>
+                <option value="answerdotai/ModernBERT-base">ModernBERT</option>
+                <option value="bert-base-uncased">BERT</option>
+              </select>
+              
+              <button 
+                onClick={handleDownloadModel}
+                disabled={isDownloading}
+                className="btn btn-primary w-full"
+                style={{ textDecoration: 'none', textAlign: 'center', display: 'block', padding: '0.75rem' }}
+              >
+                {isDownloading ? "⏳ Preparing Download..." : "📥 Download Model (.zip)"}
+              </button>
+            </div>
+          </section>
         )}
       </div>
     </div>
