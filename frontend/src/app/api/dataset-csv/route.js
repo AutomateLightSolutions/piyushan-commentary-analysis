@@ -86,6 +86,59 @@ export async function POST(req) {
 
     await require("fs/promises").writeFile(csvPath, csvContent, "utf-8");
 
+    // Sync ML changes to Lexicon
+    if (type === "ml") {
+      const fs = require("fs/promises");
+      const lexiconDir = path.resolve(SYSTEM_PATH, "data", "processed", "datasets", "lexicon");
+      const lexiconCsvPath = path.resolve(lexiconDir, `dataset_${matchId}.csv`);
+      
+      try {
+        const lexiconData = await fs.readFile(lexiconCsvPath, "utf-8");
+        const lines = lexiconData.trim().split(/\r?\n/);
+        
+        let newLexiconContent = "start_time,end_time,text,event_class,highlight_score\n";
+        const mlEvents = rows.filter(r => r.event && r.event !== "normal_play");
+        
+        for (let i = 1; i < lines.length; i++) {
+          const line = lines[i];
+          const match = line.match(/^([^,]+),([^,]+),(".*?"|[^,]*),(.*),(.*)$/);
+          if (match) {
+            let startStr = match[1].trim();
+            let endStr = match[2].trim();
+            let start = parseFloat(startStr);
+            let end = parseFloat(endStr);
+            let text = match[3];
+            
+            let matchedMlEvent = null;
+            for (const mlRow of mlEvents) {
+              const mlStart = parseFloat(mlRow.start);
+              const mlEnd = parseFloat(mlRow.end);
+              // Calculate overlap
+              const overlapStart = Math.max(start, mlStart);
+              const overlapEnd = Math.min(end, mlEnd);
+              if (overlapStart < overlapEnd) {
+                matchedMlEvent = mlRow;
+                break;
+              }
+            }
+            
+            let event = matchedMlEvent ? matchedMlEvent.event : "normal_play";
+            let score = matchedMlEvent ? matchedMlEvent.score : "0.0054";
+            
+            newLexiconContent += `${startStr},${endStr},${text},${event},${score}\n`;
+          } else {
+            newLexiconContent += `${line}\n`;
+          }
+        }
+        
+        await fs.writeFile(lexiconCsvPath, newLexiconContent, "utf-8");
+      } catch (e) {
+        if (e.code !== "ENOENT") {
+          console.error("Failed to sync to lexicon dataset:", e);
+        }
+      }
+    }
+
     return NextResponse.json({ message: "Dataset updated successfully" });
   } catch (err) {
     console.error("Dataset Save Error:", err);

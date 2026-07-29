@@ -226,7 +226,7 @@ export default function DatasetsExplorer() {
                       }}
                     >
                       {definedEvents.map(evt => (
-                        <option key={evt} value={evt}>{evt}</option>
+                        <option key={evt} value={evt} style={{ color: "black", background: "white" }}>{evt}</option>
                       ))}
                     </select>
                   </td>
