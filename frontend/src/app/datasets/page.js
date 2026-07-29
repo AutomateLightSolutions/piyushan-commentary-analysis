@@ -184,12 +184,12 @@ export default function DatasetsExplorer() {
         <span className="text-muted" style={{ fontWeight: "500", marginLeft: "1rem" }}>{statusMsg}</span>
       </div>
 
-      <main className="glass-card" style={{ flex: 1, display: "flex", flexDirection: "column", padding: 0, overflow: "hidden" }}>
+      <main className="glass-card" style={{ flex: 1, display: "flex", flexDirection: "column", padding: 0, overflow: "visible" }}>
         <div style={{ padding: "1.5rem", borderBottom: "1px solid var(--glass-border)", background: "rgba(255,255,255,0.02)" }}>
           <h2 className="card-title" style={{ margin: 0 }}>📊 {datasetType.toUpperCase()} Raw CSV Dataset View</h2>
         </div>
         
-        <div className="table-container" style={{ borderRadius: 0, border: "none", flex: 1, overflow: "auto" }}>
+        <div className="table-container" style={{ borderRadius: 0, border: "none", flex: 1, overflowX: "auto", overflowY: "visible" }}>
           <table className="table-modern">
             <thead>
               <tr>
