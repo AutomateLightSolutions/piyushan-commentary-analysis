@@ -501,20 +501,20 @@ export default function DatasetsExplorer() {
                     style={{
                       padding: "0.5rem 1rem",
                       cursor: "pointer",
-                      borderBottom: "1px solid rgba(255,255,255,0.05)",
+                      borderBottom: "1px solid rgba(255,255,255,0.05)"
                     }}
                     onMouseOver={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
                     onMouseOut={e => e.currentTarget.style.background = "transparent"}
                   >
                     {id}
                   </li>
-              ))}
+                ))}
             </ul>
           )}
         </div>
-        <button className="btn btn-primary" onClick={loadData}>Load Dataset CSV</button>
-        <button className="btn btn-secondary" onClick={saveChanges} disabled={rows.length === 0}>Save Changes</button>
-        <button className="btn btn-secondary" onClick={exportDataset} disabled={rows.length === 0} style={{ background: 'var(--primary-color)', color: 'white', border: 'none' }}>Export Dataset</button>
+        <button className="btn btn-primary" onClick={loadData} style={{ whiteSpace: 'nowrap' }}>Load Dataset CSV</button>
+        <button className="btn btn-secondary" onClick={saveChanges} disabled={rows.length === 0} style={{ whiteSpace: 'nowrap' }}>Save Changes</button>
+        <button className="btn btn-secondary" onClick={exportDataset} disabled={rows.length === 0} style={{ background: 'var(--primary-color)', color: 'white', border: 'none', whiteSpace: 'nowrap' }}>Export Dataset</button>
         <button 
           className="btn btn-secondary" 
           onClick={toggleCheckedStatus} 
@@ -523,7 +523,8 @@ export default function DatasetsExplorer() {
             background: isChecked ? 'rgba(46, 213, 115, 0.2)' : 'rgba(255, 71, 87, 0.15)',
             color: isChecked ? '#2ed573' : '#ff4757',
             border: isChecked ? '1px solid #2ed573' : '1px solid #ff4757',
-            fontWeight: '600'
+            fontWeight: '600',
+            whiteSpace: 'nowrap'
           }}
         >
           {isChecked ? '✓ Manually Checked' : '⚠️ Needs Manual Check'}
