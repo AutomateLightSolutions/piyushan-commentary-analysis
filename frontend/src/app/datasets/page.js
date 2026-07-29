@@ -40,7 +40,7 @@ export default function DatasetsExplorer() {
       }
     }
     return indices;
-  }, [rows]);
+  }, [rows, suspiciousThreshold]);
 
   const activeSuspiciousIndices = useMemo(() => {
     return suspiciousIndices.filter(idx => !ignoredSuspicious.includes(idx));
@@ -212,11 +212,12 @@ export default function DatasetsExplorer() {
               alignItems: 'center',
               justifyContent: 'center',
               boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-              position: 'relative'
+              position: 'relative',
+              fontSize: '2rem'
             }}
             title="Suspicious Rows Navigator"
           >
-            ⚠️
+            <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '-4px' }}>⚠️</span>
             {activeSuspiciousIndices.length > 0 && (
               <span style={{
                 position: 'absolute',
@@ -303,7 +304,7 @@ export default function DatasetsExplorer() {
               </>
             ) : (
               <div style={{ color: 'var(--text-muted)', textAlign: 'center', margin: '20px 0' }}>
-                <div style={{ fontSize: '2.5rem', marginBottom: '10px' }}>🎉</div>
+              
                 <div style={{ fontSize: '0.9rem' }}>No suspicious rows left.</div>
                 {undoStack.length > 0 && (
                   <button className="btn btn-secondary" onClick={handleUndo} style={{ width: '100%', marginTop: '20px', padding: '0.6rem' }}>
