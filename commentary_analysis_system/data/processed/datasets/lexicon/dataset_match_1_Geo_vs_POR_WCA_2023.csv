@@ -1079,8 +1079,8 @@ start_time,end_time,text,event_class,highlight_score
 4918.5,4923.5,back to set piece the loss at piece didnt function and the ball was stolen,normal_play,0.0054
 4923.0,4928.0,thats the double tackle a little slow to arrive,normal_play,0.0054
 4927.5,4932.5,a little slow to arrive wheres the portuguese support,normal_play,0.0054
-4932.0,4937.0,no no no no dont quit right where you are,normal_play,0.0054
-4936.5,4941.5,right where you are,normal_play,0.0054
+4932.0,4937.0,no no no no dont quit right where you are,lineout,0.0
+4936.5,4941.5,right where you are,lineout,0.0
 4945.5,4950.5,roger laneh goes to plan,lineout,0.121
 4950.0,4955.0,roger laneh goes to plan,lineout,0.121
 4954.5,4959.5,to pull this from the fire,normal_play,0.0054

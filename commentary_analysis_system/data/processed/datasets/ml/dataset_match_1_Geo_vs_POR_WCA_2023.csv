@@ -1617,7 +1617,7 @@ start_time,end_time,text,event_class,highlight_score
 4926,4931,thats the double tackle a little slow to arrive wheres the portuguese support,normal_play,0.0
 4929,4934,wheres the portuguese support no no no no dont quit,normal_play,0.0
 4932,4937,no no no no dont quit right where you are,normal_play,0.0
-4935,4940,right where you are,normal_play,0.0
+4935,4940,right where you are,lineout,0.0
 4947,4952,roger laneh goes to plan,lineout,0.121
 4950,4955,roger laneh goes to plan,normal_play,0.0
 4956,4961,to pull this from the fire,normal_play,0.0054
