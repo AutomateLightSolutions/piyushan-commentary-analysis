@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import "../globals.css";
 
 export default function DatasetsExplorer() {
@@ -17,6 +17,10 @@ export default function DatasetsExplorer() {
   const [undoStack, setUndoStack] = useState([]);
   const [focusedSuspiciousIndex, setFocusedSuspiciousIndex] = useState(-1);
   const [suspiciousThreshold, setSuspiciousThreshold] = useState(2);
+  const [popupPos, setPopupPos] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const popupRef = useRef(null);
 
   const suspiciousIndices = useMemo(() => {
     const indices = [];
@@ -110,6 +114,43 @@ export default function DatasetsExplorer() {
     setFocusedSuspiciousIndex(last);
     setTimeout(() => scrollToRow(last), 50);
   };
+
+  const handleMouseDown = (e) => {
+    // Don't drag if clicking a button or input
+    if (e.target.closest('button') || e.target.closest('input')) return;
+    
+    setIsDragging(true);
+    if (popupRef.current) {
+      const rect = popupRef.current.getBoundingClientRect();
+      setDragOffset({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      });
+      if (!popupPos) {
+        setPopupPos({ x: rect.left, y: rect.top });
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (isDragging) {
+      const handleMove = (e) => {
+        setPopupPos({
+          x: e.clientX - dragOffset.x,
+          y: e.clientY - dragOffset.y
+        });
+      };
+      const handleUp = () => {
+        setIsDragging(false);
+      };
+      window.addEventListener('mousemove', handleMove);
+      window.addEventListener('mouseup', handleUp);
+      return () => {
+        window.removeEventListener('mousemove', handleMove);
+        window.removeEventListener('mouseup', handleUp);
+      };
+    }
+  }, [isDragging, dragOffset]);
 
   useEffect(() => {
     // Fetch events once
@@ -215,17 +256,31 @@ export default function DatasetsExplorer() {
       </header>
 
       {/* Floating Widget for Suspicious Rows */}
-      <div style={{
-        position: 'fixed',
-        left: '20px',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        zIndex: 1000,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '8px'
-      }}>
+      <div 
+        ref={popupRef}
+        style={popupPos ? {
+          position: 'fixed',
+          left: `${popupPos.x}px`,
+          top: `${popupPos.y}px`,
+          zIndex: 1000,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '8px',
+          userSelect: isDragging ? 'none' : 'auto'
+        } : {
+          position: 'fixed',
+          left: '20px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          zIndex: 1000,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '8px',
+          userSelect: isDragging ? 'none' : 'auto'
+        }}
+      >
         {!isPopupOpen ? (
           <button 
             className="btn btn-secondary" 
@@ -247,18 +302,22 @@ export default function DatasetsExplorer() {
             <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '-4px' }}>⚠️</span>
           </button>
         ) : (
-          <div className="glass-card" style={{ 
-            padding: '1.2rem', 
-            display: 'flex', 
-            flexDirection: 'column', 
-            gap: '15px', 
-            alignItems: 'center',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.8)',
-            border: '1px solid rgba(255,255,255,0.2)',
-            background: 'rgba(20, 20, 35, 0.98)',
-            backdropFilter: 'blur(20px)',
-            width: '210px'
-          }}>
+          <div className="glass-card" 
+            onMouseDown={handleMouseDown}
+            style={{ 
+              padding: '1.2rem', 
+              display: 'flex', 
+              flexDirection: 'column', 
+              gap: '15px', 
+              alignItems: 'center',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.8)',
+              border: '1px solid rgba(255,255,255,0.2)',
+              background: 'rgba(20, 20, 35, 0.98)',
+              backdropFilter: 'blur(20px)',
+              width: '210px',
+              cursor: isDragging ? 'grabbing' : 'grab'
+            }}
+          >
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
               <h4 style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-muted)' }}>Suspicious Rows</h4>
               <button 
