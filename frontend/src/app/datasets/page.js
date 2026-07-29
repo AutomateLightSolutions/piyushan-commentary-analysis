@@ -10,8 +10,19 @@ export default function DatasetsExplorer() {
   const [statusMsg, setStatusMsg] = useState("");
   const [datasetType, setDatasetType] = useState("ml"); // "ml" or "lexicon"
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [definedEvents, setDefinedEvents] = useState([]);
 
   useEffect(() => {
+    // Fetch events once
+    fetch("/api/events")
+      .then(r => r.json())
+      .then(d => {
+        let evts = d.events || [];
+        if (!evts.includes("normal_play")) evts.push("normal_play");
+        setDefinedEvents(evts);
+      })
+      .catch(console.error);
+
     // Fetch available matches for the selected dataset type
     setMatchId("");
     setRows([]);
@@ -37,6 +48,33 @@ export default function DatasetsExplorer() {
     } catch (err) {
       console.error(err);
       setStatusMsg("API Error.");
+    }
+  };
+
+  const handleRowChange = (index, field, value) => {
+    const updatedRows = [...rows];
+    updatedRows[index] = { ...updatedRows[index], [field]: value };
+    setRows(updatedRows);
+  };
+
+  const saveChanges = async () => {
+    if (!matchId || rows.length === 0) return;
+    setStatusMsg("Saving changes...");
+    try {
+      const res = await fetch("/api/dataset-csv", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ matchId, type: datasetType, rows })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setStatusMsg("Successfully saved changes.");
+      } else {
+        setStatusMsg(data.message || "Error saving data");
+      }
+    } catch (err) {
+      console.error(err);
+      setStatusMsg("API Error while saving.");
     }
   };
 
@@ -142,6 +180,7 @@ export default function DatasetsExplorer() {
           )}
         </div>
         <button className="btn btn-primary" onClick={loadData}>Load Dataset CSV</button>
+        <button className="btn btn-secondary" onClick={saveChanges} disabled={rows.length === 0}>Save Changes</button>
         <span className="text-muted" style={{ fontWeight: "500", marginLeft: "1rem" }}>{statusMsg}</span>
       </div>
 
@@ -174,10 +213,38 @@ export default function DatasetsExplorer() {
                   <td style={{ width: "100px" }}>{r.end}</td>
                   <td>{r.text}</td>
                   <td style={{ width: "150px", fontWeight: "bold", color: (r.event && r.event !== "normal_play") ? "var(--secondary-color)" : "inherit" }}>
-                    {r.event || "-"}
+                    <select
+                      value={r.event || "normal_play"}
+                      onChange={(e) => handleRowChange(i, "event", e.target.value)}
+                      style={{
+                        background: "rgba(255,255,255,0.05)",
+                        border: "1px solid rgba(255,255,255,0.1)",
+                        color: "inherit",
+                        padding: "0.25rem 0.5rem",
+                        borderRadius: "4px",
+                        width: "100%"
+                      }}
+                    >
+                      {definedEvents.map(evt => (
+                        <option key={evt} value={evt}>{evt}</option>
+                      ))}
+                    </select>
                   </td>
                   <td style={{ width: "100px", fontWeight: "bold" }}>
-                    {r.score || "-"}
+                    <input
+                      type="number"
+                      step="0.0001"
+                      value={r.score || ""}
+                      onChange={(e) => handleRowChange(i, "score", e.target.value)}
+                      style={{
+                        background: "rgba(255,255,255,0.05)",
+                        border: "1px solid rgba(255,255,255,0.1)",
+                        color: "inherit",
+                        padding: "0.25rem 0.5rem",
+                        borderRadius: "4px",
+                        width: "100%"
+                      }}
+                    />
                   </td>
                 </tr>
               ))}

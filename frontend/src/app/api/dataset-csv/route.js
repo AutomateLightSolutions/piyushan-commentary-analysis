@@ -59,3 +59,36 @@ export async function GET(req) {
     return NextResponse.json({ message: "Failed to read datasets" }, { status: 500 });
   }
 }
+
+export async function POST(req) {
+  try {
+    const { matchId, type, rows } = await req.json();
+    if (!matchId || !type || !rows) {
+      return NextResponse.json({ message: "Missing required fields" }, { status: 400 });
+    }
+
+    const datasetsDir = path.resolve(SYSTEM_PATH, "data", "processed", "datasets", type);
+    const csvPath = path.resolve(datasetsDir, `dataset_${matchId}.csv`);
+
+    // Create CSV header
+    let csvContent = "start_time,end_time,text,event_class,highlight_score\n";
+    
+    // Append rows
+    for (const row of rows) {
+      // Escape text, wrapping in quotes if it contains quotes or commas
+      let text = row.text || "";
+      if (text.includes(",") || text.includes('"')) {
+        text = `"${text.replace(/"/g, '""')}"`;
+      }
+      
+      csvContent += `${row.start},${row.end},${text},${row.event},${row.score}\n`;
+    }
+
+    await require("fs/promises").writeFile(csvPath, csvContent, "utf-8");
+
+    return NextResponse.json({ message: "Dataset updated successfully" });
+  } catch (err) {
+    console.error("Dataset Save Error:", err);
+    return NextResponse.json({ message: "Failed to save dataset" }, { status: 500 });
+  }
+}
