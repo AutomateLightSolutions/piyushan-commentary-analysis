@@ -7,60 +7,121 @@ RAW_DIR = Path("data/raw")
 RAW_DIR.mkdir(parents=True, exist_ok=True)
 
 def extract_audio(video_path: Path, output_audio: Path):
-    print(f"Extracting audio from {video_path.name}...")
+    print(f"Extracting audio from {video_path.name} (Compressing to MP3 for faster upload)...")
     cmd = [
         "ffmpeg", "-y", "-i", str(video_path), 
-        "-vn", "-acodec", "pcm_s16le", "-ar", "16000", "-ac", "1", 
+        "-vn", "-acodec", "libmp3lame", "-b:a", "32k", "-ac", "1", "-ar", "16000",
         str(output_audio)
     ]
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
+import requests
+import json
+
+def format_timestamp(seconds):
+    hours = int(seconds // 3600)
+    minutes = int((seconds % 3600) // 60)
+    secs = int(seconds % 60)
+    millis = int((seconds - int(seconds)) * 1000)
+    return f"{hours:02d}:{minutes:02d}:{secs:02d}.{millis:03d}"
+
+def get_colab_url():
+    env_path = Path(__file__).parent.parent / ".env"
+    if env_path.exists():
+        with open(env_path, "r") as f:
+            for line in f:
+                if line.startswith("COLAB_NGROK_URL="):
+                    return line.strip().split("=", 1)[1]
+    return None
+
+import time
+
 def transcribe_audio(audio_path: Path, output_dir: Path, model="large-v3"):
-    print(f"Transcribing {audio_path.name} with Whisper...")
-    initial_prompt = (
-        "Rugby union commentary. Teams: Ireland, South Africa, England, France, New Zealand, Australia, Wales, Scotland. "
-        "Rugby terms: try, conversion, penalty goal, drop goal, scrum, lineout, ruck, maul, offload, tackle, breakdown, turnover, "
-        "sin bin, yellow card, red card, TMO, knock on, forward pass, offside, high tackle, line break, "
-        "grubber kick, box kick, garryowen, chip kick, penalty try, driving maul, rolling maul, "
-        "goes over the line, scores the try, brilliant try, what a try, sensational finish, dives over, "
-        "powers through, breaks through, beats the defender, steps inside, line break, counter attack, "
-        "advantage being played, penalty awarded, try awarded, no try, referee checking, "
-        "conversion successful, kick is good, between the posts, slots it, "
-        "Bundee Aki, Johnny Sexton, Hugo Keenan, Mack Hansen, Garry Ringrose, Robbie Henshaw, "
-        "Andrew Porter, Ronan Kelleher, Tadhg Furlong, Caelan Doris, Josh van der Flier, Peter O'Mahony, "
-        "Siya Kolisi, Handre Pollard, Cheslin Kolbe, Damian de Allende, Lukhanyo Am, Faf de Klerk, "
-        "Eben Etzebeth, Pieter-Steph du Toit, Malcolm Marx, ox Steven Kitshoff. "
-        "Referee Ben O'Keeffe. Touch judges. TMO Brandon Pickel. World Cup."
-    )
-    cmd = [
-        "whisper", str(audio_path),
-        "--model", model,
-        "--output_dir", str(output_dir),
-        "--output_format", "vtt",
-        "--language", "en",
-        "--initial_prompt", initial_prompt,
-        "--condition_on_previous_text", "True",
-        "--compression_ratio_threshold", "2.4",
-        "--no_speech_threshold", "0.6",
-    ]
-    # Enforce UTF-8 to prevent cp1252 charmap crashes on Windows when Whisper prints exotic characters
-    env = os.environ.copy()
-    env["PYTHONIOENCODING"] = "utf-8"
-    env["PYTHONUTF8"] = "1"
-    subprocess.run(cmd, env=env, check=True)
+    print(f"Transcribing {audio_path.name} via Google Colab API...")
+    colab_url = get_colab_url()
+    
+    if not colab_url:
+        raise ValueError("COLAB_NGROK_URL not found in .env file. Please set it to your Ngrok URL.")
+        
+    api_endpoint = f"{colab_url.rstrip('/')}/transcribe"
+    
+    headers = {"ngrok-skip-browser-warning": "true"}
+    with open(audio_path, "rb") as f:
+        files = {"file": (audio_path.name, f, "audio/mp3")}
+        response = requests.post(api_endpoint, files=files, headers=headers)
+        
+    if response.status_code != 200:
+        raise RuntimeError(f"Colab API Error {response.status_code}: {response.text}")
+        
+    task_id = response.json().get("task_id")
+    if not task_id:
+        raise RuntimeError("Did not receive task_id from Colab")
+        
+    print(f"Task started in Colab (ID: {task_id}). Streaming logs...")
+    status_endpoint = f"{colab_url.rstrip('/')}/status/{task_id}"
+    
+    segments = []
+    while True:
+        time.sleep(2)
+        try:
+            stat_res = requests.get(status_endpoint, headers=headers)
+            if stat_res.status_code == 200:
+                stat_data = stat_res.json()
+                for log_line in stat_data.get("logs", []):
+                    try:
+                        print(log_line, flush=True) # Send directly to local stdout
+                    except UnicodeEncodeError:
+                        print(log_line.encode("ascii", "backslashreplace").decode("ascii"), flush=True)
+                    
+                status = stat_data.get("status")
+                if status == "completed":
+                    segments = stat_data.get("result_data", [])
+                    break
+                elif status == "failed":
+                    raise RuntimeError("Colab Transcription Task Failed.")
+        except requests.exceptions.ConnectionError:
+            print("Connection error while polling, retrying...", flush=True)
+            
+    # Format to VTT
+    vtt_content = "WEBVTT\n\n"
+    for seg in segments:
+        start_time = format_timestamp(seg.get("start", 0))
+        end_time = format_timestamp(seg.get("end", 0))
+        text = seg.get("text", "").strip()
+        vtt_content += f"{start_time} --> {end_time}\n{text}\n\n"
+        
+    # Save VTT file
+    vtt_file = output_dir / audio_path.with_suffix(".vtt").name
+    with open(vtt_file, "w", encoding="utf-8") as f:
+        f.write(vtt_content)
+    
+    print(f"Transcription saved to {vtt_file}", flush=True)
+
+import argparse
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--target-file", type=str, help="Specific video file to process")
+    args = parser.parse_args()
+
     if not RAW_DIR.exists():
         print(f"Raw directory not found at {RAW_DIR}")
         return
 
-    mp4_files = list(RAW_DIR.glob("*.mp4"))
+    if args.target_file:
+        mp4_files = [RAW_DIR / args.target_file]
+        if not mp4_files[0].exists():
+            print(f"Target file not found: {mp4_files[0]}")
+            return
+    else:
+        mp4_files = list(RAW_DIR.glob("*.mp4"))
+
     if not mp4_files:
         print("No .mp4 files found in data/raw/")
         return
 
     for video_file in mp4_files:
-        audio_file = video_file.with_suffix(".wav")
+        audio_file = video_file.with_suffix(".mp3")
         vtt_file = video_file.with_suffix(".vtt")
 
         if not vtt_file.exists():
@@ -72,7 +133,7 @@ def main():
                 if not vtt_file.exists():
                     raise FileNotFoundError(f"Whisper executed but failed to save {vtt_file.name}. Review Whisper's error logs.")
                 
-                # Cleanup the .wav file since Whisper is done
+                # Cleanup the .mp3 file since Whisper is done
                 if audio_file.exists():
                     os.remove(audio_file)
             except Exception as e:

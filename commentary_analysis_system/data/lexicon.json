@@ -1,226 +1,784 @@
 {
   "categories": [
     {
-      "id": "try_scoring",
-      "name": "Try Scoring Events",
-      "weight": 0.35,
+      "id": "try",
+      "name": "Try",
+      "weight": 0.1,
       "terms": [
-        "try",
-        "scores",
-        "he scores",
-        "she scores",
-        "touchdown",
-        "grounds the ball",
-        "gets it down",
-        "dives over",
-        "dives in",
-        "over the line",
-        "he's over",
-        "she's over",
-        "under the posts",
-        "in the corner",
-        "finishes it",
-        "crosses over",
-        "five pointer",
-        "try time",
-        "what a finish",
-        "puts it down",
-        "reaches out",
-        "slides over",
-        "goes over",
-        "power over",
-        "powers through",
-        "through the tackle",
-        "unstoppable",
-        "individual brilliance",
-        "what a try",
-        "sensational try",
-        "brilliant finish",
-        "amazing score",
-        "world class",
-        "special finish"
+        {
+          "text": "gibson",
+          "weight": 0.0145
+        },
+        {
+          "text": "park",
+          "weight": 0.0145
+        },
+        {
+          "text": "gibson park",
+          "weight": 0.0145
+        },
+        {
+          "text": "wave",
+          "weight": 0.0109
+        },
+        {
+          "text": "right",
+          "weight": 0.0109
+        },
+        {
+          "text": "the right",
+          "weight": 0.0109
+        },
+        {
+          "text": "to the right",
+          "weight": 0.0109
+        },
+        {
+          "text": "ireland",
+          "weight": 0.0109
+        },
+        {
+          "text": "johnny",
+          "weight": 0.0109
+        },
+        {
+          "text": "irish",
+          "weight": 0.0073
+        },
+        {
+          "text": "the irish",
+          "weight": 0.0073
+        },
+        {
+          "text": "park to",
+          "weight": 0.0073
+        },
+        {
+          "text": "gibson park to",
+          "weight": 0.0073
+        },
+        {
+          "text": "park to the",
+          "weight": 0.0073
+        },
+        {
+          "text": "forwards",
+          "weight": 0.0073
+        },
+        {
+          "text": "quickly",
+          "weight": 0.0073
+        },
+        {
+          "text": "regathering",
+          "weight": 0.0073
+        },
+        {
+          "text": "next",
+          "weight": 0.0073
+        },
+        {
+          "text": "forwards quickly",
+          "weight": 0.0073
+        },
+        {
+          "text": "quickly regathering",
+          "weight": 0.0073
+        },
+        {
+          "text": "regathering themselves",
+          "weight": 0.0073
+        },
+        {
+          "text": "the next",
+          "weight": 0.0073
+        },
+        {
+          "text": "next wave",
+          "weight": 0.0073
+        },
+        {
+          "text": "forwards quickly regathering",
+          "weight": 0.0073
+        },
+        {
+          "text": "quickly regathering themselves",
+          "weight": 0.0073
+        },
+        {
+          "text": "regathering themselves for",
+          "weight": 0.0073
+        },
+        {
+          "text": "for the next",
+          "weight": 0.0073
+        },
+        {
+          "text": "the next wave",
+          "weight": 0.0073
+        },
+        {
+          "text": "peter",
+          "weight": 0.0073
+        },
+        {
+          "text": "omahony",
+          "weight": 0.0073
+        }
       ]
     },
-
     {
-      "id": "conversion_penalty_points",
-      "name": "Conversions and Penalty Scores",
-      "weight": 0.16,
+      "id": "goal_kick",
+      "name": "Goal Kick",
+      "weight": 0.1,
       "terms": [
-        "conversion",
-        "penalty goal",
-        "drop goal",
-        "adds the extras",
-        "straight through",
-        "between the posts",
-        "from the tee",
-        "slots it",
-        "nails it",
-        "he converts",
-        "successful conversion",
-        "three more points",
-        "takes the points",
-        "kick is good",
-        "right down the middle",
-        "extends the lead",
-        "reduces the deficit",
-        "important points",
-        "huge kick"
+        {
+          "text": "rugby",
+          "weight": 0.0086
+        },
+        {
+          "text": "world",
+          "weight": 0.0075
+        },
+        {
+          "text": "cup",
+          "weight": 0.0075
+        },
+        {
+          "text": "rugby world",
+          "weight": 0.0075
+        },
+        {
+          "text": "world cup",
+          "weight": 0.0075
+        },
+        {
+          "text": "rugby world cup",
+          "weight": 0.0075
+        },
+        {
+          "text": "south",
+          "weight": 0.0064
+        },
+        {
+          "text": "theyve",
+          "weight": 0.0064
+        },
+        {
+          "text": "big",
+          "weight": 0.0064
+        },
+        {
+          "text": "got",
+          "weight": 0.0054
+        },
+        {
+          "text": "got the",
+          "weight": 0.0054
+        },
+        {
+          "text": "africa",
+          "weight": 0.0043
+        },
+        {
+          "text": "south africa",
+          "weight": 0.0043
+        },
+        {
+          "text": "ball",
+          "weight": 0.0043
+        },
+        {
+          "text": "part",
+          "weight": 0.0043
+        },
+        {
+          "text": "winning",
+          "weight": 0.0043
+        },
+        {
+          "text": "matches",
+          "weight": 0.0043
+        },
+        {
+          "text": "fly",
+          "weight": 0.0043
+        },
+        {
+          "text": "the ball",
+          "weight": 0.0043
+        },
+        {
+          "text": "ball its",
+          "weight": 0.0043
+        },
+        {
+          "text": "a big",
+          "weight": 0.0043
+        },
+        {
+          "text": "big part",
+          "weight": 0.0043
+        },
+        {
+          "text": "part of",
+          "weight": 0.0043
+        },
+        {
+          "text": "of winning",
+          "weight": 0.0043
+        },
+        {
+          "text": "winning rugby",
+          "weight": 0.0043
+        },
+        {
+          "text": "cup matches",
+          "weight": 0.0043
+        },
+        {
+          "text": "matches so",
+          "weight": 0.0043
+        },
+        {
+          "text": "the fly",
+          "weight": 0.0043
+        },
+        {
+          "text": "fly off",
+          "weight": 0.0043
+        },
+        {
+          "text": "got the ball",
+          "weight": 0.0043
+        }
       ]
     },
-
     {
-      "id": "attacking_pressure",
-      "name": "Attacking Pressure",
-      "weight": 0.14,
+      "id": "card_event",
+      "name": "Card Event",
+      "weight": 0.1,
+      "terms": []
+    },
+    {
+      "id": "scrum",
+      "name": "Scrum",
+      "weight": 0.1,
       "terms": [
-        "advantage being played",
-        "playing advantage",
-        "quick hands",
-        "goes wide",
-        "spreads it wide",
-        "on the outside",
-        "inside ball",
-        "offload",
-        "support runner",
-        "counter attack",
-        "line break",
-        "breaks through",
-        "through the gap",
-        "steps inside",
-        "beats the defender",
-        "burst of pace",
-        "intercept",
-        "chip and chase",
-        "regather",
-        "attacking opportunity",
-        "deep into the 22",
-        "camped on the line",
-        "pressure mounting",
-        "knocking on the door",
-        "driving forward",
-        "momentum building",
-        "attacking phase",
-        "patient build up",
-        "fast phase play",
-        "quick recycle",
-        "ball retention"
+        {
+          "text": "one",
+          "weight": 0.0043
+        },
+        {
+          "text": "south",
+          "weight": 0.0043
+        },
+        {
+          "text": "back",
+          "weight": 0.0038
+        },
+        {
+          "text": "scrum",
+          "weight": 0.0033
+        },
+        {
+          "text": "good",
+          "weight": 0.003
+        },
+        {
+          "text": "going",
+          "weight": 0.003
+        },
+        {
+          "text": "going to",
+          "weight": 0.003
+        },
+        {
+          "text": "risk",
+          "weight": 0.003
+        },
+        {
+          "text": "africa",
+          "weight": 0.0028
+        },
+        {
+          "text": "weve",
+          "weight": 0.0028
+        },
+        {
+          "text": "call",
+          "weight": 0.0028
+        },
+        {
+          "text": "rugby",
+          "weight": 0.0028
+        },
+        {
+          "text": "side",
+          "weight": 0.0028
+        },
+        {
+          "text": "take",
+          "weight": 0.0025
+        },
+        {
+          "text": "lets",
+          "weight": 0.0025
+        },
+        {
+          "text": "hes",
+          "weight": 0.0025
+        },
+        {
+          "text": "thats",
+          "weight": 0.0025
+        },
+        {
+          "text": "great",
+          "weight": 0.0023
+        },
+        {
+          "text": "african",
+          "weight": 0.0023
+        },
+        {
+          "text": "south african",
+          "weight": 0.0023
+        },
+        {
+          "text": "hes going",
+          "weight": 0.0023
+        },
+        {
+          "text": "hes going to",
+          "weight": 0.0023
+        },
+        {
+          "text": "get",
+          "weight": 0.0023
+        },
+        {
+          "text": "got",
+          "weight": 0.002
+        },
+        {
+          "text": "set",
+          "weight": 0.002
+        },
+        {
+          "text": "two",
+          "weight": 0.002
+        },
+        {
+          "text": "see",
+          "weight": 0.002
+        },
+        {
+          "text": "the south",
+          "weight": 0.002
+        },
+        {
+          "text": "element",
+          "weight": 0.002
+        },
+        {
+          "text": "an element",
+          "weight": 0.002
+        }
       ]
     },
-
     {
-      "id": "referee_decisions",
-      "name": "Referee Decisions",
-      "weight": 0.12,
+      "id": "maul",
+      "name": "Maul",
+      "weight": 0.1,
+      "terms": []
+    },
+    {
+      "id": "lineout",
+      "name": "Lineout",
+      "weight": 0.1,
       "terms": [
-        "offside",
-        "forward pass",
-        "knock on",
-        "high tackle",
-        "dangerous tackle",
-        "not releasing",
-        "holding on",
-        "side entry",
-        "collapsing the maul",
-        "collapsed scrum",
-        "yellow card",
-        "red card",
-        "sin bin",
-        "tmo",
-        "referee checking",
-        "go upstairs",
-        "decision pending",
-        "no try",
-        "try awarded",
-        "penalty try",
-        "free kick",
-        "illegal entry",
-        "hands in the ruck",
-        "obstruction",
-        "double movement"
+        {
+          "text": "line",
+          "weight": 0.008
+        },
+        {
+          "text": "hes",
+          "weight": 0.0061
+        },
+        {
+          "text": "two",
+          "weight": 0.0045
+        },
+        {
+          "text": "the line",
+          "weight": 0.0045
+        },
+        {
+          "text": "back",
+          "weight": 0.0032
+        },
+        {
+          "text": "theyre",
+          "weight": 0.0032
+        },
+        {
+          "text": "side",
+          "weight": 0.0029
+        },
+        {
+          "text": "south",
+          "weight": 0.0029
+        },
+        {
+          "text": "africa",
+          "weight": 0.0029
+        },
+        {
+          "text": "south africa",
+          "weight": 0.0029
+        },
+        {
+          "text": "going",
+          "weight": 0.0029
+        },
+        {
+          "text": "irish",
+          "weight": 0.0026
+        },
+        {
+          "text": "one",
+          "weight": 0.0026
+        },
+        {
+          "text": "good",
+          "weight": 0.0026
+        },
+        {
+          "text": "see",
+          "weight": 0.0026
+        },
+        {
+          "text": "get",
+          "weight": 0.0026
+        },
+        {
+          "text": "around",
+          "weight": 0.0022
+        },
+        {
+          "text": "come",
+          "weight": 0.0022
+        },
+        {
+          "text": "ireland",
+          "weight": 0.0022
+        },
+        {
+          "text": "line out",
+          "weight": 0.0022
+        },
+        {
+          "text": "the back",
+          "weight": 0.0022
+        },
+        {
+          "text": "johnny",
+          "weight": 0.0019
+        },
+        {
+          "text": "got",
+          "weight": 0.0019
+        },
+        {
+          "text": "right",
+          "weight": 0.0019
+        },
+        {
+          "text": "challenge",
+          "weight": 0.0019
+        },
+        {
+          "text": "five",
+          "weight": 0.0019
+        },
+        {
+          "text": "games",
+          "weight": 0.0019
+        },
+        {
+          "text": "of the line",
+          "weight": 0.0019
+        },
+        {
+          "text": "row",
+          "weight": 0.0019
+        },
+        {
+          "text": "back row",
+          "weight": 0.0019
+        }
       ]
     },
-
     {
-      "id": "set_piece",
-      "name": "Set Piece and Breakdown",
-      "weight": 0.05,
+      "id": "kick_off",
+      "name": "Kick Off",
+      "weight": 0.1,
       "terms": [
-        "driving maul",
-        "turnover",
-        "turnover won",
-        "stolen at the breakdown",
-        "dominant scrum",
-        "scrum penalty",
-        "lineout steal",
-        "clean ball",
-        "quick throw",
-        "contest in the air",
-        "box kick",
-        "contestable kick",
-        "restart",
-        "phase play",
-        "pick and go",
-        "rolling maul",
-        "set piece dominance"
+        {
+          "text": "james",
+          "weight": 0.0104
+        },
+        {
+          "text": "one",
+          "weight": 0.0104
+        },
+        {
+          "text": "nice",
+          "weight": 0.0083
+        },
+        {
+          "text": "three",
+          "weight": 0.0062
+        },
+        {
+          "text": "hes",
+          "weight": 0.0062
+        },
+        {
+          "text": "nice one",
+          "weight": 0.0062
+        },
+        {
+          "text": "pass",
+          "weight": 0.0062
+        },
+        {
+          "text": "lowe",
+          "weight": 0.0062
+        },
+        {
+          "text": "james lowe",
+          "weight": 0.0062
+        },
+        {
+          "text": "referee",
+          "weight": 0.0042
+        },
+        {
+          "text": "ben",
+          "weight": 0.0042
+        },
+        {
+          "text": "okeefe",
+          "weight": 0.0042
+        },
+        {
+          "text": "new",
+          "weight": 0.0042
+        },
+        {
+          "text": "zealand",
+          "weight": 0.0042
+        },
+        {
+          "text": "touch",
+          "weight": 0.0042
+        },
+        {
+          "text": "judges",
+          "weight": 0.0042
+        },
+        {
+          "text": "matthew",
+          "weight": 0.0042
+        },
+        {
+          "text": "rannell",
+          "weight": 0.0042
+        },
+        {
+          "text": "dolman",
+          "weight": 0.0042
+        },
+        {
+          "text": "a referee",
+          "weight": 0.0042
+        },
+        {
+          "text": "referee is",
+          "weight": 0.0042
+        },
+        {
+          "text": "is ben",
+          "weight": 0.0042
+        },
+        {
+          "text": "ben okeefe",
+          "weight": 0.0042
+        },
+        {
+          "text": "okeefe from",
+          "weight": 0.0042
+        },
+        {
+          "text": "from new",
+          "weight": 0.0042
+        },
+        {
+          "text": "new zealand",
+          "weight": 0.0042
+        },
+        {
+          "text": "zealand touch",
+          "weight": 0.0042
+        },
+        {
+          "text": "touch judges",
+          "weight": 0.0042
+        },
+        {
+          "text": "judges matthew",
+          "weight": 0.0042
+        },
+        {
+          "text": "matthew rannell",
+          "weight": 0.0042
+        }
       ]
     },
-
     {
-      "id": "crowd_commentary_excitement",
-      "name": "Crowd and Commentary Excitement",
-      "weight": 0.11,
+      "id": "tmo_replay",
+      "name": "Tmo Replay",
+      "weight": 0.1,
       "terms": [
-        "brilliant",
-        "sensational",
-        "unbelievable",
-        "incredible",
-        "extraordinary",
-        "magnificent",
-        "outstanding",
-        "special moment",
-        "listen to this crowd",
-        "the stadium erupts",
-        "crowd on their feet",
-        "what a moment",
-        "huge moment",
-        "dramatic finish",
-        "remarkable",
-        "pure class",
-        "absolutely stunning",
-        "wow",
-        "what a play",
-        "electric atmosphere",
-        "massive play",
-        "game changing",
-        "this is huge",
-        "phenomenal",
-        "magic from",
-        "the fans love it"
+        {
+          "text": "south",
+          "weight": 0.0072
+        },
+        {
+          "text": "africa",
+          "weight": 0.0057
+        },
+        {
+          "text": "south africa",
+          "weight": 0.0057
+        },
+        {
+          "text": "line",
+          "weight": 0.005
+        },
+        {
+          "text": "back",
+          "weight": 0.0042
+        },
+        {
+          "text": "johnny",
+          "weight": 0.0032
+        },
+        {
+          "text": "ball",
+          "weight": 0.003
+        },
+        {
+          "text": "get",
+          "weight": 0.003
+        },
+        {
+          "text": "the line",
+          "weight": 0.0027
+        },
+        {
+          "text": "little",
+          "weight": 0.0025
+        },
+        {
+          "text": "bit",
+          "weight": 0.0025
+        },
+        {
+          "text": "close",
+          "weight": 0.0025
+        },
+        {
+          "text": "time",
+          "weight": 0.0025
+        },
+        {
+          "text": "two",
+          "weight": 0.0022
+        },
+        {
+          "text": "first",
+          "weight": 0.0022
+        },
+        {
+          "text": "game",
+          "weight": 0.0022
+        },
+        {
+          "text": "this game",
+          "weight": 0.0022
+        },
+        {
+          "text": "attack",
+          "weight": 0.0022
+        },
+        {
+          "text": "sexton",
+          "weight": 0.0022
+        },
+        {
+          "text": "right",
+          "weight": 0.0022
+        },
+        {
+          "text": "johnny sexton",
+          "weight": 0.0022
+        },
+        {
+          "text": "scrum",
+          "weight": 0.0022
+        },
+        {
+          "text": "irish",
+          "weight": 0.0022
+        },
+        {
+          "text": "the irish",
+          "weight": 0.0022
+        },
+        {
+          "text": "thats",
+          "weight": 0.0022
+        },
+        {
+          "text": "a little",
+          "weight": 0.002
+        },
+        {
+          "text": "opening",
+          "weight": 0.002
+        },
+        {
+          "text": "kelleher",
+          "weight": 0.002
+        },
+        {
+          "text": "the opening",
+          "weight": 0.002
+        },
+        {
+          "text": "ireland",
+          "weight": 0.002
+        }
       ]
     },
-
     {
-      "id": "defensive_intensity",
-      "name": "Defensive Intensity",
-      "weight": 0.07,
-      "terms": [
-        "big tackle",
-        "dominant tackle",
-        "try saving tackle",
-        "held up over the line",
-        "defensive stand",
-        "massive defence",
-        "turns him over",
-        "forced backwards",
-        "driven back",
-        "under pressure",
-        "scrambling defence",
-        "goal line defence",
-        "desperate defence",
-        "huge collision",
-        "crunching tackle"
-      ]
+      "id": "penalty",
+      "name": "Penalty",
+      "weight": 0.1,
+      "terms": []
     }
   ]
 }

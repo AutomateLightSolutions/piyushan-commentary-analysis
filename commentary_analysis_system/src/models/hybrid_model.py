@@ -9,23 +9,55 @@ class HybridModel:
             
         self.lexicon = LexiconModel()
         
-    def predict(self, text_list: list[str], lexicon_weight=0.3):
+    def predict(self, text_list: list[str], highlight_lexicon_weight=0.3, event_lexicon_weight=0.3, roberta_weight=1.0):
         """
-        Generates combined score using booster formula: min(1.0, RoBERTa + (Lexicon * lexicon_weight))
+        Generates combined score using booster formula: min(1.0, (RoBERTa * roberta_weight) + (Lexicon * highlight_lexicon_weight))
         """
-        roberta_probs = self.roberta.predict_probs(text_list)
+        roberta_event_probs, roberta_highlight_scores = self.roberta.predict_probs(text_list)
         
         results = []
-        for text, r_prob in zip(text_list, roberta_probs):
+        for text, r_probs, r_h_score in zip(text_list, roberta_event_probs, roberta_highlight_scores):
+            # Overall highlight score from lexicon
             l_prob = self.lexicon.score_chunk(text)
             
+            # r_h_score is the direct highlight probability from the new highlight head
+            base_highlight_prob = r_h_score
+            
             # Booster formula: Lexicon score boosts the RoBERTa base score
-            hybrid_score = min(1.0, r_prob + (l_prob * lexicon_weight))
+            hybrid_score = min(1.0, (base_highlight_prob * roberta_weight) + (l_prob * highlight_lexicon_weight))
+            
+            # Predict the specific event using event-specific lexicon features
+            lexicon_features = self.lexicon.generate_features(text)
+            
+            max_hybrid_prob = -1
+            predicted_event_id = 0
+            
+            for i, p in enumerate(r_probs):
+                event_name = self.roberta.id2label.get(i, "normal_play")
+                
+                # Get the lexicon score specifically for this event
+                l_prob_for_event = lexicon_features.get(event_name, 0.0)
+                
+                # Normalize lexicon score (similar to how score_chunk scales weights)
+                l_prob_normalized = min(1.0, float(l_prob_for_event) * 100.0)
+                
+                # Combine them for this specific event
+                event_hybrid_prob = (p * roberta_weight) + (l_prob_normalized * event_lexicon_weight)
+                
+                if event_hybrid_prob > max_hybrid_prob:
+                    max_hybrid_prob = event_hybrid_prob
+                    predicted_event_id = i
+                    
+            predicted_event = self.roberta.id2label.get(predicted_event_id, "normal_play")
             
             results.append({
-                "roberta_score": r_prob,
+                "roberta_score": base_highlight_prob,
                 "lexicon_score": l_prob,
-                "hybrid_score": hybrid_score
+                "hybrid_score": hybrid_score,
+                "predicted_event": predicted_event,
+                "predicted_event_prob": max_hybrid_prob,
+                "raw_roberta_probs": r_probs,
+                "raw_lexicon_features": lexicon_features
             })
             
         return results

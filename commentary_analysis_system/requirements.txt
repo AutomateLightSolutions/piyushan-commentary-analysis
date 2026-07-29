@@ -3,3 +3,5 @@ transformers
 datasets
 pandas
 openai-whisper
+nltk
+streamlit

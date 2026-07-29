@@ -5,10 +5,12 @@ import Link from "next/link";
 import "./globals.css";
 import { PipelineContext } from "./PipelineContext";
 
-function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSelectedDataset }) {
+function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSelectedDataset, refreshMatches }) {
   const [history, setHistory] = useState([]);
   const [expandedMetrics, setExpandedMetrics] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [viewingDataset, setViewingDataset] = useState(null);
+  const [datasetRows, setDatasetRows] = useState([]);
 
   useEffect(() => {
     if (isOpen) {
@@ -42,6 +44,40 @@ function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSe
   const toggleMetrics = (dataset, modelId) => {
     const key = `${dataset}-${modelId}`;
     setExpandedMetrics(expandedMetrics === key ? null : key);
+  };
+
+  const handleDelete = async (ds) => {
+    if (ds === "all") return;
+    if (!window.confirm(`Are you sure you want to completely delete dataset "${ds}"? This cannot be undone.`)) return;
+    try {
+      const res = await fetch("/api/manage-matches", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ matchId: ds, filesToDelete: "all" })
+      });
+      if (res.ok) {
+        if (selectedDataset === ds) setSelectedDataset("all");
+        if (refreshMatches) refreshMatches();
+      } else {
+        alert("Failed to delete dataset.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error deleting dataset.");
+    }
+  };
+
+  const handleViewDataset = async (ds) => {
+    if (ds === "all") return;
+    try {
+      const res = await fetch(`/api/dataset-csv?matchId=${ds}`);
+      const data = await res.json();
+      setDatasetRows(data.rows || []);
+      setViewingDataset(ds);
+    } catch (err) {
+      console.error(err);
+      alert("Error loading dataset");
+    }
   };
 
   return (
@@ -138,13 +174,35 @@ function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSe
                           );
                         })}
                         <td style={{ padding: "0.75rem 1rem", textAlign: "center" }}>
-                          <button 
-                            className={`btn ${isSelected ? "btn-primary" : "btn-secondary"}`}
-                            onClick={() => { setSelectedDataset(ds); onClose(); }}
-                            style={{ padding: "0.4rem 0", width: "100px", fontSize: "0.85rem", fontWeight: isSelected ? "bold" : "normal" }}
-                          >
-                            {isSelected ? "Selected ✓" : "Select"}
-                          </button>
+                          <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center" }}>
+                            <button 
+                              className={`btn ${isSelected ? "btn-primary" : "btn-secondary"}`}
+                              onClick={() => { setSelectedDataset(ds); onClose(); }}
+                              style={{ padding: "0.4rem 0", width: "80px", fontSize: "0.85rem", fontWeight: isSelected ? "bold" : "normal" }}
+                            >
+                              {isSelected ? "Selected ✓" : "Select"}
+                            </button>
+                            {ds !== "all" && (
+                              <>
+                                <button 
+                                  className="btn"
+                                  onClick={() => handleViewDataset(ds)}
+                                  style={{ padding: "0.4rem 0", width: "40px", fontSize: "0.85rem", background: "rgba(59, 130, 246, 0.2)", border: "1px solid rgba(59, 130, 246, 0.4)", color: "#60a5fa", cursor: "pointer", borderRadius: "8px" }}
+                                  title="View Dataset"
+                                >
+                                  👁️
+                                </button>
+                                <button 
+                                  className="btn"
+                                  onClick={() => handleDelete(ds)}
+                                  style={{ padding: "0.4rem 0", width: "40px", fontSize: "0.85rem", background: "rgba(239, 68, 68, 0.2)", border: "1px solid rgba(239, 68, 68, 0.4)", color: "#f87171", cursor: "pointer", borderRadius: "8px" }}
+                                  title="Delete Dataset"
+                                >
+                                  🗑️
+                                </button>
+                              </>
+                            )}
+                          </div>
                         </td>
                       </tr>
                       
@@ -163,26 +221,53 @@ function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSe
                                   <h4 style={{ margin: 0, color: "var(--primary-color)", fontSize: "1.1rem" }}>{m.label} Evaluation (Round {latest.training_round})</h4>
                                   <small style={{ color: "#a1a1aa", fontSize: "0.9rem" }}>{new Date(latest.timestamp).toLocaleString()}</small>
                                 </div>
-                                <table className="table-modern" style={{ fontSize: "0.95rem", background: "rgba(255,255,255,0.03)", width: "100%" }}>
-                                  <thead>
-                                    <tr>
-                                      <th style={{ padding: "0.75rem" }}>Approach</th>
-                                      <th style={{ padding: "0.75rem" }}>Precision</th>
-                                      <th style={{ padding: "0.75rem" }}>Recall</th>
-                                      <th style={{ padding: "0.75rem" }}>F1 Score</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    {Object.entries(latest.metrics).map(([approach, vals]) => (
-                                      <tr key={approach}>
-                                        <td style={{ padding: "0.75rem" }}>{approach}</td>
-                                        <td style={{ padding: "0.75rem" }}>{vals.precision?.toFixed(2)}</td>
-                                        <td style={{ padding: "0.75rem" }}>{vals.recall?.toFixed(2)}</td>
-                                        <td style={{ padding: "0.75rem", color: "var(--success-color)", fontWeight: "bold" }}>{vals.f1?.toFixed(2)}</td>
-                                      </tr>
-                                    ))}
-                                  </tbody>
-                                </table>
+                                <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+                                  <div style={{ flex: "1 1 45%" }}>
+                                    <h5 style={{ margin: "0 0 0.5rem 0", color: "#e2e8f0" }}>🎯 Event Detection (Classification)</h5>
+                                    <table className="table-modern" style={{ fontSize: "0.95rem", background: "rgba(255,255,255,0.03)", width: "100%" }}>
+                                      <thead>
+                                        <tr>
+                                          <th style={{ padding: "0.75rem" }}>Approach</th>
+                                          <th style={{ padding: "0.75rem" }}>Precision</th>
+                                          <th style={{ padding: "0.75rem" }}>Recall</th>
+                                          <th style={{ padding: "0.75rem" }}>F1 Score</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {latest.metrics?.Classification && Object.entries(latest.metrics.Classification).map(([approach, vals]) => (
+                                          <tr key={approach}>
+                                            <td style={{ padding: "0.75rem" }}>{approach}</td>
+                                            <td style={{ padding: "0.75rem" }}>{vals.precision?.toFixed(2)}</td>
+                                            <td style={{ padding: "0.75rem" }}>{vals.recall?.toFixed(2)}</td>
+                                            <td style={{ padding: "0.75rem", color: "var(--success-color)", fontWeight: "bold" }}>{vals.f1?.toFixed(2)}</td>
+                                          </tr>
+                                        ))}
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                  
+                                  <div style={{ flex: "1 1 45%" }}>
+                                    <h5 style={{ margin: "0 0 0.5rem 0", color: "#e2e8f0" }}>📈 Highlight Scoring (Regression)</h5>
+                                    <table className="table-modern" style={{ fontSize: "0.95rem", background: "rgba(255,255,255,0.03)", width: "100%" }}>
+                                      <thead>
+                                        <tr>
+                                          <th style={{ padding: "0.75rem" }}>Approach</th>
+                                          <th style={{ padding: "0.75rem" }}>MSE</th>
+                                          <th style={{ padding: "0.75rem" }}>MAE</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {latest.metrics?.Regression && Object.entries(latest.metrics.Regression).map(([approach, vals]) => (
+                                          <tr key={approach}>
+                                            <td style={{ padding: "0.75rem" }}>{approach}</td>
+                                            <td style={{ padding: "0.75rem", color: "#fca5a5" }}>{vals.mse?.toFixed(4)}</td>
+                                            <td style={{ padding: "0.75rem", color: "#fca5a5" }}>{vals.mae?.toFixed(4)}</td>
+                                          </tr>
+                                        ))}
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
                               </td>
                             </tr>
                           );
@@ -196,6 +281,43 @@ function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSe
             </table>
           )}
         </div>
+        
+        {viewingDataset && (
+          <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: "rgba(0,0,0,0.8)", zIndex: 1100, display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <div className="glass-card" style={{ width: "90%", maxWidth: "900px", maxHeight: "85vh", display: "flex", flexDirection: "column", position: "relative", backgroundColor: "#1e293b", padding: "1.5rem" }}>
+              <button onClick={() => setViewingDataset(null)} style={{ position: "absolute", top: "1rem", right: "1rem", background: "transparent", border: "none", color: "white", fontSize: "1.5rem", cursor: "pointer" }}>×</button>
+              <h3 style={{ margin: "0 0 1rem 0" }}>Dataset: {viewingDataset}</h3>
+              <div style={{ overflowY: "auto", flex: 1 }}>
+                <table className="table-modern" style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem" }}>
+                  <thead style={{ position: "sticky", top: 0, background: "#0f172a" }}>
+                    <tr>
+                      <th style={{ padding: "0.5rem" }}>Start</th>
+                      <th style={{ padding: "0.5rem" }}>End</th>
+                      <th style={{ padding: "0.5rem" }}>Text</th>
+                      <th style={{ padding: "0.5rem" }}>Event</th>
+                      <th style={{ padding: "0.5rem" }}>Score</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {datasetRows.length === 0 ? (
+                      <tr><td colSpan={5} style={{ textAlign: "center", padding: "2rem" }}>No data found</td></tr>
+                    ) : (
+                      datasetRows.map((row, i) => (
+                        <tr key={i} style={{ borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+                          <td style={{ padding: "0.5rem", whiteSpace: "nowrap" }}>{row.start}</td>
+                          <td style={{ padding: "0.5rem", whiteSpace: "nowrap" }}>{row.end}</td>
+                          <td style={{ padding: "0.5rem", maxWidth: "400px", whiteSpace: "normal" }}>{row.text}</td>
+                          <td style={{ padding: "0.5rem", whiteSpace: "nowrap", color: row.event && row.event !== "no_event" && row.event !== "" ? "var(--success-color)" : "inherit" }}>{row.event}</td>
+                          <td style={{ padding: "0.5rem" }}>{row.score}</td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -296,9 +418,9 @@ export default function Home() {
   const [matchId, setMatchId] = useState("");
   const [existingMatches, setExistingMatches] = useState([]);
   const [fullVideo, setFullVideo] = useState(null);
-  const [highlightVideo, setHighlightVideo] = useState(null);
   const [activeTab, setActiveTab] = useState(1);
   const [showDatasetModal, setShowDatasetModal] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   const {
     steps,
@@ -317,18 +439,21 @@ export default function Home() {
     handleStop
   } = useContext(PipelineContext);
 
-  useEffect(() => {
+  const fetchMatches = () => {
     fetch("/api/manage-matches")
       .then(res => res.json())
       .then(data => setExistingMatches(data.matchIds || []))
       .catch(err => console.error("Failed to fetch existing matches", err));
+  };
+
+  useEffect(() => {
+    fetchMatches();
   }, []);
 
   const onStartProcess = () => {
     if (!matchId)        return alert("Please enter a Match Identifier Base Name!");
     if (!fullVideo)      return alert("Please select the Full Match MP4!");
-    if (!highlightVideo) return alert("Please select the Highlight MP4!");
-    handleProcess(matchId, fullVideo, highlightVideo);
+    handleProcess(matchId, fullVideo);
     setActiveTab(2);
   };
 
@@ -339,11 +464,44 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const labelStep = steps.find(s => s.id === "label");
-    if (activeTab === 2 && labelStep && labelStep.status === "done" && !isProcessing) {
+    if (isMlProcessing) {
       setActiveTab(3);
+    } else if (isProcessing) {
+      setActiveTab(2);
     }
-  }, [steps, isProcessing, activeTab]);
+  }, []);
+
+  useEffect(() => {
+    const labelStep = steps.find(s => s.id === "label");
+    if (labelStep && labelStep.status === "done" && !isProcessing) {
+      setActiveTab(prev => (prev === 2 ? 3 : prev));
+    }
+  }, [steps, isProcessing]);
+
+  const handleDownloadModel = async () => {
+    setIsDownloading(true);
+    try {
+      const res = await fetch(`/api/download-model?modelName=${encodeURIComponent(selectedModel)}&checkOnly=true`);
+      if (!res.ok) {
+        const errorData = await res.json();
+        alert(errorData.error || 'Failed to download model');
+        setIsDownloading(false);
+        return;
+      }
+      
+      // If check passes, trigger browser native download 
+      window.location.href = `/api/download-model?modelName=${encodeURIComponent(selectedModel)}`;
+      
+      // Revert button text after a short delay
+      setTimeout(() => {
+        setIsDownloading(false);
+      }, 3000);
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred while downloading the model.");
+      setIsDownloading(false);
+    }
+  };
 
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
@@ -354,6 +512,7 @@ export default function Home() {
         existingMatches={existingMatches}
         selectedDataset={selectedDataset}
         setSelectedDataset={setSelectedDataset}
+        refreshMatches={fetchMatches}
       />
       <div className="flex-between mb-2">
         <div>
@@ -375,6 +534,7 @@ export default function Home() {
         <button className={`tab-btn ${activeTab === 1 ? 'active' : ''}`} onClick={() => setActiveTab(1)}>1. Context &amp; Videos</button>
         <button className={`tab-btn ${activeTab === 2 ? 'active' : ''}`} onClick={() => setActiveTab(2)}>2. Pipeline Progress</button>
         <button className={`tab-btn ${activeTab === 3 ? 'active' : ''}`} onClick={() => setActiveTab(3)}>3. ML Execution</button>
+        <button className={`tab-btn ${activeTab === 4 ? 'active' : ''}`} onClick={() => setActiveTab(4)}>4. Download Model</button>
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
@@ -404,10 +564,6 @@ export default function Home() {
             <div className="form-group">
               <label className="form-label">Upload Full Match Video (.mp4)</label>
               <input type="file" className="form-file" accept="video/mp4" onChange={e => setFullVideo(e.target.files[0])} />
-            </div>
-            <div className="form-group">
-              <label className="form-label">Upload Highlight Video (.mp4)</label>
-              <input type="file" className="form-file" accept="video/mp4" onChange={e => setHighlightVideo(e.target.files[0])} />
             </div>
             <div className="flex-between mt-3" style={{ gap: "1rem" }}>
               <button className="btn btn-primary w-full" onClick={onStartProcess} disabled={isProcessing || isMlProcessing}>
@@ -468,36 +624,102 @@ export default function Home() {
               </div>
             </section>
 
-            {metricsData && (
+            {metricsData && metricsData.Classification && (
               <section className="glass-card">
                 <h2 className="card-title">📊 Final Evaluation Metrics</h2>
-                <div className="table-container">
-                  <table className="table-modern">
-                    <thead>
-                      <tr>
-                        <th>Model Approach</th>
-                        <th className="text-primary">Precision</th>
-                        <th className="text-secondary">Recall</th>
-                        <th style={{ color: "var(--success-color)" }}>F1 Score</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {Object.entries(metricsData).map(([model, metrics]) => (
-                        <tr key={model}>
-                          <td style={{ fontWeight: "600" }}>{model}</td>
-                          <td>{metrics.precision?.toFixed(2) || "0.00"}</td>
-                          <td>{metrics.recall?.toFixed(2) || "0.00"}</td>
-                          <td style={{ fontWeight: "bold", textShadow: "0 0 10px rgba(16,185,129,0.3)" }}>
-                            {metrics.f1?.toFixed(2) || "0.00"}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                
+                <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+                  <div style={{ flex: "1 1 45%" }}>
+                    <h3 style={{ margin: "0 0 1rem 0", fontSize: "1.1rem", color: "#e2e8f0", borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: "0.5rem" }}>
+                      🎯 Event Detection (Classification)
+                    </h3>
+                    <div className="table-container">
+                      <table className="table-modern">
+                        <thead>
+                          <tr>
+                            <th>Model Approach</th>
+                            <th className="text-primary">Precision</th>
+                            <th className="text-secondary">Recall</th>
+                            <th style={{ color: "var(--success-color)" }}>F1 Score</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {Object.entries(metricsData.Classification).map(([model, metrics]) => (
+                            <tr key={model}>
+                              <td style={{ fontWeight: "600" }}>{model}</td>
+                              <td>{metrics.precision?.toFixed(2) || "0.00"}</td>
+                              <td>{metrics.recall?.toFixed(2) || "0.00"}</td>
+                              <td style={{ fontWeight: "bold", textShadow: "0 0 10px rgba(16,185,129,0.3)" }}>
+                                {metrics.f1?.toFixed(2) || "0.00"}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div style={{ flex: "1 1 45%" }}>
+                    <h3 style={{ margin: "0 0 1rem 0", fontSize: "1.1rem", color: "#e2e8f0", borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: "0.5rem" }}>
+                      📈 Highlight Scoring (Regression)
+                    </h3>
+                    <div className="table-container">
+                      <table className="table-modern">
+                        <thead>
+                          <tr>
+                            <th>Model Approach</th>
+                            <th style={{ color: "#fca5a5" }}>MSE (Mean Squared Error)</th>
+                            <th style={{ color: "#fca5a5" }}>MAE (Mean Absolute Error)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {Object.entries(metricsData.Regression).map(([model, metrics]) => (
+                            <tr key={model}>
+                              <td style={{ fontWeight: "600" }}>{model}</td>
+                              <td style={{ color: "#fca5a5" }}>{metrics.mse?.toFixed(4) || "0.0000"}</td>
+                              <td style={{ color: "#fca5a5" }}>{metrics.mae?.toFixed(4) || "0.0000"}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
               </section>
             )}
           </>
+        )}
+
+        {/* ── Tab 4 ── */}
+        {activeTab === 4 && (
+          <section className="glass-card">
+            <h2 className="card-title">📥 4. Download Trained Model</h2>
+            <p className="page-subtitle" style={{ marginBottom: "1.5rem" }}>
+              Download the fully fine-tuned model package as a zip archive.
+            </p>
+            <div className="form-group" style={{ maxWidth: "400px" }}>
+              <label className="form-label">Select Model</label>
+              <select 
+                className="form-select mb-3" 
+                value={selectedModel} 
+                onChange={(e) => setSelectedModel(e.target.value)}
+              >
+                <option value="roberta-base">Roberta</option>
+                <option value="microsoft/deberta-base">DeBERTa</option>
+                <option value="answerdotai/ModernBERT-base">ModernBERT</option>
+                <option value="bert-base-uncased">BERT</option>
+              </select>
+              
+              <button 
+                onClick={handleDownloadModel}
+                disabled={isDownloading}
+                className="btn btn-primary w-full"
+                style={{ textDecoration: 'none', textAlign: 'center', display: 'block', padding: '0.75rem' }}
+              >
+                {isDownloading ? "⏳ Preparing Download..." : "📥 Download Model (.zip)"}
+              </button>
+            </div>
+          </section>
         )}
       </div>
     </div>

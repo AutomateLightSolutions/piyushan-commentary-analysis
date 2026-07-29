@@ -16,6 +16,19 @@ async function safeReaddir(dir) {
   }
 }
 
+async function safeReaddirDatasets() {
+  let files = [];
+  try {
+      const mlFiles = await fs.readdir(path.join(DATASETS_DIR, 'ml'));
+      files = files.concat(mlFiles.map(f => path.join('ml', f)));
+  } catch(e) {}
+  try {
+      const lexFiles = await fs.readdir(path.join(DATASETS_DIR, 'lexicon'));
+      files = files.concat(lexFiles.map(f => path.join('lexicon', f)));
+  } catch(e) {}
+  return files;
+}
+
 export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
@@ -25,13 +38,13 @@ export async function GET(req) {
     if (!matchId) {
       const rawFiles = await safeReaddir(RAW_DIR);
       const chunkFiles = await safeReaddir(CHUNKS_DIR);
-      const datasetFiles = await safeReaddir(DATASETS_DIR);
+      const datasetFiles = await safeReaddirDatasets();
       
       let matchIds = new Set();
       
       // Extract from raw
       rawFiles.forEach(f => {
-        const match = f.match(/^(.*?)_full\.(mp4|wav)$/) 
+        const match = f.match(/^(.*?)_full\.(mp4|wav|vtt)$/) 
                    || f.match(/^(.*?)_highlights\.(mp4|wav)$/)
                    || f.match(/^highlights_(.*?)\.json$/);
         if (match) matchIds.add(match[1]);
@@ -45,8 +58,9 @@ export async function GET(req) {
       });
       // Extract from datasets
       datasetFiles.forEach(f => {
-        if (f.startsWith("dataset_") && f.endsWith(".csv")) {
-          matchIds.add(f.replace("dataset_", "").replace(".csv", ""));
+        const basename = path.basename(f);
+        if (basename.startsWith("dataset_") && basename.endsWith(".csv")) {
+          matchIds.add(basename.replace("dataset_", "").replace(".csv", ""));
         }
       });
       
@@ -62,7 +76,8 @@ export async function GET(req) {
       { path: path.join(RAW_DIR, `${matchId}.vtt`), name: `${matchId}.vtt`, type: "VTT Subtitles", category: "raw" },
       { path: path.join(RAW_DIR, `highlights_${matchId}.json`), name: `highlights_${matchId}.json`, type: "Raw Highlights", category: "raw" },
       { path: path.join(CHUNKS_DIR, `chunks_${matchId}.json`), name: `chunks_${matchId}.json`, type: "Processed Chunks", category: "chunks" },
-      { path: path.join(DATASETS_DIR, `dataset_${matchId}.csv`), name: `dataset_${matchId}.csv`, type: "Dataset CSV", category: "datasets" },
+      { path: path.join(DATASETS_DIR, "ml", `dataset_${matchId}.csv`), name: `dataset_${matchId}.csv (ML)`, type: "Dataset CSV (ML)", category: "datasets/ml" },
+      { path: path.join(DATASETS_DIR, "lexicon", `dataset_${matchId}.csv`), name: `dataset_${matchId}.csv (Lexicon)`, type: "Dataset CSV (Lexicon)", category: "datasets/lexicon" },
     ];
 
     const existingFiles = [];
@@ -92,12 +107,32 @@ export async function DELETE(req) {
     const body = await req.json();
     const { matchId, filesToDelete } = body;
 
-    if (!matchId || !filesToDelete || !Array.isArray(filesToDelete)) {
+    if (!matchId || !filesToDelete) {
+      return NextResponse.json({ message: "Invalid request payload" }, { status: 400 });
+    }
+
+    let filesProcess = filesToDelete;
+    
+    // If "all" is specified, gather all associated files automatically
+    if (filesToDelete === "all") {
+      const expectedFiles = [
+        { path: path.join(RAW_DIR, `${matchId}_full.mp4`), name: `${matchId}_full.mp4`, category: "raw" },
+        { path: path.join(RAW_DIR, `${matchId}_full.wav`), name: `${matchId}_full.wav`, category: "raw" },
+        { path: path.join(RAW_DIR, `${matchId}_highlights.mp4`), name: `${matchId}_highlights.mp4`, category: "raw" },
+        { path: path.join(RAW_DIR, `${matchId}_highlights.wav`), name: `${matchId}_highlights.wav`, category: "raw" },
+        { path: path.join(RAW_DIR, `${matchId}.vtt`), name: `${matchId}.vtt`, category: "raw" },
+        { path: path.join(RAW_DIR, `highlights_${matchId}.json`), name: `highlights_${matchId}.json`, category: "raw" },
+        { path: path.join(CHUNKS_DIR, `chunks_${matchId}.json`), name: `chunks_${matchId}.json`, category: "chunks" },
+        { path: path.join(DATASETS_DIR, "ml", `dataset_${matchId}.csv`), name: `dataset_${matchId}.csv`, category: "datasets/ml" },
+        { path: path.join(DATASETS_DIR, "lexicon", `dataset_${matchId}.csv`), name: `dataset_${matchId}.csv`, category: "datasets/lexicon" },
+      ];
+      filesProcess = expectedFiles;
+    } else if (!Array.isArray(filesToDelete)) {
       return NextResponse.json({ message: "Invalid request payload" }, { status: 400 });
     }
 
     let deletedCount = 0;
-    for (const file of filesToDelete) {
+    for (const file of filesProcess) {
       // Validate string securely to prevent traversal attacks
       if (!file.name.includes(matchId) || file.name.includes("..") || file.name.includes("/") || file.name.includes("\\")) {
         continue;
@@ -106,7 +141,7 @@ export async function DELETE(req) {
       let targetDir;
       if (file.category === "raw") targetDir = RAW_DIR;
       else if (file.category === "chunks") targetDir = CHUNKS_DIR;
-      else if (file.category === "datasets") targetDir = DATASETS_DIR;
+      else if (file.category.startsWith("datasets")) targetDir = path.join(DATASETS_DIR, file.category.split('/')[1]);
       else continue;
 
       const filePath = path.join(targetDir, file.name);

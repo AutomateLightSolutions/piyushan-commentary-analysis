@@ -12,6 +12,7 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_name", type=str, default="roberta-base", help="HuggingFace model string")
+    parser.add_argument("--dataset", type=str, default="all", help="Specific dataset to run on, or 'all'")
     args = parser.parse_args()
     
     if not PROCESSED_CHUNKS_DIR.exists():
@@ -28,22 +29,26 @@ def main():
     
     for chunk_file in PROCESSED_CHUNKS_DIR.glob("*.json"):
         match_id = chunk_file.stem.replace("chunks_", "")
+        
+        if args.dataset != "all" and match_id != args.dataset:
+            continue
+            
         print(f"Running pipeline for {match_id} using {args.model_name}...")
         
         with open(chunk_file, 'r', encoding='utf-8') as f:
             chunks = json.load(f)
             
         # Overlay CSV data if it exists so predictions file gets the true labels
-        csv_path = Path(f"data/processed/datasets/dataset_{match_id}.csv")
+        csv_path = Path(f"data/processed/datasets/ml/dataset_{match_id}.csv")
         if csv_path.exists():
             import pandas as pd
             try:
                 df = pd.read_csv(csv_path)
                 record_map = {}
                 for _, row in df.iterrows():
-                    record_map[f"{row['start']}_{row['end']}"] = {
-                        "event": row.get("event"),
-                        "score": row.get("score")
+                    record_map[f"{row.get('start_time', row.get('start'))}_{row.get('end_time', row.get('end'))}"] = {
+                        "event": row.get("event_class", row.get("event")),
+                        "score": row.get("highlight_score", row.get("score"))
                     }
                 
                 for c in chunks:
@@ -59,7 +64,16 @@ def main():
         texts = [c["text_clean"] for c in chunks]
         
         # 1. Predict
-        predictions = hybrid_model.predict(texts, roberta_weight=0.7, lexicon_weight=0.3)
+        # Load dynamic weights from configuration
+        highlight_lexicon_weight = get_threshold("highlight_lexicon_weight", 0.3)
+        event_lexicon_weight = get_threshold("event_lexicon_weight", 0.3)
+        
+        predictions = hybrid_model.predict(
+            texts, 
+            roberta_weight=1.0, 
+            highlight_lexicon_weight=highlight_lexicon_weight,
+            event_lexicon_weight=event_lexicon_weight
+        )
         
         # 2. Attach predictions back to chunks
         for i, pred in enumerate(predictions):

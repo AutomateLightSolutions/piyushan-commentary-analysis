@@ -13,6 +13,7 @@ const PROC_ID = "evaluate";
 export async function POST(req) {
   const url = new URL(req.url);
   const modelName = url.searchParams.get("modelName") || "roberta-base";
+  const dataset = url.searchParams.get("dataset") || "all";
 
   const venvPython = getPythonCommand(SYSTEM_PATH);
   const scriptPath = path.resolve(SYSTEM_PATH, "scripts", "04_evaluate.py");
@@ -22,7 +23,7 @@ export async function POST(req) {
       const enc = new TextEncoder();
       const send = (line) => { try { controller.enqueue(enc.encode(`data: ${line}\n\n`)); } catch {} };
 
-      const proc = spawn(venvPython, [scriptPath, "--model_name", modelName], {
+      const proc = spawn(venvPython, [scriptPath, "--model_name", modelName, "--dataset", dataset], {
         cwd: SYSTEM_PATH,
         env: { ...process.env, PYTHONPATH: ".", PYTHONUNBUFFERED: "1" },
       });
