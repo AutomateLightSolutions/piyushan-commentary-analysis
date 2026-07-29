@@ -131,3 +131,5 @@ ehthumbs.db
 !jsconfig.json
 
 docs/
+
+*.zip
