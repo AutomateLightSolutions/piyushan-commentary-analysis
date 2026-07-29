@@ -28,6 +28,14 @@ export async function GET(req) {
 
     // Retrieve specific dataset CSV mode
     const csvPath = path.resolve(datasetsDir, `dataset_${matchId}.csv`);
+    const statusPath = path.resolve(datasetsDir, `dataset_${matchId}.checked`);
+    
+    let isChecked = false;
+    try {
+      await require("fs/promises").access(statusPath);
+      isChecked = true;
+    } catch(e) {}
+
     const csvData = await readFile(csvPath, "utf-8");
     
     // Naive CSV parsing strictly for viewer logic
@@ -50,7 +58,7 @@ export async function GET(req) {
       }
     });
 
-    return NextResponse.json({ rows });
+    return NextResponse.json({ rows, isChecked });
   } catch (err) {
     if (err.code === "ENOENT") {
         return NextResponse.json(matchId ? { rows: [] } : { matchIds: [] });

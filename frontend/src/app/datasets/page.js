@@ -7,6 +7,7 @@ export default function DatasetsExplorer() {
   const [matchId, setMatchId] = useState("");
   const [availableMatches, setAvailableMatches] = useState([]);
   const [rows, setRows] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
   const [statusMsg, setStatusMsg] = useState("");
   const [datasetType, setDatasetType] = useState("ml"); // "ml" or "lexicon"
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -183,9 +184,10 @@ export default function DatasetsExplorer() {
       const res = await fetch(`/api/dataset-csv?matchId=${matchId}&type=${datasetType}`);
       const data = await res.json();
       
-      if (res.ok) {
-        setRows(data.rows || []);
-        setStatusMsg(`Successfully loaded ${data.rows?.length || 0} rows.`);
+      if (data.rows) {
+        setRows(data.rows);
+        setIsChecked(data.isChecked || false);
+        setStatusMsg(`Successfully loaded ${data.rows.length} rows.`);
         setIgnoredSuspicious([]);
         setUndoStack([]);
         setFocusedSuspiciousIndex(-1);
@@ -222,6 +224,24 @@ export default function DatasetsExplorer() {
     } catch (err) {
       console.error(err);
       setStatusMsg("API Error while saving.");
+    }
+  };
+
+  const toggleCheckedStatus = async () => {
+    if (!matchId) return;
+    try {
+      const res = await fetch('/api/dataset-csv/status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ matchId, type: datasetType, isChecked: !isChecked })
+      });
+      if (res.ok) {
+        setIsChecked(!isChecked);
+        setStatusMsg(`Dataset marked as ${!isChecked ? 'Checked' : 'Unchecked'}`);
+      }
+    } catch (err) {
+      console.error(err);
+      setStatusMsg("Failed to update status");
     }
   };
 
@@ -495,8 +515,26 @@ export default function DatasetsExplorer() {
         <button className="btn btn-primary" onClick={loadData}>Load Dataset CSV</button>
         <button className="btn btn-secondary" onClick={saveChanges} disabled={rows.length === 0}>Save Changes</button>
         <button className="btn btn-secondary" onClick={exportDataset} disabled={rows.length === 0} style={{ background: 'var(--primary-color)', color: 'white', border: 'none' }}>Export Dataset</button>
-        <span className="text-muted" style={{ fontWeight: "500", marginLeft: "1rem" }}>{statusMsg}</span>
+        <button 
+          className="btn btn-secondary" 
+          onClick={toggleCheckedStatus} 
+          disabled={rows.length === 0}
+          style={{
+            background: isChecked ? 'rgba(46, 213, 115, 0.2)' : 'rgba(255, 71, 87, 0.15)',
+            color: isChecked ? '#2ed573' : '#ff4757',
+            border: isChecked ? '1px solid #2ed573' : '1px solid #ff4757',
+            fontWeight: '600'
+          }}
+        >
+          {isChecked ? '✓ Manually Checked' : '⚠️ Needs Manual Check'}
+        </button>
       </div>
+
+      {statusMsg && (
+        <div className="text-muted mb-4" style={{ fontWeight: "500" }}>
+          {statusMsg}
+        </div>
+      )}
 
       <main className="glass-card" style={{ flex: 1, display: "flex", flexDirection: "column", padding: 0, overflow: "visible" }}>
         <div style={{ padding: "1.5rem", borderBottom: "1px solid var(--glass-border)", background: "rgba(255,255,255,0.02)" }}>
