@@ -1553,11 +1553,11 @@ start_time,end_time,text,event_class,highlight_score
 4884,4889,the chaudron the cauldron well a little change theyve also been in the wars joshua whos been just outstanding this afternoon in a place barbara money got you to,normal_play,0.0
 4887,4892,the chaudron the cauldron well a little change theyve also been in the wars joshua whos been just outstanding this afternoon in a place barbara money got you to,normal_play,0.0
 4890,4895,whos been just outstanding this afternoon in a place barbara money got you to,normal_play,0.0
-4893,4898,getting in the applause and thoroughly deserves,try,1.0
-4896,4901,getting in the applause and thoroughly deserves,try,1.0
-4899,4904,come on,try,1.0
+4893,4898,getting in the applause and thoroughly deserves,normal_play,1.0
+4896,4901,getting in the applause and thoroughly deserves,normal_play,1.0
+4899,4904,come on,lineout,1.0
 4902,4907,come on,lineout,0.121
-4905,4910,huge chance here for australia time starting to tick against them its a good,try,1.0
+4905,4910,huge chance here for australia time starting to tick against them its a good,lineout,1.0
 4908,4913,huge chance here for australia time starting to tick against them its a good line up for from now all the backs pile into this mall its tucked in the back under the,maul,0.2353
 4911,4916,huge chance here for australia time starting to tick against them its a good line up for from now all the backs pile into this mall its tucked in the back under the,maul,0.2353
 4914,4919,line up for from now all the backs pile into this mall its tucked in the back under the,maul,0.2353

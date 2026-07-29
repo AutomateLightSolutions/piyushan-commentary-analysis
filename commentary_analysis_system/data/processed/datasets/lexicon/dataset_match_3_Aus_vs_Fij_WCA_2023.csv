@@ -1038,11 +1038,11 @@ start_time,end_time,text,event_class,highlight_score
 4878.0,4883.0,joffroy kichard here in santa tian 41 294 fans here in this wonderful stadium that they call the chaudron the cauldron well a little change theyve also been in the wars joshua,normal_play,0.0054
 4882.5,4887.5,the chaudron the cauldron well a little change theyve also been in the wars joshua,normal_play,0.0054
 4887.0,4892.0,the chaudron the cauldron well a little change theyve also been in the wars joshua whos been just outstanding this afternoon in a place barbara money got you to,normal_play,0.0054
-4891.5,4896.5,whos been just outstanding this afternoon in a place barbara money got you to getting in the applause and thoroughly deserves,try,1.0
-4896.0,4901.0,getting in the applause and thoroughly deserves,try,1.0
-4900.5,4905.5,come on,try,1.0
+4891.5,4896.5,whos been just outstanding this afternoon in a place barbara money got you to getting in the applause and thoroughly deserves,normal_play,0.0054
+4896.0,4901.0,getting in the applause and thoroughly deserves,lineout,1.0
+4900.5,4905.5,come on,lineout,1.0
 4905.0,4910.0,huge chance here for australia time starting to tick against them its a good,lineout,0.121
-4909.5,4914.5,huge chance here for australia time starting to tick against them its a good line up for from now all the backs pile into this mall its tucked in the back under the,try,1.0
+4909.5,4914.5,huge chance here for australia time starting to tick against them its a good line up for from now all the backs pile into this mall its tucked in the back under the,lineout,1.0
 4914.0,4919.0,line up for from now all the backs pile into this mall its tucked in the back under the,maul,0.2353
 4918.5,4923.5,line up for from now all the backs pile into this mall its tucked in the back under the right wing of wariki theyve got advantage australia organized up towards the line,maul,0.2353
 4923.0,4928.0,right wing of wariki theyve got advantage australia organized up towards the line for reki another advantage for them,try,1.0
