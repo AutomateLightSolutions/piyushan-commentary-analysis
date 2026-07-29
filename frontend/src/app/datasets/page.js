@@ -218,25 +218,6 @@ export default function DatasetsExplorer() {
             title="Suspicious Rows Navigator"
           >
             <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '-4px' }}>⚠️</span>
-            {activeSuspiciousIndices.length > 0 && (
-              <span style={{
-                position: 'absolute',
-                top: '-5px',
-                right: '-5px',
-                background: '#ff4757',
-                color: 'white',
-                borderRadius: '50%',
-                width: '22px',
-                height: '22px',
-                fontSize: '11px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 'bold'
-              }}>
-                {activeSuspiciousIndices.length}
-              </span>
-            )}
           </button>
         ) : (
           <div className="glass-card" style={{ 
