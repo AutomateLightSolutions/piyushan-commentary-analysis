@@ -180,6 +180,33 @@ export default function DatasetsExplorer() {
     }
   };
 
+  const exportDataset = () => {
+    if (rows.length === 0) return;
+    
+    const headers = ["Start", "End", "Text", "Event", "Score"];
+    const csvRows = rows.map(r => {
+      const escape = (str) => {
+        if (str == null) return "";
+        const s = String(str);
+        if (s.includes(",") || s.includes("\"") || s.includes("\n")) {
+          return `"${s.replace(/"/g, '""')}"`;
+        }
+        return s;
+      };
+      return [r.start, r.end, escape(r.text), r.event || "normal_play", r.score || 0].join(",");
+    });
+    
+    const csvContent = [headers.join(","), ...csvRows].join("\n");
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `${matchId}_${datasetType}_exported.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="app-container" style={{ maxWidth: "1400px", minHeight: "85vh", display: "flex", flexDirection: "column" }}>
       <header className="mb-4">
@@ -394,6 +421,7 @@ export default function DatasetsExplorer() {
         </div>
         <button className="btn btn-primary" onClick={loadData}>Load Dataset CSV</button>
         <button className="btn btn-secondary" onClick={saveChanges} disabled={rows.length === 0}>Save Changes</button>
+        <button className="btn btn-secondary" onClick={exportDataset} disabled={rows.length === 0} style={{ background: 'var(--primary-color)', color: 'white', border: 'none' }}>Export Dataset</button>
         <span className="text-muted" style={{ fontWeight: "500", marginLeft: "1rem" }}>{statusMsg}</span>
       </div>
 
