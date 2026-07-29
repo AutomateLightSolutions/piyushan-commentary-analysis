@@ -21,6 +21,7 @@ export default function DatasetsExplorer() {
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const popupRef = useRef(null);
+  const dragStartPos = useRef(null);
 
   const suspiciousIndices = useMemo(() => {
     const indices = [];
@@ -116,10 +117,13 @@ export default function DatasetsExplorer() {
   };
 
   const handleMouseDown = (e) => {
-    // Don't drag if clicking a button or input
-    if (e.target.closest('button') || e.target.closest('input')) return;
+    const isToggleButton = e.target.closest('#popup-toggle-btn');
+    // Don't drag if clicking an interactive element, unless it's the toggle button itself
+    if (!isToggleButton && (e.target.closest('button') || e.target.closest('input'))) return;
     
     setIsDragging(true);
+    dragStartPos.current = { x: e.clientX, y: e.clientY };
+    
     if (popupRef.current) {
       const rect = popupRef.current.getBoundingClientRect();
       setDragOffset({
@@ -283,19 +287,29 @@ export default function DatasetsExplorer() {
       >
         {!isPopupOpen ? (
           <button 
+            id="popup-toggle-btn"
             className="btn btn-secondary" 
-            onClick={() => setIsPopupOpen(true)} 
+            onMouseDown={handleMouseDown}
+            onClick={(e) => {
+              if (dragStartPos.current) {
+                const dx = Math.abs(e.clientX - dragStartPos.current.x);
+                const dy = Math.abs(e.clientY - dragStartPos.current.y);
+                if (dx > 3 || dy > 3) return; // Ignore click if we dragged
+              }
+              setIsPopupOpen(true);
+            }} 
             style={{ 
               borderRadius: '50%', 
-              width: '50px', 
-              height: '50px', 
+              width: '64px', 
+              height: '64px', 
               padding: 0,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
               position: 'relative',
-              fontSize: '2rem'
+              fontSize: '2rem',
+              cursor: isDragging ? 'grabbing' : 'pointer'
             }}
             title="Suspicious Rows Navigator"
           >
