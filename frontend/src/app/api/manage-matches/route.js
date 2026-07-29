@@ -44,7 +44,7 @@ export async function GET(req) {
       
       // Extract from raw
       rawFiles.forEach(f => {
-        const match = f.match(/^(.*?)_full\.(mp4|wav)$/) 
+        const match = f.match(/^(.*?)_full\.(mp4|wav|vtt)$/) 
                    || f.match(/^(.*?)_highlights\.(mp4|wav)$/)
                    || f.match(/^highlights_(.*?)\.json$/);
         if (match) matchIds.add(match[1]);

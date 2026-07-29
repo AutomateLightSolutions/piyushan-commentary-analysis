@@ -138,10 +138,10 @@ export function PipelineProvider({ children }) {
       setIsProcessing(false); return;
     }
 
-    try { await runStreamStep("/api/extract-videos", "extract", setSteps, signal); }
+    try { await runStreamStep(`/api/extract-videos?filename=${matchId}_full.mp4`, "extract", setSteps, signal); }
     catch (err) { mutateStep(setSteps, "extract", { status: "error", log: err.message }); setIsProcessing(false); return; }
 
-    try { await runStreamStep("/api/prepare", "chunk", setSteps, signal); }
+    try { await runStreamStep(`/api/prepare?filename=${matchId}_full.vtt`, "chunk", setSteps, signal); }
     catch (err) { mutateStep(setSteps, "chunk", { status: "error", log: err.message }); setIsProcessing(false); return; }
 
     if (!signal.aborted) {
@@ -158,10 +158,10 @@ export function PipelineProvider({ children }) {
     
     mutateStep(setSteps, "upload", { status: "done", log: "Skipped raw video upload phase. Searching backend directly..." });
 
-    try { await runStreamStep("/api/extract-videos", "extract", setSteps, signal); }
+    try { await runStreamStep(`/api/extract-videos?filename=${matchId}_full.mp4`, "extract", setSteps, signal); }
     catch (err) { mutateStep(setSteps, "extract", { status: "error", log: err.message }); setIsProcessing(false); return; }
 
-    try { await runStreamStep("/api/prepare", "chunk", setSteps, signal); }
+    try { await runStreamStep(`/api/prepare?filename=${matchId}_full.vtt`, "chunk", setSteps, signal); }
     catch (err) { mutateStep(setSteps, "chunk", { status: "error", log: err.message }); setIsProcessing(false); return; }
 
     if (!signal.aborted) {

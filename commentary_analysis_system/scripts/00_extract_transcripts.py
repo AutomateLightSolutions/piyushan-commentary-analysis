@@ -68,7 +68,10 @@ def transcribe_audio(audio_path: Path, output_dir: Path, model="large-v3"):
             if stat_res.status_code == 200:
                 stat_data = stat_res.json()
                 for log_line in stat_data.get("logs", []):
-                    print(log_line, flush=True) # Send directly to local stdout
+                    try:
+                        print(log_line, flush=True) # Send directly to local stdout
+                    except UnicodeEncodeError:
+                        print(log_line.encode("ascii", "backslashreplace").decode("ascii"), flush=True)
                     
                 status = stat_data.get("status")
                 if status == "completed":
@@ -94,12 +97,25 @@ def transcribe_audio(audio_path: Path, output_dir: Path, model="large-v3"):
     
     print(f"Transcription saved to {vtt_file}", flush=True)
 
+import argparse
+
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--target-file", type=str, help="Specific video file to process")
+    args = parser.parse_args()
+
     if not RAW_DIR.exists():
         print(f"Raw directory not found at {RAW_DIR}")
         return
 
-    mp4_files = list(RAW_DIR.glob("*.mp4"))
+    if args.target_file:
+        mp4_files = [RAW_DIR / args.target_file]
+        if not mp4_files[0].exists():
+            print(f"Target file not found: {mp4_files[0]}")
+            return
+    else:
+        mp4_files = list(RAW_DIR.glob("*.mp4"))
+
     if not mp4_files:
         print("No .mp4 files found in data/raw/")
         return

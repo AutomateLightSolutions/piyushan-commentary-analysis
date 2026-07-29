@@ -41,14 +41,27 @@ def process_match(match_id: str, vtt_file: Path):
                 
     print(f"  Saved {len(chunks)} chunks and {len(segments)} segments for Match {match_id}.")
 
+import argparse
+
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--target-file", type=str, help="Specific VTT file to process")
+    args = parser.parse_args()
+
     if not RAW_DIR.exists():
         print(f"Creating raw dir placeholder at {RAW_DIR}")
         RAW_DIR.mkdir(parents=True, exist_ok=True)
         print("Please place vtt files (e.g. match_01.vtt) and highlights.json in the raw directory.")
         return
 
-    vtt_files = list(RAW_DIR.glob("*_full.vtt"))
+    if args.target_file:
+        vtt_files = [RAW_DIR / args.target_file]
+        if not vtt_files[0].exists():
+            print(f"Target file not found: {vtt_files[0]}")
+            return
+    else:
+        vtt_files = list(RAW_DIR.glob("*_full.vtt"))
+
     if not vtt_files:
         print("ERROR: No *_full.vtt files found in data/raw/. Whisper transcription may have failed.")
         sys.exit(1)

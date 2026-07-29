@@ -473,10 +473,10 @@ export default function Home() {
 
   useEffect(() => {
     const labelStep = steps.find(s => s.id === "label");
-    if (activeTab === 2 && labelStep && labelStep.status === "done" && !isProcessing) {
-      setActiveTab(3);
+    if (labelStep && labelStep.status === "done" && !isProcessing) {
+      setActiveTab(prev => (prev === 2 ? 3 : prev));
     }
-  }, [steps, isProcessing, activeTab]);
+  }, [steps, isProcessing]);
 
   const handleDownloadModel = async () => {
     setIsDownloading(true);
