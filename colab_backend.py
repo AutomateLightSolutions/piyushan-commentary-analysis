@@ -249,7 +249,7 @@ def run_train(task_id, zip_path, model_name):
         
         training_args = TrainingArguments(
             output_dir=output_dir,
-            num_train_epochs=5,
+            num_train_epochs=15,
             per_device_train_batch_size=16,
             per_device_eval_batch_size=16,
             eval_strategy="epoch",
