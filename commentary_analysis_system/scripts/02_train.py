@@ -49,6 +49,8 @@ def main():
     
     print(f"Preparing to send {len(csv_files)} files to Colab for training {args.model_name}...")
     
+    dataset_names = [Path(f).stem for f in csv_files]
+    
     # 1. Zip the dataset and events.json
     temp_zip_path = Path("temp_training_data.zip")
     with zipfile.ZipFile(temp_zip_path, 'w') as z:
@@ -152,8 +154,16 @@ def main():
         with open(state_file, 'r') as f:
             states = json.load(f)
             
-    current_round = states.get(args.model_name, {}).get("training_round", 0) + 1
-    states[args.model_name] = {"training_round": current_round}
+    model_state = states.get(args.model_name, {})
+    current_round = model_state.get("training_round", 0) + 1
+    
+    if "history" not in model_state:
+        model_state["history"] = {}
+        
+    model_state["history"][str(current_round)] = dataset_names
+    model_state["training_round"] = current_round
+    
+    states[args.model_name] = model_state
     
     with open(state_file, 'w') as f:
         json.dump(states, f, indent=4)

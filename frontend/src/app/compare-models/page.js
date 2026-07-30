@@ -7,6 +7,23 @@ export default function CompareModels() {
   const [metrics, setMetrics] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("detailed");
+  const [viewingDataset, setViewingDataset] = useState(null);
+  const [datasetRows, setDatasetRows] = useState([]);
+  const [viewingDatasetList, setViewingDatasetList] = useState(null);
+  const [datasetListTitle, setDatasetListTitle] = useState("");
+
+  const handleViewDataset = async (dsName) => {
+    try {
+      const matchId = dsName.replace(/^dataset_/, "");
+      const res = await fetch(`/api/dataset-csv?matchId=${matchId}`);
+      const data = await res.json();
+      setDatasetRows(data.rows || []);
+      setViewingDataset(dsName);
+    } catch (err) {
+      console.error(err);
+      alert("Error loading dataset");
+    }
+  };
 
   const formatModelName = (name) => {
     switch (name) {
@@ -296,7 +313,8 @@ export default function CompareModels() {
                 <thead>
                   <tr>
                     <th>Match Base Name</th>
-                    <th>Dataset</th>
+                    <th>Eval Dataset</th>
+                    <th>Training Datasets</th>
                     <th>Model Used</th>
                     <th>Training Round</th>
                     <th>Eval Round</th>
@@ -315,7 +333,39 @@ export default function CompareModels() {
                   ) : [...filteredMetrics].reverse().map(m => (
                     <tr key={m.id}>
                       <td style={{ fontWeight: "600" }}>{m.match_id}</td>
-                      <td>{m.dataset_name}</td>
+                      <td>
+                        <button 
+                          onClick={() => handleViewDataset(m.dataset_name)}
+                          style={{ color: "#60a5fa", background: "none", border: "none", cursor: "pointer", textDecoration: "underline", padding: 0, textAlign: "left", fontSize: "inherit" }}
+                          title="View Eval Dataset"
+                        >
+                          {m.dataset_name}
+                        </button>
+                      </td>
+                      <td>
+                        {m.training_datasets && m.training_datasets.length > 1 ? (
+                          <button
+                            onClick={() => {
+                              setViewingDatasetList(m.training_datasets);
+                              setDatasetListTitle(`Training Datasets (Round ${m.training_round})`);
+                            }}
+                            style={{ color: "#c084fc", background: "none", border: "none", cursor: "pointer", textDecoration: "underline", padding: 0, textAlign: "left", fontSize: "inherit" }}
+                            title="View Training Datasets"
+                          >
+                            Multiple ({m.training_datasets.length})
+                          </button>
+                        ) : m.training_datasets && m.training_datasets.length === 1 ? (
+                           <button
+                            onClick={() => handleViewDataset(m.training_datasets[0])}
+                            style={{ color: "#c084fc", background: "none", border: "none", cursor: "pointer", textDecoration: "underline", padding: 0, textAlign: "left", fontSize: "inherit" }}
+                            title="View Training Dataset"
+                          >
+                            {m.training_datasets[0]}
+                          </button>
+                        ) : (
+                          <span style={{ color: "var(--text-muted)" }}>Unknown</span>
+                        )}
+                      </td>
                       <td><span style={{ 
                         background: "rgba(59, 130, 246, 0.2)", 
                         color: "#93c5fd",
@@ -437,6 +487,68 @@ export default function CompareModels() {
               </div>
             )}
           </section>
+        </div>
+      )}
+
+      {/* Dataset Viewer Modal */}
+      {viewingDataset && (
+        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: "rgba(0,0,0,0.8)", zIndex: 1100, display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <div className="glass-card" style={{ width: "90%", maxWidth: "900px", maxHeight: "85vh", display: "flex", flexDirection: "column", position: "relative", backgroundColor: "#1e293b", padding: "1.5rem" }}>
+            <button onClick={() => setViewingDataset(null)} style={{ position: "absolute", top: "1rem", right: "1rem", background: "transparent", border: "none", color: "white", fontSize: "1.5rem", cursor: "pointer" }}>×</button>
+            <h3 style={{ margin: "0 0 1rem 0" }}>Dataset: {viewingDataset}</h3>
+            <div style={{ overflowY: "auto", flex: 1 }}>
+              <table className="table-modern" style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem" }}>
+                <thead style={{ position: "sticky", top: 0, background: "#0f172a" }}>
+                  <tr>
+                    <th style={{ padding: "0.5rem" }}>Start</th>
+                    <th style={{ padding: "0.5rem" }}>End</th>
+                    <th style={{ padding: "0.5rem" }}>Text</th>
+                    <th style={{ padding: "0.5rem" }}>Event</th>
+                    <th style={{ padding: "0.5rem" }}>Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {datasetRows.length === 0 ? (
+                    <tr><td colSpan="5" style={{ textAlign: "center", padding: "2rem" }}>No data found</td></tr>
+                  ) : (
+                    datasetRows.map((row, i) => (
+                      <tr key={i} style={{ borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+                        <td style={{ padding: "0.5rem", whiteSpace: "nowrap" }}>{row.start}</td>
+                        <td style={{ padding: "0.5rem", whiteSpace: "nowrap" }}>{row.end}</td>
+                        <td style={{ padding: "0.5rem", maxWidth: "400px", whiteSpace: "normal" }}>{row.text}</td>
+                        <td style={{ padding: "0.5rem", whiteSpace: "nowrap", color: row.event && row.event !== "no_event" && row.event !== "" ? "var(--success-color)" : "inherit" }}>{row.event}</td>
+                        <td style={{ padding: "0.5rem" }}>{row.score}</td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Dataset List Modal (for multiple training datasets) */}
+      {viewingDatasetList && (
+        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: "rgba(0,0,0,0.8)", zIndex: 1050, display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <div className="glass-card" style={{ width: "90%", maxWidth: "600px", maxHeight: "85vh", display: "flex", flexDirection: "column", position: "relative", backgroundColor: "#0f172a", padding: "1.5rem" }}>
+            <button onClick={() => setViewingDatasetList(null)} style={{ position: "absolute", top: "1rem", right: "1rem", background: "transparent", border: "none", color: "white", fontSize: "1.5rem", cursor: "pointer" }}>×</button>
+            <h3 style={{ margin: "0 0 1rem 0" }}>{datasetListTitle}</h3>
+            <div style={{ overflowY: "auto", flex: 1, padding: "0.5rem 0" }}>
+              {viewingDatasetList.map((ds, i) => (
+                <div key={i} style={{ padding: "0.75rem", borderBottom: "1px solid rgba(255,255,255,0.1)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span>{ds}</span>
+                  <button 
+                    onClick={() => handleViewDataset(ds)}
+                    className="btn btn-primary"
+                    style={{ padding: "0.3rem 0.6rem", fontSize: "0.8rem" }}
+                  >
+                    View Contents
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </div>

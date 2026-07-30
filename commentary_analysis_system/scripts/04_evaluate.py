@@ -81,8 +81,10 @@ def main():
         with open(state_file, 'r') as f:
             states = json.load(f)
         current_training_round = states.get(args.model_name, {}).get("training_round", 1)
+        training_datasets = states.get(args.model_name, {}).get("history", {}).get(str(current_training_round), [])
     else:
         current_training_round = 1
+        training_datasets = []
         
     # Find evaluation round for this specific training round
     existing_evals = [m for m in metrics_db if m.get("model_used") == args.model_name and m.get("training_round") == current_training_round]
@@ -124,6 +126,7 @@ def main():
             "match_id": match_id,
             "dataset_name": dataset_name,
             "training_round": current_training_round,
+            "training_datasets": training_datasets,
             "evaluation_round": current_eval_round,
             "model_used": args.model_name,
             "timestamp": timestamp,
