@@ -1,22 +1,22 @@
 start_time,end_time,text,event_class,highlight_score
-0,5,paul williams of new zealand is the man in the middle today taking charge of his second match at his rugby world cup,kick_off,0.1931
-4.5,9.5,paul williams of new zealand is the man in the middle today taking charge of his second match at his rugby world cup two old adversaries draw swords inside the greatest rugby playing arena of them all,kick_off,0.1931
-9.0,14.0,two old adversaries draw swords inside the greatest rugby playing arena of them all,kick_off,0.1931
-13.5,18.5,two old adversaries draw swords inside the greatest rugby playing arena of them all george in the red kicked us off,kick_off,0.1931
+0,5,paul williams of new zealand is the man in the middle today taking charge of his second match at his rugby world cup,kick_off,0.5159
+4.5,9.5,paul williams of new zealand is the man in the middle today taking charge of his second match at his rugby world cup two old adversaries draw swords inside the greatest rugby playing arena of them all,kick_off,0.5159
+9.0,14.0,two old adversaries draw swords inside the greatest rugby playing arena of them all,kick_off,0.5159
+13.5,18.5,two old adversaries draw swords inside the greatest rugby playing arena of them all george in the red kicked us off,kick_off,0.5159
 18.0,23.0,weve just listened to the portuguese fans already,normal_play,0.0054
 22.5,27.5,weve just listened to the portuguese fans already match with a high testing box kick,normal_play,0.0054
 27.0,32.0,match with a high testing box kick lost forward apresidze has it to his halfback partner abjadadze,normal_play,0.0054
 31.5,36.5,lost forward apresidze has it to his halfback partner abjadadze the youngest man ever to play it fly off in a rugby world cup,normal_play,0.0054
 36.0,41.0,the youngest man ever to play it fly off in a rugby world cup apresidze in his 50th game for georgia to mamoukashvili who has over 100,normal_play,0.0054
 40.5,45.5,apresidze in his 50th game for georgia to mamoukashvili who has over 100 gigaashvili stealing through the middle,normal_play,0.0054
-45.0,50.0,gigaashvili stealing through the middle just shackled by a portuguese trap,try,0.0054
-49.5,54.5,georgia begin to move this wide niniashvili todawa the 36 year old to saki nadze,try,0.0054
-54.0,59.0,niniashvili todawa the 36 year old to saki nadze his first game since june after a troublesome injury,try,0.0054
+45.0,50.0,gigaashvili stealing through the middle just shackled by a portuguese trap,try,0.4032
+49.5,54.5,georgia begin to move this wide niniashvili todawa the 36 year old to saki nadze,try,0.4032
+54.0,59.0,niniashvili todawa the 36 year old to saki nadze his first game since june after a troublesome injury,try,0.4032
 58.5,63.5,his first game since june after a troublesome injury nadiashvili 53 year old gnarled loose head,try,1.0
-63.0,68.0,nadiashvili 53 year old gnarled loose head abjadadze to krasiladze who is rocked by that shot,try,0.0054
-67.5,72.5,abjadadze to krasiladze who is rocked by that shot quick ball for georgia abjadadze gigaashvili shoveling it on,try,0.0054
+63.0,68.0,nadiashvili 53 year old gnarled loose head abjadadze to krasiladze who is rocked by that shot,try,0.4032
+67.5,72.5,abjadadze to krasiladze who is rocked by that shot quick ball for georgia abjadadze gigaashvili shoveling it on,try,0.4032
 72.0,77.0,quick ball for georgia abjadadze gigaashvili shoveling it on niniashvilis in the line what a pass,try,1.0
-76.5,81.5,niniashvilis in the line what a pass tabutsadzes away,try,0.0054
+76.5,81.5,niniashvilis in the line what a pass tabutsadzes away,normal_play,0.0054
 81.0,86.0,the georgian globetrotters have arrived in toulouse,normal_play,0.0054
 85.5,90.5,the georgian globetrotters have arrived in toulouse what a statement from georgia,normal_play,0.0054
 90.0,95.0,what a statement from georgia and their sharpest tool akaki tabutsadze the record triscorer,normal_play,0.0054
@@ -26,17 +26,17 @@ start_time,end_time,text,event_class,highlight_score
 108.0,113.0,side line to side line the big men doing their job spilled ball there and that gave the men in red an opportunity,normal_play,0.0054
 112.5,117.5,and that gave the men in red an opportunity you can see nathan korsh just asking for help look hes calling we need more men out here we need more men,normal_play,0.0054
 117.0,122.0,look hes calling we need more men out here we need more men and in the end they did because there were too many red jerseys lined up,normal_play,0.0054
-121.5,126.5,and in the end they did because there were too many red jerseys lined up look at this sublime offload out the back door a beautiful and a perfect start for georgia,goal_kick,0.7814
-126.0,131.0,a beautiful and a perfect start for georgia 30th try and 34 tests for akaki tabutsadze,goal_kick,0.7814
-130.5,135.5,30th try and 34 tests for akaki tabutsadze,goal_kick,0.7814
-135.0,140.0,abjadadze slots the extras georgia 7 portugal 0,goal_kick,0.7814
-139.5,144.5,georgia 7 portugal 0 statement made,goal_kick,0.7814
-144.0,149.0,well as you see theres just not enough white jerseys great footwork there to step out of the initial tackle,goal_kick,0.7814
+121.5,126.5,and in the end they did because there were too many red jerseys lined up look at this sublime offload out the back door a beautiful and a perfect start for georgia,goal_kick,0.8688
+126.0,131.0,a beautiful and a perfect start for georgia 30th try and 34 tests for akaki tabutsadze,goal_kick,0.8688
+130.5,135.5,30th try and 34 tests for akaki tabutsadze,goal_kick,0.8688
+135.0,140.0,abjadadze slots the extras georgia 7 portugal 0,goal_kick,0.8688
+139.5,144.5,georgia 7 portugal 0 statement made,goal_kick,0.8688
+144.0,149.0,well as you see theres just not enough white jerseys great footwork there to step out of the initial tackle,goal_kick,0.8688
 148.5,153.5,great footwork there to step out of the initial tackle and the presence of mind keep that ball alive nice and early,normal_play,0.0054
 153.0,158.0,nice and early great stuff and rob thats daunting if youre a portuguese fan,normal_play,0.0054
-157.5,162.5,alright staggering start gotta say tactically georgia rewritten the script last week against australia it was 2 7 kicks to passes,kick_off,0.1931
-162.0,167.0,last week against australia it was 2 7 kicks to passes theyve already played more rugby than we saw last week,kick_off,0.1931
-166.5,171.5,theyve already played more rugby than we saw last week incredible start from them,kick_off,0.1931
+157.5,162.5,alright staggering start gotta say tactically georgia rewritten the script last week against australia it was 2 7 kicks to passes,kick_off,0.5097
+162.0,167.0,last week against australia it was 2 7 kicks to passes theyve already played more rugby than we saw last week,kick_off,0.5097
+166.5,171.5,theyve already played more rugby than we saw last week incredible start from them,kick_off,0.5097
 180.0,185.0,scrum half for georgia closes rugby in montpellier not too far from here,normal_play,0.0054
 184.5,189.5,rugby in montpellier not too far from here top 14 winner a year ago,normal_play,0.0054
 189.0,194.0,portela responds rene ashvili architect of that tabutsadze try,normal_play,0.0054
@@ -60,20 +60,20 @@ start_time,end_time,text,event_class,highlight_score
 270.0,275.0,world renowned obviously the georgian coach will be so happy with that ashvili he knows this element of the game scrimmaging,normal_play,0.0054
 274.5,279.5,ashvili he knows this element of the game scrimmaging but hes trying to add the other element so they can win and compete,normal_play,0.0054
 279.0,284.0,but hes trying to add the other element so they can win and compete if there was one complaint they got that loss against australia as you noted they just didnt have the width and the multi dimension to their game,normal_play,0.0054
-283.5,288.5,as you noted they just didnt have the width and the multi dimension to their game lajuske already frustrated,scrum,0.1461
-288.0,293.0,lajuske already frustrated understandable five penalty given away by portugal at scrim time against the welsh,scrum,0.1461
-292.5,297.5,five penalty given away by portugal at scrim time against the welsh this would be an area the georgians will look to not just strangle,scrum,0.1461
-297.0,302.0,this would be an area the georgians will look to not just strangle theyll look to actually keep hold of it throughout both sides in,scrum,0.1461
-301.5,306.5,both sides in good side you two are excellent excellent,scrum,0.1461
-306.0,311.0,excellent you two not good more space please heres your mark,scrum,0.1461
+283.5,288.5,as you noted they just didnt have the width and the multi dimension to their game lajuske already frustrated,scrum,0.2267
+288.0,293.0,lajuske already frustrated understandable five penalty given away by portugal at scrim time against the welsh,scrum,0.2267
+292.5,297.5,five penalty given away by portugal at scrim time against the welsh this would be an area the georgians will look to not just strangle,scrum,0.2267
+297.0,302.0,this would be an area the georgians will look to not just strangle theyll look to actually keep hold of it throughout both sides in,scrum,0.2267
+301.5,306.5,both sides in good side you two are excellent excellent,scrum,0.2267
+306.0,311.0,excellent you two not good more space please heres your mark,scrum,0.2267
 310.5,315.5,heres your mark theres the front of the report card issued early doors a very experienced set of players in there,normal_play,0.0054
-315.0,320.0,a very experienced set of players in there nari ashvili mamouk ashvili gigashvili all over 30,scrum,0.1461
-319.5,324.5,nari ashvili mamouk ashvili gigashvili all over 30 francisco fernandes on the lucid side with the mop of hair the right of your pictures 38 years old,scrum,0.1461
-324.0,329.0,the right of your pictures 38 years old right tager 34,scrum,0.1461
-328.5,333.5,hes going to be very good for it theyve got the two shirts,scrum,0.1461
-333.0,338.0,theyve got the two shirts this is the game the aspect of play that georgia have built their name on,scrum,0.1461
-337.5,342.5,the aspect of play that georgia have built their name on apresidze to abzhandadze,scrum,0.1461
-342.0,347.0,apresidze to abzhandadze taboud sadzi off his line when hes wrapped up in a big shot by nicola martins,scrum,0.1461
+315.0,320.0,a very experienced set of players in there nari ashvili mamouk ashvili gigashvili all over 30,scrum,0.4877
+319.5,324.5,nari ashvili mamouk ashvili gigashvili all over 30 francisco fernandes on the lucid side with the mop of hair the right of your pictures 38 years old,scrum,0.4877
+324.0,329.0,the right of your pictures 38 years old right tager 34,scrum,0.4877
+328.5,333.5,hes going to be very good for it theyve got the two shirts,scrum,0.4877
+333.0,338.0,theyve got the two shirts this is the game the aspect of play that georgia have built their name on,scrum,0.4877
+337.5,342.5,the aspect of play that georgia have built their name on apresidze to abzhandadze,scrum,0.2959
+342.0,347.0,apresidze to abzhandadze taboud sadzi off his line when hes wrapped up in a big shot by nicola martins,scrum,0.2959
 346.5,351.5,taboud sadzi off his line when hes wrapped up in a big shot by nicola martins apresidze to gorgadze,normal_play,0.0054
 351.0,356.0,apresidze,normal_play,0.0054
 355.5,360.5,nari ashvili took a year out of rugby to deal with some problems with his knee and his ankle,normal_play,0.0054
@@ -86,10 +86,10 @@ start_time,end_time,text,event_class,highlight_score
 387.0,392.0,chris eladze on his 50th last fight here janahonia stepping but cant get away from diogo hasfaraira,normal_play,0.0054
 391.5,396.5,janahonia stepping but cant get away from diogo hasfaraira mikhail khadze,normal_play,0.0054
 396.0,401.0,mikhail khadze into double figure face count here,normal_play,0.0054
-400.5,405.5,into double figure face count here sharik khadze to ninashvili whos almost shadow boxing with portela,penalty,0.3546
-405.0,410.0,sharik khadze to ninashvili whos almost shadow boxing with portela neither man able to land a killer blow,penalty,0.3546
-409.5,414.5,big penalty for portugal and the two nines are going at it,penalty,0.3546
-414.0,419.0,and the two nines are going at it a couple of meerkats jousting in amongst the big boys from the french plains,penalty,0.3546
+400.5,405.5,into double figure face count here sharik khadze to ninashvili whos almost shadow boxing with portela,penalty,0.4889
+405.0,410.0,sharik khadze to ninashvili whos almost shadow boxing with portela neither man able to land a killer blow,penalty,0.4889
+409.5,414.5,big penalty for portugal and the two nines are going at it,penalty,0.4889
+414.0,419.0,and the two nines are going at it a couple of meerkats jousting in amongst the big boys from the french plains,penalty,0.4889
 418.5,423.5,a couple of meerkats jousting in amongst the big boys from the french plains,normal_play,0.0054
 423.0,428.0,well these sides wont back down listen to this,normal_play,0.0054
 427.5,432.5,well samuel marques had right to be more dependent,normal_play,0.0054
@@ -106,9 +106,9 @@ start_time,end_time,text,event_class,highlight_score
 477.0,482.0,i wonder that the two smallest blokes on the field those two pesky scrum halves the heart of the tummels but lets not forget that penalty came as a reward for good portuguese defence,normal_play,0.0054
 481.5,486.5,but lets not forget that penalty came as a reward for good portuguese defence he started out here he wants to go quickly and thats his right,normal_play,0.0054
 486.0,491.0,he started out here he wants to go quickly and thats his right hes lucky he doesnt have a yellow there actually because hes prevented some action,normal_play,0.0054
-490.5,495.5,hes lucky he doesnt have a yellow there actually because hes prevented some action and portugal need to play with up tempo if i was the portuguese skipper id be planting that seed in referee williams head and say,lineout,0.121
-495.0,500.0,if i was the portuguese skipper id be planting that seed in referee williams head and say hey dont let them take this game away from us,lineout,0.121
-499.5,504.5,hey dont let them take this game away from us scrappy line out ball for portugal but they do have their first meaningful possession of the match,lineout,0.121
+490.5,495.5,hes lucky he doesnt have a yellow there actually because hes prevented some action and portugal need to play with up tempo if i was the portuguese skipper id be planting that seed in referee williams head and say,lineout,0.4726
+495.0,500.0,if i was the portuguese skipper id be planting that seed in referee williams head and say hey dont let them take this game away from us,lineout,0.4726
+499.5,504.5,hey dont let them take this game away from us scrappy line out ball for portugal but they do have their first meaningful possession of the match,lineout,0.4726
 504.0,509.0,but they do have their first meaningful possession of the match match,normal_play,0.0054
 508.5,513.5,match portela off of the corner covered by nini ashwini hold,normal_play,0.0054
 513.0,518.0,hold he chases george will fly off all the way back,normal_play,0.0054
@@ -120,14 +120,14 @@ start_time,end_time,text,event_class,highlight_score
 540.0,545.0,this ball just takes off a bit cruel there it will be a great turn of events for the portuguese,normal_play,0.0054
 544.5,549.5,it will be a great turn of events for the portuguese just look at the distance that is kicked there understandably heading home,normal_play,0.0054
 549.0,554.0,understandably heading home but thats just outside his 22 if that did go into the 22 it would have been georges ball,normal_play,0.0054
-553.5,558.5,if that did go into the 22 it would have been georges ball a real tactic for both of these teams is to kick territorially they like to kick long,scrum,0.1461
-558.0,563.0,they like to kick long and theyve got some absolute power in these legs as well,scrum,0.1461
-562.5,567.5,and theyve got some absolute power in these legs as well portugals attack feels beautifully against the welsh,scrum,0.1461
-567.0,572.0,portugals attack feels beautifully against the welsh,scrum,0.1461
-571.5,576.5,and really impressed with ball in hand they love to give it some air to use the expansive,scrum,0.1461
-576.0,581.0,they love to give it some air to use the expansive dangerous players in their back line,scrum,0.1461
-580.5,585.5,dangerous players in their back line theres match portela plenty of options and he hits one of them its put on court,scrum,0.1461
-585.0,590.0,and he hits one of them its put on court release now tecla good roll good roll,scrum,0.1461
+553.5,558.5,if that did go into the 22 it would have been georges ball a real tactic for both of these teams is to kick territorially they like to kick long,scrum,0.4877
+558.0,563.0,they like to kick long and theyve got some absolute power in these legs as well,scrum,0.4877
+562.5,567.5,and theyve got some absolute power in these legs as well portugals attack feels beautifully against the welsh,scrum,0.4877
+567.0,572.0,portugals attack feels beautifully against the welsh,scrum,0.4877
+571.5,576.5,and really impressed with ball in hand they love to give it some air to use the expansive,scrum,0.4877
+576.0,581.0,they love to give it some air to use the expansive dangerous players in their back line,scrum,0.4877
+580.5,585.5,dangerous players in their back line theres match portela plenty of options and he hits one of them its put on court,scrum,0.4877
+585.0,590.0,and he hits one of them its put on court release now tecla good roll good roll,scrum,0.4877
 589.5,594.5,good roll good roll match holding it up well for jose madeira,normal_play,0.0054
 594.0,599.0,match holding it up well for jose madeira match just loses it it didnt go backwards,normal_play,0.0054
 598.5,603.5,it didnt go backwards advantage and then it went forward and george is staffing it back got the advantage of the knock on,normal_play,0.0054
@@ -145,12 +145,12 @@ start_time,end_time,text,event_class,highlight_score
 652.5,657.5,georgia against australia had 2 7 kicks per pass that means they didnt have up to three passes before they kicked it already weve seen the impact of these,normal_play,0.0054
 657.0,662.0,already weve seen the impact of these the high boxers as its known tactically and territorially working well for them so far georgia,normal_play,0.0054
 661.5,666.5,the high boxers as its known tactically and territorially working well for them so far georgia yeah georgia kicked 55 times in the open round of fixtures,normal_play,0.0054
-666.0,671.0,yeah georgia kicked 55 times in the open round of fixtures theyre not going to beat any team besides england the average are around 25 kicks per game in the rupert europe championship,scrum,0.1461
-670.5,675.5,the average are around 25 kicks per game in the rupert europe championship they like to put boot to ball and use that mighty pack to get them in the right areas of the pitch,scrum,0.1461
-675.0,680.0,they like to put boot to ball and use that mighty pack to get them in the right areas of the pitch,scrum,0.1461
-679.5,684.5,they like to put boot to ball and use that mighty pack to get them in the right areas of the pitch penalty advantage to georgia,scrum,0.1461
-684.0,689.0,penalty advantage to georgia abzandadze front football for kwe eladze,scrum,0.1461
-688.5,693.5,abzandadze front football for kwe eladze ninny ashvili puts the hammers down tabudzadze gets back to his feet,scrum,0.1461
+666.0,671.0,yeah georgia kicked 55 times in the open round of fixtures theyre not going to beat any team besides england the average are around 25 kicks per game in the rupert europe championship,scrum,0.2901
+670.5,675.5,the average are around 25 kicks per game in the rupert europe championship they like to put boot to ball and use that mighty pack to get them in the right areas of the pitch,scrum,0.2901
+675.0,680.0,they like to put boot to ball and use that mighty pack to get them in the right areas of the pitch,scrum,0.2901
+679.5,684.5,they like to put boot to ball and use that mighty pack to get them in the right areas of the pitch penalty advantage to georgia,scrum,0.2901
+684.0,689.0,penalty advantage to georgia abzandadze front football for kwe eladze,scrum,0.2901
+688.5,693.5,abzandadze front football for kwe eladze ninny ashvili puts the hammers down tabudzadze gets back to his feet,scrum,0.2901
 693.0,698.0,tabudzadze gets back to his feet abzandadze inside ninny ashvili climbs on,normal_play,0.0054
 697.5,702.5,ninny ashvili climbs on i dont think so mate fabulous rugby from the georgians,normal_play,0.0054
 702.0,707.0,fabulous rugby from the georgians but there was a little fumble paul williams wasnt sure,normal_play,0.0054
@@ -161,13 +161,13 @@ start_time,end_time,text,event_class,highlight_score
 724.5,729.5,no substitute for that from the georgians in their back they sit themselves up here just a slight knock on there the assistant official has seen it and radioed it in,normal_play,0.0054
 729.0,734.0,the assistant official has seen it and radioed it in what a luxury it is for these backs to be able to build a house upon the rocks,normal_play,0.0054
 733.5,738.5,what a luxury it is for these backs to be able to build a house upon the rocks because this scrum is so incredibly solid from georgia,normal_play,0.0054
-738.0,743.0,because this scrum is so incredibly solid from georgia you know you can get your set piece nailed your backs moves can flow on the back of it,scrum,0.1461
-742.5,747.5,your backs moves can flow on the back of it,scrum,0.1461
-751.5,756.5,75 of the opening 12 minutes,scrum,0.1461
-756.0,761.0,75 of the opening 12 minutes georgia possession,scrum,0.1461
-760.5,765.5,portugal scarce they had a sniff,scrum,0.1461
-765.0,770.0,portugal scarce they had a sniff they will have a preview with this free kick so thats a free kick the georgians not listening to the referees commands,penalty,0.3546
-769.5,774.5,so thats a free kick the georgians not listening to the referees commands they will have a meeting before him and a quick tap and go,penalty,0.3546
+738.0,743.0,because this scrum is so incredibly solid from georgia you know you can get your set piece nailed your backs moves can flow on the back of it,scrum,0.3987
+742.5,747.5,your backs moves can flow on the back of it,scrum,0.3987
+751.5,756.5,75 of the opening 12 minutes,scrum,0.3987
+756.0,761.0,75 of the opening 12 minutes georgia possession,scrum,0.3987
+760.5,765.5,portugal scarce they had a sniff,scrum,0.3987
+765.0,770.0,portugal scarce they had a sniff they will have a preview with this free kick so thats a free kick the georgians not listening to the referees commands,penalty,0.3581
+769.5,774.5,so thats a free kick the georgians not listening to the referees commands they will have a meeting before him and a quick tap and go,penalty,0.3581
 774.0,779.0,and a quick tap and go its unorthodox but he wheels it in,normal_play,0.0054
 778.5,783.5,its unorthodox but he wheels it in holding red,normal_play,0.0054
 783.0,788.0,holding red the rookie of the year in 2022 weve all seen what he can do,normal_play,0.0054
@@ -182,13 +182,13 @@ start_time,end_time,text,event_class,highlight_score
 823.5,828.5,but march cap make much distance with his own clearance thats clever play from david ninni ashwili yeah i just noted it,normal_play,0.0054
 828.0,833.0,yeah i just noted it theres no one back there to cover after the bit of the kicking duel and actually not that well executed kick,normal_play,0.0054
 832.5,837.5,and actually not that well executed kick you dont want to be the old guy when some people are talking about the role of the spiral kick to get it to pick up and roll,normal_play,0.0054
-837.0,842.0,when some people are talking about the role of the spiral kick to get it to pick up and roll and that shows the dominance from this georgian team,lineout,0.121
-841.5,846.5,and that shows the dominance from this georgian team with ball in hand,lineout,0.121
-846.0,851.0,with ball in hand six canes from portugal,lineout,0.121
-850.5,855.5,feeding off scraps and georgia,lineout,0.121
-855.0,860.0,and georgia with this big lead tank and motoring,lineout,0.121
-859.5,864.5,and motoring portela at the back for port gadset,lineout,0.121
-864.0,869.0,portela at the back for port gadset and gadset,lineout,0.121
+837.0,842.0,when some people are talking about the role of the spiral kick to get it to pick up and roll and that shows the dominance from this georgian team,lineout,0.1248
+841.5,846.5,and that shows the dominance from this georgian team with ball in hand,lineout,0.1248
+846.0,851.0,with ball in hand six canes from portugal,lineout,0.1248
+850.5,855.5,feeding off scraps and georgia,maul,0.1248
+855.0,860.0,and georgia with this big lead tank and motoring,maul,0.4724
+859.5,864.5,and motoring portela at the back for port gadset,lineout,0.4724
+864.0,869.0,portela at the back for port gadset and gadset,lineout,0.4724
 868.5,873.5,and gadset gadset makes a couple more meters,normal_play,0.0054
 873.0,878.0,makes a couple more meters gadset again,normal_play,0.0054
 877.5,882.5,gadset again too long prop the european challenge cup winner,normal_play,0.0054
@@ -205,37 +205,37 @@ start_time,end_time,text,event_class,highlight_score
 927.0,932.0,here we are i havent shot i shot corgot,normal_play,0.0054
 931.5,936.5,i shot corgot pointing to the posts,normal_play,0.0054
 936.0,941.0,trying to turn this pressure into points,normal_play,0.0054
-940.5,945.5,well as you mentioned off the top this is one of the great rugby cities in the world this is the football stadium,goal_kick,0.7814
-945.0,950.0,this is the football stadium but our drone giving us some incredible shots a sellout here,goal_kick,0.7814
-949.5,954.5,a sellout here and thats the game for all the french obviously georgia and portugal,goal_kick,0.7814
-954.0,959.0,obviously georgia and portugal but their love of the game their knowledge of the game theyve already had the wave going,goal_kick,0.7814
-958.5,963.5,theyve already had the wave going and its really what world cups are all about coming to venues like this and the incredible support the french have given right across the country,goal_kick,0.7814
-963.0,968.0,and the incredible support the french have given right across the country the first george and fly half,goal_kick,0.7814
-967.5,972.5,the first george and fly half to play in the french top 14,goal_kick,0.7814
-972.0,977.0,over 300 points for this country now and he adds another three,goal_kick,0.7814
-976.5,981.5,and he adds another three georgia 10 portugal 0,goal_kick,0.7814
+940.5,945.5,well as you mentioned off the top this is one of the great rugby cities in the world this is the football stadium,goal_kick,0.8688
+945.0,950.0,this is the football stadium but our drone giving us some incredible shots a sellout here,goal_kick,0.8688
+949.5,954.5,a sellout here and thats the game for all the french obviously georgia and portugal,goal_kick,0.8688
+954.0,959.0,obviously georgia and portugal but their love of the game their knowledge of the game theyve already had the wave going,goal_kick,0.8688
+958.5,963.5,theyve already had the wave going and its really what world cups are all about coming to venues like this and the incredible support the french have given right across the country,goal_kick,0.8688
+963.0,968.0,and the incredible support the french have given right across the country the first george and fly half,goal_kick,0.8688
+967.5,972.5,the first george and fly half to play in the french top 14,goal_kick,0.8688
+972.0,977.0,over 300 points for this country now and he adds another three,goal_kick,0.8688
+976.5,981.5,and he adds another three georgia 10 portugal 0,goal_kick,0.8688
 981.0,986.0,the st george cross is not just for england,normal_play,0.0054
-985.5,990.5,the st george cross is not just for england georgia will want to build on this a strong start 16 minutes in,kick_off,0.1931
-990.0,995.0,a strong start 16 minutes in interesting they took the three theyre going to keep that scoreboard ticking over,kick_off,0.1931
-994.5,999.5,theyre going to keep that scoreboard ticking over rob im not sure what you take is in that yeah very much a case of them trying to get these possessions theyve got down in pointscoring portugal havent really been down in the georgia territory to score,kick_off,0.1931
-999.0,1004.0,portugal havent really been down in the georgia territory to score they might get a chance here its all very untidy,kick_off,0.1931
-1003.5,1008.5,its all very untidy ninny ashveili is in a dark old corridor and stevie cerchera envelops him in his octopus like arms,kick_off,0.1931
-1008.0,1013.0,and stevie cerchera envelops him in his octopus like arms and then he doesnt roll away its hard to get out of the way when youre 6 foot 10,kick_off,0.1931
-1012.5,1017.5,its hard to get out of the way when youre 6 foot 10 arms and legs everywhere from big stevie cerchera but hes got to get out of the way and hes got to get out of the way,penalty,0.3546
-1017.0,1022.0,and hes got to get out of the way and hes got to get out of the way and hes got to get out of the way,penalty,0.3546
-1021.5,1026.5,and hes got to get out of the way and hes got to get out of the way and hes got to get out of the way,penalty,0.3546
-1026.0,1031.0,and hes got to get out of the way arms and legs everywhere from big stevie cerchera but george i have to jail here,penalty,0.3546
+985.5,990.5,the st george cross is not just for england georgia will want to build on this a strong start 16 minutes in,kick_off,0.5159
+990.0,995.0,a strong start 16 minutes in interesting they took the three theyre going to keep that scoreboard ticking over,kick_off,0.5159
+994.5,999.5,theyre going to keep that scoreboard ticking over rob im not sure what you take is in that yeah very much a case of them trying to get these possessions theyve got down in pointscoring portugal havent really been down in the georgia territory to score,kick_off,0.5159
+999.0,1004.0,portugal havent really been down in the georgia territory to score they might get a chance here its all very untidy,kick_off,0.5159
+1003.5,1008.5,its all very untidy ninny ashveili is in a dark old corridor and stevie cerchera envelops him in his octopus like arms,kick_off,0.5159
+1008.0,1013.0,and stevie cerchera envelops him in his octopus like arms and then he doesnt roll away its hard to get out of the way when youre 6 foot 10,kick_off,0.5159
+1012.5,1017.5,its hard to get out of the way when youre 6 foot 10 arms and legs everywhere from big stevie cerchera but hes got to get out of the way and hes got to get out of the way,penalty,0.4471
+1017.0,1022.0,and hes got to get out of the way and hes got to get out of the way and hes got to get out of the way,penalty,0.4471
+1021.5,1026.5,and hes got to get out of the way and hes got to get out of the way and hes got to get out of the way,penalty,0.4471
+1026.0,1031.0,and hes got to get out of the way arms and legs everywhere from big stevie cerchera but george i have to jail here,penalty,0.4471
 1030.5,1035.5,but george i have to jail here yeah hes deemed not releasing there i thought the georgian player may have taken an extra roll which makes it hard,normal_play,0.0054
 1035.0,1040.0,which makes it hard but it will be a penalty to georgia again a chance for him to calm down clear the lines and look at this stadium,normal_play,0.0054
 1039.5,1044.5,again a chance for him to calm down clear the lines and look at this stadium,normal_play,0.0054
 1044.0,1049.0,this was the tackle,normal_play,0.0054
 1048.5,1053.5,this was the tackle off the kickoff loose ball georgia will want to clean this up they look for a second like portugal might have a run in,normal_play,0.0054
 1053.0,1058.0,they look for a second like portugal might have a run in the tackle comes in here theres the hard tackle and theres one roll,normal_play,0.0054
-1057.5,1062.5,theres the hard tackle and theres one roll and the second roll by the georgian not much big stevie can do to get out of the way,lineout,0.121
-1062.0,1067.0,not much big stevie can do to get out of the way,lineout,0.121
-1066.5,1071.5,love the throw to the tail from mamoukashvili love the throw to the tail from mamoukashvili,lineout,0.121
-1071.0,1076.0,love the throw to the tail from mamoukashvili abshantadze at the back for sharikadze and kveseladze abshantadze at the back for sharikadze and kveseladze,lineout,0.121
-1075.5,1080.5,abshantadze at the back for sharikadze and kveseladze pierces the portuguese defence a placida for gagashvili,lineout,0.121
+1057.5,1062.5,theres the hard tackle and theres one roll and the second roll by the georgian not much big stevie can do to get out of the way,lineout,0.4726
+1062.0,1067.0,not much big stevie can do to get out of the way,lineout,0.4726
+1066.5,1071.5,love the throw to the tail from mamoukashvili love the throw to the tail from mamoukashvili,lineout,0.4726
+1071.0,1076.0,love the throw to the tail from mamoukashvili abshantadze at the back for sharikadze and kveseladze abshantadze at the back for sharikadze and kveseladze,lineout,0.4726
+1075.5,1080.5,abshantadze at the back for sharikadze and kveseladze pierces the portuguese defence a placida for gagashvili,lineout,0.4726
 1080.0,1085.0,a placida for gagashvili a placida for gagashvili gagashvili takes some stopping,normal_play,0.0054
 1084.5,1089.5,gagashvili takes some stopping they pull that line side with nini ashvili in the line again gagashvili is coming through a mountain of early work gagashvili is coming through a mountain of early work,normal_play,0.0054
 1089.0,1094.0,gagashvili is coming through a mountain of early work gagashvili is coming through a mountain of early work and theyre up to five carries,try,1.0
@@ -247,18 +247,18 @@ start_time,end_time,text,event_class,highlight_score
 1116.0,1121.0,we just need to check by red into a white player and then went forward,try,1.0
 1120.5,1125.5,and then went forward if there was a knock on in the lead up the referee thinks hes seen it clean hes not going to have a look he hasnt signalled up to the tmo,try,1.0
 1125.0,1130.0,hes not going to have a look he hasnt signalled up to the tmo in our crew here i must admit i thought it came off the chest,normal_play,0.0054
-1129.5,1134.5,i must admit i thought it came off the chest and maybe having a look here,tmo_replay,0.75
-1134.0,1139.0,and maybe having a look here tmo are trying to help him out theyre having a look in there,tmo_replay,0.75
-1138.5,1143.5,theyre having a look in there thats it the tmo will just sweep this up in the background whether or not paul williams signals for the tmo review,tmo_replay,0.75
-1143.0,1148.0,whether or not paul williams signals for the tmo review which he is doing now all these incidents are always monitored by our officials on slightly ground,tmo_replay,0.75
-1147.5,1152.5,all these incidents are always monitored by our officials on slightly ground all these incidents are always monitored by our officials on slightly ground,tmo_replay,0.75
-1152.0,1157.0,now were going to take a more formal look at things now were going to take a more formal look at things,tmo_replay,0.75
-1156.5,1161.5,now were going to take a more formal look at things portuguese fans gave a relief there when the signal came in and theres joy neville,tmo_replay,0.75
-1161.0,1166.0,and theres joy neville heres your first angle clearly comes off the right arm,tmo_replay,0.75
-1165.5,1170.5,clearly comes off the right arm of the right arm of the red player,tmo_replay,0.75
-1174.5,1179.5,clearly a knock on enjoy yeah i agree okay thank you back to me,tmo_replay,0.75
-1179.0,1184.0,okay thank you back to me so no try,tmo_replay,0.75
-1183.5,1188.5,so no try knock on scumwhite,tmo_replay,0.75
+1129.5,1134.5,i must admit i thought it came off the chest and maybe having a look here,tmo_replay,0.85
+1134.0,1139.0,and maybe having a look here tmo are trying to help him out theyre having a look in there,tmo_replay,0.85
+1138.5,1143.5,theyre having a look in there thats it the tmo will just sweep this up in the background whether or not paul williams signals for the tmo review,tmo_replay,0.85
+1143.0,1148.0,whether or not paul williams signals for the tmo review which he is doing now all these incidents are always monitored by our officials on slightly ground,tmo_replay,0.85
+1147.5,1152.5,all these incidents are always monitored by our officials on slightly ground all these incidents are always monitored by our officials on slightly ground,tmo_replay,0.85
+1152.0,1157.0,now were going to take a more formal look at things now were going to take a more formal look at things,tmo_replay,0.85
+1156.5,1161.5,now were going to take a more formal look at things portuguese fans gave a relief there when the signal came in and theres joy neville,tmo_replay,0.85
+1161.0,1166.0,and theres joy neville heres your first angle clearly comes off the right arm,tmo_replay,0.85
+1165.5,1170.5,clearly comes off the right arm of the right arm of the red player,tmo_replay,0.85
+1174.5,1179.5,clearly a knock on enjoy yeah i agree okay thank you back to me,tmo_replay,0.85
+1179.0,1184.0,okay thank you back to me so no try,tmo_replay,0.85
+1183.5,1188.5,so no try knock on scumwhite,tmo_replay,0.85
 1188.0,1193.0,scumwhite the night of trying is 50th outing for georgia and the only reason theyre in that position is an incredible try saving tackle,normal_play,0.0054
 1192.5,1197.5,and the only reason theyre in that position is an incredible try saving tackle and the only reason theyre in that position is an incredible try saving tackle just before this as they bust through the line,normal_play,0.0054
 1197.0,1202.0,as they bust through the line sosa gets his last man back big powerful running,normal_play,0.0054
@@ -266,13 +266,13 @@ start_time,end_time,text,event_class,highlight_score
 1206.0,1211.0,he decides to keep it and look at the cover coming for the demeanour its the fly half actually,normal_play,0.0054
 1210.5,1215.5,its the fly half actually corrections what a tackle and that saved 7 points for portugal for sure the concern is how theyre defending out wide,normal_play,0.0054
 1215.0,1220.0,the concern is how theyre defending out wide because theyve got no line speed the defenders on the outside are getting in front of the ball,normal_play,0.0054
-1219.5,1224.5,the defenders on the outside are getting in front of the ball and that means those short lines are happening all day its exactly how georgia scored the first try,scrum,0.1461
-1224.0,1229.0,its exactly how georgia scored the first try and to be fair that probably should have been another one as well and to be fair that probably should have been another one as well,scrum,0.1461
-1228.5,1233.5,and to be fair that probably should have been another one as well yeah rod the portuguese slowly come up in defence theyre receiving the tackle,scrum,0.1461
-1233.0,1238.0,theyre receiving the tackle and theyre getting caught behind the game line making life easy for the georgians,scrum,0.1461
-1237.5,1242.5,making life easy for the georgians big scrum here backed up 10 minutes from the long line portugal,scrum,0.1461
-1242.0,1247.0,backed up 10 minutes from the long line portugal one more,scrum,0.1461
-1246.5,1251.5,one more the squeeze comes on from the georgian pack but quickly away from simoes to appleton appleton is on the run yet again,scrum,0.1461
+1219.5,1224.5,the defenders on the outside are getting in front of the ball and that means those short lines are happening all day its exactly how georgia scored the first try,scrum,0.4281
+1224.0,1229.0,its exactly how georgia scored the first try and to be fair that probably should have been another one as well and to be fair that probably should have been another one as well,scrum,0.4281
+1228.5,1233.5,and to be fair that probably should have been another one as well yeah rod the portuguese slowly come up in defence theyre receiving the tackle,scrum,0.4281
+1233.0,1238.0,theyre receiving the tackle and theyre getting caught behind the game line making life easy for the georgians,scrum,0.4281
+1237.5,1242.5,making life easy for the georgians big scrum here backed up 10 minutes from the long line portugal,scrum,0.4281
+1242.0,1247.0,backed up 10 minutes from the long line portugal one more,scrum,0.4877
+1246.5,1251.5,one more the squeeze comes on from the georgian pack but quickly away from simoes to appleton appleton is on the run yet again,scrum,0.4877
 1251.0,1256.0,appleton is on the run yet again thats pau a quick little push from pau,normal_play,0.0054
 1255.5,1260.5,a quick little push from pau thats pau remove,normal_play,0.0054
 1260.0,1265.0,remove thats pau thats pau,normal_play,0.0054
@@ -288,10 +288,10 @@ start_time,end_time,text,event_class,highlight_score
 1305.0,1310.0,and rob its interesting the portuguese forwards are actually holding up okay at scrum time but just not quite sure how much energy theyre exerting because they dont seem to be up and off their feet,normal_play,0.0054
 1309.5,1314.5,but just not quite sure how much energy theyre exerting because they dont seem to be up and off their feet theyre getting caught in situations like this,normal_play,0.0054
 1314.0,1319.0,theyre getting caught in situations like this i think thats exactly it its an eight man effort in these scrum at the moment,normal_play,0.0054
-1318.5,1323.5,i think thats exactly it its an eight man effort in these scrum at the moment which i know sounds like a simple comment but when portugal are exerting all that energy to just keep parity,lineout,0.121
-1323.0,1328.0,which i know sounds like a simple comment but when portugal are exerting all that energy to just keep parity the georgians are round the corner far quicker its a real nuance,lineout,0.121
-1327.5,1332.5,the georgians are round the corner far quicker its a real nuance but just watch how much more mobile the georgian forwards are at the moment,lineout,0.121
-1332.0,1337.0,portuguese line out pinched gorgadze for avshan dadze,lineout,0.121
+1318.5,1323.5,i think thats exactly it its an eight man effort in these scrum at the moment which i know sounds like a simple comment but when portugal are exerting all that energy to just keep parity,lineout,0.4726
+1323.0,1328.0,which i know sounds like a simple comment but when portugal are exerting all that energy to just keep parity the georgians are round the corner far quicker its a real nuance,lineout,0.4726
+1327.5,1332.5,the georgians are round the corner far quicker its a real nuance but just watch how much more mobile the georgian forwards are at the moment,lineout,0.4726
+1332.0,1337.0,portuguese line out pinched gorgadze for avshan dadze,lineout,0.4726
 1336.5,1341.5,gorgadze for avshan dadze now shaddy kadze splits the portuguese line with a clever kick,normal_play,0.0054
 1341.0,1346.0,now shaddy kadze splits the portuguese line with a clever kick storti in trouble tabot sadze wraps him up,normal_play,0.0054
 1345.5,1350.5,storti in trouble tabot sadze wraps him up storti keeps it alive but the flag does go up from chris busby and akaki tabot sadze takes the acclaim,normal_play,0.0054
@@ -312,59 +312,59 @@ start_time,end_time,text,event_class,highlight_score
 1413.0,1418.0,because portugal are in possession they will have the put in at the scrum thats it well restart,normal_play,0.0054
 1417.5,1422.5,thats it well restart well just backing up that there are actually four sets of eyes plus on whats going on out there,normal_play,0.0054
 1422.0,1427.0,well just backing up that there are actually four sets of eyes plus on whats going on out there dont see that that often but it will mean portugal still have possession the poor old portuguese put up the scrumage again,normal_play,0.0054
-1426.5,1431.5,the poor old portuguese put up the scrumage again its a great opportunity to see exactly what were talking about now,scrum,0.1461
-1431.0,1436.0,its a great opportunity to see exactly what were talking about now the amount of effort going in from these portuguese forwards,scrum,0.1461
-1435.5,1440.5,the amount of effort going in from these portuguese forwards i think is seriously going to tell in the latter stages of this game,scrum,0.1461
-1440.0,1445.0,i think is seriously going to tell in the latter stages of this game cracks nice sir,scrum,0.1461
-1444.5,1449.5,nice sir bound the leg and back muscles of portuguese forwards who are already screaming in pain and they go early,scrum,0.1461
-1449.0,1454.0,the leg and back muscles of portuguese forwards who are already screaming in pain and they go early,scrum,0.1461
+1426.5,1431.5,the poor old portuguese put up the scrumage again its a great opportunity to see exactly what were talking about now,scrum,0.148
+1431.0,1436.0,its a great opportunity to see exactly what were talking about now the amount of effort going in from these portuguese forwards,scrum,0.148
+1435.5,1440.5,the amount of effort going in from these portuguese forwards i think is seriously going to tell in the latter stages of this game,scrum,0.148
+1440.0,1445.0,i think is seriously going to tell in the latter stages of this game cracks nice sir,scrum,0.148
+1444.5,1449.5,nice sir bound the leg and back muscles of portuguese forwards who are already screaming in pain and they go early,scrum,0.148
+1449.0,1454.0,the leg and back muscles of portuguese forwards who are already screaming in pain and they go early,scrum,0.148
 1453.5,1458.5,the leg and back muscles of portuguese forwards who are already screaming in pain and they go early and thats often the case when the opposition pack is dominant,normal_play,0.0054
 1458.0,1463.0,and thats often the case when the opposition pack is dominant hit and chase scrum again surely,normal_play,0.0054
 1462.5,1467.5,scrum again surely im so worried about the power of the georgian pack they preempt the hits and unsurprisingly georgia are going to put them through the heart arena again,normal_play,0.0054
 1467.0,1472.0,they preempt the hits and unsurprisingly georgia are going to put them through the heart arena again,normal_play,0.0054
 1471.5,1476.5,they preempt the hits and unsurprisingly georgia are going to put them through the heart arena again i think 90 of the stadium knew that call was coming georgia want the scrum,normal_play,0.0054
 1476.0,1481.0,i think 90 of the stadium knew that call was coming georgia want the scrum i dont think even the portuguese forwards backed up,normal_play,0.0054
-1480.5,1485.5,i dont think even the portuguese forwards backed up i do enjoy the fact the referees try and coach the sprung row in this situation,scrum,0.1461
-1485.0,1490.0,i do enjoy the fact the referees try and coach the sprung row in this situation better than how many thousands of scrum theyve been in,scrum,0.1461
-1489.5,1494.5,better than how many thousands of scrum theyve been in the 38 year old paul williams and teranaki,scrum,0.1461
-1494.0,1499.0,the 38 year old paul williams and teranaki the scrum half of his time,scrum,0.1461
-1498.5,1503.5,quite exponent of the dark arts in the front row he stood beside me,scrum,0.1461
-1503.0,1508.0,he stood beside me advantage pulling back,scrum,0.1461
-1507.5,1512.5,advantage pulling back georgia got a free shot there fennaty advantage,scrum,0.1461
-1512.0,1517.0,fennaty advantage tabutsahtse into krasilantse what a collision that was in midfield,scrum,0.1461
+1480.5,1485.5,i dont think even the portuguese forwards backed up i do enjoy the fact the referees try and coach the sprung row in this situation,scrum,0.2769
+1485.0,1490.0,i do enjoy the fact the referees try and coach the sprung row in this situation better than how many thousands of scrum theyve been in,scrum,0.2769
+1489.5,1494.5,better than how many thousands of scrum theyve been in the 38 year old paul williams and teranaki,scrum,0.2769
+1494.0,1499.0,the 38 year old paul williams and teranaki the scrum half of his time,scrum,0.2769
+1498.5,1503.5,quite exponent of the dark arts in the front row he stood beside me,scrum,0.2769
+1503.0,1508.0,he stood beside me advantage pulling back,scrum,0.3267
+1507.5,1512.5,advantage pulling back georgia got a free shot there fennaty advantage,scrum,0.3267
+1512.0,1517.0,fennaty advantage tabutsahtse into krasilantse what a collision that was in midfield,scrum,0.3267
 1516.5,1521.5,what a collision that was in midfield apresente for burgadze martins claims on holds him down,normal_play,0.0054
 1521.0,1526.0,martins claims on holds him down but its front foot ball with every carry for georgia,normal_play,0.0054
 1525.5,1530.5,but its front foot ball with every carry for georgia gigas really tackle off the ball paul williams will bring them back for the scrum penalty,normal_play,0.0054
 1530.0,1535.0,paul williams will bring them back for the scrum penalty in that final phase there may have been an early tackle but we were on,normal_play,0.0054
-1534.5,1539.5,in that final phase there may have been an early tackle but we were on advantage as he said from the scrum penalty pulling back its the interpretation,penalty,0.3546
-1539.0,1544.0,its the interpretation so still more possession back and down,penalty,0.3546
-1543.5,1548.5,no you dont this was the midfield,penalty,0.3546
-1548.0,1553.0,this was the midfield he looks to the right theres an early tackle there the ball actually hits him in the head,penalty,0.3546
+1534.5,1539.5,in that final phase there may have been an early tackle but we were on advantage as he said from the scrum penalty pulling back its the interpretation,penalty,0.541
+1539.0,1544.0,its the interpretation so still more possession back and down,penalty,0.541
+1543.5,1548.5,no you dont this was the midfield,penalty,0.541
+1548.0,1553.0,this was the midfield he looks to the right theres an early tackle there the ball actually hits him in the head,penalty,0.541
 1552.5,1557.5,the ball actually hits him in the head and hes got the ball the ball actually hits him in the head and gigas really wasnt happy there,normal_play,0.0054
 1557.0,1562.0,and gigas really wasnt happy there could have been another penalty,normal_play,0.0054
 1561.5,1566.5,could have been another penalty should have been portugal went for the jamala pambas plays red,normal_play,0.0054
-1566.0,1571.0,and there is a statement of intent from georgia sex with the colt,lineout,0.121
-1570.5,1575.5,sex with the colt not content with three points they want five or seven,lineout,0.121
-1575.0,1580.0,they want five or seven portugal trying to compete,lineout,0.121
-1579.5,1584.5,portugal trying to compete martins nearly gets there but its chachanize who wins it,lineout,0.121
-1584.0,1589.0,and this is where georgia can turn on the power,maul,0.2353
-1588.5,1593.5,portugal stand up to that physical assault so well but theres more work to do,maul,0.2353
+1566.0,1571.0,and there is a statement of intent from georgia sex with the colt,lineout,0.2028
+1570.5,1575.5,sex with the colt not content with three points they want five or seven,lineout,0.2028
+1575.0,1580.0,they want five or seven portugal trying to compete,lineout,0.2028
+1579.5,1584.5,portugal trying to compete martins nearly gets there but its chachanize who wins it,lineout,0.2028
+1584.0,1589.0,and this is where georgia can turn on the power,maul,0.5412
+1588.5,1593.5,portugal stand up to that physical assault so well but theres more work to do,maul,0.5412
 1593.0,1598.0,but theres more work to do last fight what,normal_play,0.0054
 1597.5,1602.5,this is chachanize from micaltaze,normal_play,0.0054
 1602.0,1607.0,this is chachanize from micaltaze they continue to keep it tight,normal_play,0.0054
 1606.5,1611.5,they continue to keep it tight gigas vili felled on the five meters line francisco fernandez what a tackle,normal_play,0.0054
-1611.0,1616.0,francisco fernandez what a tackle the 38 year old war horse,penalty,0.3546
-1615.5,1620.5,the 38 year old war horse with the bushy hair,penalty,0.3546
-1620.0,1625.0,with the bushy hair sticks that big head in the spokes and the oldest man on the pitch comes up with a precious precious penalty,penalty,0.3546
-1624.5,1629.5,and the oldest man on the pitch comes up with a precious precious penalty yeah they pound it away but look at the guy here,penalty,0.3546
+1611.0,1616.0,francisco fernandez what a tackle the 38 year old war horse,penalty,0.6128
+1615.5,1620.5,the 38 year old war horse with the bushy hair,penalty,0.6128
+1620.0,1625.0,with the bushy hair sticks that big head in the spokes and the oldest man on the pitch comes up with a precious precious penalty,penalty,0.6128
+1624.5,1629.5,and the oldest man on the pitch comes up with a precious precious penalty yeah they pound it away but look at the guy here,penalty,0.6128
 1629.0,1634.0,yeah they pound it away but look at the guy here that balls not on the floor so its not a rock he has rights to get his hands on it and he does,normal_play,0.0054
 1633.5,1638.5,he has rights to get his hands on it and he does fantastic work from the man who plays this club rugby at bezier,normal_play,0.0054
 1638.0,1643.0,fantastic work from the man who plays this club rugby at bezier thats probably a difference to this portuguese side robin last few years so many of these big men playing the rugby at the likes of bezier pepe gnall dax in france here playing good quality rugby,normal_play,0.0054
 1642.5,1647.5,so many of these big men playing the rugby at the likes of bezier pepe gnall dax in france here playing good quality rugby,normal_play,0.0054
 1647.0,1652.0,so many of these big men playing the rugby at the likes of bezier pepe gnall dax in france here playing good quality rugby so their forwards arent sort of overly impressed by the quality of georgia,normal_play,0.0054
-1651.5,1656.5,so their forwards arent sort of overly impressed by the quality of georgia theres something that lattice said at the start of the game he was talking about the fact this is the strongest squad theyve ever had together,lineout,0.121
-1656.0,1661.0,he was talking about the fact this is the strongest squad theyve ever had together the clarity of the clubs to be able to release the players,lineout,0.121
-1660.5,1665.5,the clarity of the clubs to be able to release the players he set out a four year plan and its very much coming to fruition very much not coming to fruition but pernodino portela makes a pretty kick with those prongs,lineout,0.121
+1651.5,1656.5,so their forwards arent sort of overly impressed by the quality of georgia theres something that lattice said at the start of the game he was talking about the fact this is the strongest squad theyve ever had together,lineout,0.3172
+1656.0,1661.0,he was talking about the fact this is the strongest squad theyve ever had together the clarity of the clubs to be able to release the players,lineout,0.3172
+1660.5,1665.5,the clarity of the clubs to be able to release the players he set out a four year plan and its very much coming to fruition very much not coming to fruition but pernodino portela makes a pretty kick with those prongs,lineout,0.3172
 1665.0,1670.0,very much not coming to fruition but pernodino portela makes a pretty kick with those prongs,normal_play,0.0054
 1669.5,1674.5,very much not coming to fruition but pernodino portela makes a pretty kick with those prongs jose madera,normal_play,0.0054
 1674.0,1679.0,this was an itch,normal_play,0.0054
@@ -376,10 +376,10 @@ start_time,end_time,text,event_class,highlight_score
 1701.0,1706.0,just enjoy the fluidity the wonderful motions of davide ninashvili,normal_play,0.0054
 1705.5,1710.5,the wonderful motions of davide ninashvili well he just backs himself at every turn he had no right stepping away from those two defenders,normal_play,0.0054
 1710.0,1715.0,he had no right stepping away from those two defenders beautiful pass then almost gets it back again,normal_play,0.0054
-1714.5,1719.5,then almost gets it back again knowing him surprised this didnt stay on the park the little chip ahead its so dangerous,lineout,0.121
-1719.0,1724.0,its so dangerous anyone that thinks that george is just a side that can scrimmage,lineout,0.121
-1723.5,1728.5,anyone that thinks that george is just a side that can scrimmage look again this is a complete 15 side portugal might be winning by now,lineout,0.121
-1728.0,1733.0,portugal might be winning by now but its taking every ounce of energy every inch of space,lineout,0.121
+1714.5,1719.5,then almost gets it back again knowing him surprised this didnt stay on the park the little chip ahead its so dangerous,lineout,0.4726
+1719.0,1724.0,its so dangerous anyone that thinks that george is just a side that can scrimmage,lineout,0.4726
+1723.5,1728.5,anyone that thinks that george is just a side that can scrimmage look again this is a complete 15 side portugal might be winning by now,lineout,0.4726
+1728.0,1733.0,portugal might be winning by now but its taking every ounce of energy every inch of space,lineout,0.4726
 1732.5,1737.5,every inch of space shes to get the ball back in their hands for the wendish,normal_play,0.0054
 1737.0,1742.0,for the wendish,normal_play,0.0054
 1741.5,1746.5,okay done now last feet guys onside chases here use it there nine,normal_play,0.0054
@@ -396,45 +396,45 @@ start_time,end_time,text,event_class,highlight_score
 1791.0,1796.0,okay water off please water off,normal_play,0.0054
 1795.5,1800.5,its not actually an official water break here theres an injury looks like the big man francisco fernandez at 38 years old,normal_play,0.0054
 1800.0,1805.0,looks like the big man francisco fernandez at 38 years old just getting a bit of treatment,normal_play,0.0054
-1804.5,1809.5,just getting a bit of treatment maybe a tactical injury stand in front of him mate stand in front of him,lineout,0.121
-1809.0,1814.0,stand in front of him weve still got people on the field if ever was the old kit kat take a break i think thats one of those,lineout,0.121
-1813.5,1818.5,i think thats one of those i dont know what the part of his version is,lineout,0.121
-1818.0,1823.0,as you have seen martins thats cleaner from portugal,lineout,0.121
-1822.5,1827.5,thats cleaner from portugal and it had to be simoes,lineout,0.121
+1804.5,1809.5,just getting a bit of treatment maybe a tactical injury stand in front of him mate stand in front of him,lineout,0.2763
+1809.0,1814.0,stand in front of him weve still got people on the field if ever was the old kit kat take a break i think thats one of those,lineout,0.2763
+1813.5,1818.5,i think thats one of those i dont know what the part of his version is,lineout,0.2763
+1818.0,1823.0,as you have seen martins thats cleaner from portugal,lineout,0.2763
+1822.5,1827.5,thats cleaner from portugal and it had to be simoes,lineout,0.391
 1827.0,1832.0,trucks up and sets the platform a match this time with all of his experience,normal_play,0.0054
 1831.5,1836.5,this time with all of his experience finds a safe touch and that is much more like it from portugal as they look to the edge of the 22,normal_play,0.0054
 1836.0,1841.0,from portugal as they look to the edge of the 22 marching on post,normal_play,0.0054
 1840.5,1845.5,marching on post portuguese fans have sensed that matthew carly hasnt taken a few more steps down the touch line before sticking his flag in the air,normal_play,0.0054
-1845.0,1850.0,matthew carly hasnt taken a few more steps down the touch line before sticking his flag in the air,lineout,0.121
-1849.5,1854.5,number is five always something happening in a world cup match the crowd have been great,lineout,0.121
-1854.0,1859.0,the crowd have been great,lineout,0.121
-1858.5,1863.5,going to take a match of charity,lineout,0.121
-1867.5,1872.5,george is one stop hes lifting up the meters moving up portuguese defenders with them,maul,0.2353
-1872.0,1877.0,moving up portuguese defenders with them shadikadze for abzandadze out the back heres todawha,maul,0.2353
-1876.5,1881.5,heres todawha heres trouble this is ninius feeling the hot stepper well cut down by portela again,penalty,0.3546
-1881.0,1886.0,well cut down by portela again portugal pinch it again,penalty,0.3546
-1885.5,1890.5,portugal pinch it again theyre taking some big body blows,penalty,0.3546
-1890.0,1895.0,coming back with a few telling shots of their own the portuguese,penalty,0.3546
+1845.0,1850.0,matthew carly hasnt taken a few more steps down the touch line before sticking his flag in the air,lineout,0.4726
+1849.5,1854.5,number is five always something happening in a world cup match the crowd have been great,lineout,0.4726
+1854.0,1859.0,the crowd have been great,lineout,0.4726
+1858.5,1863.5,going to take a match of charity,lineout,0.4726
+1867.5,1872.5,george is one stop hes lifting up the meters moving up portuguese defenders with them,maul,0.3901
+1872.0,1877.0,moving up portuguese defenders with them shadikadze for abzandadze out the back heres todawha,maul,0.3901
+1876.5,1881.5,heres todawha heres trouble this is ninius feeling the hot stepper well cut down by portela again,penalty,0.4689
+1881.0,1886.0,well cut down by portela again portugal pinch it again,penalty,0.4689
+1885.5,1890.5,portugal pinch it again theyre taking some big body blows,penalty,0.4689
+1890.0,1895.0,coming back with a few telling shots of their own the portuguese,penalty,0.4689
 1894.5,1899.5,yeah again theyve just given up that gain line but theyve done enough to get hands over it,normal_play,0.0054
 1899.0,1904.0,its the georgians who arent getting enough bodies out wide to secure the ruckball,normal_play,0.0054
 1903.5,1908.5,its the georgians who arent getting enough bodies out wide to secure the ruckball i didnt see anything but ill have a look,normal_play,0.0054
 1912.5,1917.5,the two big 13s collided midfield and it was betancourt who was claiming there was some obstruction,normal_play,0.0054
-1917.0,1922.0,the two big 13s collided midfield and it was betancourt who was claiming there was some obstruction and theres the two sets of fans going at it,lineout,0.121
-1921.5,1926.5,and theres the two sets of fans going at it telling like a stat popped up on your screen there seven visits to the portuguese 22 by georgia,lineout,0.121
-1926.0,1931.0,seven visits to the portuguese 22 by georgia one by portugal and that line out throws crickets,lineout,0.121
-1930.5,1935.5,one by portugal and that line out throws crickets option men scrum all on out,lineout,0.121
+1917.0,1922.0,the two big 13s collided midfield and it was betancourt who was claiming there was some obstruction and theres the two sets of fans going at it,lineout,0.4726
+1921.5,1926.5,and theres the two sets of fans going at it telling like a stat popped up on your screen there seven visits to the portuguese 22 by georgia,lineout,0.4726
+1926.0,1931.0,seven visits to the portuguese 22 by georgia one by portugal and that line out throws crickets,lineout,0.4726
+1930.5,1935.5,one by portugal and that line out throws crickets option men scrum all on out,lineout,0.4726
 1935.0,1940.0,scrum scrum called heres emma,normal_play,0.0054
 1939.5,1944.5,heres emma scrum called should be a t shirt i reckon for georgia,normal_play,0.0054
 1944.0,1949.0,scrum called should be a t shirt i reckon for georgia thatd do well both sides,normal_play,0.0054
 1948.5,1953.5,both sides both sides you control your side they control theirs and theres some french up in royalty,normal_play,0.0054
 1953.0,1958.0,and theres some french up in royalty gael ermey captain of the french womens team,normal_play,0.0054
 1957.5,1962.5,gael ermey captain of the french womens team tr s chic gael with those sunglasses tr s chic indeed,normal_play,0.0054
-1962.0,1967.0,here to enjoy the rugby and to lose getting ready for wxv the inaugural world championship,scrum,0.1461
-1966.5,1971.5,getting ready for wxv the inaugural world championship three levels for the women her team will be down playing the world champion black ferns on october 21st down in new zealand,scrum,0.1461
-1971.0,1976.0,her team will be down playing the world champion black ferns on october 21st down in new zealand,scrum,0.1461
-1975.5,1980.5,so much excitement around that i know canada and england are playing today in exeter with preparation,scrum,0.1461
-1980.0,1985.0,i know canada and england are playing today in exeter with preparation great that rugby is giving those women a chance to measure themselves every year,scrum,0.1461
-1984.5,1989.5,great that rugby is giving those women a chance to measure themselves every year what a platform this is for georgia and again were going to have the saturday night first receiver,scrum,0.1461
+1962.0,1967.0,here to enjoy the rugby and to lose getting ready for wxv the inaugural world championship,scrum,0.1437
+1966.5,1971.5,getting ready for wxv the inaugural world championship three levels for the women her team will be down playing the world champion black ferns on october 21st down in new zealand,scrum,0.1437
+1971.0,1976.0,her team will be down playing the world champion black ferns on october 21st down in new zealand,scrum,0.1437
+1975.5,1980.5,so much excitement around that i know canada and england are playing today in exeter with preparation,scrum,0.1437
+1980.0,1985.0,i know canada and england are playing today in exeter with preparation great that rugby is giving those women a chance to measure themselves every year,scrum,0.1437
+1984.5,1989.5,great that rugby is giving those women a chance to measure themselves every year what a platform this is for georgia and again were going to have the saturday night first receiver,scrum,0.1437
 1989.0,1994.0,and again were going to have the saturday night first receiver klesilanti with the miss pass to todiwap who sits down nuno suzakic,normal_play,0.0054
 1993.5,1998.5,who sits down nuno suzakic and then is getting tackle into touch by a pack of portuguese wolves,normal_play,0.0054
 1998.0,2003.0,and then is getting tackle into touch by a pack of portuguese wolves,normal_play,0.0054
@@ -445,13 +445,13 @@ start_time,end_time,text,event_class,highlight_score
 2020.5,2025.5,ball down ball down theres actually going to be a georgian throw in here because xandrothodiwap threw the ball off a portuguese player,normal_play,0.0054
 2025.0,2030.0,xandrothodiwap threw the ball off a portuguese player he was touched by white first guys starts the red line out,normal_play,0.0054
 2029.5,2034.5,starts the red line out again the officials doing a good job to lock these things up look at those tackle that spaniard,normal_play,0.0054
-2034.0,2039.0,look at those tackle that spaniard it just tells the story doesnt it thats amazing that isnt necessarily taking his toll now but it will do in the last 20 minutes,lineout,0.121
-2038.5,2043.5,that isnt necessarily taking his toll now but it will do in the last 20 minutes last 30 minutes of this match,lineout,0.121
-2043.0,2048.0,georgia continue to rule the tudu skies,lineout,0.121
-2047.5,2052.5,georgia continue to rule the tudu skies,lineout,0.121
-2052.0,2057.0,and they will merrily sap the energy and the morale of the portuguese players,maul,0.2353
-2056.5,2061.5,and they will merrily sap the energy and the morale of the portuguese players and proceeds to characazze to cresolazze running short running hard,maul,0.2353
-2061.0,2066.0,running short running hard committing defenders abshandadze nini ashvili is lurking again,maul,0.2353
+2034.0,2039.0,look at those tackle that spaniard it just tells the story doesnt it thats amazing that isnt necessarily taking his toll now but it will do in the last 20 minutes,lineout,0.3017
+2038.5,2043.5,that isnt necessarily taking his toll now but it will do in the last 20 minutes last 30 minutes of this match,lineout,0.3017
+2043.0,2048.0,georgia continue to rule the tudu skies,lineout,0.3017
+2047.5,2052.5,georgia continue to rule the tudu skies,lineout,0.3017
+2052.0,2057.0,and they will merrily sap the energy and the morale of the portuguese players,maul,0.5412
+2056.5,2061.5,and they will merrily sap the energy and the morale of the portuguese players and proceeds to characazze to cresolazze running short running hard,maul,0.3665
+2061.0,2066.0,running short running hard committing defenders abshandadze nini ashvili is lurking again,maul,0.3665
 2065.5,2070.5,abshandadze nini ashvili is lurking again so is tabudzadze takes two to stop the man they call the bullets in georgia,normal_play,0.0054
 2070.0,2075.0,takes two to stop the man they call the bullets in georgia mabukashvili again,normal_play,0.0054
 2074.5,2079.5,mabukashvili again big carrying figures already for a lot of these georgian forwards heres gorgadze,normal_play,0.0054
@@ -460,31 +460,31 @@ start_time,end_time,text,event_class,highlight_score
 2088.0,2093.0,mabukashvili does likewise seven phases now for georgia,normal_play,0.0054
 2092.5,2097.5,seven phases now for georgia mikhail tadze close to 130kg on the hoof,normal_play,0.0054
 2097.0,2102.0,close to 130kg on the hoof characazze the captain cresolazze hell be obstructing them but the penalty goes georgias way,normal_play,0.0054
-2101.5,2106.5,hell be obstructing them but the penalty goes georgias way,penalty,0.3546
-2106.0,2111.0,white 13 white was offside first yeah it looks like theres initially an offside,penalty,0.3546
-2110.5,2115.5,yeah it looks like theres initially an offside but its still a very close game 13 white was offside first,penalty,0.3546
+2101.5,2106.5,hell be obstructing them but the penalty goes georgias way,penalty,0.5669
+2106.0,2111.0,white 13 white was offside first yeah it looks like theres initially an offside,penalty,0.5669
+2110.5,2115.5,yeah it looks like theres initially an offside but its still a very close game 13 white was offside first,penalty,0.5669
 2115.0,2120.0,13 white was offside first yeah it looks like theres initially an offside call and then the obstruction meant the play stops at that point too,normal_play,0.0054
 2119.5,2124.5,and then the obstruction meant the play stops at that point too already hitenkor has been involved in a lot here but he was up too quick from that previous run,normal_play,0.0054
 2124.0,2129.0,already hitenkor has been involved in a lot here but he was up too quick from that previous run offside,normal_play,0.0054
 2128.5,2133.5,offside the numbers offside 13 never onside,normal_play,0.0054
 2133.0,2138.0,13 never onside 13 okay thats fair to be an officiating from paul williams,normal_play,0.0054
-2137.5,2142.5,thats fair to be an officiating from paul williams there was an obstruction because we were playing advantage to georgia the first offence was a portuguese one,goal_kick,0.7814
-2142.0,2147.0,because we were playing advantage to georgia the first offence was a portuguese one and georgia going to go for the costs,goal_kick,0.7814
-2146.5,2151.5,and georgia going to go for the costs and that is betancourt hes deemed to be outside hes looking up at the big screen and agreeing with the portuguese fans who are whistling,goal_kick,0.7814
-2151.0,2156.0,hes looking up at the big screen and agreeing with the portuguese fans who are whistling he didnt like it rob so earlier you were very close to crossing over here,goal_kick,0.7814
-2155.5,2160.5,so earlier you were very close to crossing over here referees having a bit of a conversation around these decoy lines,goal_kick,0.7814
-2160.0,2165.0,referees having a bit of a conversation around these decoy lines very clearly so just tidy that up please,goal_kick,0.7814
-2164.5,2169.5,very clearly so just tidy that up please i think its right its just tidying it up its not a massive issue it happens all the time at all levels of rugby but if youre clearly obstructing the play then it isnt fair,goal_kick,0.7814
-2169.0,2174.0,but if youre clearly obstructing the play then it isnt fair you know we see this at the moment with portugal on the ropes,goal_kick,0.7814
-2173.5,2178.5,you know we see this at the moment with portugal on the ropes you can see why theyve gone for a 6 2 split on the bench six forwards ready to come on,goal_kick,0.7814
-2178.0,2183.0,six forwards ready to come on jannuap shandadze chips his third kick of the match straight down the middle,goal_kick,0.7814
-2182.5,2187.5,jannuap shandadze chips his third kick of the match straight down the middle and at the moment its the georgia fans outnumbered in the stands,goal_kick,0.7814
-2187.0,2192.0,and at the moment its the georgia fans outnumbered in the stands but by far the happier of the two sets of supporters,goal_kick,0.7814
-2191.5,2196.5,but by far the happier of the two sets of supporters well rob you talk about the bench which is such an important part in a fixture like this,goal_kick,0.7814
-2196.0,2201.0,well rob you talk about the bench which is such an important part in a fixture like this georgia have gone 5 3 that is the dominance of their own forwards,kick_off,0.1931
-2200.5,2205.5,georgia have gone 5 3 that is the dominance of their own forwards so contrary to maybe the south africans or portugal whos trying to shore things up,kick_off,0.1931
-2205.0,2210.0,so contrary to maybe the south africans or portugal whos trying to shore things up theyve got a few extra backs they can call them shachamitian again he was being impetuous,kick_off,0.1931
-2209.5,2214.5,shachamitian again he was being impetuous one year use it,kick_off,0.1931
+2137.5,2142.5,thats fair to be an officiating from paul williams there was an obstruction because we were playing advantage to georgia the first offence was a portuguese one,goal_kick,0.8688
+2142.0,2147.0,because we were playing advantage to georgia the first offence was a portuguese one and georgia going to go for the costs,goal_kick,0.8688
+2146.5,2151.5,and georgia going to go for the costs and that is betancourt hes deemed to be outside hes looking up at the big screen and agreeing with the portuguese fans who are whistling,goal_kick,0.8688
+2151.0,2156.0,hes looking up at the big screen and agreeing with the portuguese fans who are whistling he didnt like it rob so earlier you were very close to crossing over here,goal_kick,0.8688
+2155.5,2160.5,so earlier you were very close to crossing over here referees having a bit of a conversation around these decoy lines,goal_kick,0.8688
+2160.0,2165.0,referees having a bit of a conversation around these decoy lines very clearly so just tidy that up please,goal_kick,0.8688
+2164.5,2169.5,very clearly so just tidy that up please i think its right its just tidying it up its not a massive issue it happens all the time at all levels of rugby but if youre clearly obstructing the play then it isnt fair,goal_kick,0.8688
+2169.0,2174.0,but if youre clearly obstructing the play then it isnt fair you know we see this at the moment with portugal on the ropes,goal_kick,0.8688
+2173.5,2178.5,you know we see this at the moment with portugal on the ropes you can see why theyve gone for a 6 2 split on the bench six forwards ready to come on,goal_kick,0.8688
+2178.0,2183.0,six forwards ready to come on jannuap shandadze chips his third kick of the match straight down the middle,goal_kick,0.8688
+2182.5,2187.5,jannuap shandadze chips his third kick of the match straight down the middle and at the moment its the georgia fans outnumbered in the stands,goal_kick,0.8688
+2187.0,2192.0,and at the moment its the georgia fans outnumbered in the stands but by far the happier of the two sets of supporters,goal_kick,0.8688
+2191.5,2196.5,but by far the happier of the two sets of supporters well rob you talk about the bench which is such an important part in a fixture like this,goal_kick,0.8688
+2196.0,2201.0,well rob you talk about the bench which is such an important part in a fixture like this georgia have gone 5 3 that is the dominance of their own forwards,kick_off,0.5159
+2200.5,2205.5,georgia have gone 5 3 that is the dominance of their own forwards so contrary to maybe the south africans or portugal whos trying to shore things up,kick_off,0.5159
+2205.0,2210.0,so contrary to maybe the south africans or portugal whos trying to shore things up theyve got a few extra backs they can call them shachamitian again he was being impetuous,kick_off,0.5159
+2209.5,2214.5,shachamitian again he was being impetuous one year use it,kick_off,0.5159
 2214.0,2219.0,no use it now he wanted one more meaty georgian lump for protection,normal_play,0.0054
 2218.5,2223.5,he wanted one more meaty georgian lump for protection paul williams telling him to get on with it,normal_play,0.0054
 2223.0,2228.0,opel are cemented by sandro podoa,normal_play,0.0054
@@ -511,19 +511,19 @@ start_time,end_time,text,event_class,highlight_score
 2322.0,2327.0,mike tagher he pushes him through the gap thats an assist if ever youve seen one,try,1.0
 2326.5,2331.5,thats an assist if ever youve seen one what a combination of power and pace do i get fantasy points for that,try,1.0
 2331.0,2336.0,its an assist,try,1.0
-2340.0,2345.0,some well matched missed three kicks off the tee against wales,goal_kick,0.7814
-2344.5,2349.5,missed three kicks off the tee against wales he was nursing a calf problem last weekend he says hes over that,goal_kick,0.7814
-2349.0,2354.0,he says hes over that this is about as tough a kick as its possible to face,goal_kick,0.7814
-2353.5,2358.5,this is about as tough a kick as its possible to face its curling back,goal_kick,0.7814
-2358.0,2363.0,its curling back its off the post,goal_kick,0.7814
-2362.5,2367.5,unlucky samwell match 13 5 it remains yeah only the five in the end but what a crucial crucial score,goal_kick,0.7814
-2367.0,2372.0,yeah only the five in the end but what a crucial crucial score five minutes left in the half to give the lift,goal_kick,0.7814
-2371.5,2376.5,five minutes left in the half to give the lift he cuts back and he finds a massive hole again the georgians just overchase,goal_kick,0.7814
+2340.0,2345.0,some well matched missed three kicks off the tee against wales,goal_kick,0.8688
+2344.5,2349.5,missed three kicks off the tee against wales he was nursing a calf problem last weekend he says hes over that,goal_kick,0.8688
+2349.0,2354.0,he says hes over that this is about as tough a kick as its possible to face,goal_kick,0.8688
+2353.5,2358.5,this is about as tough a kick as its possible to face its curling back,goal_kick,0.8688
+2358.0,2363.0,its curling back its off the post,goal_kick,0.8688
+2362.5,2367.5,unlucky samwell match 13 5 it remains yeah only the five in the end but what a crucial crucial score,goal_kick,0.8688
+2367.0,2372.0,yeah only the five in the end but what a crucial crucial score five minutes left in the half to give the lift,goal_kick,0.8688
+2371.5,2376.5,five minutes left in the half to give the lift he cuts back and he finds a massive hole again the georgians just overchase,goal_kick,0.8688
 2376.0,2381.0,again the georgians just overchase they werent connected huge lift,normal_play,0.0054
-2380.5,2385.5,huge lift you can see the joy in the portuguese players theyve had a tough first half defending for long periods rob,kick_off,0.1931
-2385.0,2390.0,theyve had a tough first half defending for long periods rob but thats their return thats their first shot and they landed a hell of a punch,kick_off,0.1931
-2389.5,2394.5,thats their first shot and they landed a hell of a punch theres the try score of storty,kick_off,0.1931
-2394.0,2399.0,theres the try score of storty off he goes again hes got the pace to really stretch this georgian defense,kick_off,0.1931
+2380.5,2385.5,huge lift you can see the joy in the portuguese players theyve had a tough first half defending for long periods rob,kick_off,0.5159
+2385.0,2390.0,theyve had a tough first half defending for long periods rob but thats their return thats their first shot and they landed a hell of a punch,kick_off,0.5159
+2389.5,2394.5,thats their first shot and they landed a hell of a punch theres the try score of storty,kick_off,0.5159
+2394.0,2399.0,theres the try score of storty off he goes again hes got the pace to really stretch this georgian defense,kick_off,0.5159
 2398.5,2403.5,hes got the pace to really stretch this georgian defense you need the accuracy in those close quarter exchanges,normal_play,0.0054
 2403.0,2408.0,you need the accuracy in those close quarter exchanges suzygetch look at this my goodness suzygetch has split them open,normal_play,0.0054
 2407.5,2412.5,my goodness suzygetch has split them open stortys on his bike kvasseladze and nini ashvili mop things up well,normal_play,0.0054
@@ -541,16 +541,16 @@ start_time,end_time,text,event_class,highlight_score
 2461.5,2466.5,no arms tackle from francisco fernandes on shalva mamouk ashvili so paul i want to show you the actions of number one white,normal_play,0.0054
 2466.0,2471.0,so paul i want to show you the actions of number one white its a high tackle and theres no attempt to wrap also,normal_play,0.0054
 2470.5,2475.5,its a high tackle and theres no attempt to wrap also thats the voice of joy neville our television match official,normal_play,0.0054
-2475.0,2480.0,thats the voice of joy neville our television match official and you want to see the tackle the big man what a hit it was,tmo_replay,0.75
-2479.5,2484.5,the big man what a hit it was but theyre looking to see if he wrapped his arms and if its indeed a high tackle it was a massive hit,tmo_replay,0.75
-2484.0,2489.0,it was a massive hit it was a collision it wasnt a tackle it looks really bad,tmo_replay,0.75
-2488.5,2493.5,it looks really bad hes obliged to open his arms there and hold on,tmo_replay,0.75
-2493.0,2498.0,and hold on well theres head to head contact as well,tmo_replay,0.75
-2497.5,2502.5,well theres head to head contact as well clearly no attempt to wrap it thats unacceptable,tmo_replay,0.75
-2502.0,2507.0,thats unacceptable yeah,tmo_replay,0.75
-2506.5,2511.5,yeah it was white one mausoleum joy yes number one white okay,tmo_replay,0.75
-2511.0,2516.0,okay come on number one,tmo_replay,0.75
-2515.5,2520.5,number one number one just let me deal with this and then ill come back to you okay,tmo_replay,0.75
+2475.0,2480.0,thats the voice of joy neville our television match official and you want to see the tackle the big man what a hit it was,tmo_replay,0.85
+2479.5,2484.5,the big man what a hit it was but theyre looking to see if he wrapped his arms and if its indeed a high tackle it was a massive hit,tmo_replay,0.85
+2484.0,2489.0,it was a massive hit it was a collision it wasnt a tackle it looks really bad,tmo_replay,0.85
+2488.5,2493.5,it looks really bad hes obliged to open his arms there and hold on,tmo_replay,0.85
+2493.0,2498.0,and hold on well theres head to head contact as well,tmo_replay,0.85
+2497.5,2502.5,well theres head to head contact as well clearly no attempt to wrap it thats unacceptable,tmo_replay,0.85
+2502.0,2507.0,thats unacceptable yeah,tmo_replay,0.85
+2506.5,2511.5,yeah it was white one mausoleum joy yes number one white okay,tmo_replay,0.85
+2511.0,2516.0,okay come on number one,tmo_replay,0.85
+2515.5,2520.5,number one number one just let me deal with this and then ill come back to you okay,tmo_replay,0.85
 2520.0,2525.0,just let me deal with this and then ill come back to you okay so clearly no wrapping the tackle,normal_play,0.0054
 2524.5,2529.5,so clearly no wrapping the tackle its dangerous its the yellow card threshold yes,normal_play,0.0054
 2529.0,2534.0,yes its the yellow card we were going to tackle the guy,normal_play,0.0054
@@ -566,11 +566,11 @@ start_time,end_time,text,event_class,highlight_score
 2574.0,2579.0,whether it was foul play if the player was at fault and determine the degree of danger whether its a yellow or a red card,normal_play,0.0054
 2578.5,2583.5,and determine the degree of danger whether its a yellow or a red card and then look to apply any mitigation if theres any to be applied such as a drop in height or a late change in direction from shalva mamoukashvili,normal_play,0.0054
 2583.0,2588.0,such as a drop in height or a late change in direction from shalva mamoukashvili,normal_play,0.0054
-2587.5,2592.5,such as a drop in height or a late change in direction from shalva mamoukashvili i would suggest it will be a very nervous few minutes for francisco fernandes and for portugal,lineout,0.121
-2592.0,2597.0,i would suggest it will be a very nervous few minutes for francisco fernandes and for portugal the pack is on the back foot and theyve just lost one of their biggest beasts,lineout,0.121
-2596.5,2601.5,the pack is on the back foot and theyve just lost one of their biggest beasts chachanidze gathers for georgia,lineout,0.121
-2601.0,2606.0,chachanidze gathers for georgia and against the sediment in portugal georgia on the move,lineout,0.121
-2605.5,2610.5,and against the sediment in portugal georgia on the move penalty advantage paul williams is thinking yellow card again here,maul,0.2353
+2587.5,2592.5,such as a drop in height or a late change in direction from shalva mamoukashvili i would suggest it will be a very nervous few minutes for francisco fernandes and for portugal,lineout,0.2866
+2592.0,2597.0,i would suggest it will be a very nervous few minutes for francisco fernandes and for portugal the pack is on the back foot and theyve just lost one of their biggest beasts,lineout,0.2866
+2596.5,2601.5,the pack is on the back foot and theyve just lost one of their biggest beasts chachanidze gathers for georgia,lineout,0.2866
+2601.0,2606.0,chachanidze gathers for georgia and against the sediment in portugal georgia on the move,lineout,0.2866
+2605.5,2610.5,and against the sediment in portugal georgia on the move penalty advantage paul williams is thinking yellow card again here,maul,0.4869
 2610.0,2615.0,paul williams is thinking yellow card again here saki nadze gets to within a few meters,normal_play,0.0054
 2614.5,2619.5,saki nadze gets to within a few meters apracite now they go wide,normal_play,0.0054
 2619.0,2624.0,now they go wide apracite now they go wide,normal_play,0.0054
@@ -585,22 +585,22 @@ start_time,end_time,text,event_class,highlight_score
 2659.5,2664.5,what are we doing portugal down a prop discipline discipline discipline,normal_play,0.0054
 2664.0,2669.0,discipline discipline discipline,normal_play,0.0054
 2668.5,2673.5,discipline with that man in the bin obviously they dont have to replace him because its a line up,normal_play,0.0054
-2673.0,2678.0,with that man in the bin obviously they dont have to replace him because its a line up had it been a scrum you need a specialist player in there im surprised they maybe didnt choose that for that reason,lineout,0.121
-2677.5,2682.5,im surprised they maybe didnt choose that for that reason look at all the subs in the dead ball area just looking urging on their team to drive this one over these feel like very significant moments in this rugby world cup pool c showdown,lineout,0.121
-2682.0,2687.0,these feel like very significant moments in this rugby world cup pool c showdown,lineout,0.121
-2686.5,2691.5,these feel like very significant moments in this rugby world cup pool c showdown portugal cling on manfuli keep it up keep it up,lineout,0.121
-2691.0,2696.0,keep it up keep it up georgia drive forwards down by red,maul,0.2353
-2695.5,2700.5,down by red wheres the ball but he felt those giants somewhere one two three,maul,0.2353
-2700.0,2705.0,one two three and theyll have a goal line drop out short first and then held up over the line,maul,0.2353
+2673.0,2678.0,with that man in the bin obviously they dont have to replace him because its a line up had it been a scrum you need a specialist player in there im surprised they maybe didnt choose that for that reason,lineout,0.2055
+2677.5,2682.5,im surprised they maybe didnt choose that for that reason look at all the subs in the dead ball area just looking urging on their team to drive this one over these feel like very significant moments in this rugby world cup pool c showdown,lineout,0.2055
+2682.0,2687.0,these feel like very significant moments in this rugby world cup pool c showdown,lineout,0.2055
+2686.5,2691.5,these feel like very significant moments in this rugby world cup pool c showdown portugal cling on manfuli keep it up keep it up,lineout,0.2055
+2691.0,2696.0,keep it up keep it up georgia drive forwards down by red,maul,0.3526
+2695.5,2700.5,down by red wheres the ball but he felt those giants somewhere one two three,maul,0.3526
+2700.0,2705.0,one two three and theyll have a goal line drop out short first and then held up over the line,maul,0.3492
 2704.5,2709.5,short first and then held up over the line im not really sure why they took the line up there because essentially they tried to form a scrum anyway the drive in wall,normal_play,0.0054
 2709.0,2714.0,im not really sure why they took the line up there because essentially they tried to form a scrum anyway the drive in wall so the referees adjudicated that it was brought down by red they came down on their own and then they went over the line but it was held up off the ground,normal_play,0.0054
 2713.5,2718.5,so the referees adjudicated that it was brought down by red they came down on their own and then they went over the line but it was held up off the ground,normal_play,0.0054
 2718.0,2723.0,so the referees adjudicated that it was brought down by red they came down on their own and then they went over the line but it was held up off the ground so that would give a goal line 22 3 and then theyre going to have a goal line drop out,normal_play,0.0054
 2722.5,2727.5,and then theyre going to have a goal line drop out the referees adjudicated that it was brought down by red they came down on their own and then they went over the line but it was held up off the ground,normal_play,0.0054
-2727.0,2732.0,the referees adjudicated that it was brought down by red they came down on their own and then they went over the line but it was held up off the ground so that would give a goal line 22 meter drop out for the portuguese to try and get some reprieve here,kick_off,0.1931
-2731.5,2736.5,so that would give a goal line 22 meter drop out for the portuguese to try and get some reprieve here just 30 seconds left in this first half,kick_off,0.1931
-2736.0,2741.0,just 30 seconds left in this first half lach whats it wrong i think ive got the gags there,kick_off,0.1931
-2740.5,2745.5,i think ive got the gags there reloads for georgia a try before half time,kick_off,0.1931
+2727.0,2732.0,the referees adjudicated that it was brought down by red they came down on their own and then they went over the line but it was held up off the ground so that would give a goal line 22 meter drop out for the portuguese to try and get some reprieve here,kick_off,0.5159
+2731.5,2736.5,so that would give a goal line 22 meter drop out for the portuguese to try and get some reprieve here just 30 seconds left in this first half,kick_off,0.5159
+2736.0,2741.0,just 30 seconds left in this first half lach whats it wrong i think ive got the gags there,kick_off,0.5159
+2740.5,2745.5,i think ive got the gags there reloads for georgia a try before half time,kick_off,0.5159
 2745.0,2750.0,a try before half time could be so sweet and so important for georgia tackle narrow,normal_play,0.0054
 2749.5,2754.5,tackle narrow by the same token keeping them out the portuguese theres ninias filho again,normal_play,0.0054
 2754.0,2759.0,theres ninias filho again hes cut the masunder chachanitse for apra sitte,normal_play,0.0054
@@ -610,23 +610,23 @@ start_time,end_time,text,event_class,highlight_score
 2772.0,2777.0,well they got the move they wanted they found the hole theyve looked at this on tape the inside ball,normal_play,0.0054
 2776.5,2781.5,well they got the move they wanted they found the hole theyve looked at this on tape the inside ball unfortunately its chachanitse the man is put away he turns around and immediately looks for more speedy help,normal_play,0.0054
 2781.0,2786.0,he turns around and immediately looks for more speedy help hes a bit too late there,normal_play,0.0054
-2785.5,2790.5,hes a bit too late there credit to scrum half getting it across marques has been fighting the whole half here,lineout,0.121
-2790.0,2795.0,the two meerkats going at it again thats the best description of scrum house ever from you jamie,lineout,0.121
-2794.5,2799.5,thats the best description of scrum house ever from you jamie portugal just want this ball off the pitch,lineout,0.121
-2799.0,2804.0,portugal just want this ball off the pitch the clock is red marks checks and marks gratefully gives his team a breather,lineout,0.121
-2803.5,2808.5,and marks gratefully gives his team a breather they are clinging on in there the portuguese,lineout,0.121
-2808.0,2813.0,they are clinging on in there the portuguese they kick off this immense second half,kick_off,0.1931
-2812.5,2817.5,they kick off this immense second half so much at stake for these two long time rivals of course in munich,kick_off,0.1931
-2817.0,2822.0,so much at stake for these two long time rivals of course in munich,kick_off,0.1931
+2785.5,2790.5,hes a bit too late there credit to scrum half getting it across marques has been fighting the whole half here,lineout,0.3857
+2790.0,2795.0,the two meerkats going at it again thats the best description of scrum house ever from you jamie,lineout,0.3857
+2794.5,2799.5,thats the best description of scrum house ever from you jamie portugal just want this ball off the pitch,lineout,0.3857
+2799.0,2804.0,portugal just want this ball off the pitch the clock is red marks checks and marks gratefully gives his team a breather,lineout,0.3857
+2803.5,2808.5,and marks gratefully gives his team a breather they are clinging on in there the portuguese,lineout,0.3857
+2808.0,2813.0,they are clinging on in there the portuguese they kick off this immense second half,kick_off,0.421
+2812.5,2817.5,they kick off this immense second half so much at stake for these two long time rivals of course in munich,kick_off,0.421
+2817.0,2822.0,so much at stake for these two long time rivals of course in munich,kick_off,0.421
 2821.5,2826.5,so much at stake for these two long time rivals of course in munich but so much more than that with fight for points in this rugby world cup pool,normal_play,0.0054
 2826.0,2831.0,but so much more than that with fight for points in this rugby world cup pool third place in the group guarantees automatic qualification for australia 2027,normal_play,0.0054
 2830.5,2835.5,third place in the group guarantees automatic qualification for australia 2027 georgia will have come into this with designs on the quarterfinals top two finish,normal_play,0.0054
 2835.0,2840.0,georgia will have come into this with designs on the quarterfinals top two finish,normal_play,0.0054
 2839.5,2844.5,georgia will have come into this with designs on the quarterfinals top two finish and jamie great news there for the portuguese not only is fernandes able to return the contact wasnt around the head area,normal_play,0.0054
 2844.0,2849.0,not only is fernandes able to return the contact wasnt around the head area but with georgia having 67 possession and only putting 13 points on the board,normal_play,0.0054
-2848.5,2853.5,but with georgia having 67 possession and only putting 13 points on the board for patrick laziskaya the head coach theres a lot of positive to take at that halftime,lineout,0.121
-2853.0,2858.0,for patrick laziskaya the head coach theres a lot of positive to take at that halftime to see if portugal can build on that,lineout,0.121
-2857.5,2862.5,to see if portugal can build on that as you go straight over the top appleton couldnt take it portela could,lineout,0.121
+2848.5,2853.5,but with georgia having 67 possession and only putting 13 points on the board for patrick laziskaya the head coach theres a lot of positive to take at that halftime,lineout,0.4726
+2853.0,2858.0,for patrick laziskaya the head coach theres a lot of positive to take at that halftime to see if portugal can build on that,lineout,0.4726
+2857.5,2862.5,to see if portugal can build on that as you go straight over the top appleton couldnt take it portela could,lineout,0.4726
 2862.0,2867.0,madeira missed last weekends lost to wales,normal_play,0.0054
 2866.5,2871.5,madeira missed last weekends lost to wales put that in the warm up for injury serkera theres that trademark off road basketball style,normal_play,0.0054
 2871.0,2876.0,serkera theres that trademark off road basketball style in the six week time lock with donkua,normal_play,0.0054
@@ -644,53 +644,53 @@ start_time,end_time,text,event_class,highlight_score
 2925.0,2930.0,there is mr quistar and off its going to come in there loose forwards,normal_play,0.0054
 2929.5,2934.5,its going to come in there loose forwards its joel granate who theyve sacrificed,normal_play,0.0054
 2934.0,2939.0,tactically really a bit shocked by georgias option before not to take a scrum rather than the line up from the penalty,normal_play,0.0054
-2938.5,2943.5,tactically really a bit shocked by georgias option before not to take a scrum rather than the line up from the penalty because bringing on that extra foot roller now means they lose a back roller,scrum,0.1461
-2943.0,2948.0,because bringing on that extra foot roller now means they lose a back roller and in phase play back rows are usually a bit more handy than the front rowers,scrum,0.1461
-2947.5,2952.5,and in phase play back rows are usually a bit more handy than the front rowers so no dissent credit to the front row union but certainly interesting tactics from georgia,scrum,0.1461
-2952.0,2957.0,but certainly interesting tactics from georgia yeah great point a full six minutes portugal without having to bring on that front row man,scrum,0.1461
-2956.5,2961.5,portugal without having to bring on that front row man keep it up take it out,scrum,0.1461
-2961.0,2966.0,take it out quistar under pressure ball is available for gazzet,scrum,0.1461
+2938.5,2943.5,tactically really a bit shocked by georgias option before not to take a scrum rather than the line up from the penalty because bringing on that extra foot roller now means they lose a back roller,scrum,0.4514
+2943.0,2948.0,because bringing on that extra foot roller now means they lose a back roller and in phase play back rows are usually a bit more handy than the front rowers,scrum,0.4514
+2947.5,2952.5,and in phase play back rows are usually a bit more handy than the front rowers so no dissent credit to the front row union but certainly interesting tactics from georgia,scrum,0.4514
+2952.0,2957.0,but certainly interesting tactics from georgia yeah great point a full six minutes portugal without having to bring on that front row man,scrum,0.4514
+2956.5,2961.5,portugal without having to bring on that front row man keep it up take it out,scrum,0.4514
+2961.0,2966.0,take it out quistar under pressure ball is available for gazzet,scrum,0.4514
 2965.5,2970.5,ball is available for gazzet he spins away to the left absham gazzet to his captain shadi gazzet nice shot from pedro butancura,normal_play,0.0054
 2970.0,2975.0,nice shot from pedro butancura,normal_play,0.0054
 2974.5,2979.5,that is much more like it from the portuguese defence theyve been under so much pressure in the first half,normal_play,0.0054
 2979.0,2984.0,theyve been under so much pressure in the first half and that was better more aggressive defence,normal_play,0.0054
-2983.5,2988.5,and that was better more aggressive defence pedro butancura just supplying himself perfect timing as the pass comes in right there knocks the arm,lineout,0.121
-2988.0,2993.0,right there knocks the arm thank you sir hes done a lot of good things butancura,lineout,0.121
-2992.5,2997.5,hes done a lot of good things butancura get up shadi gazzet great come down thomas manic figure for georgia,lineout,0.121
-2997.0,3002.0,thomas manic figure for georgia 50th time as captain better line up from portugal to martins,lineout,0.121
-3001.5,3006.5,better line up from portugal to martins and portela off to butancura and now heres suzygec,lineout,0.121
+2983.5,2988.5,and that was better more aggressive defence pedro butancura just supplying himself perfect timing as the pass comes in right there knocks the arm,lineout,0.3233
+2988.0,2993.0,right there knocks the arm thank you sir hes done a lot of good things butancura,lineout,0.3233
+2992.5,2997.5,hes done a lot of good things butancura get up shadi gazzet great come down thomas manic figure for georgia,lineout,0.3233
+2997.0,3002.0,thomas manic figure for georgia 50th time as captain better line up from portugal to martins,lineout,0.3233
+3001.5,3006.5,better line up from portugal to martins and portela off to butancura and now heres suzygec,lineout,0.3233
 3006.0,3011.0,and now heres suzygec marta running at tabut sadzi who clings onto him and drags him just onto the white piece of the touchline,normal_play,0.0054
 3010.5,3015.5,and drags him just onto the white piece of the touchline,normal_play,0.0054
 3015.0,3020.0,well wyn plays a little bit different than he used to be,normal_play,0.0054
 3019.5,3024.5,well wyn plays a little bit different than he used to be he gets that wide ball not a lot on he was trying to stay on the park does just enough and then his hand goes over the line right there,normal_play,0.0054
 3024.0,3029.0,does just enough and then his hand goes over the line right there and thats the turnover thats poor attack from a team who love to attack,normal_play,0.0054
-3028.5,3033.5,thats poor attack from a team who love to attack if you have a short line up it means your big runners can be out wide,lineout,0.121
-3033.0,3038.0,if you have a short line up it means your big runners can be out wide and make some inroads he was just checked passing didnt really threaten,lineout,0.121
-3037.5,3042.5,he was just checked passing didnt really threaten and as a result ran into touch portugal need to improve from that georgia lost three liners against australia,lineout,0.121
-3042.0,3047.0,georgia lost three liners against australia perfect thus far and they set each department,maul,0.2353
-3046.5,3051.5,and they set each department martins has got way through on the middle of that ball,maul,0.2353
-3051.0,3056.0,martins has got way through on the middle of that ball martins hes helping georgia backwards,maul,0.2353
-3055.5,3060.5,martins hes helping georgia backwards they have to play this the catch that is superb mall defence from portugal,maul,0.2353
-3060.0,3065.0,that is superb mall defence from portugal and nicola martins in the orange scrum cap,maul,0.2353
+3028.5,3033.5,thats poor attack from a team who love to attack if you have a short line up it means your big runners can be out wide,lineout,0.3248
+3033.0,3038.0,if you have a short line up it means your big runners can be out wide and make some inroads he was just checked passing didnt really threaten,lineout,0.3248
+3037.5,3042.5,he was just checked passing didnt really threaten and as a result ran into touch portugal need to improve from that georgia lost three liners against australia,lineout,0.3248
+3042.0,3047.0,georgia lost three liners against australia perfect thus far and they set each department,maul,0.3642
+3046.5,3051.5,and they set each department martins has got way through on the middle of that ball,maul,0.3642
+3051.0,3056.0,martins has got way through on the middle of that ball martins hes helping georgia backwards,maul,0.3119
+3055.5,3060.5,martins hes helping georgia backwards they have to play this the catch that is superb mall defence from portugal,maul,0.3119
+3060.0,3065.0,that is superb mall defence from portugal and nicola martins in the orange scrum cap,maul,0.2926
 3064.5,3069.5,and nicola martins in the orange scrum cap it is vintage mall disruption turn over,normal_play,0.0054
 3069.0,3074.0,turn over yeah if youre new to rugby a mall is when the balls off the ground no tackle is complete here,normal_play,0.0054
 3073.5,3078.5,no tackle is complete here and once they form up this mall and try pushing forward they have to use the ball when the referee says it,normal_play,0.0054
 3078.0,3083.0,they have to use the ball when the referee says it but look at the big number seven swimming through there nicola martins does just enough,normal_play,0.0054
 3082.5,3087.5,nicola martins does just enough look at him just competing all the way because they cant get to ground,normal_play,0.0054
 3087.0,3092.0,because they cant get to ground radjuskay and the coaches can celebrate it will be a portugal put in,normal_play,0.0054
-3091.5,3096.5,it will be a portugal put in,scrum,0.1461
-3096.0,3101.0,such a good player for the lead against the welsh nicola martins a try scorer,scrum,0.1461
-3100.5,3105.5,nicola martins a try scorer joint top tackle with 14 he makes more dominant tackle a tackle that forces your opponent backwards,scrum,0.1461
-3105.0,3110.0,a tackle that forces your opponent backwards than any other player in the portuguese side,scrum,0.1461
-3109.5,3114.5,than any other player in the portuguese side unfortunately the reward of a scrum,scrum,0.1461
-3114.0,3119.0,unfortunately the reward of a scrum is like a lupacol to christmas georgia will be living this,scrum,0.1461
+3091.5,3096.5,it will be a portugal put in,scrum,0.4877
+3096.0,3101.0,such a good player for the lead against the welsh nicola martins a try scorer,scrum,0.4877
+3100.5,3105.5,nicola martins a try scorer joint top tackle with 14 he makes more dominant tackle a tackle that forces your opponent backwards,scrum,0.4877
+3105.0,3110.0,a tackle that forces your opponent backwards than any other player in the portuguese side,scrum,0.4877
+3109.5,3114.5,than any other player in the portuguese side unfortunately the reward of a scrum,scrum,0.4877
+3114.0,3119.0,unfortunately the reward of a scrum is like a lupacol to christmas georgia will be living this,scrum,0.4877
 3118.5,3123.5,georgia will be living this theyll be happy with the reset too as that yellow box on the left of your screen,normal_play,0.0054
-3123.0,3128.0,as that yellow box on the left of your screen is ticking away just over a minute for fernandes to come back,scrum,0.1461
-3127.5,3132.5,is ticking away just over a minute for fernandes to come back,scrum,0.1461
-3132.0,3137.0,catch,scrum,0.1461
-3136.5,3141.5,boy,scrum,0.1461
-3141.0,3146.0,set,scrum,0.1461
-3145.5,3150.5,so the portuguese scrum does enough,scrum,0.1461
+3123.0,3128.0,as that yellow box on the left of your screen is ticking away just over a minute for fernandes to come back,scrum,0.212
+3127.5,3132.5,is ticking away just over a minute for fernandes to come back,scrum,0.212
+3132.0,3137.0,catch,scrum,0.212
+3136.5,3141.5,boy,scrum,0.212
+3141.0,3146.0,set,scrum,0.212
+3145.5,3150.5,so the portuguese scrum does enough,scrum,0.212
 3150.0,3155.0,casimo ish can play away trying to go over the top of aposizu,normal_play,0.0054
 3154.5,3159.5,trying to go over the top of aposizu who goes onto a giant limp cadera maybe up to ten tackle without the ball,normal_play,0.0054
 3159.0,3164.0,cadera maybe up to ten tackle without the ball looking to make an impact with it,normal_play,0.0054
@@ -702,9 +702,9 @@ start_time,end_time,text,event_class,highlight_score
 3186.0,3191.0,portela sees a gap hes come right but chachanize he keeps the ball alive,normal_play,0.0054
 3190.5,3195.5,but chachanize he keeps the ball alive this is put on court suza gets to the outside sturtees rubber abshan dantze traps it back well,normal_play,0.0054
 3195.0,3200.0,abshan dantze traps it back well and theyll go back for the second of those penalty advantages,normal_play,0.0054
-3199.5,3204.5,and theyll go back for the second of those penalty advantages chachanizes high tackle and francisco fernandes prepares to re enter the pitch,penalty,0.3546
-3204.0,3209.0,and francisco fernandes prepares to re enter the pitch high tackle,penalty,0.3546
-3208.5,3213.5,high tackle cant wait to get back out there its a penalty for the high tackle but deceptive and how about portela just finding half gaps in this georgian defence,penalty,0.3546
+3199.5,3204.5,and theyll go back for the second of those penalty advantages chachanizes high tackle and francisco fernandes prepares to re enter the pitch,penalty,0.5908
+3204.0,3209.0,and francisco fernandes prepares to re enter the pitch high tackle,penalty,0.5908
+3208.5,3213.5,high tackle cant wait to get back out there its a penalty for the high tackle but deceptive and how about portela just finding half gaps in this georgian defence,penalty,0.5908
 3213.0,3218.0,and how about portela just finding half gaps in this georgian defence he gets high tackle here and this could be a yell,normal_play,0.0054
 3217.5,3222.5,he gets high tackle here and this could be a yell the rest may have a look the crowd are going to let them know what they think,normal_play,0.0054
 3222.0,3227.0,the crowd are going to let them know what they think what are we doing,normal_play,0.0054
@@ -715,17 +715,17 @@ start_time,end_time,text,event_class,highlight_score
 3244.5,3249.5,everyone in the crowd wants to see the uproar nice to see smiles on faces,normal_play,0.0054
 3249.0,3254.0,its very much about portugal now grabbing hold of an opportunity and getting points back on the board,normal_play,0.0054
 3253.5,3258.5,and getting points back on the board a little glimpse of the francisco fernandes fan club there theres a section of portuguese support with fernandes face masks,normal_play,0.0054
-3258.0,3263.0,theres a section of portuguese support with fernandes face masks might have been taking them off and hiding them a few minutes ago,goal_kick,0.7814
-3262.5,3267.5,might have been taking them off and hiding them a few minutes ago but they can enjoy the big fellas return so of course theyre off,goal_kick,0.7814
-3267.0,3272.0,so of course theyre off joel granati who was sacrificed on francisco fernandes back with us,goal_kick,0.7814
-3271.5,3276.5,francisco fernandes back with us this kick to cut the gap to five,goal_kick,0.7814
-3276.0,3281.0,this kick to cut the gap to five,goal_kick,0.7814
-3285.0,3290.0,march nails it georgia 13 portugal 8,goal_kick,0.7814
-3289.5,3294.5,georgia 13 portugal 8 we have a game on our hands ladies and gentlemen,goal_kick,0.7814
-3294.0,3299.0,wow theyve been hanging around therell be some questions being asked with the georgians,goal_kick,0.7814
-3298.5,3303.5,therell be some questions being asked with the georgians well see how they respond here will scrum half is doing well today,goal_kick,0.7814
-3303.0,3308.0,will scrum half is doing well today,kick_off,0.1931
-3307.5,3312.5,bad mistake from javier restorti,kick_off,0.1931
+3258.0,3263.0,theres a section of portuguese support with fernandes face masks might have been taking them off and hiding them a few minutes ago,goal_kick,0.8688
+3262.5,3267.5,might have been taking them off and hiding them a few minutes ago but they can enjoy the big fellas return so of course theyre off,goal_kick,0.8688
+3267.0,3272.0,so of course theyre off joel granati who was sacrificed on francisco fernandes back with us,goal_kick,0.8688
+3271.5,3276.5,francisco fernandes back with us this kick to cut the gap to five,goal_kick,0.8688
+3276.0,3281.0,this kick to cut the gap to five,goal_kick,0.8688
+3285.0,3290.0,march nails it georgia 13 portugal 8,goal_kick,0.8688
+3289.5,3294.5,georgia 13 portugal 8 we have a game on our hands ladies and gentlemen,goal_kick,0.8688
+3294.0,3299.0,wow theyve been hanging around therell be some questions being asked with the georgians,goal_kick,0.8688
+3298.5,3303.5,therell be some questions being asked with the georgians well see how they respond here will scrum half is doing well today,goal_kick,0.8688
+3303.0,3308.0,will scrum half is doing well today,kick_off,0.5159
+3307.5,3312.5,bad mistake from javier restorti,kick_off,0.5159
 3312.0,3317.0,bad mistake from javier restorti a stunning score hosted portugal back into the scale,normal_play,0.0054
 3316.5,3321.5,hosted portugal back into the scale lach fusilois,normal_play,0.0054
 3321.0,3326.0,fusilois i was happy there to make that run,normal_play,0.0054
@@ -759,10 +759,10 @@ start_time,end_time,text,event_class,highlight_score
 3447.0,3452.0,from the portuguese boys and this georgian defense is starting to fall apart theyve only made 42 tackle but theyve missed 12,normal_play,0.0054
 3451.5,3456.5,theyve only made 42 tackle but theyve missed 12 so one in four tackle is missed and theyre lucky out here,normal_play,0.0054
 3456.0,3461.0,and theyre lucky out here the skipper decided to keep it i wonder if he could have given it outside,normal_play,0.0054
-3460.5,3465.5,i wonder if he could have given it outside just five meters short but thats been the story for me as some of the subs start to come on here rob,lineout,0.121
-3465.0,3470.0,rob the georgia just falling off tackle out there its like a rookie film,lineout,0.121
-3469.5,3474.5,its like a rookie film toot and fro when possession comes through just that tempo change from portugal is incredible,lineout,0.121
-3474.0,3479.0,just that tempo change from portugal is incredible heres marta hes a jack in the box,lineout,0.121
+3460.5,3465.5,i wonder if he could have given it outside just five meters short but thats been the story for me as some of the subs start to come on here rob,lineout,0.4726
+3465.0,3470.0,rob the georgia just falling off tackle out there its like a rookie film,lineout,0.4726
+3469.5,3474.5,its like a rookie film toot and fro when possession comes through just that tempo change from portugal is incredible,lineout,0.4726
+3474.0,3479.0,just that tempo change from portugal is incredible heres marta hes a jack in the box,lineout,0.4726
 3478.5,3483.5,hes a jack in the box kigash really hauls him down what ground he made another penalty advantage portugal,normal_play,0.0054
 3483.0,3488.0,another penalty advantage portugal marks around the fringes the veteran hooker,normal_play,0.0054
 3487.5,3492.5,the veteran hooker marks again hasper gaila,normal_play,0.0054
@@ -798,10 +798,10 @@ start_time,end_time,text,event_class,highlight_score
 3627.0,3632.0,wonderful scenes in the stands,normal_play,0.0054
 3631.5,3636.5,these fans feel this is their day they feel history is at hand,normal_play,0.0054
 3636.0,3641.0,they feel history is at hand as levan maistashvili goes to his bench again and brings on,normal_play,0.0054
-3640.5,3645.5,goes to his bench again and brings on young luka makkava at fly half for tere wabshan thats it strong first half,kick_off,0.1931
-3645.0,3650.0,thats it strong first half keeping with most of his team a quieter start to the second,kick_off,0.1931
-3649.5,3654.5,a quieter start to the second makkava can play hes a good game manager and they want his,kick_off,0.1931
-3654.0,3659.0,and they want his kick in and streaks marks in the contest,kick_off,0.1931
+3640.5,3645.5,goes to his bench again and brings on young luka makkava at fly half for tere wabshan thats it strong first half,kick_off,0.1869
+3645.0,3650.0,thats it strong first half keeping with most of his team a quieter start to the second,kick_off,0.1869
+3649.5,3654.5,a quieter start to the second makkava can play hes a good game manager and they want his,kick_off,0.1869
+3654.0,3659.0,and they want his kick in and streaks marks in the contest,kick_off,0.1869
 3658.5,3663.5,just under half an hour to play,normal_play,0.0054
 3667.5,3672.5,okay use the ball,normal_play,0.0054
 3672.0,3677.0,okay use the ball holding naturally,normal_play,0.0054
@@ -809,10 +809,10 @@ start_time,end_time,text,event_class,highlight_score
 3681.0,3686.0,34 years of age some of the marks should be 35 in december he still has such,normal_play,0.0054
 3685.5,3690.5,he still has such towering importance in this portuguese squad,normal_play,0.0054
 3690.0,3695.0,in this portuguese squad all of his wisdom all of his experience and of course his 82nd minute penalty,normal_play,0.0054
-3694.5,3699.5,and of course his 82nd minute penalty that took portugal to the world cup defeating the usa,lineout,0.121
-3699.0,3704.0,defeating the usa its coming twice well the kick in game we thought would be a bigger factor,lineout,0.121
-3703.5,3708.5,well the kick in game we thought would be a bigger factor but both teams are playing with ball in hand it works out for georgia,lineout,0.121
-3708.0,3713.0,it works out for georgia portugal have stolen it again,lineout,0.121
+3694.5,3699.5,and of course his 82nd minute penalty that took portugal to the world cup defeating the usa,lineout,0.1207
+3699.0,3704.0,defeating the usa its coming twice well the kick in game we thought would be a bigger factor,lineout,0.1207
+3703.5,3708.5,well the kick in game we thought would be a bigger factor but both teams are playing with ball in hand it works out for georgia,lineout,0.1207
+3708.0,3713.0,it works out for georgia portugal have stolen it again,lineout,0.1207
 3712.5,3717.5,portugal have stolen it again jose madero this time another important breakdown jackal,normal_play,0.0054
 3717.0,3722.0,jackal and portela flings it wide appleton,normal_play,0.0054
 3721.5,3726.5,appleton can they create more magic put on core,normal_play,0.0054
@@ -833,17 +833,17 @@ start_time,end_time,text,event_class,highlight_score
 3789.0,3794.0,theres a lot of forwards generally looking pretty tired here we see substitutes are made to exactly repair what were seeing,normal_play,0.0054
 3793.5,3798.5,repair what were seeing and the exhaustion from that first 40 minutes is showing on both sides of the field,normal_play,0.0054
 3798.0,3803.0,40 minutes is showing on both sides of the field special moment for the man wearing number 19 today,normal_play,0.0054
-3802.5,3807.5,number 19 today no doubt che ashvili big sheathed head in the middle of that georgian scrum its his 50th cap today,scrum,0.1461
-3807.0,3812.0,its his 50th cap today hes come on for him fingy zampter adds it on as well,scrum,0.1461
-3811.5,3816.5,fingy zampter adds it on as well for shabnam amakashvili and that is the end of the game for,scrum,0.1461
-3816.0,3821.0,and that is the end of the game for shabnam amakashvili big man big character,scrum,0.1461
-3820.5,3825.5,big man big character pitch support here to ronevon and that he pushed up,scrum,0.1461
-3825.0,3830.0,and that he pushed up ronevon might be with us for the duration back to more comfortable territory,scrum,0.1461
-3829.5,3834.5,back to more comfortable territory the great shot from the cable can its the drone but scrum time for georgia,scrum,0.1461
-3834.0,3839.0,its the drone but scrum time for georgia they can build something from this set,scrum,0.1461
-3838.5,3843.5,set,scrum,0.1461
-3843.0,3848.0,vasite for tabudzadeh again off his wing,scrum,0.1461
-3847.5,3852.5,again off his wing heres makaava clattered right by hidrobutankur,scrum,0.1461
+3802.5,3807.5,number 19 today no doubt che ashvili big sheathed head in the middle of that georgian scrum its his 50th cap today,scrum,0.4877
+3807.0,3812.0,its his 50th cap today hes come on for him fingy zampter adds it on as well,scrum,0.4877
+3811.5,3816.5,fingy zampter adds it on as well for shabnam amakashvili and that is the end of the game for,scrum,0.4877
+3816.0,3821.0,and that is the end of the game for shabnam amakashvili big man big character,scrum,0.4877
+3820.5,3825.5,big man big character pitch support here to ronevon and that he pushed up,scrum,0.4877
+3825.0,3830.0,and that he pushed up ronevon might be with us for the duration back to more comfortable territory,scrum,0.4877
+3829.5,3834.5,back to more comfortable territory the great shot from the cable can its the drone but scrum time for georgia,scrum,0.4877
+3834.0,3839.0,its the drone but scrum time for georgia they can build something from this set,scrum,0.4877
+3838.5,3843.5,set,scrum,0.4877
+3843.0,3848.0,vasite for tabudzadeh again off his wing,scrum,0.4877
+3847.5,3852.5,again off his wing heres makaava clattered right by hidrobutankur,scrum,0.4877
 3852.0,3857.0,hidrobutankur ronevon ashvili looking at most of a difficult situation,normal_play,0.0054
 3856.5,3861.5,looking at most of a difficult situation gets the hands free and pops it off beautifully a steal,normal_play,0.0054
 3861.0,3866.0,a steal pinch back these wolves of portugal,normal_play,0.0054
@@ -855,9 +855,9 @@ start_time,end_time,text,event_class,highlight_score
 3888.0,3893.0,well everythings going portugals way,normal_play,0.0054
 3892.5,3897.5,well everythings going portugals way the contact here watch the big number four coming in said ill have some of that jose madeira and those are the things,normal_play,0.0054
 3897.0,3902.0,jose madeira and those are the things that are making a difference right now just like this kick thats gone straight into touch,normal_play,0.0054
-3901.5,3906.5,just like this kick thats gone straight into touch watched all the way by mouros uzegich,lineout,0.121
-3906.0,3911.0,watched all the way by mouros uzegich one of those inspired by,lineout,0.121
-3910.5,3915.5,the great 2007 vintage portugal have never won a rugby world cup match,lineout,0.121
+3901.5,3906.5,just like this kick thats gone straight into touch watched all the way by mouros uzegich,lineout,0.4726
+3906.0,3911.0,watched all the way by mouros uzegich one of those inspired by,lineout,0.4726
+3910.5,3915.5,the great 2007 vintage portugal have never won a rugby world cup match,lineout,0.4726
 3915.0,3920.0,cup match they havent beaten georgia in 15 years,try,1.0
 3919.5,3924.5,in 15 years march,try,1.0
 3924.0,3929.0,march theyll tell that new options he doesnt need any what a pass inside,try,1.0
@@ -870,39 +870,39 @@ start_time,end_time,text,event_class,highlight_score
 3964.5,3969.5,well the ball was balled initially but portela whos been for me the man the thorn in the side of the georgians gets it to the pace man and stortis,normal_play,0.0054
 3969.0,3974.0,gets it to the pace man and stortis looks to set up the fullback actually its the blind winger tadua and he just falls down,normal_play,0.0054
 3973.5,3978.5,blind winger tadua and he just falls down cant believe his luck watch as he squares up here,normal_play,0.0054
-3978.0,3983.0,as he squares up here the last defender falls on the ground and storti has a run in for a second,goal_kick,0.7814
-3982.5,3987.5,and storti has a run in for a second,goal_kick,0.7814
-3987.0,3992.0,he wasnt picked last weekend fans saw pinto go ahead of him,goal_kick,0.7814
-3991.5,3996.5,fans saw pinto go ahead of him pinto might have played today if he hadnt been suspended,goal_kick,0.7814
-3996.0,4001.0,if he hadnt been suspended and no match,goal_kick,0.7814
-4000.5,4005.5,and no match to stretch the portuguese leads no problem amazing,goal_kick,0.7814
-4005.0,4010.0,amazing from 13 mil down,goal_kick,0.7814
-4009.5,4014.5,mil down they lead 18 13 well,goal_kick,0.7814
-4014.0,4019.0,well markson and portela in the 9 and 10 jersey are dominating,goal_kick,0.7814
-4018.5,4023.5,in the 9 and 10 jersey are dominating theyre winning this battle stortis getting the reward look at the,goal_kick,0.7814
+3978.0,3983.0,as he squares up here the last defender falls on the ground and storti has a run in for a second,goal_kick,0.8688
+3982.5,3987.5,and storti has a run in for a second,goal_kick,0.8688
+3987.0,3992.0,he wasnt picked last weekend fans saw pinto go ahead of him,goal_kick,0.8688
+3991.5,3996.5,fans saw pinto go ahead of him pinto might have played today if he hadnt been suspended,goal_kick,0.8688
+3996.0,4001.0,if he hadnt been suspended and no match,goal_kick,0.8688
+4000.5,4005.5,and no match to stretch the portuguese leads no problem amazing,goal_kick,0.8688
+4005.0,4010.0,amazing from 13 mil down,goal_kick,0.8688
+4009.5,4014.5,mil down they lead 18 13 well,goal_kick,0.8688
+4014.0,4019.0,well markson and portela in the 9 and 10 jersey are dominating,goal_kick,0.8688
+4018.5,4023.5,in the 9 and 10 jersey are dominating theyre winning this battle stortis getting the reward look at the,goal_kick,0.8688
 4023.0,4028.0,look at the passion and not the last time,normal_play,0.0054
 4027.5,4032.5,and not the last time youre going to be hearing rafael storti scoring some rogues,normal_play,0.0054
 4032.0,4037.0,scoring some rogues the young man 22 years old getting celebrated by the oldest boy 38,normal_play,0.0054
-4036.5,4041.5,by the oldest boy 38 fantastic for portugal,kick_off,0.1931
-4045.5,4050.5,rafael storti was named francisco fernandes made his portugal debut,kick_off,0.1931
-4050.0,4055.0,francisco fernandes made his portugal debut in 2010 a lot of big,kick_off,0.1931
-4054.5,4059.5,a lot of big george and penalty there portugal holding on,penalty,0.3546
-4059.0,4064.0,thats a huge call portugal had their hands on,penalty,0.3546
-4063.5,4068.5,portugal had their hands on the penalty you know what this means rob kick down the line,penalty,0.3546
+4036.5,4041.5,by the oldest boy 38 fantastic for portugal,kick_off,0.5159
+4045.5,4050.5,rafael storti was named francisco fernandes made his portugal debut,kick_off,0.5159
+4050.0,4055.0,francisco fernandes made his portugal debut in 2010 a lot of big,kick_off,0.5159
+4054.5,4059.5,a lot of big george and penalty there portugal holding on,penalty,0.3703
+4059.0,4064.0,thats a huge call portugal had their hands on,penalty,0.3703
+4063.5,4068.5,portugal had their hands on the penalty you know what this means rob kick down the line,penalty,0.3703
 4068.0,4073.0,kick down the line line out pressure from the forwards this is where the forwards,normal_play,0.0054
 4072.5,4077.5,this is where the forwards are really going to have to step up for georgia they love going forward they love driving line ups this is very much,normal_play,0.0054
 4077.0,4082.0,they love driving line ups this is very much something theyre going to grab and mold into what is,normal_play,0.0054
 4081.5,4086.5,and mold into what is a georgian masterpiece she loves it,normal_play,0.0054
-4086.0,4091.0,she loves it she loves it,lineout,0.121
-4090.5,4095.5,first throw for dungas zantaradze,lineout,0.121
-4095.0,4100.0,well martins got hands to it who wants this match ball,lineout,0.121
-4099.5,4104.5,who wants this match ball portugal do last fine,lineout,0.121
+4086.0,4091.0,she loves it she loves it,lineout,0.2368
+4090.5,4095.5,first throw for dungas zantaradze,lineout,0.2368
+4095.0,4100.0,well martins got hands to it who wants this match ball,lineout,0.2368
+4099.5,4104.5,who wants this match ball portugal do last fine,lineout,0.2368
 4104.0,4109.0,last fine last fine and suddenly all the things that were going well for georgia,normal_play,0.0054
 4108.5,4113.5,and suddenly all the things that were going well for georgia swimmingly well in the first half are threatening to implode in the second,normal_play,0.0054
-4113.0,4118.0,in the second easy,penalty,0.3546
-4117.5,4122.5,another georgian penalty,penalty,0.3546
-4122.0,4127.0,another georgian penalty portugal off their feet hugo hasfahegar,penalty,0.3546
-4126.5,4131.5,hugo hasfahegar straight to ground wearing three sailing straight off,penalty,0.3546
+4113.0,4118.0,in the second easy,penalty,0.452
+4117.5,4122.5,another georgian penalty,penalty,0.452
+4122.0,4127.0,another georgian penalty portugal off their feet hugo hasfahegar,penalty,0.452
+4126.5,4131.5,hugo hasfahegar straight to ground wearing three sailing straight off,penalty,0.452
 4131.0,4136.0,so the call is the arriving portuguese players,normal_play,0.0054
 4135.5,4140.5,the arriving portuguese players arent holding their weight theyre sealing it off to me a tough call,normal_play,0.0054
 4140.0,4145.0,to me a tough call here they go here we go georgia desperate for some momentum,normal_play,0.0054
@@ -910,10 +910,10 @@ start_time,end_time,text,event_class,highlight_score
 4149.0,4154.0,thats incredible last ditch defence its heroic from portugal,normal_play,0.0054
 4153.5,4158.5,its heroic from portugal becker gorganzi turned turtle,normal_play,0.0054
 4158.0,4163.0,becker gorganzi turned turtle over the portuguese line its a goal on drop out,normal_play,0.0054
-4162.5,4167.5,its a goal on drop out its petancourt what a play what a play,kick_off,0.1931
-4167.0,4172.0,what a play what a play well one of the best scrum in the tournament they turned down the five meter scrum,kick_off,0.1931
-4171.5,4176.5,one of the best scrum in the tournament they turned down the five meter scrum its a well worked play but petancourt has the presence of mind,kick_off,0.1931
-4176.0,4181.0,but petancourt has the presence of mind get on the ball what a drop out,kick_off,0.1931
+4162.5,4167.5,its a goal on drop out its petancourt what a play what a play,kick_off,0.5159
+4167.0,4172.0,what a play what a play well one of the best scrum in the tournament they turned down the five meter scrum,kick_off,0.5159
+4171.5,4176.5,one of the best scrum in the tournament they turned down the five meter scrum its a well worked play but petancourt has the presence of mind,kick_off,0.5159
+4176.0,4181.0,but petancourt has the presence of mind get on the ball what a drop out,kick_off,0.5159
 4180.5,4185.5,max chases nuno esquivel away back into his own half oka red nuno esquivel sends it skywards,normal_play,0.0054
 4185.0,4190.0,nuno esquivel sends it skywards its won by portugal martins has pause on it,normal_play,0.0054
 4189.5,4194.5,martins has pause on it pick up that is for max he feeds on to saqueira,normal_play,0.0054
@@ -947,17 +947,17 @@ start_time,end_time,text,event_class,highlight_score
 4320.0,4325.0,concern that maybe hes milking this a little bit hes definitely contacted in the air its a great take as you said,normal_play,0.0054
 4324.5,4329.5,its a great take as you said the pace of this game still 18 minutes to play we can play,normal_play,0.0054
 4329.0,4334.0,we can play really good take he does get hit in the air thats the penalty,normal_play,0.0054
-4333.5,4338.5,he does get hit in the air thats the penalty marks up there guys back to 10 minutes,penalty,0.3546
-4338.0,4343.0,guys back to 10 minutes heres our mark here and its a penalty,penalty,0.3546
-4342.5,4347.5,and its a penalty its a penalty and rizzi just nailed it the game play now for the next 18 minutes,penalty,0.3546
-4347.0,4352.0,the game play now for the next 18 minutes has to be at a lower tempo they cannot sustain this level,penalty,0.3546
-4351.5,4356.5,they cannot sustain this level of pace across the pitch you can see much hes absolutely spent as a scrimmage,penalty,0.3546
+4333.5,4338.5,he does get hit in the air thats the penalty marks up there guys back to 10 minutes,penalty,0.6128
+4338.0,4343.0,guys back to 10 minutes heres our mark here and its a penalty,penalty,0.6128
+4342.5,4347.5,and its a penalty its a penalty and rizzi just nailed it the game play now for the next 18 minutes,penalty,0.6128
+4347.0,4352.0,the game play now for the next 18 minutes has to be at a lower tempo they cannot sustain this level,penalty,0.6128
+4351.5,4356.5,they cannot sustain this level of pace across the pitch you can see much hes absolutely spent as a scrimmage,penalty,0.6128
 4356.0,4361.0,hes absolutely spent as a scrimmage because hes doing all the wits its about using that pace and extra,normal_play,0.0054
-4360.5,4365.5,its about using that pace and extra gear that portugal clearly have at the right times and georgia needs to keep grinding,lineout,0.121
-4365.0,4370.0,needs to keep grinding georgia up to 20 missed tackle and the possession stats 53 for,lineout,0.121
-4369.5,4374.5,and the possession stats 53 for georgia that was 67 now portugal with 47 of the ball,lineout,0.121
-4374.0,4379.0,now portugal with 47 of the ball whats happening a tale of two hearts,lineout,0.121
-4378.5,4383.5,a tale of two hearts a tale of two latex as well portugal just fumbled after running it back,lineout,0.121
+4360.5,4365.5,its about using that pace and extra gear that portugal clearly have at the right times and georgia needs to keep grinding,lineout,0.4726
+4365.0,4370.0,needs to keep grinding georgia up to 20 missed tackle and the possession stats 53 for,lineout,0.4726
+4369.5,4374.5,and the possession stats 53 for georgia that was 67 now portugal with 47 of the ball,lineout,0.4726
+4374.0,4379.0,now portugal with 47 of the ball whats happening a tale of two hearts,lineout,0.4726
+4378.5,4383.5,a tale of two hearts a tale of two latex as well portugal just fumbled after running it back,lineout,0.4726
 4383.0,4388.0,running it back portela a bit of soccerista style,normal_play,0.0054
 4387.5,4392.5,a bit of soccerista style suza ghech with the hitch kick taking on shere khanzeh,normal_play,0.0054
 4392.0,4397.0,with the hitch kick taking on shere khanzeh but onkur with him yeah got to his feet,normal_play,0.0054
@@ -980,14 +980,14 @@ start_time,end_time,text,event_class,highlight_score
 4468.5,4473.5,way at the moment guys please stand i think that gap is far too big far too big were just going to go straight down there please reset they just look,normal_play,0.0054
 4473.0,4478.0,please reset they just look too big less subs on for portugal as youd,normal_play,0.0054
 4477.5,4482.5,less subs on for portugal as youd expect because the boys on there are doing the job theyre up by five,normal_play,0.0054
-4482.0,4487.0,the job theyre up by five looking for their first ever rugby world cup win,scrum,0.1461
-4486.5,4491.5,win the two moments where youd think that georgia would have gone for the scrum they havent the line up is subsequently the tap five meters,scrum,0.1461
-4491.0,4496.0,the line up is subsequently the tap five meters out this is their bedrock this is their foundation for everything they need,scrum,0.1461
-4495.5,4500.5,bedrock this is their foundation for everything they need to be seeing the scrum as a sanctuary thomas sarge stays right in behind,scrum,0.1461
-4500.0,4505.0,thomas sarge stays right in behind that scrum lets see where he goes,scrum,0.1461
-4504.5,4509.5,the second of the shot comes in from portugal and they win the penalty,scrum,0.1461
-4509.0,4514.0,and they win the penalty,penalty,0.3546
-4513.5,4518.5,back and down far side,penalty,0.3546
+4482.0,4487.0,the job theyre up by five looking for their first ever rugby world cup win,scrum,0.4877
+4486.5,4491.5,win the two moments where youd think that georgia would have gone for the scrum they havent the line up is subsequently the tap five meters,scrum,0.4877
+4491.0,4496.0,the line up is subsequently the tap five meters out this is their bedrock this is their foundation for everything they need,scrum,0.4877
+4495.5,4500.5,bedrock this is their foundation for everything they need to be seeing the scrum as a sanctuary thomas sarge stays right in behind,scrum,0.4877
+4500.0,4505.0,thomas sarge stays right in behind that scrum lets see where he goes,scrum,0.4877
+4504.5,4509.5,the second of the shot comes in from portugal and they win the penalty,scrum,0.4877
+4509.0,4514.0,and they win the penalty,penalty,0.3278
+4513.5,4518.5,back and down far side,penalty,0.3278
 4518.0,4523.0,far side well you dont see that every day the georgian scrum the nudge,normal_play,0.0054
 4522.5,4527.5,the georgian scrum the nudge comes from there theyre the ones who are penalty for taking it down well do it at the line up thats the portuguese five row and,normal_play,0.0054
 4527.0,4532.0,well do it at the line up thats the portuguese five row and the tight five are doing their job yeah full penalty,normal_play,0.0054
@@ -999,11 +999,11 @@ start_time,end_time,text,event_class,highlight_score
 4554.0,4559.0,well how about the 34 year old mike tadjim this is clubbing at pepinho on the,normal_play,0.0054
 4558.5,4563.5,this is clubbing at pepinho on the hooker portugal still in there still throwing this line up,normal_play,0.0054
 4563.0,4568.0,wilt aplanzi winning 23 trotting on for sandro todoa,normal_play,0.0054
-4567.5,4572.5,for sandro todoa hes there sorry,lineout,0.121
-4572.0,4577.0,sorry are we good to go hes off the back there now,lineout,0.121
-4576.5,4581.5,hes off the back there now time back on into this engrossing encounter,lineout,0.121
-4581.0,4586.0,engrossing encounter and overthrowing the line out appleton picks up,lineout,0.121
-4585.5,4590.5,appleton picks up the pieces portugal 10 metres out,lineout,0.121
+4567.5,4572.5,for sandro todoa hes there sorry,lineout,0.3438
+4572.0,4577.0,sorry are we good to go hes off the back there now,lineout,0.3438
+4576.5,4581.5,hes off the back there now time back on into this engrossing encounter,lineout,0.3438
+4581.0,4586.0,engrossing encounter and overthrowing the line out appleton picks up,lineout,0.3438
+4585.5,4590.5,appleton picks up the pieces portugal 10 metres out,lineout,0.3438
 4590.0,4595.0,10 metres out heres matinsh backwards,normal_play,0.0054
 4594.5,4599.5,backwards what a booster other try would give portugal,normal_play,0.0054
 4599.0,4604.0,how close they are to achieving,normal_play,0.0054
@@ -1025,11 +1025,11 @@ start_time,end_time,text,event_class,highlight_score
 4671.0,4676.0,shoulder out please,normal_play,0.0054
 4675.5,4680.5,shoulder out please,normal_play,0.0054
 4680.0,4685.0,good,normal_play,0.0054
-4684.5,4689.5,good this is what rugby world cups are all about,scrum,0.1461
-4689.0,4694.0,this is what rugby world cups are all about were here to lose 12 minutes to play,scrum,0.1461
-4693.5,4698.5,12 minutes to play fine,scrum,0.1461
-4698.0,4703.0,free kick georgia,scrum,0.1461
-4702.5,4707.5,free kick georgia no way no way close mike tazsia no way sir,scrum,0.1461
+4684.5,4689.5,good this is what rugby world cups are all about,scrum,0.373
+4689.0,4694.0,this is what rugby world cups are all about were here to lose 12 minutes to play,scrum,0.373
+4693.5,4698.5,12 minutes to play fine,scrum,0.373
+4698.0,4703.0,free kick georgia,scrum,0.373
+4702.5,4707.5,free kick georgia no way no way close mike tazsia no way sir,scrum,0.373
 4707.0,4712.0,close mike tazsia no way sir spice and balance like we spoke about,normal_play,0.0054
 4711.5,4716.5,spice and balance like we spoke about jilted front rowers around the rugby world,normal_play,0.0054
 4716.0,4721.0,kader bangs georgia downfields and they have some respite,normal_play,0.0054
@@ -1038,10 +1038,10 @@ start_time,end_time,text,event_class,highlight_score
 4729.5,4734.5,big lerl campa big i think its rugby anarcho show,normal_play,0.0054
 4734.0,4739.0,i think its rugby anarcho show,normal_play,0.0054
 4738.5,4743.5,he is retiring after the rugby world cup,normal_play,0.0054
-4743.0,4748.0,35 year old hooper is on from mike tazsia,lineout,0.121
-4747.5,4752.5,time on,lineout,0.121
-4752.0,4757.0,over his first throw is a good one,lineout,0.121
-4756.5,4761.5,his first throw is a good one the noise inside this stadium is quite incredible it might get louder in a few minutes time,lineout,0.121
+4743.0,4748.0,35 year old hooper is on from mike tazsia,lineout,0.4726
+4747.5,4752.5,time on,lineout,0.4726
+4752.0,4757.0,over his first throw is a good one,lineout,0.4726
+4756.5,4761.5,his first throw is a good one the noise inside this stadium is quite incredible it might get louder in a few minutes time,lineout,0.4726
 4761.0,4766.0,as marta gets away from kvisiladze shes a gitch to max,normal_play,0.0054
 4765.5,4770.5,shes a gitch to max at first receiver close from campa to betancur,normal_play,0.0054
 4770.0,4775.0,close from campa to betancur heres storti here come portugal is this their moment,normal_play,0.0054
@@ -1053,27 +1053,27 @@ start_time,end_time,text,event_class,highlight_score
 4797.0,4802.0,constantly asking questions again storti lucky for the hat trick does he get pulled in the touch,normal_play,0.0054
 4801.5,4806.5,does he get pulled in the touch foot just hits the line there nice work from the official,normal_play,0.0054
 4806.0,4811.0,nice work from the official frustrated portuguese fans,normal_play,0.0054
-4810.5,4815.5,beka sakurati has been replaced by jogi tsutsukurite from the georgian backboard,lineout,0.121
-4815.0,4820.0,from the georgian backboard what pressure on this throw now,lineout,0.121
-4819.5,4824.5,portuguese voices ringing in zantharadzes ears,lineout,0.121
-4824.0,4829.0,ringing in zantharadzes ears and he gets the money shot over the top beka gorgadze,lineout,0.121
+4810.5,4815.5,beka sakurati has been replaced by jogi tsutsukurite from the georgian backboard,lineout,0.151
+4815.0,4820.0,from the georgian backboard what pressure on this throw now,lineout,0.151
+4819.5,4824.5,portuguese voices ringing in zantharadzes ears,lineout,0.151
+4824.0,4829.0,ringing in zantharadzes ears and he gets the money shot over the top beka gorgadze,lineout,0.151
 4828.5,4833.5,beka gorgadze jorginho back to kava,normal_play,0.0054
 4833.0,4838.0,kava its a good feeling but again portugal are,normal_play,0.0054
 4837.5,4842.5,but again portugal are really want to be,normal_play,0.0054
 4842.0,4847.0,got a feel for the fans on the,normal_play,0.0054
 4846.5,4851.5,got a feel for the fans on the far side of the stadium to the right because theyve seen their rugby all the action has been down in this quarter,normal_play,0.0054
 4851.0,4856.0,down in this quarter georgia first half now portugal the second georgia without scoring,normal_play,0.0054
-4855.5,4860.5,the second georgia without scoring a point in the second half so far,lineout,0.121
-4864.5,4869.5,over the top again but appleton again is there the captain puts his body on,lineout,0.121
-4869.0,4874.0,the captain puts his body on the line to ensure its portuguese possession into the final,lineout,0.121
+4855.5,4860.5,the second georgia without scoring a point in the second half so far,lineout,0.4726
+4864.5,4869.5,over the top again but appleton again is there the captain puts his body on,lineout,0.4726
+4869.0,4874.0,the captain puts his body on the line to ensure its portuguese possession into the final,lineout,0.4726
 4873.5,4878.5,possession into the final ten minutes now five point game match,normal_play,0.0054
 4878.0,4883.0,five point game match away for wallace david wallace,normal_play,0.0054
 4882.5,4887.5,david wallace takes two down the front washed up,normal_play,0.0054
 4887.0,4892.0,march theres a gap there march finds some support to,normal_play,0.0054
-4891.5,4896.5,march finds some support to plunder through it big penalty georgia,penalty,0.3546
-4896.0,4901.0,big penalty georgia again thats important goren papite,penalty,0.3546
-4900.5,4905.5,goren papite with the beard march and two minds there,penalty,0.3546
-4905.0,4910.0,two minds there and he hit campos he didnt really want it and he got double,penalty,0.3546
+4891.5,4896.5,march finds some support to plunder through it big penalty georgia,penalty,0.6128
+4896.0,4901.0,big penalty georgia again thats important goren papite,penalty,0.6128
+4900.5,4905.5,goren papite with the beard march and two minds there,penalty,0.6128
+4905.0,4910.0,two minds there and he hit campos he didnt really want it and he got double,penalty,0.6128
 4909.5,4914.5,campos he didnt really want it and he got double tackle so perhaps a chance for the georgians to swing them over to nick,normal_play,0.0054
 4914.0,4919.0,for the georgians to swing them over to nick gains some territory back to set piece the loss at,normal_play,0.0054
 4918.5,4923.5,back to set piece the loss at piece didnt function and the ball was stolen,normal_play,0.0054
@@ -1081,8 +1081,8 @@ start_time,end_time,text,event_class,highlight_score
 4927.5,4932.5,a little slow to arrive wheres the portuguese support,normal_play,0.0054
 4932.0,4937.0,no no no no dont quit right where you are,lineout,0.0
 4936.5,4941.5,right where you are,lineout,0.0
-4945.5,4950.5,roger laneh goes to plan,lineout,0.121
-4950.0,4955.0,roger laneh goes to plan,lineout,0.121
+4945.5,4950.5,roger laneh goes to plan,lineout,0.1754
+4950.0,4955.0,roger laneh goes to plan,lineout,0.1754
 4954.5,4959.5,to pull this from the fire,normal_play,0.0054
 4959.0,4964.0,to pull this from the fire,normal_play,0.0054
 4963.5,4968.5,shaddy katzen a tireless skipper,normal_play,0.0054
@@ -1109,21 +1109,21 @@ start_time,end_time,text,event_class,highlight_score
 5058.0,5063.0,portuguese those statistics dont look surprising but the second half,normal_play,0.0054
 5062.5,5067.5,surprising but the second half portion of that is remarkable from portugal i was looking to be out there in dubai when they had,normal_play,0.0054
 5067.0,5072.0,i was looking to be out there in dubai when they had their golden moment to qualify for this tournament theyve built since then the strongest squad,normal_play,0.0054
-5071.5,5076.5,theyve built since then the strongest squad theyve ever assembled and their stats are backing it up they are fronting up here at the ruby world cup,scrum,0.1461
-5076.0,5081.0,they are fronting up here at the ruby world cup in portugal the service stats for meters made 600m,scrum,0.1461
-5080.5,5085.5,the service stats for meters made 600m in the game by portugal over 500 of those gained in the second half alone how the tables,scrum,0.1461
-5085.0,5090.0,half alone how the tables have turned,scrum,0.1461
-5089.5,5094.5,and now this oscillating poo match,scrum,0.1461
-5094.0,5099.0,hangs in the balance,scrum,0.1461
-5098.5,5103.5,who can step up and be a hero for their team david wallace who rescues the cheating,scrum,0.1461
+5071.5,5076.5,theyve built since then the strongest squad theyve ever assembled and their stats are backing it up they are fronting up here at the ruby world cup,scrum,0.3665
+5076.0,5081.0,they are fronting up here at the ruby world cup in portugal the service stats for meters made 600m,scrum,0.3665
+5080.5,5085.5,the service stats for meters made 600m in the game by portugal over 500 of those gained in the second half alone how the tables,scrum,0.3665
+5085.0,5090.0,half alone how the tables have turned,scrum,0.3665
+5089.5,5094.5,and now this oscillating poo match,scrum,0.3665
+5094.0,5099.0,hangs in the balance,scrum,0.3665
+5098.5,5103.5,who can step up and be a hero for their team david wallace who rescues the cheating,scrum,0.3665
 5103.0,5108.0,david wallace who rescues the cheating and soaks up the tackle,normal_play,0.0054
 5107.5,5112.5,young pedro lukas 22 years old draws an offside penalty,normal_play,0.0054
 5112.0,5117.0,draws an offside penalty george up too quickly portugal can gamble here with,normal_play,0.0054
-5116.5,5121.5,portugal can gamble here with suza ghej lukas as well offside 22s in front clearly 22s in front of the kick,penalty,0.3546
-5121.0,5126.0,22s in front of the kick cant chase a kick if youre in front of the,penalty,0.3546
-5125.5,5130.5,cant chase a kick if youre in front of the guy who kicked it offside and you know what in many ways they want this penalty,penalty,0.3546
-5130.0,5135.0,and you know what in many ways they want this penalty the clock is ticking through this 22 offside,penalty,0.3546
-5134.5,5139.5,22 offside the player was offside it was kava,penalty,0.3546
+5116.5,5121.5,portugal can gamble here with suza ghej lukas as well offside 22s in front clearly 22s in front of the kick,penalty,0.6128
+5121.0,5126.0,22s in front of the kick cant chase a kick if youre in front of the,penalty,0.6128
+5125.5,5130.5,cant chase a kick if youre in front of the guy who kicked it offside and you know what in many ways they want this penalty,penalty,0.6128
+5130.0,5135.0,and you know what in many ways they want this penalty the clock is ticking through this 22 offside,penalty,0.6128
+5134.5,5139.5,22 offside the player was offside it was kava,penalty,0.6128
 5139.0,5144.0,so a chance for portugal to slow it down sorry it was 20,normal_play,0.0054
 5143.5,5148.5,sorry it was 20 2 0,normal_play,0.0054
 5148.0,5153.0,suza ghej,normal_play,0.0054
@@ -1131,10 +1131,10 @@ start_time,end_time,text,event_class,highlight_score
 5157.0,5162.0,and rob i know that portuguese fans are tasting this but turn around right behind you,normal_play,0.0054
 5161.5,5166.5,are tasting this but turn around right behind you there is a mass of kids going absolutely ballistic because you think theyre going to witness,normal_play,0.0054
 5166.0,5171.0,absolutely ballistic because you think theyre going to witness history here and it is historical and its also games and shit,normal_play,0.0054
-5170.5,5175.5,and it is historical and its also games and shit portuguese walk into this line up this is about tempo they dont have to win this game they just dont want to lose it,lineout,0.121
-5175.0,5180.0,they just dont want to lose it,lineout,0.121
-5179.5,5184.5,portugal can almost taste a made in world cup win,lineout,0.121
-5184.0,5189.0,a made in world cup win heres pedro butancur whos carried like a,lineout,0.121
+5170.5,5175.5,and it is historical and its also games and shit portuguese walk into this line up this is about tempo they dont have to win this game they just dont want to lose it,lineout,0.2243
+5175.0,5180.0,they just dont want to lose it,lineout,0.2243
+5179.5,5184.5,portugal can almost taste a made in world cup win,lineout,0.2243
+5184.0,5189.0,a made in world cup win heres pedro butancur whos carried like a,lineout,0.2243
 5188.5,5193.5,butancur whos carried like a bull all afternoon appleton portela marta hes clattered,normal_play,0.0054
 5193.0,5198.0,marta hes clattered absolutely marmalised,normal_play,0.0054
 5197.5,5202.5,marmalised now the ball is loose,normal_play,0.0054
@@ -1169,38 +1169,38 @@ start_time,end_time,text,event_class,highlight_score
 5328.0,5333.0,its a great ball georgias ball of attention supreme,normal_play,0.0054
 5332.5,5337.5,can we find the killer touch portugal do not want to concede a penalty,normal_play,0.0054
 5337.0,5342.0,concede a penalty if discipline holds will the defence do likewise,normal_play,0.0054
-5341.5,5346.5,defence do likewise kviseladze running the arc sharikadze into appleton,penalty,0.3546
-5346.0,5351.0,sharikadze into appleton ball is not out heres olukas,penalty,0.3546
-5350.5,5355.5,heres olukas leighton picked it up and might that be costly for portugal georgia can stick this in the corner,penalty,0.3546
-5355.0,5360.0,georgia can stick this in the corner its not the kickable penalty thats a problem the ball is not beyond the line of thought,penalty,0.3546
-5359.5,5364.5,the ball is not beyond the line of thought still on the right it is this line out,penalty,0.3546
+5341.5,5346.5,defence do likewise kviseladze running the arc sharikadze into appleton,penalty,0.5852
+5346.0,5351.0,sharikadze into appleton ball is not out heres olukas,penalty,0.5852
+5350.5,5355.5,heres olukas leighton picked it up and might that be costly for portugal georgia can stick this in the corner,penalty,0.5852
+5355.0,5360.0,georgia can stick this in the corner its not the kickable penalty thats a problem the ball is not beyond the line of thought,penalty,0.5852
+5359.5,5364.5,the ball is not beyond the line of thought still on the right it is this line out,penalty,0.5852
 5364.0,5369.0,it is this line out,normal_play,0.0054
 5368.5,5373.5,matkama puts it right over the corner flag,normal_play,0.0054
 5373.0,5378.0,puts it right over the corner flag the portuguese are inflamed by that they think it was,normal_play,0.0054
 5377.5,5382.5,they think it was into touching goal the ball does go into touch,normal_play,0.0054
-5382.0,5387.0,the ball does go into touch in that final five metre the line out is taken on the five metre line,lineout,0.121
-5386.5,5391.5,the line out is taken on the five metre line theyre happy it went into touch legally this is georgias time,lineout,0.121
-5391.0,5396.0,this is georgias time this is their go to play this is the forward brawn,lineout,0.121
-5395.5,5400.5,this is the forward brawn on which so many georgian victories have been constructed,lineout,0.121
-5400.0,5405.0,have been constructed this is the forward brawn on which so many georgian victories,maul,0.2353
-5404.5,5409.5,on which so many georgian victories have been constructed this is the forward brawn have been constructed,maul,0.2353
-5409.0,5414.0,have been constructed they trundle towards the corner flag theyre over,maul,0.2353
+5382.0,5387.0,the ball does go into touch in that final five metre the line out is taken on the five metre line,lineout,0.162
+5386.5,5391.5,the line out is taken on the five metre line theyre happy it went into touch legally this is georgias time,lineout,0.162
+5391.0,5396.0,this is georgias time this is their go to play this is the forward brawn,lineout,0.162
+5395.5,5400.5,this is the forward brawn on which so many georgian victories have been constructed,lineout,0.162
+5400.0,5405.0,have been constructed this is the forward brawn on which so many georgian victories,maul,0.3612
+5404.5,5409.5,on which so many georgian victories have been constructed this is the forward brawn have been constructed,maul,0.3393
+5409.0,5414.0,have been constructed they trundle towards the corner flag theyre over,maul,0.3451
 5413.5,5418.5,theyre over didnt they get that ball down georgia think theyve scored here,try,1.0
 5418.0,5423.0,georgia think theyve scored here,try,1.0
 5427.0,5432.0,lets listen to paul williams,normal_play,0.0054
-5431.5,5436.5,i dont have anything clear,tmo_replay,0.75
-5436.0,5441.0,i dont have anything clear at this stage ive got nothing yeah joy,tmo_replay,0.75
-5440.5,5445.5,yeah joy we are going to come to you with a third question here unfortunately,tmo_replay,0.75
-5445.0,5450.0,third question here unfortunately we dont have a clear grounding we dont have it clearly held up,tmo_replay,0.75
-5449.5,5454.5,we dont have it clearly held up weve just got bodies everywhere so we need to establish a restart please,tmo_replay,0.75
-5454.0,5459.0,so we need to establish a restart please yeah okay so off your decisions for our question,tmo_replay,0.75
-5458.5,5463.5,so off your decisions for our question establishing restart establishing whether the ball has been grounded standby thank you,tmo_replay,0.75
-5463.0,5468.0,thank you so its all in the question he doesnt have a clear grounding he doesnt have it clearly held up,tmo_replay,0.75
-5467.5,5472.5,he doesnt have it clearly held up so the pressure is going to joy neville the tmo and theres literally there were,tmo_replay,0.75
-5472.0,5477.0,and theres literally there were 27 bodies in that pile up,tmo_replay,0.75
-5481.0,5486.0,is it on the line,tmo_replay,0.75
-5485.5,5490.5,is it on the line the line would be a try slowly we have it there in possession,tmo_replay,0.75
-5490.0,5495.0,we have it there in possession and has the ball on the goal line,tmo_replay,0.75
+5431.5,5436.5,i dont have anything clear,tmo_replay,0.85
+5436.0,5441.0,i dont have anything clear at this stage ive got nothing yeah joy,tmo_replay,0.85
+5440.5,5445.5,yeah joy we are going to come to you with a third question here unfortunately,tmo_replay,0.85
+5445.0,5450.0,third question here unfortunately we dont have a clear grounding we dont have it clearly held up,tmo_replay,0.85
+5449.5,5454.5,we dont have it clearly held up weve just got bodies everywhere so we need to establish a restart please,tmo_replay,0.85
+5454.0,5459.0,so we need to establish a restart please yeah okay so off your decisions for our question,tmo_replay,0.85
+5458.5,5463.5,so off your decisions for our question establishing restart establishing whether the ball has been grounded standby thank you,tmo_replay,0.85
+5463.0,5468.0,thank you so its all in the question he doesnt have a clear grounding he doesnt have it clearly held up,tmo_replay,0.85
+5467.5,5472.5,he doesnt have it clearly held up so the pressure is going to joy neville the tmo and theres literally there were,tmo_replay,0.85
+5472.0,5477.0,and theres literally there were 27 bodies in that pile up,tmo_replay,0.85
+5481.0,5486.0,is it on the line,tmo_replay,0.85
+5485.5,5490.5,is it on the line the line would be a try slowly we have it there in possession,tmo_replay,0.85
+5490.0,5495.0,we have it there in possession and has the ball on the goal line,tmo_replay,0.85
 5494.5,5499.5,on the goal line so the decision is try the ball has successfully been grounded,normal_play,0.0054
 5508.0,5513.0,this try is going to stand and the scores will be level,normal_play,0.0054
 5512.5,5517.5,and the scores will be level we do have clear footage of the ball being carried and put on the line so it is going to be a try,normal_play,0.0054
@@ -1213,24 +1213,24 @@ start_time,end_time,text,event_class,highlight_score
 5548.5,5553.5,theres 27 bodies involved backs from both sides but the georgians do get it moving looking for the line and he gets it to the line,normal_play,0.0054
 5553.0,5558.0,and he gets it to the line great shot there from our crew theyre going to break portuguese hearts,normal_play,0.0054
 5557.5,5562.5,theyre going to break portuguese hearts with a huge massive conversion to come,normal_play,0.0054
-5566.5,5571.5,luka matkava he kicked the winning goal against wales,goal_kick,0.7814
-5571.0,5576.0,goal against wales to ensure georgias first win over a tier one nation,goal_kick,0.7814
-5575.5,5580.5,to ensure georgias first win over a tier one nation away from home the whistles ring out,goal_kick,0.7814
-5580.0,5585.0,the whistles ring out matkava to give georgia the leads,goal_kick,0.7814
-5584.5,5589.5,to give georgia the leads from virtually on the left touch line,goal_kick,0.7814
-5593.5,5598.5,its wide,goal_kick,0.7814
-5598.0,5603.0,matkava misses from the left,goal_kick,0.7814
-5602.5,5607.5,misses from the left the scores are level and there is time for a restart,goal_kick,0.7814
+5566.5,5571.5,luka matkava he kicked the winning goal against wales,goal_kick,0.8688
+5571.0,5576.0,goal against wales to ensure georgias first win over a tier one nation,goal_kick,0.8688
+5575.5,5580.5,to ensure georgias first win over a tier one nation away from home the whistles ring out,goal_kick,0.8688
+5580.0,5585.0,the whistles ring out matkava to give georgia the leads,goal_kick,0.8688
+5584.5,5589.5,to give georgia the leads from virtually on the left touch line,goal_kick,0.8688
+5593.5,5598.5,its wide,goal_kick,0.8688
+5598.0,5603.0,matkava misses from the left,goal_kick,0.8688
+5602.5,5607.5,misses from the left the scores are level and there is time for a restart,goal_kick,0.8688
 5607.0,5612.0,wow,normal_play,0.0054
-5611.5,5616.5,its all happening theres an hia on the field just making sure the players,kick_off,0.1931
-5616.0,5621.0,theres an hia on the field just making sure the players are ok after that massive drive well have the ball,kick_off,0.1931
-5620.5,5625.5,drive well have the ball reintroduced 30 seconds to play this game is not over,kick_off,0.1931
-5625.0,5630.0,over it is the most nerve shredding of finales,kick_off,0.1931
-5629.5,5634.5,shredding of finales final 15 seconds of play,kick_off,0.1931
-5634.0,5639.0,seconds of play portugals giving for a penalty have they got one,penalty,0.3546
-5638.5,5643.5,have they got one they have,penalty,0.3546
-5643.0,5648.0,they were agonising nanoseconds for portugal,penalty,0.3546
-5647.5,5652.5,nanoseconds for portugal as paul williams slowly placed his whistle,penalty,0.3546
+5611.5,5616.5,its all happening theres an hia on the field just making sure the players,kick_off,0.3082
+5616.0,5621.0,theres an hia on the field just making sure the players are ok after that massive drive well have the ball,kick_off,0.3082
+5620.5,5625.5,drive well have the ball reintroduced 30 seconds to play this game is not over,kick_off,0.3082
+5625.0,5630.0,over it is the most nerve shredding of finales,kick_off,0.3082
+5629.5,5634.5,shredding of finales final 15 seconds of play,kick_off,0.3082
+5634.0,5639.0,seconds of play portugals giving for a penalty have they got one,penalty,0.6128
+5638.5,5643.5,have they got one they have,penalty,0.6128
+5643.0,5648.0,they were agonising nanoseconds for portugal,penalty,0.6128
+5647.5,5652.5,nanoseconds for portugal as paul williams slowly placed his whistle,penalty,0.6128
 5652.0,5657.0,slowly placed his whistle in his mouth now they have a shot to win,normal_play,0.0054
 5656.5,5661.5,now they have a shot to win this game this time its up shot,normal_play,0.0054
 5661.0,5666.0,shot shot called this was the take up,normal_play,0.0054
@@ -1240,15 +1240,15 @@ start_time,end_time,text,event_class,highlight_score
 5679.0,5684.0,is set up here its been an absolute cauldron a great credit to rugby but paul williams and his officiating team,normal_play,0.0054
 5683.5,5688.5,but paul williams and his officiating team have been superb under massive pressures taking their time,normal_play,0.0054
 5688.0,5693.0,pressures taking their time and just done a superb job officiating this match but right now to know about,normal_play,0.0054
-5692.5,5697.5,match but right now to know about the match were going to have a look at daniel gudesh and his right boot there will be people in this,goal_kick,0.7814
-5697.0,5702.0,there will be people in this stadium who cannot watch samuel marks the first,goal_kick,0.7814
-5701.5,5706.5,samuel marks the first choice kickers off 81 minutes into the match,goal_kick,0.7814
-5706.0,5711.0,81 minutes into the match nuno suzaguec for history,goal_kick,0.7814
-5710.5,5715.5,for history for portugals first ever rugby world cup win,goal_kick,0.7814
-5715.0,5720.0,world cup win its wide it fades across the face,goal_kick,0.7814
-5719.5,5724.5,it fades across the face,goal_kick,0.7814
-5724.0,5729.0,and there is the full time whistle,goal_kick,0.7814
-5728.5,5733.5,everybody inside this stadium rises to their feet son of wards,goal_kick,0.7814
+5692.5,5697.5,match but right now to know about the match were going to have a look at daniel gudesh and his right boot there will be people in this,goal_kick,0.8688
+5697.0,5702.0,there will be people in this stadium who cannot watch samuel marks the first,goal_kick,0.8688
+5701.5,5706.5,samuel marks the first choice kickers off 81 minutes into the match,goal_kick,0.8688
+5706.0,5711.0,81 minutes into the match nuno suzaguec for history,goal_kick,0.8688
+5710.5,5715.5,for history for portugals first ever rugby world cup win,goal_kick,0.8688
+5715.0,5720.0,world cup win its wide it fades across the face,goal_kick,0.8688
+5719.5,5724.5,it fades across the face,goal_kick,0.8688
+5724.0,5729.0,and there is the full time whistle,goal_kick,0.8688
+5728.5,5733.5,everybody inside this stadium rises to their feet son of wards,goal_kick,0.8688
 5733.0,5738.0,son of wards and wherever you are wherever youre watching this,normal_play,0.0054
 5737.5,5742.5,wherever youre watching this we encourage you to do likewise,normal_play,0.0054
 5746.5,5751.5,thank you,normal_play,0.0054

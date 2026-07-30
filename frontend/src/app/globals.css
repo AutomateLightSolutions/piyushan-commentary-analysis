@@ -266,6 +266,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Glass Cards */
 .glass-card {
   background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--glass-border);
   border-radius: 16px;
   padding: 2rem;

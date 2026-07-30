@@ -348,7 +348,7 @@ export default function AutoLexiconGenerator() {
             })
         )}
 
-        <div className="flex-between glass-card" style={{ position: "sticky", bottom: "1rem", zIndex: 100 }}>
+        <div className="flex-between glass-card" style={{ position: "sticky", bottom: "1rem", zIndex: 100, background: "rgba(15, 23, 42, 0.95)", padding: "1rem 1.5rem" }}>
           <div>
             {message.text && (
               <div className={`alert ${message.type === "success" ? 'alert-success' : 'alert-error'}`} style={{ margin: 0 }}>

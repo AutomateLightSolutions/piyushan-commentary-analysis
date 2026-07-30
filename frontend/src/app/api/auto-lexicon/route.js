@@ -128,7 +128,66 @@ export async function DELETE(request) {
     const runFilePath = path.join(RUNS_DIR, `${runId}.json`);
     if (fs.existsSync(runFilePath)) {
       fs.unlinkSync(runFilePath);
-      return NextResponse.json({ message: `Run ${runId} deleted successfully` });
+
+      // Re-aggregate remaining runs to update lexicon.json
+      let allRuns = [];
+      if (fs.existsSync(RUNS_DIR)) {
+        const files = fs.readdirSync(RUNS_DIR).filter(f => f.endsWith('.json'));
+        for (const file of files) {
+          try {
+            allRuns.push(JSON.parse(fs.readFileSync(path.join(RUNS_DIR, file), 'utf8')));
+          } catch (e) {}
+        }
+      }
+
+      const aggregatedFreqs = {};
+      for (const run of allRuns) {
+        for (const [event, terms] of Object.entries(run.frequencies || {})) {
+          if (!aggregatedFreqs[event]) aggregatedFreqs[event] = {};
+          for (const [term, freq] of Object.entries(terms)) {
+            aggregatedFreqs[event][term] = (aggregatedFreqs[event][term] || 0) + freq;
+          }
+        }
+      }
+
+      if (fs.existsSync(LEXICON_PATH)) {
+        const lexicon = JSON.parse(fs.readFileSync(LEXICON_PATH, 'utf8'));
+        
+        for (const cat of lexicon.categories) {
+          const eventFreqs = aggregatedFreqs[cat.id] || {};
+          let totalFreq = 0;
+          for (const val of Object.values(eventFreqs)) {
+            totalFreq += val;
+          }
+
+          const newWeights = {};
+          if (totalFreq > 0) {
+            for (const [word, freq] of Object.entries(eventFreqs)) {
+               newWeights[word] = Number((freq / totalFreq).toFixed(4));
+            }
+          }
+
+          const updatedTerms = [];
+          for (const term of cat.terms) {
+            if (newWeights[term.text] !== undefined) {
+              updatedTerms.push({
+                text: term.text,
+                weight: newWeights[term.text]
+              });
+            } else if (term.weight >= 1.0) {
+              // Preserve manually added terms (which have weight >= 1.0 by default)
+              updatedTerms.push(term);
+            }
+          }
+          
+          updatedTerms.sort((a, b) => b.weight - a.weight);
+          cat.terms = updatedTerms;
+        }
+        
+        fs.writeFileSync(LEXICON_PATH, JSON.stringify(lexicon, null, 2), 'utf8');
+      }
+
+      return NextResponse.json({ message: `Run ${runId} deleted successfully and lexicon updated` });
     } else {
       return NextResponse.json({ error: 'Run not found' }, { status: 404 });
     }

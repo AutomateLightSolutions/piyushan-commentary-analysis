@@ -6,124 +6,124 @@
       "weight": 0.1,
       "terms": [
         {
-          "text": "gibson",
-          "weight": 0.0145
+          "text": "try",
+          "weight": 0.0034
         },
         {
-          "text": "park",
-          "weight": 0.0145
+          "text": "hes",
+          "weight": 0.0034
         },
         {
-          "text": "gibson park",
-          "weight": 0.0145
+          "text": "got",
+          "weight": 0.0032
         },
         {
-          "text": "wave",
-          "weight": 0.0109
+          "text": "new",
+          "weight": 0.003
         },
         {
-          "text": "right",
-          "weight": 0.0109
+          "text": "zealand",
+          "weight": 0.0029
         },
         {
-          "text": "the right",
-          "weight": 0.0109
+          "text": "new zealand",
+          "weight": 0.0029
         },
         {
-          "text": "to the right",
-          "weight": 0.0109
+          "text": "away",
+          "weight": 0.0028
         },
         {
           "text": "ireland",
-          "weight": 0.0109
+          "weight": 0.0026
         },
         {
-          "text": "johnny",
-          "weight": 0.0109
+          "text": "corner",
+          "weight": 0.0024
         },
         {
-          "text": "irish",
-          "weight": 0.0073
+          "text": "scotland",
+          "weight": 0.0022
         },
         {
-          "text": "the irish",
-          "weight": 0.0073
+          "text": "get",
+          "weight": 0.0022
         },
         {
-          "text": "park to",
-          "weight": 0.0073
+          "text": "the corner",
+          "weight": 0.0021
         },
         {
-          "text": "gibson park to",
-          "weight": 0.0073
+          "text": "ball",
+          "weight": 0.0021
         },
         {
-          "text": "park to the",
-          "weight": 0.0073
+          "text": "one",
+          "weight": 0.002
         },
         {
-          "text": "forwards",
-          "weight": 0.0073
+          "text": "line",
+          "weight": 0.002
         },
         {
-          "text": "quickly",
-          "weight": 0.0073
+          "text": "inside",
+          "weight": 0.002
         },
         {
-          "text": "regathering",
-          "weight": 0.0073
+          "text": "coles",
+          "weight": 0.0018
         },
         {
-          "text": "next",
-          "weight": 0.0073
+          "text": "first",
+          "weight": 0.0017
         },
         {
-          "text": "forwards quickly",
-          "weight": 0.0073
+          "text": "going",
+          "weight": 0.0017
         },
         {
-          "text": "quickly regathering",
-          "weight": 0.0073
+          "text": "back",
+          "weight": 0.0017
         },
         {
-          "text": "regathering themselves",
-          "weight": 0.0073
+          "text": "the line",
+          "weight": 0.0016
         },
         {
-          "text": "the next",
-          "weight": 0.0073
+          "text": "right",
+          "weight": 0.0016
         },
         {
-          "text": "next wave",
-          "weight": 0.0073
+          "text": "italy",
+          "weight": 0.0016
         },
         {
-          "text": "forwards quickly regathering",
-          "weight": 0.0073
+          "text": "theyve",
+          "weight": 0.0015
         },
         {
-          "text": "quickly regathering themselves",
-          "weight": 0.0073
+          "text": "little",
+          "weight": 0.0015
         },
         {
-          "text": "regathering themselves for",
-          "weight": 0.0073
+          "text": "barrett",
+          "weight": 0.0015
         },
         {
-          "text": "for the next",
-          "weight": 0.0073
+          "text": "open",
+          "weight": 0.0014
         },
         {
-          "text": "the next wave",
-          "weight": 0.0073
+          "text": "gone",
+          "weight": 0.0014
         },
         {
-          "text": "peter",
-          "weight": 0.0073
+          "text": "hands",
+          "weight": 0.0014
         },
         {
-          "text": "omahony",
-          "weight": 0.0073
+          "text": "going to",
+          "weight": 0.0014
         }
       ]
     },
@@ -133,124 +133,124 @@
       "weight": 0.1,
       "terms": [
         {
-          "text": "rugby",
-          "weight": 0.0086
+          "text": "points",
+          "weight": 0.0041
+        },
+        {
+          "text": "one",
+          "weight": 0.0027
+        },
+        {
+          "text": "hes",
+          "weight": 0.0026
+        },
+        {
+          "text": "minutes",
+          "weight": 0.0026
+        },
+        {
+          "text": "three",
+          "weight": 0.0026
+        },
+        {
+          "text": "try",
+          "weight": 0.0023
+        },
+        {
+          "text": "points to",
+          "weight": 0.0023
+        },
+        {
+          "text": "back",
+          "weight": 0.0022
+        },
+        {
+          "text": "time",
+          "weight": 0.0021
+        },
+        {
+          "text": "first",
+          "weight": 0.002
+        },
+        {
+          "text": "england",
+          "weight": 0.0019
         },
         {
           "text": "world",
-          "weight": 0.0075
+          "weight": 0.0017
+        },
+        {
+          "text": "george",
+          "weight": 0.0017
+        },
+        {
+          "text": "ford",
+          "weight": 0.0017
+        },
+        {
+          "text": "half",
+          "weight": 0.0016
+        },
+        {
+          "text": "george ford",
+          "weight": 0.0016
+        },
+        {
+          "text": "new",
+          "weight": 0.0016
+        },
+        {
+          "text": "rugby",
+          "weight": 0.0015
+        },
+        {
+          "text": "left",
+          "weight": 0.0015
+        },
+        {
+          "text": "two",
+          "weight": 0.0015
         },
         {
           "text": "cup",
-          "weight": 0.0075
-        },
-        {
-          "text": "rugby world",
-          "weight": 0.0075
+          "weight": 0.0014
         },
         {
           "text": "world cup",
-          "weight": 0.0075
+          "weight": 0.0014
         },
         {
-          "text": "rugby world cup",
-          "weight": 0.0075
+          "text": "this one",
+          "weight": 0.0014
         },
         {
-          "text": "south",
-          "weight": 0.0064
-        },
-        {
-          "text": "theyve",
-          "weight": 0.0064
-        },
-        {
-          "text": "big",
-          "weight": 0.0064
+          "text": "right",
+          "weight": 0.0014
         },
         {
           "text": "got",
-          "weight": 0.0054
+          "weight": 0.0014
         },
         {
-          "text": "got the",
-          "weight": 0.0054
+          "text": "good",
+          "weight": 0.0014
         },
         {
-          "text": "africa",
-          "weight": 0.0043
+          "text": "australia",
+          "weight": 0.0014
         },
         {
-          "text": "south africa",
-          "weight": 0.0043
+          "text": "another",
+          "weight": 0.0013
         },
         {
           "text": "ball",
-          "weight": 0.0043
+          "weight": 0.0013
         },
         {
-          "text": "part",
-          "weight": 0.0043
-        },
-        {
-          "text": "winning",
-          "weight": 0.0043
-        },
-        {
-          "text": "matches",
-          "weight": 0.0043
-        },
-        {
-          "text": "fly",
-          "weight": 0.0043
-        },
-        {
-          "text": "the ball",
-          "weight": 0.0043
-        },
-        {
-          "text": "ball its",
-          "weight": 0.0043
-        },
-        {
-          "text": "a big",
-          "weight": 0.0043
-        },
-        {
-          "text": "big part",
-          "weight": 0.0043
-        },
-        {
-          "text": "part of",
-          "weight": 0.0043
-        },
-        {
-          "text": "of winning",
-          "weight": 0.0043
-        },
-        {
-          "text": "winning rugby",
-          "weight": 0.0043
-        },
-        {
-          "text": "cup matches",
-          "weight": 0.0043
-        },
-        {
-          "text": "matches so",
-          "weight": 0.0043
-        },
-        {
-          "text": "the fly",
-          "weight": 0.0043
-        },
-        {
-          "text": "fly off",
-          "weight": 0.0043
-        },
-        {
-          "text": "got the ball",
-          "weight": 0.0043
+          "text": "thats",
+          "weight": 0.0013
         }
       ]
     },
@@ -258,7 +258,128 @@
       "id": "card_event",
       "name": "Card Event",
       "weight": 0.1,
-      "terms": []
+      "terms": [
+        {
+          "text": "yellow",
+          "weight": 0.0185
+        },
+        {
+          "text": "card",
+          "weight": 0.0165
+        },
+        {
+          "text": "a yellow",
+          "weight": 0.0136
+        },
+        {
+          "text": "yellow card",
+          "weight": 0.0107
+        },
+        {
+          "text": "red",
+          "weight": 0.0097
+        },
+        {
+          "text": "a red",
+          "weight": 0.0097
+        },
+        {
+          "text": "a yellow card",
+          "weight": 0.0078
+        },
+        {
+          "text": "bunker",
+          "weight": 0.0068
+        },
+        {
+          "text": "agree",
+          "weight": 0.0058
+        },
+        {
+          "text": "review",
+          "weight": 0.0058
+        },
+        {
+          "text": "england",
+          "weight": 0.0058
+        },
+        {
+          "text": "yellow for",
+          "weight": 0.0058
+        },
+        {
+          "text": "for england",
+          "weight": 0.0058
+        },
+        {
+          "text": "a yellow for",
+          "weight": 0.0058
+        },
+        {
+          "text": "upgraded",
+          "weight": 0.0058
+        },
+        {
+          "text": "red card",
+          "weight": 0.0058
+        },
+        {
+          "text": "a red card",
+          "weight": 0.0058
+        },
+        {
+          "text": "going",
+          "weight": 0.0049
+        },
+        {
+          "text": "i agree",
+          "weight": 0.0049
+        },
+        {
+          "text": "head",
+          "weight": 0.0049
+        },
+        {
+          "text": "seven",
+          "weight": 0.0049
+        },
+        {
+          "text": "its a red",
+          "weight": 0.0049
+        },
+        {
+          "text": "okay",
+          "weight": 0.0039
+        },
+        {
+          "text": "captain",
+          "weight": 0.0039
+        },
+        {
+          "text": "please",
+          "weight": 0.0039
+        },
+        {
+          "text": "card and",
+          "weight": 0.0039
+        },
+        {
+          "text": "captain please",
+          "weight": 0.0039
+        },
+        {
+          "text": "yellow card and",
+          "weight": 0.0039
+        },
+        {
+          "text": "clash",
+          "weight": 0.0039
+        },
+        {
+          "text": "head clash",
+          "weight": 0.0039
+        }
+      ]
     },
     {
       "id": "scrum",
@@ -266,124 +387,124 @@
       "weight": 0.1,
       "terms": [
         {
-          "text": "one",
-          "weight": 0.0043
-        },
-        {
-          "text": "south",
-          "weight": 0.0043
-        },
-        {
-          "text": "back",
-          "weight": 0.0038
-        },
-        {
           "text": "scrum",
-          "weight": 0.0033
-        },
-        {
-          "text": "good",
-          "weight": 0.003
-        },
-        {
-          "text": "going",
-          "weight": 0.003
-        },
-        {
-          "text": "going to",
-          "weight": 0.003
-        },
-        {
-          "text": "risk",
-          "weight": 0.003
-        },
-        {
-          "text": "africa",
-          "weight": 0.0028
-        },
-        {
-          "text": "weve",
-          "weight": 0.0028
-        },
-        {
-          "text": "call",
-          "weight": 0.0028
-        },
-        {
-          "text": "rugby",
-          "weight": 0.0028
-        },
-        {
-          "text": "side",
-          "weight": 0.0028
-        },
-        {
-          "text": "take",
-          "weight": 0.0025
-        },
-        {
-          "text": "lets",
-          "weight": 0.0025
+          "weight": 0.0035
         },
         {
           "text": "hes",
-          "weight": 0.0025
+          "weight": 0.0028
         },
         {
-          "text": "thats",
-          "weight": 0.0025
+          "text": "good",
+          "weight": 0.0027
         },
         {
-          "text": "great",
-          "weight": 0.0023
-        },
-        {
-          "text": "african",
-          "weight": 0.0023
-        },
-        {
-          "text": "south african",
-          "weight": 0.0023
-        },
-        {
-          "text": "hes going",
-          "weight": 0.0023
-        },
-        {
-          "text": "hes going to",
-          "weight": 0.0023
-        },
-        {
-          "text": "get",
-          "weight": 0.0023
+          "text": "back",
+          "weight": 0.0026
         },
         {
           "text": "got",
-          "weight": 0.002
+          "weight": 0.0024
         },
         {
-          "text": "set",
-          "weight": 0.002
+          "text": "theyve",
+          "weight": 0.0021
+        },
+        {
+          "text": "get",
+          "weight": 0.0019
+        },
+        {
+          "text": "world",
+          "weight": 0.0019
         },
         {
           "text": "two",
-          "weight": 0.002
+          "weight": 0.0019
         },
         {
-          "text": "see",
-          "weight": 0.002
+          "text": "one",
+          "weight": 0.0018
         },
         {
-          "text": "the south",
-          "weight": 0.002
+          "text": "rugby",
+          "weight": 0.0017
         },
         {
-          "text": "element",
-          "weight": 0.002
+          "text": "minutes",
+          "weight": 0.0017
         },
         {
-          "text": "an element",
-          "weight": 0.002
+          "text": "new",
+          "weight": 0.0017
+        },
+        {
+          "text": "zealand",
+          "weight": 0.0016
+        },
+        {
+          "text": "new zealand",
+          "weight": 0.0016
+        },
+        {
+          "text": "time",
+          "weight": 0.0015
+        },
+        {
+          "text": "line",
+          "weight": 0.0015
+        },
+        {
+          "text": "england",
+          "weight": 0.0015
+        },
+        {
+          "text": "front",
+          "weight": 0.0015
+        },
+        {
+          "text": "big",
+          "weight": 0.0014
+        },
+        {
+          "text": "set",
+          "weight": 0.0014
+        },
+        {
+          "text": "going",
+          "weight": 0.0014
+        },
+        {
+          "text": "georgia",
+          "weight": 0.0014
+        },
+        {
+          "text": "right",
+          "weight": 0.0013
+        },
+        {
+          "text": "little",
+          "weight": 0.0013
+        },
+        {
+          "text": "a good",
+          "weight": 0.0013
+        },
+        {
+          "text": "side",
+          "weight": 0.0013
+        },
+        {
+          "text": "try",
+          "weight": 0.0012
+        },
+        {
+          "text": "penalty",
+          "weight": 0.0012
+        },
+        {
+          "text": "think",
+          "weight": 0.0012
         }
       ]
     },
@@ -391,7 +512,128 @@
       "id": "maul",
       "name": "Maul",
       "weight": 0.1,
-      "terms": []
+      "terms": [
+        {
+          "text": "back",
+          "weight": 0.0061
+        },
+        {
+          "text": "forward",
+          "weight": 0.0045
+        },
+        {
+          "text": "the back",
+          "weight": 0.0042
+        },
+        {
+          "text": "line",
+          "weight": 0.0042
+        },
+        {
+          "text": "hes",
+          "weight": 0.0035
+        },
+        {
+          "text": "got",
+          "weight": 0.0035
+        },
+        {
+          "text": "going",
+          "weight": 0.0032
+        },
+        {
+          "text": "in the back",
+          "weight": 0.0029
+        },
+        {
+          "text": "get",
+          "weight": 0.0027
+        },
+        {
+          "text": "though",
+          "weight": 0.0024
+        },
+        {
+          "text": "australia",
+          "weight": 0.0024
+        },
+        {
+          "text": "two",
+          "weight": 0.0021
+        },
+        {
+          "text": "use",
+          "weight": 0.0021
+        },
+        {
+          "text": "use it",
+          "weight": 0.0021
+        },
+        {
+          "text": "side",
+          "weight": 0.0021
+        },
+        {
+          "text": "backwards",
+          "weight": 0.0021
+        },
+        {
+          "text": "try",
+          "weight": 0.0021
+        },
+        {
+          "text": "georgia",
+          "weight": 0.0021
+        },
+        {
+          "text": "drive",
+          "weight": 0.0019
+        },
+        {
+          "text": "to use",
+          "weight": 0.0019
+        },
+        {
+          "text": "to use it",
+          "weight": 0.0019
+        },
+        {
+          "text": "george",
+          "weight": 0.0019
+        },
+        {
+          "text": "meters",
+          "weight": 0.0019
+        },
+        {
+          "text": "stopped",
+          "weight": 0.0019
+        },
+        {
+          "text": "taylor",
+          "weight": 0.0019
+        },
+        {
+          "text": "set",
+          "weight": 0.0016
+        },
+        {
+          "text": "scotland",
+          "weight": 0.0016
+        },
+        {
+          "text": "theyre",
+          "weight": 0.0016
+        },
+        {
+          "text": "still",
+          "weight": 0.0016
+        },
+        {
+          "text": "one",
+          "weight": 0.0016
+        }
+      ]
     },
     {
       "id": "lineout",
@@ -400,123 +642,123 @@
       "terms": [
         {
           "text": "line",
-          "weight": 0.008
-        },
-        {
-          "text": "hes",
-          "weight": 0.0061
-        },
-        {
-          "text": "two",
-          "weight": 0.0045
-        },
-        {
-          "text": "the line",
-          "weight": 0.0045
+          "weight": 0.0049
         },
         {
           "text": "back",
-          "weight": 0.0032
+          "weight": 0.0031
         },
         {
-          "text": "theyre",
-          "weight": 0.0032
-        },
-        {
-          "text": "side",
+          "text": "ball",
           "weight": 0.0029
-        },
-        {
-          "text": "south",
-          "weight": 0.0029
-        },
-        {
-          "text": "africa",
-          "weight": 0.0029
-        },
-        {
-          "text": "south africa",
-          "weight": 0.0029
-        },
-        {
-          "text": "going",
-          "weight": 0.0029
-        },
-        {
-          "text": "irish",
-          "weight": 0.0026
-        },
-        {
-          "text": "one",
-          "weight": 0.0026
-        },
-        {
-          "text": "good",
-          "weight": 0.0026
-        },
-        {
-          "text": "see",
-          "weight": 0.0026
-        },
-        {
-          "text": "get",
-          "weight": 0.0026
-        },
-        {
-          "text": "around",
-          "weight": 0.0022
-        },
-        {
-          "text": "come",
-          "weight": 0.0022
-        },
-        {
-          "text": "ireland",
-          "weight": 0.0022
         },
         {
           "text": "line out",
-          "weight": 0.0022
+          "weight": 0.0024
+        },
+        {
+          "text": "hes",
+          "weight": 0.0024
+        },
+        {
+          "text": "one",
+          "weight": 0.0024
+        },
+        {
+          "text": "get",
+          "weight": 0.0024
+        },
+        {
+          "text": "time",
+          "weight": 0.0017
+        },
+        {
+          "text": "fiji",
+          "weight": 0.0017
+        },
+        {
+          "text": "first",
+          "weight": 0.0016
+        },
+        {
+          "text": "good",
+          "weight": 0.0016
+        },
+        {
+          "text": "australia",
+          "weight": 0.0016
+        },
+        {
+          "text": "portugal",
+          "weight": 0.0016
         },
         {
           "text": "the back",
-          "weight": 0.0022
+          "weight": 0.0015
         },
         {
-          "text": "johnny",
-          "weight": 0.0019
+          "text": "the line",
+          "weight": 0.0014
+        },
+        {
+          "text": "away",
+          "weight": 0.0014
         },
         {
           "text": "got",
-          "weight": 0.0019
+          "weight": 0.0014
         },
         {
-          "text": "right",
-          "weight": 0.0019
+          "text": "going",
+          "weight": 0.0014
         },
         {
-          "text": "challenge",
-          "weight": 0.0019
+          "text": "two",
+          "weight": 0.0013
         },
         {
-          "text": "five",
-          "weight": 0.0019
+          "text": "front",
+          "weight": 0.0013
         },
         {
-          "text": "games",
-          "weight": 0.0019
+          "text": "throw",
+          "weight": 0.0013
         },
         {
-          "text": "of the line",
-          "weight": 0.0019
+          "text": "thats",
+          "weight": 0.0013
         },
         {
-          "text": "row",
-          "weight": 0.0019
+          "text": "the ball",
+          "weight": 0.0013
         },
         {
-          "text": "back row",
-          "weight": 0.0019
+          "text": "little",
+          "weight": 0.0013
+        },
+        {
+          "text": "new",
+          "weight": 0.0013
+        },
+        {
+          "text": "world",
+          "weight": 0.0012
+        },
+        {
+          "text": "come",
+          "weight": 0.0012
+        },
+        {
+          "text": "to get",
+          "weight": 0.0012
+        },
+        {
+          "text": "minutes",
+          "weight": 0.0012
+        },
+        {
+          "text": "zealand",
+          "weight": 0.0012
         }
       ]
     },
@@ -526,124 +768,124 @@
       "weight": 0.1,
       "terms": [
         {
-          "text": "james",
-          "weight": 0.0104
+          "text": "rugby",
+          "weight": 0.0029
+        },
+        {
+          "text": "england",
+          "weight": 0.0027
         },
         {
           "text": "one",
-          "weight": 0.0104
+          "weight": 0.0024
         },
         {
-          "text": "nice",
-          "weight": 0.0083
+          "text": "world",
+          "weight": 0.0024
         },
         {
-          "text": "three",
-          "weight": 0.0062
+          "text": "half",
+          "weight": 0.0024
+        },
+        {
+          "text": "first",
+          "weight": 0.0024
+        },
+        {
+          "text": "argentina",
+          "weight": 0.0023
         },
         {
           "text": "hes",
-          "weight": 0.0062
-        },
-        {
-          "text": "nice one",
-          "weight": 0.0062
-        },
-        {
-          "text": "pass",
-          "weight": 0.0062
-        },
-        {
-          "text": "lowe",
-          "weight": 0.0062
-        },
-        {
-          "text": "james lowe",
-          "weight": 0.0062
-        },
-        {
-          "text": "referee",
-          "weight": 0.0042
-        },
-        {
-          "text": "ben",
-          "weight": 0.0042
-        },
-        {
-          "text": "okeefe",
-          "weight": 0.0042
+          "weight": 0.0022
         },
         {
           "text": "new",
-          "weight": 0.0042
+          "weight": 0.0022
+        },
+        {
+          "text": "cup",
+          "weight": 0.0021
+        },
+        {
+          "text": "world cup",
+          "weight": 0.0021
         },
         {
           "text": "zealand",
-          "weight": 0.0042
-        },
-        {
-          "text": "touch",
-          "weight": 0.0042
-        },
-        {
-          "text": "judges",
-          "weight": 0.0042
-        },
-        {
-          "text": "matthew",
-          "weight": 0.0042
-        },
-        {
-          "text": "rannell",
-          "weight": 0.0042
-        },
-        {
-          "text": "dolman",
-          "weight": 0.0042
-        },
-        {
-          "text": "a referee",
-          "weight": 0.0042
-        },
-        {
-          "text": "referee is",
-          "weight": 0.0042
-        },
-        {
-          "text": "is ben",
-          "weight": 0.0042
-        },
-        {
-          "text": "ben okeefe",
-          "weight": 0.0042
-        },
-        {
-          "text": "okeefe from",
-          "weight": 0.0042
-        },
-        {
-          "text": "from new",
-          "weight": 0.0042
+          "weight": 0.0021
         },
         {
           "text": "new zealand",
-          "weight": 0.0042
+          "weight": 0.0021
         },
         {
-          "text": "zealand touch",
-          "weight": 0.0042
+          "text": "minutes",
+          "weight": 0.002
         },
         {
-          "text": "touch judges",
-          "weight": 0.0042
+          "text": "points",
+          "weight": 0.0019
         },
         {
-          "text": "judges matthew",
-          "weight": 0.0042
+          "text": "second",
+          "weight": 0.0019
         },
         {
-          "text": "matthew rannell",
-          "weight": 0.0042
+          "text": "kick",
+          "weight": 0.0018
+        },
+        {
+          "text": "rugby world",
+          "weight": 0.0018
+        },
+        {
+          "text": "rugby world cup",
+          "weight": 0.0018
+        },
+        {
+          "text": "fiji",
+          "weight": 0.0018
+        },
+        {
+          "text": "get",
+          "weight": 0.0017
+        },
+        {
+          "text": "start",
+          "weight": 0.0016
+        },
+        {
+          "text": "theres",
+          "weight": 0.0016
+        },
+        {
+          "text": "match",
+          "weight": 0.0015
+        },
+        {
+          "text": "play",
+          "weight": 0.0015
+        },
+        {
+          "text": "line",
+          "weight": 0.0015
+        },
+        {
+          "text": "got",
+          "weight": 0.0015
+        },
+        {
+          "text": "goes",
+          "weight": 0.0014
+        },
+        {
+          "text": "good",
+          "weight": 0.0014
+        },
+        {
+          "text": "back",
+          "weight": 0.0014
         }
       ]
     },
@@ -653,124 +895,124 @@
       "weight": 0.1,
       "terms": [
         {
-          "text": "south",
-          "weight": 0.0072
+          "text": "going",
+          "weight": 0.0049
         },
         {
-          "text": "africa",
-          "weight": 0.0057
+          "text": "going to",
+          "weight": 0.0049
         },
         {
-          "text": "south africa",
-          "weight": 0.0057
-        },
-        {
-          "text": "line",
-          "weight": 0.005
-        },
-        {
-          "text": "back",
+          "text": "okay",
           "weight": 0.0042
         },
         {
-          "text": "johnny",
-          "weight": 0.0032
+          "text": "thats",
+          "weight": 0.004
         },
         {
-          "text": "ball",
-          "weight": 0.003
+          "text": "hes",
+          "weight": 0.004
         },
         {
-          "text": "get",
-          "weight": 0.003
-        },
-        {
-          "text": "the line",
-          "weight": 0.0027
-        },
-        {
-          "text": "little",
-          "weight": 0.0025
-        },
-        {
-          "text": "bit",
-          "weight": 0.0025
-        },
-        {
-          "text": "close",
-          "weight": 0.0025
-        },
-        {
-          "text": "time",
-          "weight": 0.0025
-        },
-        {
-          "text": "two",
-          "weight": 0.0022
-        },
-        {
-          "text": "first",
-          "weight": 0.0022
-        },
-        {
-          "text": "game",
-          "weight": 0.0022
-        },
-        {
-          "text": "this game",
-          "weight": 0.0022
-        },
-        {
-          "text": "attack",
-          "weight": 0.0022
-        },
-        {
-          "text": "sexton",
-          "weight": 0.0022
+          "text": "number",
+          "weight": 0.0033
         },
         {
           "text": "right",
+          "weight": 0.0029
+        },
+        {
+          "text": "dont",
+          "weight": 0.0026
+        },
+        {
+          "text": "whether",
+          "weight": 0.0026
+        },
+        {
+          "text": "first",
+          "weight": 0.0024
+        },
+        {
+          "text": "blue",
+          "weight": 0.0024
+        },
+        {
+          "text": "look",
+          "weight": 0.0024
+        },
+        {
+          "text": "back",
+          "weight": 0.0024
+        },
+        {
+          "text": "think",
+          "weight": 0.0024
+        },
+        {
+          "text": "the right",
+          "weight": 0.0024
+        },
+        {
+          "text": "ball",
           "weight": 0.0022
         },
         {
-          "text": "johnny sexton",
+          "text": "theres",
           "weight": 0.0022
         },
         {
-          "text": "scrum",
+          "text": "tackle",
           "weight": 0.0022
         },
         {
-          "text": "irish",
+          "text": "momentum",
           "weight": 0.0022
         },
         {
-          "text": "the irish",
+          "text": "extra",
           "weight": 0.0022
         },
         {
-          "text": "thats",
-          "weight": 0.0022
-        },
-        {
-          "text": "a little",
+          "text": "come",
           "weight": 0.002
         },
         {
-          "text": "opening",
+          "text": "screen",
           "weight": 0.002
         },
         {
-          "text": "kelleher",
+          "text": "i think",
           "weight": 0.002
         },
         {
-          "text": "the opening",
+          "text": "line",
           "weight": 0.002
         },
         {
-          "text": "ireland",
+          "text": "little",
           "weight": 0.002
+        },
+        {
+          "text": "try",
+          "weight": 0.002
+        },
+        {
+          "text": "nick",
+          "weight": 0.0018
+        },
+        {
+          "text": "the ball",
+          "weight": 0.0018
+        },
+        {
+          "text": "one",
+          "weight": 0.0018
+        },
+        {
+          "text": "see",
+          "weight": 0.0018
         }
       ]
     },
@@ -778,7 +1020,255 @@
       "id": "penalty",
       "name": "Penalty",
       "weight": 0.1,
-      "terms": []
+      "terms": [
+        {
+          "text": "penalty",
+          "weight": 0.0082
+        },
+        {
+          "text": "hes",
+          "weight": 0.0047
+        },
+        {
+          "text": "ball",
+          "weight": 0.0036
+        },
+        {
+          "text": "got",
+          "weight": 0.0031
+        },
+        {
+          "text": "line",
+          "weight": 0.003
+        },
+        {
+          "text": "back",
+          "weight": 0.0026
+        },
+        {
+          "text": "the ball",
+          "weight": 0.0024
+        },
+        {
+          "text": "a penalty",
+          "weight": 0.0024
+        },
+        {
+          "text": "thats",
+          "weight": 0.0024
+        },
+        {
+          "text": "get",
+          "weight": 0.0024
+        },
+        {
+          "text": "the penalty",
+          "weight": 0.0022
+        },
+        {
+          "text": "time",
+          "weight": 0.0022
+        },
+        {
+          "text": "little",
+          "weight": 0.0022
+        },
+        {
+          "text": "one",
+          "weight": 0.0019
+        },
+        {
+          "text": "fiji",
+          "weight": 0.0018
+        },
+        {
+          "text": "ireland",
+          "weight": 0.0017
+        },
+        {
+          "text": "big",
+          "weight": 0.0017
+        },
+        {
+          "text": "hes got",
+          "weight": 0.0017
+        },
+        {
+          "text": "going",
+          "weight": 0.0017
+        },
+        {
+          "text": "good",
+          "weight": 0.0017
+        },
+        {
+          "text": "tackle",
+          "weight": 0.0016
+        },
+        {
+          "text": "away",
+          "weight": 0.0016
+        },
+        {
+          "text": "way",
+          "weight": 0.0016
+        },
+        {
+          "text": "england",
+          "weight": 0.0016
+        },
+        {
+          "text": "to get",
+          "weight": 0.0016
+        },
+        {
+          "text": "another",
+          "weight": 0.0015
+        },
+        {
+          "text": "come",
+          "weight": 0.0015
+        },
+        {
+          "text": "offside",
+          "weight": 0.0014
+        },
+        {
+          "text": "scrum",
+          "weight": 0.0014
+        },
+        {
+          "text": "play",
+          "weight": 0.0013
+        }
+      ]
+    },
+    {
+      "id": "normal_play",
+      "name": "Normal Play",
+      "weight": 0.1,
+      "terms": [
+        {
+          "text": "back",
+          "weight": 0.0027
+        },
+        {
+          "text": "hes",
+          "weight": 0.0026
+        },
+        {
+          "text": "ball",
+          "weight": 0.0025
+        },
+        {
+          "text": "little",
+          "weight": 0.0024
+        },
+        {
+          "text": "going",
+          "weight": 0.0022
+        },
+        {
+          "text": "line",
+          "weight": 0.0022
+        },
+        {
+          "text": "one",
+          "weight": 0.0021
+        },
+        {
+          "text": "good",
+          "weight": 0.002
+        },
+        {
+          "text": "get",
+          "weight": 0.0018
+        },
+        {
+          "text": "a little",
+          "weight": 0.0017
+        },
+        {
+          "text": "got",
+          "weight": 0.0017
+        },
+        {
+          "text": "going to",
+          "weight": 0.0015
+        },
+        {
+          "text": "time",
+          "weight": 0.0015
+        },
+        {
+          "text": "bit",
+          "weight": 0.0015
+        },
+        {
+          "text": "thats",
+          "weight": 0.0014
+        },
+        {
+          "text": "the ball",
+          "weight": 0.0014
+        },
+        {
+          "text": "kick",
+          "weight": 0.0013
+        },
+        {
+          "text": "side",
+          "weight": 0.0012
+        },
+        {
+          "text": "game",
+          "weight": 0.0012
+        },
+        {
+          "text": "first",
+          "weight": 0.0011
+        },
+        {
+          "text": "try",
+          "weight": 0.0011
+        },
+        {
+          "text": "tackle",
+          "weight": 0.0011
+        },
+        {
+          "text": "theres",
+          "weight": 0.0011
+        },
+        {
+          "text": "great",
+          "weight": 0.001
+        },
+        {
+          "text": "right",
+          "weight": 0.001
+        },
+        {
+          "text": "play",
+          "weight": 0.001
+        },
+        {
+          "text": "look",
+          "weight": 0.001
+        },
+        {
+          "text": "theyre",
+          "weight": 0.001
+        },
+        {
+          "text": "bit of",
+          "weight": 0.001
+        },
+        {
+          "text": "new",
+          "weight": 0.001
+        }
+      ]
     }
   ]
 }
