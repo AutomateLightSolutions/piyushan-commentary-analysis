@@ -6,6 +6,7 @@ const SYSTEM_PATH = path.resolve(process.cwd(), "..", "commentary_analysis_syste
 const RAW_DIR = path.resolve(SYSTEM_PATH, "data", "raw");
 const CHUNKS_DIR = path.resolve(SYSTEM_PATH, "data", "processed", "chunks");
 const DATASETS_DIR = path.resolve(SYSTEM_PATH, "data", "processed", "datasets");
+const OUTPUT_DIR = path.resolve(SYSTEM_PATH, "data", "output");
 
 // Helper to safely read directory (returns empty array if not exists)
 async function safeReaddir(dir) {
@@ -39,6 +40,7 @@ export async function GET(req) {
       const rawFiles = await safeReaddir(RAW_DIR);
       const chunkFiles = await safeReaddir(CHUNKS_DIR);
       const datasetFiles = await safeReaddirDatasets();
+      const outputFiles = await safeReaddir(OUTPUT_DIR);
       
       let matchIds = new Set();
       
@@ -63,6 +65,15 @@ export async function GET(req) {
           matchIds.add(basename.replace("dataset_", "").replace(".csv", ""));
         }
       });
+      // Extract from output
+      outputFiles.forEach(f => {
+        if (f.startsWith("predictions_") && f.endsWith(".json")) {
+           // Basic regex to grab anything after model name, up to .json
+           // Formats are predictions_{modelName}_{matchId}.json or predictions_{matchId}.json
+           const match = f.match(/^predictions_(?:.*_)?(match.*?)\.json$/i);
+           if (match) matchIds.add(match[1]);
+        }
+      });
       
       return NextResponse.json({ matchIds: Array.from(matchIds) });
     }
@@ -78,7 +89,20 @@ export async function GET(req) {
       { path: path.join(CHUNKS_DIR, `chunks_${matchId}.json`), name: `chunks_${matchId}.json`, type: "Processed Chunks", category: "chunks" },
       { path: path.join(DATASETS_DIR, "ml", `dataset_${matchId}.csv`), name: `dataset_${matchId}.csv (ML)`, type: "Dataset CSV (ML)", category: "datasets/ml" },
       { path: path.join(DATASETS_DIR, "lexicon", `dataset_${matchId}.csv`), name: `dataset_${matchId}.csv (Lexicon)`, type: "Dataset CSV (Lexicon)", category: "datasets/lexicon" },
+      { path: path.join(DATASETS_DIR, `dataset_${matchId}.csv`), name: `dataset_${matchId}.csv (Root)`, type: "Dataset CSV", category: "datasets" },
     ];
+
+    const outputFiles = await safeReaddir(OUTPUT_DIR);
+    for (const f of outputFiles) {
+      if (f.includes(matchId) && f.endsWith(".json")) {
+        expectedFiles.push({
+          path: path.join(OUTPUT_DIR, f),
+          name: f,
+          type: f.startsWith("predictions") ? "Predictions JSON" : f.startsWith("highlights") ? "Highlights JSON" : "Output JSON",
+          category: "output"
+        });
+      }
+    }
 
     const existingFiles = [];
     for (const fileDef of expectedFiles) {
@@ -125,7 +149,16 @@ export async function DELETE(req) {
         { path: path.join(CHUNKS_DIR, `chunks_${matchId}.json`), name: `chunks_${matchId}.json`, category: "chunks" },
         { path: path.join(DATASETS_DIR, "ml", `dataset_${matchId}.csv`), name: `dataset_${matchId}.csv`, category: "datasets/ml" },
         { path: path.join(DATASETS_DIR, "lexicon", `dataset_${matchId}.csv`), name: `dataset_${matchId}.csv`, category: "datasets/lexicon" },
+        { path: path.join(DATASETS_DIR, `dataset_${matchId}.csv`), name: `dataset_${matchId}.csv`, category: "datasets" },
       ];
+      
+      const outputFiles = await safeReaddir(OUTPUT_DIR);
+      for (const f of outputFiles) {
+        if (f.includes(matchId) && f.endsWith(".json")) {
+          expectedFiles.push({ path: path.join(OUTPUT_DIR, f), name: f, category: "output" });
+        }
+      }
+      
       filesProcess = expectedFiles;
     } else if (!Array.isArray(filesToDelete)) {
       return NextResponse.json({ message: "Invalid request payload" }, { status: 400 });
@@ -141,7 +174,9 @@ export async function DELETE(req) {
       let targetDir;
       if (file.category === "raw") targetDir = RAW_DIR;
       else if (file.category === "chunks") targetDir = CHUNKS_DIR;
-      else if (file.category.startsWith("datasets")) targetDir = path.join(DATASETS_DIR, file.category.split('/')[1]);
+      else if (file.category === "datasets") targetDir = DATASETS_DIR;
+      else if (file.category.startsWith("datasets/")) targetDir = path.join(DATASETS_DIR, file.category.split('/')[1]);
+      else if (file.category === "output") targetDir = OUTPUT_DIR;
       else continue;
 
       const filePath = path.join(targetDir, file.name);
