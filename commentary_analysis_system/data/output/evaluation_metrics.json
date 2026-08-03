@@ -808,5 +808,275 @@
                 }
             }
         }
+    },
+    {
+        "id": "match_1_Geo_vs_POR_WCA_2023_4_1_1785741379",
+        "match_id": "match_1_Geo_vs_POR_WCA_2023",
+        "dataset_name": "dataset_match_1_Geo_vs_POR_WCA_2023",
+        "training_round": 4,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+            "dataset_match_5_Ire_vs_Scot_PoolB_WCA_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-03T12:46:19.320633",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "precision": 0.29,
+                    "recall": 0.64,
+                    "f1": 0.4
+                },
+                "ML Model Only": {
+                    "precision": 0.33,
+                    "recall": 0.52,
+                    "f1": 0.41
+                },
+                "Hybrid Model": {
+                    "precision": 0.3,
+                    "recall": 0.73,
+                    "f1": 0.42
+                },
+                "Specific Event (Multi-class)": {
+                    "precision": 0.31,
+                    "recall": 0.76,
+                    "f1": 0.43
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.1245,
+                    "mae": 0.2824
+                },
+                "ML Model Only": {
+                    "mse": 0.0584,
+                    "mae": 0.1977
+                },
+                "Hybrid Model": {
+                    "mse": 0.1176,
+                    "mae": 0.2646
+                }
+            }
+        }
+    },
+    {
+        "id": "match_2_NZ_vs_ITA_WCA_2023_4_1_1785741379",
+        "match_id": "match_2_NZ_vs_ITA_WCA_2023",
+        "dataset_name": "dataset_match_2_NZ_vs_ITA_WCA_2023",
+        "training_round": 4,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+            "dataset_match_5_Ire_vs_Scot_PoolB_WCA_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-03T12:46:19.320633",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "precision": 0.28,
+                    "recall": 0.8,
+                    "f1": 0.42
+                },
+                "ML Model Only": {
+                    "precision": 0.38,
+                    "recall": 0.67,
+                    "f1": 0.48
+                },
+                "Hybrid Model": {
+                    "precision": 0.3,
+                    "recall": 0.92,
+                    "f1": 0.46
+                },
+                "Specific Event (Multi-class)": {
+                    "precision": 0.36,
+                    "recall": 0.91,
+                    "f1": 0.5
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.1594,
+                    "mae": 0.3229
+                },
+                "ML Model Only": {
+                    "mse": 0.0824,
+                    "mae": 0.2354
+                },
+                "Hybrid Model": {
+                    "mse": 0.2213,
+                    "mae": 0.3847
+                }
+            }
+        }
+    },
+    {
+        "id": "match_3_Aus_vs_Fij_WCA_2023_4_1_1785741379",
+        "match_id": "match_3_Aus_vs_Fij_WCA_2023",
+        "dataset_name": "dataset_match_3_Aus_vs_Fij_WCA_2023",
+        "training_round": 4,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+            "dataset_match_5_Ire_vs_Scot_PoolB_WCA_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-03T12:46:19.320633",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "precision": 0.25,
+                    "recall": 0.84,
+                    "f1": 0.38
+                },
+                "ML Model Only": {
+                    "precision": 0.28,
+                    "recall": 0.46,
+                    "f1": 0.35
+                },
+                "Hybrid Model": {
+                    "precision": 0.24,
+                    "recall": 0.82,
+                    "f1": 0.38
+                },
+                "Specific Event (Multi-class)": {
+                    "precision": 0.31,
+                    "recall": 0.91,
+                    "f1": 0.46
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.1853,
+                    "mae": 0.3536
+                },
+                "ML Model Only": {
+                    "mse": 0.1012,
+                    "mae": 0.2869
+                },
+                "Hybrid Model": {
+                    "mse": 0.3422,
+                    "mae": 0.537
+                }
+            }
+        }
+    },
+    {
+        "id": "match_4_Eng_vs_Arg_PoolD_WCA_2023_4_1_1785741379",
+        "match_id": "match_4_Eng_vs_Arg_PoolD_WCA_2023",
+        "dataset_name": "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+        "training_round": 4,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+            "dataset_match_5_Ire_vs_Scot_PoolB_WCA_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-03T12:46:19.320633",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "precision": 0.26,
+                    "recall": 0.76,
+                    "f1": 0.39
+                },
+                "ML Model Only": {
+                    "precision": 0.37,
+                    "recall": 0.61,
+                    "f1": 0.46
+                },
+                "Hybrid Model": {
+                    "precision": 0.29,
+                    "recall": 0.86,
+                    "f1": 0.43
+                },
+                "Specific Event (Multi-class)": {
+                    "precision": 0.36,
+                    "recall": 0.9,
+                    "f1": 0.49
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.1379,
+                    "mae": 0.2974
+                },
+                "ML Model Only": {
+                    "mse": 0.0739,
+                    "mae": 0.2322
+                },
+                "Hybrid Model": {
+                    "mse": 0.1761,
+                    "mae": 0.3359
+                }
+            }
+        }
+    },
+    {
+        "id": "match_5_Ire_vs_Scot_PoolB_WCA_2023_4_1_1785741379",
+        "match_id": "match_5_Ire_vs_Scot_PoolB_WCA_2023",
+        "dataset_name": "dataset_match_5_Ire_vs_Scot_PoolB_WCA_2023",
+        "training_round": 4,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+            "dataset_match_5_Ire_vs_Scot_PoolB_WCA_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-03T12:46:19.320633",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "precision": 0.24,
+                    "recall": 0.63,
+                    "f1": 0.35
+                },
+                "ML Model Only": {
+                    "precision": 0.3,
+                    "recall": 0.64,
+                    "f1": 0.41
+                },
+                "Hybrid Model": {
+                    "precision": 0.26,
+                    "recall": 0.8,
+                    "f1": 0.39
+                },
+                "Specific Event (Multi-class)": {
+                    "precision": 0.36,
+                    "recall": 0.89,
+                    "f1": 0.49
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.1357,
+                    "mae": 0.2901
+                },
+                "ML Model Only": {
+                    "mse": 0.0795,
+                    "mae": 0.2313
+                },
+                "Hybrid Model": {
+                    "mse": 0.1709,
+                    "mae": 0.3306
+                }
+            }
+        }
     }
 ]

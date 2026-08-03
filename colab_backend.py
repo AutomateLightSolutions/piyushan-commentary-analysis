@@ -148,8 +148,18 @@ class CustomTrainer(Trainer):
 # ==========================================
 app = FastAPI()
 
+# ==========================================
+# Google Drive Config
+# Mount Google Drive in Colab first:
+#   from google.colab import drive
+#   drive.mount('/content/drive')
+# The trained model will be saved here and
+# reloaded automatically on the next run.
+# ==========================================
+DRIVE_MODEL_DIR = "/content/drive/MyDrive/rugby_commentary_model"
+
 print("Loading Whisper model (medium) ...")
-whisper_model = whisper.load_model("medium") 
+whisper_model = whisper.load_model("medium")
 print("Whisper model loaded!")
 
 def run_transcribe(task_id, file_location):
@@ -197,32 +207,54 @@ def run_train(task_id, zip_path, model_name):
         print(f"Task {task_id}: Starting Training for {model_name}...")
         extract_dir = f"/content/training_data_{task_id}"
         output_dir = f"/content/model_output_{model_name.replace('/', '_')}"
-        
+
         os.makedirs(extract_dir, exist_ok=True)
         os.makedirs(output_dir, exist_ok=True)
-        
+
+        # Only extract the CSV data sent from the frontend (~1MB, not the full model)
         with zipfile.ZipFile(zip_path, 'r') as zip_ref:
             zip_ref.extractall(extract_dir)
-            
+
         # Read events.json
         events_path = os.path.join(extract_dir, "events.json")
         events = ["highlight"]
         if os.path.exists(events_path):
             with open(events_path, 'r') as f:
                 events = json.load(f)
-            
+
         label2id = {"normal_play": 0}
         id2label = {0: "normal_play"}
         for i, evt in enumerate(events, start=1):
             label2id[evt] = i
             id2label[i] = evt
-            
+
         num_labels = len(label2id)
-        print("Loading HuggingFace model into VRAM...")
-        tokenizer = AutoTokenizer.from_pretrained(model_name)
-        model = DualHeadRoBERTa(
-            model_name, num_labels=num_labels, id2label=id2label, label2id=label2id
-        )
+
+        # -------------------------------------------------------
+        # INCREMENTAL TRAINING via Google Drive
+        # The model is NEVER uploaded/downloaded as a zip.
+        # It lives permanently in Google Drive between sessions.
+        # Only the small CSV training data is sent each time.
+        # -------------------------------------------------------
+        drive_model_path = os.path.join(DRIVE_MODEL_DIR, "pytorch_model.bin")
+
+        if os.path.exists(drive_model_path):
+            print(f"[RESUME] Found saved model in Google Drive at: {DRIVE_MODEL_DIR}")
+            print(f"[RESUME] Loading previous weights - training will CONTINUE from last session.")
+            tokenizer = AutoTokenizer.from_pretrained(DRIVE_MODEL_DIR)
+            model = DualHeadRoBERTa(
+                model_name, num_labels=num_labels, id2label=id2label, label2id=label2id
+            )
+            state_dict = torch.load(drive_model_path, map_location="cpu")
+            model.load_state_dict(state_dict)
+            print("[RESUME] Previous weights loaded. The model remembers all past training.")
+        else:
+            print(f"[FIRST RUN] No saved model found in Google Drive.")
+            print(f"[FIRST RUN] Starting fresh from '{model_name}'.")
+            tokenizer = AutoTokenizer.from_pretrained(model_name)
+            model = DualHeadRoBERTa(
+                model_name, num_labels=num_labels, id2label=id2label, label2id=label2id
+            )
         
         csv_files = [os.path.join(extract_dir, f) for f in os.listdir(extract_dir) if f.endswith('.csv')]
         dfs = []
@@ -249,9 +281,9 @@ def run_train(task_id, zip_path, model_name):
         for i in range(num_labels):
             count = class_counts.get(i, 0)
             w = total_samples / (num_labels * count) if count > 0 else 1.0
-            # Heavily down-weight normal_play (assuming label 0 is normal_play)
-            if i == 0:
-                w = w * 0.1
+            # FocalLoss handles class imbalance automatically.
+            # Do NOT artificially down-weight normal_play here — it causes the model
+            # to treat false positives as acceptable, destroying precision.
             weights.append(w)
             
         class_weights = torch.tensor(weights, dtype=torch.float)
@@ -313,21 +345,42 @@ def run_train(task_id, zip_path, model_name):
         for param in model.parameters():
             param.requires_grad = True
         
+        # -------------------------------------------------------
+        # Save the trained model DIRECTLY to Google Drive.
+        # This replaces the old approach of zipping and downloading.
+        # Next training run will automatically load from here.
+        # -------------------------------------------------------
+        print(f"[SAVE] Saving trained model to Google Drive: {DRIVE_MODEL_DIR}")
+        os.makedirs(DRIVE_MODEL_DIR, exist_ok=True)
+        torch.save(model.state_dict(), os.path.join(DRIVE_MODEL_DIR, "pytorch_model.bin"))
+        model.config.save_pretrained(DRIVE_MODEL_DIR)
+        tokenizer.save_pretrained(DRIVE_MODEL_DIR)
+        print(f"[SAVE] Model saved to Google Drive. You do NOT need to download it.")
+        print(f"[SAVE] Next training run will automatically resume from this checkpoint.")
+
+        # Save training history log to Drive as well
+        history_path = os.path.join(DRIVE_MODEL_DIR, "training_history.json")
+        combined_history = trainer_stage1.state.log_history + trainer_stage2.state.log_history
+        # Append to existing history if it exists
+        if os.path.exists(history_path):
+            with open(history_path, 'r') as f:
+                existing_history = json.load(f)
+            combined_history = existing_history + combined_history
+        with open(history_path, 'w') as f:
+            json.dump(combined_history, f)
+
+        # Still zip and return the model so the frontend can download it
+        # locally for running predictions (much smaller than before — only the heads matter)
         best_dir = os.path.join(output_dir, "best")
         os.makedirs(best_dir, exist_ok=True)
         torch.save(model.state_dict(), os.path.join(best_dir, "pytorch_model.bin"))
         model.config.save_pretrained(best_dir)
         tokenizer.save_pretrained(best_dir)
-        
-        history_path = os.path.join(best_dir, "training_history.json")
-        combined_history = trainer_stage1.state.log_history + trainer_stage2.state.log_history
-        with open(history_path, 'w') as f:
-            json.dump(combined_history, f)
-            
+
         out_zip = f"/content/{model_name.replace('/', '_')}_trained.zip"
         shutil.make_archive(out_zip.replace('.zip', ''), 'zip', best_dir)
-        
-        print(f"Task {task_id}: Training complete! Zipped to {out_zip}")
+
+        print(f"Task {task_id}: Training complete! Model saved to Drive and zipped to {out_zip}")
         tasks[task_id]["status"] = "completed"
         tasks[task_id]["result_file"] = out_zip
     except Exception as e:
