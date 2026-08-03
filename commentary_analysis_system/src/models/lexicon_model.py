@@ -24,8 +24,15 @@ class LexiconModel:
     def _count_matches_weighted(self, text: str, terms: list[dict]) -> float:
         score = 0.0
         
-        # Simple negation words to check before the term
-        negations = ["no", "not", "missed", "missed the"]
+        # Negation and qualifier words to check before a keyword match.
+        # Covers near-misses, failed attempts, and preventions common in rugby commentary.
+        negations = [
+            "no", "not", "missed", "missed the",
+            "almost", "nearly", "just", "prevented",
+            "stopped", "denied", "failed", "attempt",
+            "trying to", "going for", "couldn't", "could not",
+            "short of", "held up", "short"
+        ]
         
         for term_obj in terms:
             if isinstance(term_obj, str):

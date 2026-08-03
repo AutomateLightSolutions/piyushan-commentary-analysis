@@ -107,11 +107,24 @@ class FocalLoss(nn.Module):
         elif self.reduction == 'sum': return focal_loss.sum()
         return focal_loss
 
+class WeightedMSELoss(nn.Module):
+    def __init__(self, base_weight=1.0, high_score_weight=5.0, threshold=0.01):
+        super().__init__()
+        self.base_weight = base_weight
+        self.high_score_weight = high_score_weight
+        self.threshold = threshold
+
+    def forward(self, inputs, targets):
+        mse = F.mse_loss(inputs, targets, reduction='none')
+        weights = torch.where(targets > self.threshold, self.high_score_weight, self.base_weight)
+        return (mse * weights).mean()
+
 class CustomTrainer(Trainer):
-    def __init__(self, *args, class_weights=None, **kwargs):
+    def __init__(self, *args, class_weights=None, stage=1, **kwargs):
         super().__init__(*args, **kwargs)
+        self.stage = stage
         self.loss_fct_events = FocalLoss(alpha=class_weights, gamma=2.0)
-        self.loss_fct_highlights = nn.MSELoss()
+        self.loss_fct_highlights = WeightedMSELoss(base_weight=1.0, high_score_weight=5.0, threshold=0.01)
 
     def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
         labels = inputs.pop("labels")
@@ -121,14 +134,12 @@ class CustomTrainer(Trainer):
         logits = outputs.logits
         highlight_scores = outputs.highlight_scores
         
-        if self.loss_fct_events.alpha is not None and self.loss_fct_events.alpha.device != logits.device:
-            self.loss_fct_events.alpha = self.loss_fct_events.alpha.to(logits.device)
-            
-        event_loss = self.loss_fct_events(logits.view(-1, self.model.config.num_labels), labels.view(-1))
-        highlight_loss = self.loss_fct_highlights(highlight_scores.view(-1), highlight_labels.view(-1).to(highlight_scores.dtype))
-        
-        # Weights: 1.0 for Events, 3.0 for Highlights (since MSE loss is naturally very small, this keeps Event Detection dominating)
-        loss = event_loss + (3.0 * highlight_loss)
+        if self.stage == 1:
+            if self.loss_fct_events.alpha is not None and self.loss_fct_events.alpha.device != logits.device:
+                self.loss_fct_events.alpha = self.loss_fct_events.alpha.to(logits.device)
+            loss = self.loss_fct_events(logits.view(-1, self.model.config.num_labels), labels.view(-1))
+        else:
+            loss = self.loss_fct_highlights(highlight_scores.view(-1), highlight_labels.view(-1).to(highlight_scores.dtype))
             
         return (loss, outputs) if return_outputs else loss
 
@@ -234,7 +245,15 @@ def run_train(task_id, zip_path, model_name):
         
         total_samples = len(df_balanced)
         class_counts = df_balanced['label'].value_counts().to_dict()
-        weights = [total_samples / (num_labels * class_counts.get(i, 0)) if class_counts.get(i, 0) > 0 else 1.0 for i in range(num_labels)]
+        weights = []
+        for i in range(num_labels):
+            count = class_counts.get(i, 0)
+            w = total_samples / (num_labels * count) if count > 0 else 1.0
+            # Heavily down-weight normal_play (assuming label 0 is normal_play)
+            if i == 0:
+                w = w * 0.1
+            weights.append(w)
+            
         class_weights = torch.tensor(weights, dtype=torch.float)
         
         dataset = Dataset.from_pandas(df_balanced)
@@ -247,29 +266,52 @@ def run_train(task_id, zip_path, model_name):
         tokenized_datasets = dataset.map(tokenize_func, batched=True)
         split_datasets = tokenized_datasets.train_test_split(test_size=0.2, seed=42)
         
-        training_args = TrainingArguments(
-            output_dir=output_dir,
-            num_train_epochs=15,
-            per_device_train_batch_size=16,
-            per_device_eval_batch_size=16,
-            eval_strategy="epoch",
-            logging_strategy="steps",
-            logging_steps=5,
-            save_strategy="epoch",
-            load_best_model_at_end=True,
-            disable_tqdm=False, # We want tqdm so we can catch it in stdout!
-        )
-        
-        trainer = CustomTrainer(
+        def get_training_args(output_dir_suffix, epochs=5):
+            return TrainingArguments(
+                output_dir=f"{output_dir}/{output_dir_suffix}",
+                num_train_epochs=epochs,
+                per_device_train_batch_size=16,
+                per_device_eval_batch_size=16,
+                eval_strategy="epoch",
+                logging_strategy="steps",
+                logging_steps=5,
+                save_strategy="epoch",
+                load_best_model_at_end=True,
+                disable_tqdm=False, # We want tqdm so we can catch it in stdout!
+                learning_rate=2e-5,
+                warmup_ratio=0.1
+            )
+            
+        print("Starting Stage 1: Training Event Classifier...")
+        trainer_stage1 = CustomTrainer(
             model=model,
-            args=training_args,
+            args=get_training_args("stage1", epochs=5),
             train_dataset=split_datasets['train'],
             eval_dataset=split_datasets['test'],
-            class_weights=class_weights
+            class_weights=class_weights,
+            stage=1
         )
+        trainer_stage1.train()
         
-        print("Starting training loop...")
-        trainer.train()
+        print("Starting Stage 2: Training Highlight Scorer...")
+        # Freeze backbone and event classifier for Stage 2
+        for name, param in model.named_parameters():
+            if 'highlight_scorer' not in name:
+                param.requires_grad = False
+                
+        trainer_stage2 = CustomTrainer(
+            model=model,
+            args=get_training_args("stage2", epochs=5),
+            train_dataset=split_datasets['train'],
+            eval_dataset=split_datasets['test'],
+            class_weights=class_weights,
+            stage=2
+        )
+        trainer_stage2.train()
+        
+        # Unfreeze after training
+        for param in model.parameters():
+            param.requires_grad = True
         
         best_dir = os.path.join(output_dir, "best")
         os.makedirs(best_dir, exist_ok=True)
@@ -278,8 +320,9 @@ def run_train(task_id, zip_path, model_name):
         tokenizer.save_pretrained(best_dir)
         
         history_path = os.path.join(best_dir, "training_history.json")
+        combined_history = trainer_stage1.state.log_history + trainer_stage2.state.log_history
         with open(history_path, 'w') as f:
-            json.dump(trainer.state.log_history, f)
+            json.dump(combined_history, f)
             
         out_zip = f"/content/{model_name.replace('/', '_')}_trained.zip"
         shutil.make_archive(out_zip.replace('.zip', ''), 'zip', best_dir)

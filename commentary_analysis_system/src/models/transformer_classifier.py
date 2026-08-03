@@ -61,11 +61,42 @@ class DualHeadRoBERTa(nn.Module):
         
         return DualHeadRoBERTaOutput(logits=event_logits, highlight_scores=highlight_score)
 
+class FocalLoss(nn.Module):
+    def __init__(self, alpha=None, gamma=2.0, reduction='mean'):
+        super(FocalLoss, self).__init__()
+        self.alpha = alpha
+        self.gamma = gamma
+        self.reduction = reduction
+
+    def forward(self, inputs, targets):
+        ce_loss = F.cross_entropy(inputs, targets, weight=self.alpha, reduction='none')
+        pt = torch.exp(-ce_loss)
+        focal_loss = ((1 - pt) ** self.gamma) * ce_loss
+        
+        if self.reduction == 'mean':
+            return focal_loss.mean()
+        elif self.reduction == 'sum':
+            return focal_loss.sum()
+        return focal_loss
+
+class WeightedMSELoss(nn.Module):
+    def __init__(self, base_weight=1.0, high_score_weight=5.0, threshold=0.01):
+        super().__init__()
+        self.base_weight = base_weight
+        self.high_score_weight = high_score_weight
+        self.threshold = threshold
+
+    def forward(self, inputs, targets):
+        mse = F.mse_loss(inputs, targets, reduction='none')
+        weights = torch.where(targets > self.threshold, self.high_score_weight, self.base_weight)
+        return (mse * weights).mean()
+
 class CustomTrainer(Trainer):
-    def __init__(self, *args, class_weights=None, **kwargs):
+    def __init__(self, *args, class_weights=None, stage=1, **kwargs):
         super().__init__(*args, **kwargs)
+        self.stage = stage
         self.loss_fct_events = FocalLoss(alpha=class_weights, gamma=2.0)
-        self.loss_fct_highlights = nn.MSELoss()
+        self.loss_fct_highlights = WeightedMSELoss(base_weight=1.0, high_score_weight=5.0, threshold=0.01)
 
     def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
         labels = inputs.pop("labels")
@@ -75,14 +106,12 @@ class CustomTrainer(Trainer):
         logits = outputs.logits
         highlight_scores = outputs.highlight_scores
         
-        if self.loss_fct_events.alpha is not None and self.loss_fct_events.alpha.device != logits.device:
-            self.loss_fct_events.alpha = self.loss_fct_events.alpha.to(logits.device)
-            
-        event_loss = self.loss_fct_events(logits.view(-1, self.model.config.num_labels), labels.view(-1))
-        highlight_loss = self.loss_fct_highlights(highlight_scores.view(-1), highlight_labels.view(-1).to(highlight_scores.dtype))
-        
-        # Weights: 1.0 for Events, 3.0 for Highlights
-        loss = event_loss + (3.0 * highlight_loss)
+        if self.stage == 1:
+            if self.loss_fct_events.alpha is not None and self.loss_fct_events.alpha.device != logits.device:
+                self.loss_fct_events.alpha = self.loss_fct_events.alpha.to(logits.device)
+            loss = self.loss_fct_events(logits.view(-1, self.model.config.num_labels), labels.view(-1))
+        else:
+            loss = self.loss_fct_highlights(highlight_scores.view(-1), highlight_labels.view(-1).to(highlight_scores.dtype))
             
         return (loss, outputs) if return_outputs else loss
 
@@ -165,7 +194,6 @@ class TransformerClassifier:
         # 2. Balance dataset - We keep all negative data and rely on Focal Loss to handle imbalance
         df_balanced = df.sample(frac=1, random_state=42).reset_index(drop=True)
         
-        # 3. Compute class weights for the loss function
         total_samples = len(df_balanced)
         class_counts = df_balanced['label'].value_counts().to_dict()
         
@@ -173,6 +201,9 @@ class TransformerClassifier:
         for i in range(self.num_labels):
             count = class_counts.get(i, 0)
             w = total_samples / (self.num_labels * count) if count > 0 else 1.0
+            # FocalLoss handles class imbalance automatically.
+            # Do NOT artificially down-weight normal_play here — it causes the model
+            # to treat false positives as acceptable, destroying precision.
             weights.append(w)
             
         class_weights = torch.tensor(weights, dtype=torch.float)
@@ -194,28 +225,52 @@ class TransformerClassifier:
         train_dataset = split_datasets['train']
         val_dataset = split_datasets['test']
 
-        training_args = TrainingArguments(
-            output_dir=output_dir,
-            num_train_epochs=epochs,
-            per_device_train_batch_size=batch_size,
-            per_device_eval_batch_size=batch_size,
-            eval_strategy="epoch",
-            logging_strategy="steps",
-            logging_steps=5,
-            save_strategy="epoch",
-            load_best_model_at_end=True,
-            disable_tqdm=True,
-        )
+        def get_training_args(output_dir_suffix, epochs=5):
+            return TrainingArguments(
+                output_dir=f"{output_dir}/{output_dir_suffix}",
+                num_train_epochs=epochs,
+                per_device_train_batch_size=batch_size,
+                per_device_eval_batch_size=batch_size,
+                eval_strategy="epoch",
+                logging_strategy="steps",
+                logging_steps=5,
+                save_strategy="epoch",
+                load_best_model_at_end=True,
+                disable_tqdm=True,
+                learning_rate=2e-5,
+                warmup_ratio=0.1
+            )
 
-        trainer = CustomTrainer(
+        print("Starting Stage 1: Training Event Classifier...")
+        trainer_stage1 = CustomTrainer(
             model=self.model,
-            args=training_args,
+            args=get_training_args("stage1", epochs=5),
             train_dataset=train_dataset,
             eval_dataset=val_dataset,
-            class_weights=class_weights
+            class_weights=class_weights,
+            stage=1
         )
+        trainer_stage1.train()
 
-        trainer.train()
+        print("Starting Stage 2: Training Highlight Scorer...")
+        # Freeze backbone and event classifier for Stage 2
+        for name, param in self.model.named_parameters():
+            if 'highlight_scorer' not in name:
+                param.requires_grad = False
+                
+        trainer_stage2 = CustomTrainer(
+            model=self.model,
+            args=get_training_args("stage2", epochs=5),
+            train_dataset=train_dataset,
+            eval_dataset=val_dataset,
+            class_weights=class_weights,
+            stage=2
+        )
+        trainer_stage2.train()
+        
+        # Unfreeze after training
+        for param in self.model.parameters():
+            param.requires_grad = True
         
         os.makedirs(f"{output_dir}/best", exist_ok=True)
         torch.save(self.model.state_dict(), f"{output_dir}/best/pytorch_model.bin")
