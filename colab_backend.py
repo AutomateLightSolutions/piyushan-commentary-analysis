@@ -84,7 +84,7 @@ class DualHeadRoBERTa(nn.Module):
 
     def forward(self, input_ids, attention_mask, labels=None, highlight_labels=None, **kwargs):
         outputs = self.roberta(input_ids=input_ids, attention_mask=attention_mask)
-        pooled_output = outputs.pooler_output
+        pooled_output = getattr(outputs, "pooler_output", None)
         if pooled_output is None:
             pooled_output = outputs.last_hidden_state[:, 0, :]
             
@@ -236,12 +236,14 @@ def run_train(task_id, zip_path, model_name):
         # It lives permanently in Google Drive between sessions.
         # Only the small CSV training data is sent each time.
         # -------------------------------------------------------
-        drive_model_path = os.path.join(DRIVE_MODEL_DIR, "pytorch_model.bin")
+        # Make the drive directory model-specific to prevent architecture collisions
+        current_drive_model_dir = f"{DRIVE_MODEL_DIR}_{model_name.replace('/', '_')}"
+        drive_model_path = os.path.join(current_drive_model_dir, "pytorch_model.bin")
 
         if os.path.exists(drive_model_path):
-            print(f"[RESUME] Found saved model in Google Drive at: {DRIVE_MODEL_DIR}")
+            print(f"[RESUME] Found saved model in Google Drive at: {current_drive_model_dir}")
             print(f"[RESUME] Loading previous weights - training will CONTINUE from last session.")
-            tokenizer = AutoTokenizer.from_pretrained(DRIVE_MODEL_DIR)
+            tokenizer = AutoTokenizer.from_pretrained(current_drive_model_dir)
             model = DualHeadRoBERTa(
                 model_name, num_labels=num_labels, id2label=id2label, label2id=label2id
             )
@@ -350,16 +352,16 @@ def run_train(task_id, zip_path, model_name):
         # This replaces the old approach of zipping and downloading.
         # Next training run will automatically load from here.
         # -------------------------------------------------------
-        print(f"[SAVE] Saving trained model to Google Drive: {DRIVE_MODEL_DIR}")
-        os.makedirs(DRIVE_MODEL_DIR, exist_ok=True)
-        torch.save(model.state_dict(), os.path.join(DRIVE_MODEL_DIR, "pytorch_model.bin"))
-        model.config.save_pretrained(DRIVE_MODEL_DIR)
-        tokenizer.save_pretrained(DRIVE_MODEL_DIR)
+        print(f"[SAVE] Saving trained model to Google Drive: {current_drive_model_dir}")
+        os.makedirs(current_drive_model_dir, exist_ok=True)
+        torch.save(model.state_dict(), os.path.join(current_drive_model_dir, "pytorch_model.bin"))
+        model.config.save_pretrained(current_drive_model_dir)
+        tokenizer.save_pretrained(current_drive_model_dir)
         print(f"[SAVE] Model saved to Google Drive. You do NOT need to download it.")
         print(f"[SAVE] Next training run will automatically resume from this checkpoint.")
 
         # Save training history log to Drive as well
-        history_path = os.path.join(DRIVE_MODEL_DIR, "training_history.json")
+        history_path = os.path.join(current_drive_model_dir, "training_history.json")
         combined_history = trainer_stage1.state.log_history + trainer_stage2.state.log_history
         # Append to existing history if it exists
         if os.path.exists(history_path):

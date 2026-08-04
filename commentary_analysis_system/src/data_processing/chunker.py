@@ -1,9 +1,12 @@
 from src.data_processing.parser import clean_text
 
-def create_chunks(segments: list[dict], chunk_size: int = 5, overlap: int = 2) -> list[dict]:
+def create_chunks(segments: list[dict], chunk_size: int = 4, overlap: int = 2) -> list[dict]:
     """
-    Groups line segments into overlapping chunks.
-    Example: 0-5, 3-8, 6-11
+    Groups line segments into overlapping chunks based on time (seconds).
+    Default: chunk_size=4s, overlap=2s, step=2s.
+    Example (default): 0-4, 2-6, 4-8, 6-10
+    For non-overlapping label chunks, call with overlap=0:
+    Example (overlap=0): 0-4, 4-8, 8-12
     """
     chunks = []
 

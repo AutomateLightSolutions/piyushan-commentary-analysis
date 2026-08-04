@@ -23,7 +23,7 @@ def process_match(match_id: str, vtt_file: Path):
     segments = parse_vtt(str(vtt_file))
     
     # 2. Chunking
-    chunks = create_chunks(segments, chunk_size=5, overlap=2)
+    chunks = create_chunks(segments, chunk_size=4, overlap=2)
     
     # 3. Set default label to 0 (No pre-labeling, user will manually label highlights)
     for chunk in chunks:

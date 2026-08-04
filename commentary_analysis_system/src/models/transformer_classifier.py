@@ -58,7 +58,7 @@ class DualHeadRoBERTa(nn.Module):
 
     def forward(self, input_ids, attention_mask, labels=None, highlight_labels=None, **kwargs):
         outputs = self.roberta(input_ids=input_ids, attention_mask=attention_mask)
-        pooled_output = outputs.pooler_output
+        pooled_output = getattr(outputs, "pooler_output", None)
         if pooled_output is None:
             pooled_output = outputs.last_hidden_state[:, 0, :]
             
@@ -295,6 +295,20 @@ class TransformerClassifier:
         self.model = DualHeadRoBERTa(model_name, self.num_labels, self.id2label, self.label2id)
         
         state_dict = torch.load(os.path.join(model_path, "pytorch_model.bin"), map_location="cpu")
+
+        # --- Backward-compat: remap keys from old architecture (plain Linear heads)
+        # to new architecture (Sequential(Dropout, Linear) heads where Linear is index 1)
+        key_map = {
+            "event_classifier.weight":  "event_classifier.1.weight",
+            "event_classifier.bias":    "event_classifier.1.bias",
+            "highlight_scorer.weight":  "highlight_scorer.1.weight",
+            "highlight_scorer.bias":    "highlight_scorer.1.bias",
+        }
+        remapped = {}
+        for k, v in state_dict.items():
+            remapped[key_map.get(k, k)] = v
+        state_dict = remapped
+
         self.model.load_state_dict(state_dict)
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
         

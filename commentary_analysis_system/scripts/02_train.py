@@ -75,7 +75,7 @@ def main():
                 df_train = df.iloc[sorted(train_indices)]
                 csv_bytes = df_train.to_csv(index=False).encode("utf-8")
                 z.writestr(Path(f).name, csv_bytes)
-                print(f"  {Path(f).name}: {len(df)} rows → {len(df_train)} train rows included")
+                print(f"  {Path(f).name}: {len(df)} rows -> {len(df_train)} train rows included")
             else:
                 z.write(f, arcname=Path(f).name)
         events_path = Path("data/events.json")

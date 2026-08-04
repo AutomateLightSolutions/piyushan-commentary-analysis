@@ -7,6 +7,9 @@ from pathlib import Path
 CONFIG_PATH = Path(__file__).parent.parent.parent / "data" / "config" / "settings.json"
 
 DEFAULT_SETTINGS = {
+    "chunk_size": 4,
+    "chunk_overlap_ml": 2,
+    "chunk_overlap_lexicon": 0.5,
     "lexicon_threshold": 0.10,
     "ml_threshold": 0.55,
     "hybrid_threshold": 0.40,

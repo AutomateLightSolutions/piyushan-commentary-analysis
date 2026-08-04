@@ -9,7 +9,7 @@ SYSTEM_PATH = Path(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(str(SYSTEM_PATH))
 
 from src.data_processing.chunker import create_chunks
-from src.data_processing.mapper import map_labels
+from src.data_processing.mapper import map_labels, propagate_labels
 PROCESSED_SEGMENTS_DIR = SYSTEM_PATH / "data" / "processed" / "segments"
 DATASETS_ML_DIR = SYSTEM_PATH / "data" / "processed" / "datasets" / "ml"
 DATASETS_LEXICON_DIR = SYSTEM_PATH / "data" / "processed" / "datasets" / "lexicon"
@@ -85,14 +85,21 @@ def main():
         print(f"Error parsing CSV: {e}")
         sys.exit(1)
 
-    # 3. Create ML chunks (5s size, 2s overlap) and map labels
-    ml_chunks_raw = create_chunks(segments, chunk_size=5, overlap=2)
-    ml_chunks_mapped = map_labels(ml_chunks_raw, imported_data)
+    # STEP A: Non-overlapping 4s label chunks — aligned with video 8s base windows
+    # (4 divides 8 evenly, so every 4s boundary is also an 8s boundary)
+    # These are NOT used for training — only for clean label assignment from video data.
+    label_chunks_raw = create_chunks(segments, chunk_size=4, overlap=0)
+    label_chunks = map_labels(label_chunks_raw, imported_data)
+
+    # STEP B: Overlapping 4s ML training chunks — inherit labels from Step A
+    # overlap=2s on a 4s window = 50% overlap, giving model good boundary context
+    ml_chunks_raw = create_chunks(segments, chunk_size=4, overlap=2)
+    ml_chunks_mapped = propagate_labels(ml_chunks_raw, label_chunks)
     save_dataset(ml_chunks_mapped, DATASETS_ML_DIR / f"dataset_{match_id}.csv")
 
-    # 4. Create Lexicon chunks (5s size, 0.5s overlap) and map labels
-    lexicon_chunks_raw = create_chunks(segments, chunk_size=5, overlap=0.5)
-    lexicon_chunks_mapped = map_labels(lexicon_chunks_raw, imported_data)
+    # STEP C: Lexicon chunks — inherit labels from Step A
+    lexicon_chunks_raw = create_chunks(segments, chunk_size=4, overlap=0.5)
+    lexicon_chunks_mapped = propagate_labels(lexicon_chunks_raw, label_chunks)
     save_dataset(lexicon_chunks_mapped, DATASETS_LEXICON_DIR / f"dataset_{match_id}.csv")
     
     print("SUCCESS")
