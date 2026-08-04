@@ -1,0 +1,12 @@
+[
+  {
+    "start": 0,
+    "end": 606,
+    "primary_event": "card_event"
+  },
+  {
+    "start": 600,
+    "end": 5774,
+    "primary_event": "goal_kick"
+  }
+]

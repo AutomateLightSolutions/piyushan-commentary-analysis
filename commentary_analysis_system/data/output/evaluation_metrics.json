@@ -1810,5 +1810,217 @@
                 }
             }
         }
+    },
+    {
+        "id": "match_1_Geo_vs_POR_WCA_2023_2_1_1785840516",
+        "match_id": "match_1_Geo_vs_POR_WCA_2023",
+        "dataset_name": "dataset_match_1_Geo_vs_POR_WCA_2023",
+        "training_round": 2,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "answerdotai/ModernBERT-base",
+        "timestamp": "2026-08-04T16:18:36.377158",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "precision": 0.24,
+                    "recall": 0.64,
+                    "f1": 0.34
+                },
+                "ML Model Only": {
+                    "precision": 0.23,
+                    "recall": 0.99,
+                    "f1": 0.37
+                },
+                "Hybrid Model": {
+                    "precision": 0.23,
+                    "recall": 1.0,
+                    "f1": 0.37
+                },
+                "Specific Event (Multi-class)": {
+                    "precision": 0.23,
+                    "recall": 0.57,
+                    "f1": 0.32
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.3279,
+                    "mae": 0.4705
+                },
+                "ML Model Only": {
+                    "mse": 0.0837,
+                    "mae": 0.2391
+                },
+                "Hybrid Model": {
+                    "mse": 0.3424,
+                    "mae": 0.4913
+                }
+            }
+        }
+    },
+    {
+        "id": "match_2_NZ_vs_ITA_WCA_2023_2_1_1785840516",
+        "match_id": "match_2_NZ_vs_ITA_WCA_2023",
+        "dataset_name": "dataset_match_2_NZ_vs_ITA_WCA_2023",
+        "training_round": 2,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "answerdotai/ModernBERT-base",
+        "timestamp": "2026-08-04T16:18:36.377158",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "precision": 0.23,
+                    "recall": 0.72,
+                    "f1": 0.34
+                },
+                "ML Model Only": {
+                    "precision": 0.24,
+                    "recall": 0.99,
+                    "f1": 0.38
+                },
+                "Hybrid Model": {
+                    "precision": 0.24,
+                    "recall": 1.0,
+                    "f1": 0.38
+                },
+                "Specific Event (Multi-class)": {
+                    "precision": 0.22,
+                    "recall": 0.52,
+                    "f1": 0.3
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.4023,
+                    "mae": 0.5376
+                },
+                "ML Model Only": {
+                    "mse": 0.1064,
+                    "mae": 0.2685
+                },
+                "Hybrid Model": {
+                    "mse": 0.4239,
+                    "mae": 0.5703
+                }
+            }
+        }
+    },
+    {
+        "id": "match_3_Aus_vs_Fij_WCA_2023_2_1_1785840516",
+        "match_id": "match_3_Aus_vs_Fij_WCA_2023",
+        "dataset_name": "dataset_match_3_Aus_vs_Fij_WCA_2023",
+        "training_round": 2,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "answerdotai/ModernBERT-base",
+        "timestamp": "2026-08-04T16:18:36.377158",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "precision": 0.19,
+                    "recall": 0.8,
+                    "f1": 0.31
+                },
+                "ML Model Only": {
+                    "precision": 0.2,
+                    "recall": 0.99,
+                    "f1": 0.33
+                },
+                "Hybrid Model": {
+                    "precision": 0.2,
+                    "recall": 1.0,
+                    "f1": 0.33
+                },
+                "Specific Event (Multi-class)": {
+                    "precision": 0.21,
+                    "recall": 0.61,
+                    "f1": 0.3
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.6292,
+                    "mae": 0.7129
+                },
+                "ML Model Only": {
+                    "mse": 0.1113,
+                    "mae": 0.2985
+                },
+                "Hybrid Model": {
+                    "mse": 0.6706,
+                    "mae": 0.7725
+                }
+            }
+        }
+    },
+    {
+        "id": "match_4_Eng_vs_Arg_PoolD_WCA_2023_2_1_1785840516",
+        "match_id": "match_4_Eng_vs_Arg_PoolD_WCA_2023",
+        "dataset_name": "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+        "training_round": 2,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "answerdotai/ModernBERT-base",
+        "timestamp": "2026-08-04T16:18:36.377158",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "precision": 0.21,
+                    "recall": 0.75,
+                    "f1": 0.33
+                },
+                "ML Model Only": {
+                    "precision": 0.2,
+                    "recall": 0.99,
+                    "f1": 0.34
+                },
+                "Hybrid Model": {
+                    "precision": 0.2,
+                    "recall": 1.0,
+                    "f1": 0.34
+                },
+                "Specific Event (Multi-class)": {
+                    "precision": 0.25,
+                    "recall": 0.63,
+                    "f1": 0.35
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.4279,
+                    "mae": 0.5535
+                },
+                "ML Model Only": {
+                    "mse": 0.0994,
+                    "mae": 0.2715
+                },
+                "Hybrid Model": {
+                    "mse": 0.4546,
+                    "mae": 0.5913
+                }
+            }
+        }
     }
 ]

@@ -1,0 +1,12 @@
+[
+  {
+    "start": 0,
+    "end": 838,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 832,
+    "end": 5744,
+    "primary_event": "goal_kick"
+  }
+]

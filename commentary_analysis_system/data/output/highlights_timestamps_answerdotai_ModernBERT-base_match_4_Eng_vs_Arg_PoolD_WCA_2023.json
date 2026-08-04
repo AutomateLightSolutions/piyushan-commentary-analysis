@@ -1,0 +1,12 @@
+[
+  {
+    "start": 0,
+    "end": 2190,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 2184,
+    "end": 5766,
+    "primary_event": "normal_play"
+  }
+]

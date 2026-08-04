@@ -1,0 +1,37 @@
+[
+  {
+    "start": 0,
+    "end": 764,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 760,
+    "end": 818,
+    "primary_event": "normal_play"
+  },
+  {
+    "start": 812,
+    "end": 1770,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 1764,
+    "end": 2064,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 2058,
+    "end": 3340,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 3334,
+    "end": 4842,
+    "primary_event": "maul"
+  },
+  {
+    "start": 4836,
+    "end": 5756,
+    "primary_event": "normal_play"
+  }
+]
