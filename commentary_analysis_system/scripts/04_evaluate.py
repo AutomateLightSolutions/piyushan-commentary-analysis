@@ -52,6 +52,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_name", type=str, default="roberta-base", help="HuggingFace model string")
     parser.add_argument("--dataset", type=str, default="all", help="Specific dataset to run on, or 'all'")
+    parser.add_argument("--split", type=str, default="all", choices=["all", "train", "val", "test"],
+                        help="Evaluate only chunks belonging to this split role (default: all)")
     args = parser.parse_args()
     
     if not OUTPUT_DIR.exists():
@@ -113,6 +115,15 @@ def main():
         
         with open(pred_file, "r", encoding="utf-8") as f:
             chunks = json.load(f)
+
+        # Filter by split role if requested
+        if args.split != "all":
+            filtered = [c for c in chunks if c.get("split") == args.split]
+            if not filtered:
+                print(f"  WARNING: No chunks with split='{args.split}' in {pred_file.name}. Skipping.")
+                continue
+            print(f"  {pred_file.name}: {len(chunks)} total → {len(filtered)} '{args.split}' chunks")
+            chunks = filtered
             
         # Evaluate for single match
         lexicon_res = evaluate_method(chunks, "lexicon_score", threshold=get_threshold("lexicon_threshold"))

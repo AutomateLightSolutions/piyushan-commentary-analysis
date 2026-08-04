@@ -116,7 +116,7 @@ export default function LexiconManagement() {
     }));
   };
 
-  const totalWeight = config.categories.reduce((acc, cat) => acc + cat.weight, 0);
+
 
   if (loading) {
     return (
@@ -144,9 +144,6 @@ export default function LexiconManagement() {
         <section className="glass-card">
           <div className="flex-between mb-3">
             <h2 className="card-title" style={{ margin: 0 }}>📊 Category Weights</h2>
-            <div className={`alert ${totalWeight === 1 ? 'alert-success' : 'alert-error'}`} style={{ margin: 0, padding: "0.5rem 1rem" }}>
-              Total Weight: {(totalWeight * 100).toFixed(0)}% {totalWeight !== 1 && "(Should be 100%)"}
-            </div>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1.5rem" }}>

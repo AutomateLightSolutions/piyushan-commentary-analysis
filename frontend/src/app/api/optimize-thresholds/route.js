@@ -8,14 +8,14 @@ const SYSTEM_PATH = path.resolve(process.cwd(), "..", "commentary_analysis_syste
 
 export async function POST(req) {
   try {
-    const { modelName = "roberta-base", scoreKey = "hybrid_score" } = await req.json();
+    const { modelName = "roberta-base" } = await req.json();
 
     const venvPython = getPythonCommand(SYSTEM_PATH);
     const scriptPath = path.resolve(SYSTEM_PATH, "scripts", "05_optimize_thresholds.py");
 
     return new Promise((resolve) => {
       exec(
-        `"${venvPython}" "${scriptPath}" --model_name "${modelName}" --score_key "${scoreKey}"`,
+        `"${venvPython}" "${scriptPath}" --model_name "${modelName}"`,
         { cwd: SYSTEM_PATH, env: { ...process.env, PYTHONPATH: "." } },
         (error, stdout, stderr) => {
           if (error) {
@@ -23,7 +23,6 @@ export async function POST(req) {
             return resolve(new Response(JSON.stringify({ error: "Optimization script failed", details: stderr }), { status: 500 }));
           }
           try {
-            // The python script outputs JSON
             const result = JSON.parse(stdout);
             resolve(new Response(JSON.stringify(result), { status: 200, headers: { "Content-Type": "application/json" } }));
           } catch (parseError) {

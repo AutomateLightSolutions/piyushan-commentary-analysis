@@ -47,8 +47,14 @@ class DualHeadRoBERTa(nn.Module):
         self.roberta = AutoModel.from_pretrained(model_name)
         
         # Dual Heads
-        self.event_classifier = nn.Linear(self.config.hidden_size, num_labels)
-        self.highlight_scorer = nn.Linear(self.config.hidden_size, 1)
+        self.event_classifier = nn.Sequential(
+            nn.Dropout(0.2),
+            nn.Linear(self.config.hidden_size, num_labels)
+        )
+        self.highlight_scorer = nn.Sequential(
+            nn.Dropout(0.2),
+            nn.Linear(self.config.hidden_size, 1)
+        )
 
     def forward(self, input_ids, attention_mask, labels=None, highlight_labels=None, **kwargs):
         outputs = self.roberta(input_ids=input_ids, attention_mask=attention_mask)

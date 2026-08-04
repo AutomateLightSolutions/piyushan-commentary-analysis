@@ -3,7 +3,7 @@
     {
       "id": "try",
       "name": "Try",
-      "weight": 0.1,
+      "weight": 1.0,
       "terms": [
         {
           "text": "try",
@@ -130,7 +130,7 @@
     {
       "id": "goal_kick",
       "name": "Goal Kick",
-      "weight": 0.1,
+      "weight": 0.7814,
       "terms": [
         {
           "text": "points",
@@ -257,7 +257,7 @@
     {
       "id": "card_event",
       "name": "Card Event",
-      "weight": 0.1,
+      "weight": 1.0,
       "terms": [
         {
           "text": "yellow",
@@ -384,7 +384,7 @@
     {
       "id": "scrum",
       "name": "Scrum",
-      "weight": 0.1,
+      "weight": 0.1461,
       "terms": [
         {
           "text": "scrum",
@@ -511,7 +511,7 @@
     {
       "id": "maul",
       "name": "Maul",
-      "weight": 0.1,
+      "weight": 0.2353,
       "terms": [
         {
           "text": "back",
@@ -638,7 +638,7 @@
     {
       "id": "lineout",
       "name": "Lineout",
-      "weight": 0.1,
+      "weight": 0.1210,
       "terms": [
         {
           "text": "line",
@@ -765,7 +765,7 @@
     {
       "id": "kick_off",
       "name": "Kick Off",
-      "weight": 0.1,
+      "weight": 0.1931,
       "terms": [
         {
           "text": "rugby",
@@ -892,7 +892,7 @@
     {
       "id": "tmo_replay",
       "name": "Tmo Replay",
-      "weight": 0.1,
+      "weight": 0.75,
       "terms": [
         {
           "text": "going",
@@ -1019,7 +1019,7 @@
     {
       "id": "penalty",
       "name": "Penalty",
-      "weight": 0.1,
+      "weight": 0.3546,
       "terms": [
         {
           "text": "penalty",
@@ -1146,7 +1146,7 @@
     {
       "id": "normal_play",
       "name": "Normal Play",
-      "weight": 0.1,
+      "weight": 0.0054,
       "terms": [
         {
           "text": "back",

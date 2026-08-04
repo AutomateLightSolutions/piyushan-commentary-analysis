@@ -7,6 +7,7 @@ import zipfile
 import shutil
 import json
 import sys
+import io
 
 PROCESSED_DATASETS_DIR = Path("data/processed/datasets/ml")
 
@@ -50,12 +51,33 @@ def main():
     print(f"Preparing to send {len(csv_files)} files to Colab for training {args.model_name}...")
     
     dataset_names = [Path(f).stem for f in csv_files]
-    
+
+    # Load split index if available
+    split_file = Path("data/config/split_index.json")
+    split_index = None
+    if split_file.exists():
+        with open(split_file, "r", encoding="utf-8") as f:
+            split_index = json.load(f)
+        print(f"Split index loaded (seed={split_index['seed']}). Only TRAIN rows will be sent to Colab.")
+    else:
+        print("WARNING: No split_index.json found. Run 00_split_data.py first. Sending all rows (no split applied).")
+
     # 1. Zip the dataset and events.json
     temp_zip_path = Path("temp_training_data.zip")
     with zipfile.ZipFile(temp_zip_path, 'w') as z:
         for f in csv_files:
-            z.write(f, arcname=Path(f).name)
+            if split_index is not None:
+                # Filter to train rows only
+                match_id = Path(f).stem.replace("dataset_", "")
+                row_assignments = split_index["assignments"].get(match_id, {})
+                df = pd.read_csv(f)
+                train_indices = [int(idx) for idx, role in row_assignments.items() if role == "train"]
+                df_train = df.iloc[sorted(train_indices)]
+                csv_bytes = df_train.to_csv(index=False).encode("utf-8")
+                z.writestr(Path(f).name, csv_bytes)
+                print(f"  {Path(f).name}: {len(df)} rows → {len(df_train)} train rows included")
+            else:
+                z.write(f, arcname=Path(f).name)
         events_path = Path("data/events.json")
         if events_path.exists():
             z.write(events_path, arcname=events_path.name)

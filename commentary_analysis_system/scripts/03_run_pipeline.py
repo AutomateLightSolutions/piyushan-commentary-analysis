@@ -8,12 +8,22 @@ from src.utils.config import get_threshold
 PROCESSED_CHUNKS_DIR = Path("data/processed/chunks")
 OUTPUT_DIR = Path("data/output")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+SPLIT_FILE = Path("data/config/split_index.json")
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_name", type=str, default="roberta-base", help="HuggingFace model string")
     parser.add_argument("--dataset", type=str, default="all", help="Specific dataset to run on, or 'all'")
     args = parser.parse_args()
+
+    # Load split index for tagging chunks
+    split_index = None
+    if SPLIT_FILE.exists():
+        with open(SPLIT_FILE, "r", encoding="utf-8") as f:
+            split_index = json.load(f)
+        print(f"Split index loaded (seed={split_index['seed']}). Chunks will be tagged with split role.")
+    else:
+        print("WARNING: No split_index.json found. Run 00_split_data.py first. Chunks will not be tagged.")
     
     if not PROCESSED_CHUNKS_DIR.exists():
         print("No processed chunks. Run 01_prepare_data.py first.")
@@ -78,6 +88,27 @@ def main():
         # 2. Attach predictions back to chunks
         for i, pred in enumerate(predictions):
             chunks[i].update(pred)
+
+        # 3. Tag each chunk with its split role using the CSV row order
+        if split_index is not None:
+            import pandas as pd
+            csv_path_ml = Path(f"data/processed/datasets/ml/dataset_{match_id}.csv")
+            if csv_path_ml.exists():
+                df = pd.read_csv(csv_path_ml)
+                row_assignments = split_index["assignments"].get(match_id, {})
+                # Build (start, end) -> split role lookup from CSV row order
+                split_lookup = {}
+                for row_idx, row in df.iterrows():
+                    role = row_assignments.get(str(row_idx), "train")
+                    key = f"{row.get('start_time', row.get('start'))}_{row.get('end_time', row.get('end'))}"
+                    split_lookup[key] = role
+                for chunk in chunks:
+                    key = f"{chunk['start']}_{chunk['end']}"
+                    chunk["split"] = split_lookup.get(key, "train")
+            else:
+                # No CSV available — mark all as train
+                for chunk in chunks:
+                    chunk["split"] = "train"
             
         # 3. Save chunks with predictions (append model_name to avoid overwriting)
         out_chunks_path = OUTPUT_DIR / f"predictions_{safe_name}_{match_id}.json"
