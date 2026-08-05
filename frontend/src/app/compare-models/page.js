@@ -81,20 +81,25 @@ export default function CompareModels() {
   };
 
   const calculateAverageMetrics = (modelMetrics) => {
-    if (!modelMetrics || modelMetrics.length === 0) return { p: "0.00", r: "0.00", f1: "0.00" };
+    if (!modelMetrics || modelMetrics.length === 0) return { p: "0.00", r: "0.00", f1: "0.00", mse: "0.0000", mae: "0.0000" };
     const sums = modelMetrics.reduce((acc, m) => {
       const metric = m.metrics?.Classification?.["ML Model Only"] || {};
+      const regMetric = m.metrics?.Regression?.["ML Model Only"] || {};
       return {
         p: acc.p + (metric.precision || 0),
         r: acc.r + (metric.recall || 0),
-        f1: acc.f1 + (metric.f1 || 0)
+        f1: acc.f1 + (metric.f1 || 0),
+        mse: acc.mse + (regMetric.mse || 0),
+        mae: acc.mae + (regMetric.mae || 0)
       };
-    }, { p: 0, r: 0, f1: 0 });
+    }, { p: 0, r: 0, f1: 0, mse: 0, mae: 0 });
     
     return {
       p: (sums.p / modelMetrics.length).toFixed(2),
       r: (sums.r / modelMetrics.length).toFixed(2),
-      f1: (sums.f1 / modelMetrics.length).toFixed(2)
+      f1: (sums.f1 / modelMetrics.length).toFixed(2),
+      mse: (sums.mse / modelMetrics.length).toFixed(4),
+      mae: (sums.mae / modelMetrics.length).toFixed(4)
     };
   };
 
@@ -115,8 +120,7 @@ export default function CompareModels() {
             Classification: {
               "Lexicon Only": { p: 0, r: 0, f1: 0 },
               "ML Model Only": { p: 0, r: 0, f1: 0 },
-              "Hybrid Model": { p: 0, r: 0, f1: 0 },
-              "Specific Event (Multi-class)": { p: 0, r: 0, f1: 0 }
+              "Hybrid Model": { p: 0, r: 0, f1: 0 }
             },
             Regression: {
               "Lexicon Only": { mse: 0, mae: 0 },
@@ -131,14 +135,14 @@ export default function CompareModels() {
         groups[key].timestamp = m.timestamp;
       }
       
-      const approaches = ["Lexicon Only", "ML Model Only", "Hybrid Model", "Specific Event (Multi-class)"];
+      const approaches = ["Lexicon Only", "ML Model Only", "Hybrid Model"];
       approaches.forEach(app => {
         if (m.metrics?.Classification?.[app]) {
           groups[key].totals.Classification[app].p += (m.metrics.Classification[app].precision || 0);
           groups[key].totals.Classification[app].r += (m.metrics.Classification[app].recall || 0);
           groups[key].totals.Classification[app].f1 += (m.metrics.Classification[app].f1 || 0);
         }
-        if (app !== "Specific Event (Multi-class)" && m.metrics?.Regression?.[app]) {
+        if (m.metrics?.Regression?.[app]) {
           groups[key].totals.Regression[app].mse += (m.metrics.Regression[app].mse || 0);
           groups[key].totals.Regression[app].mae += (m.metrics.Regression[app].mae || 0);
         }
@@ -154,19 +158,17 @@ export default function CompareModels() {
         count: g.count,
         metrics: { Classification: {}, Regression: {} }
       };
-      const approaches = ["Lexicon Only", "ML Model Only", "Hybrid Model", "Specific Event (Multi-class)"];
+      const approaches = ["Lexicon Only", "ML Model Only", "Hybrid Model"];
       approaches.forEach(app => {
         avg.metrics.Classification[app] = {
           precision: g.totals.Classification[app].p / g.count,
           recall: g.totals.Classification[app].r / g.count,
           f1: g.totals.Classification[app].f1 / g.count
         };
-        if (app !== "Specific Event (Multi-class)") {
-          avg.metrics.Regression[app] = {
-            mse: g.totals.Regression[app].mse / g.count,
-            mae: g.totals.Regression[app].mae / g.count
-          };
-        }
+        avg.metrics.Regression[app] = {
+          mse: g.totals.Regression[app].mse / g.count,
+          mae: g.totals.Regression[app].mae / g.count
+        };
       });
       return avg;
     }).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
@@ -229,24 +231,40 @@ export default function CompareModels() {
                   {(() => {
                     const avg = calculateAverageMetrics(groupedMetrics[model]);
                     return (
-                      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.5rem", alignItems: "start", marginTop: "auto" }}>
-                        <div>
-                          <div style={{ fontSize: "1.3rem", fontWeight: "bold", color: "var(--primary-color)" || "#3b82f6" }}>
-                            {avg.p}
+                      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginTop: "auto" }}>
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.5rem", alignItems: "start" }}>
+                          <div>
+                            <div style={{ fontSize: "1.3rem", fontWeight: "bold", color: "var(--primary-color)" || "#3b82f6" }}>
+                              {avg.p}
+                            </div>
+                            <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", lineHeight: 1.2 }}>Avg Precision</div>
                           </div>
-                          <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", lineHeight: 1.2 }}>Avg Precision</div>
+                          <div>
+                            <div style={{ fontSize: "1.3rem", fontWeight: "bold", color: "var(--secondary-color)" || "#a855f7" }}>
+                              {avg.r}
+                            </div>
+                            <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", lineHeight: 1.2 }}>Avg Recall</div>
+                          </div>
+                          <div>
+                            <div style={{ fontSize: "1.3rem", fontWeight: "bold", color: "var(--success-color)", textShadow: "0 0 10px rgba(16,185,129,0.3)" }}>
+                              {avg.f1}
+                            </div>
+                            <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", lineHeight: 1.2 }}>Avg F1</div>
+                          </div>
                         </div>
-                        <div>
-                          <div style={{ fontSize: "1.3rem", fontWeight: "bold", color: "var(--secondary-color)" || "#a855f7" }}>
-                            {avg.r}
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.5rem", alignItems: "start", borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: "0.5rem" }}>
+                          <div>
+                            <div style={{ fontSize: "1.1rem", fontWeight: "bold", color: "#fca5a5", opacity: 0.9 }}>
+                              {avg.mse}
+                            </div>
+                            <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", lineHeight: 1.2 }}>Avg MSE</div>
                           </div>
-                          <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", lineHeight: 1.2 }}>Avg Recall</div>
-                        </div>
-                        <div>
-                          <div style={{ fontSize: "1.3rem", fontWeight: "bold", color: "var(--success-color)", textShadow: "0 0 10px rgba(16,185,129,0.3)" }}>
-                            {avg.f1}
+                          <div>
+                            <div style={{ fontSize: "1.1rem", fontWeight: "bold", color: "#fca5a5", opacity: 0.9 }}>
+                              {avg.mae}
+                            </div>
+                            <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", lineHeight: 1.2 }}>Avg MAE</div>
                           </div>
-                          <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", lineHeight: 1.2 }}>Avg F1</div>
                         </div>
                       </div>
                     );

@@ -17,7 +17,7 @@ def create_chunks(segments: list[dict], chunk_size: int = 4, overlap: int = 2) -
     max_time = max(s["end"] for s in segments)
 
     step = chunk_size - overlap
-    current_start = min_time
+    current_start = (min_time // step) * step
 
     while current_start < max_time:
         current_end = current_start + chunk_size

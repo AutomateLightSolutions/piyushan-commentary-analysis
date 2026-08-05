@@ -1,16 +1,14 @@
 from src.utils.config import get_threshold
 
-def merge_chunks(chunks_with_predictions: list[dict], threshold: float = None, padding_before: int = 4, padding_after: int = 2) -> list[dict]:
-    if threshold is None:
-        threshold = get_threshold("merger_threshold")
+def merge_chunks(chunks_with_predictions: list[dict], padding_before: int = 4, padding_after: int = 2) -> list[dict]:
     """
-    Takes chunks with 'hybrid_score', applies threshold, merges contiguous positives.
+    Takes chunks with 'predicted_event', and merges contiguous positives (i.e. not 'normal_play').
     """
     merged_clips = []
     current_clip = None
 
     for chunk in chunks_with_predictions:
-        is_highlight = chunk.get("hybrid_score", 0.0) >= threshold
+        is_highlight = chunk.get("predicted_event", "normal_play") != "normal_play"
         
         if is_highlight:
             if current_clip is None:

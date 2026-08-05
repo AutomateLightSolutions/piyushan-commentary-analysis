@@ -29,6 +29,27 @@ class HybridModel:
             # Predict the specific event using event-specific lexicon features
             lexicon_features = self.lexicon.generate_features(text)
             
+            # --- LEXICON EVENT ---
+            max_lexicon_score = -1
+            lexicon_predicted_event_id = 0
+            for i in range(len(r_probs)):
+                event_name = self.roberta.id2label.get(i, "normal_play")
+                l_score = lexicon_features.get(event_name, 0.0)
+                if l_score > max_lexicon_score:
+                    max_lexicon_score = l_score
+                    lexicon_predicted_event_id = i
+            lexicon_predicted_event = self.roberta.id2label.get(lexicon_predicted_event_id, "normal_play")
+
+            # --- ML MODEL EVENT ---
+            max_roberta_prob = -1
+            roberta_predicted_event_id = 0
+            for i, p in enumerate(r_probs):
+                if p > max_roberta_prob:
+                    max_roberta_prob = p
+                    roberta_predicted_event_id = i
+            roberta_predicted_event = self.roberta.id2label.get(roberta_predicted_event_id, "normal_play")
+            
+            # --- HYBRID EVENT ---
             max_hybrid_prob = -1
             predicted_event_id = 0
             
@@ -55,6 +76,9 @@ class HybridModel:
                 "lexicon_score": l_prob,
                 "hybrid_score": hybrid_score,
                 "predicted_event": predicted_event,
+                "lexicon_predicted_event": lexicon_predicted_event,
+                "roberta_predicted_event": roberta_predicted_event,
+                "hybrid_predicted_event": predicted_event,
                 "predicted_event_prob": max_hybrid_prob,
                 "raw_roberta_probs": r_probs,
                 "raw_lexicon_features": lexicon_features

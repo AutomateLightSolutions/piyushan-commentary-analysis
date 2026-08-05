@@ -1,4 +1,5 @@
 import re
+import json
 from src.utils.time_utils import time_to_seconds
 
 # ── Rugby-specific correction map ─────────────────────────────────────────────
@@ -145,4 +146,23 @@ def parse_vtt(file_path: str) -> list[dict]:
         else:
             i += 1
 
+    return segments
+
+def parse_whisper_json(file_path: str) -> list[dict]:
+    """Parses a Whisper JSON file (with word_timestamps=True) into a list of word segments"""
+    segments = []
+    
+    with open(file_path, "r", encoding="utf-8") as f:
+        json_data = json.load(f)
+        
+    for segment in json_data:
+        for word_info in segment.get("words", []):
+            text = word_info.get("word", "").strip()
+            if text:
+                segments.append({
+                    "start": word_info.get("start", 0.0),
+                    "end": word_info.get("end", 0.0),
+                    "text": text
+                })
+                
     return segments

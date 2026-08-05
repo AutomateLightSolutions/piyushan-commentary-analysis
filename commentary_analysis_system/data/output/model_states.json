@@ -11,7 +11,12 @@
         }
     },
     "bert-base-uncased": {
-        "training_round": 1
+        "training_round": 2,
+        "history": {
+            "2": [
+                "dataset_match_1_Geo_vs_POR_WCA_2023"
+            ]
+        }
     },
     "roberta-base": {
         "history": {

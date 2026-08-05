@@ -1,7 +1,7 @@
 {
   "add_cross_attention": false,
   "architectures": [
-    "BertForSequenceClassification"
+    "BertForMaskedLM"
   ],
   "attention_probs_dropout_prob": 0.1,
   "bos_token_id": null,
@@ -12,9 +12,33 @@
   "hidden_act": "gelu",
   "hidden_dropout_prob": 0.1,
   "hidden_size": 768,
+  "id2label": {
+    "0": "normal_play",
+    "1": "try",
+    "2": "goal_kick",
+    "3": "card_event",
+    "4": "scrum",
+    "5": "maul",
+    "6": "lineout",
+    "7": "kick_off",
+    "8": "tmo_replay",
+    "9": "penalty"
+  },
   "initializer_range": 0.02,
   "intermediate_size": 3072,
   "is_decoder": false,
+  "label2id": {
+    "card_event": 3,
+    "goal_kick": 2,
+    "kick_off": 7,
+    "lineout": 6,
+    "maul": 5,
+    "normal_play": 0,
+    "penalty": 9,
+    "scrum": 4,
+    "tmo_replay": 8,
+    "try": 1
+  },
   "layer_norm_eps": 1e-12,
   "max_position_embeddings": 512,
   "model_type": "bert",
@@ -23,7 +47,7 @@
   "pad_token_id": 0,
   "position_embedding_type": "absolute",
   "tie_word_embeddings": true,
-  "transformers_version": "5.6.2",
+  "transformers_version": "5.13.1",
   "type_vocab_size": 2,
   "use_cache": false,
   "vocab_size": 30522

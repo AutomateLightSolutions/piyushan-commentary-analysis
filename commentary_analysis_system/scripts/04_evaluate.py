@@ -2,39 +2,23 @@ import json
 import argparse
 from pathlib import Path
 from datetime import datetime
-from src.pipeline.evaluator import compute_metrics, compute_regression_metrics, print_classification_table, print_regression_table, compute_multiclass_metrics
+from src.pipeline.evaluator import compute_regression_metrics, print_classification_table, print_regression_table, compute_multiclass_metrics
 from src.utils.config import get_threshold
 
 OUTPUT_DIR = Path("data/output")
 DB_FILE = OUTPUT_DIR / "evaluation_metrics.json"
 
-def evaluate_method(chunks: list[dict], score_key: str, threshold: float = 0.65) -> dict:
-    y_true_class = []
-    y_pred_class = []
+def evaluate_regression(chunks: list[dict], score_key: str) -> dict:
     y_true_reg = []
     y_pred_reg = []
     
     for chunk in chunks:
-        # Classification (Event presence)
-        event = chunk.get("event")
-        if event and str(event).strip() not in ['', '-', 'None', 'normal_play']:
-            label = 1
-        else:
-            label = chunk.get("label", 0)
-            
-        y_true_class.append(label)
-        y_pred_class.append(1 if chunk.get(score_key, 0.0) >= threshold else 0)
-        
-        # Regression (Continuous score)
         y_true_reg.append(float(chunk.get("score", 0.0)))
         y_pred_reg.append(float(chunk.get(score_key, 0.0)))
         
-    class_metrics = compute_metrics(y_true_class, y_pred_class)
-    reg_metrics = compute_regression_metrics(y_true_reg, y_pred_reg)
-    
-    return {"classification": class_metrics, "regression": reg_metrics}
+    return compute_regression_metrics(y_true_reg, y_pred_reg)
 
-def evaluate_multiclass(chunks: list[dict]) -> dict:
+def evaluate_multiclass(chunks: list[dict], prediction_key: str) -> dict:
     y_true = []
     y_pred = []
     for chunk in chunks:
@@ -43,7 +27,7 @@ def evaluate_multiclass(chunks: list[dict]) -> dict:
             event = "normal_play"
         y_true.append(event)
         
-        pred_event = chunk.get("predicted_event", "normal_play")
+        pred_event = chunk.get(prediction_key, "normal_play")
         y_pred.append(pred_event)
         
     return compute_multiclass_metrics(y_true, y_pred)
@@ -96,8 +80,7 @@ def main():
         "Classification": {
             "Lexicon Only": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
             "ML Model Only": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
-            "Hybrid Model": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
-            "Specific Event (Multi-class)": {"precision": 0.0, "recall": 0.0, "f1": 0.0}
+            "Hybrid Model": {"precision": 0.0, "recall": 0.0, "f1": 0.0}
         },
         "Regression": {
             "Lexicon Only": {"mse": 0.0, "mae": 0.0},
@@ -126,10 +109,13 @@ def main():
             chunks = filtered
             
         # Evaluate for single match
-        lexicon_res = evaluate_method(chunks, "lexicon_score", threshold=get_threshold("lexicon_threshold"))
-        roberta_res = evaluate_method(chunks, "roberta_score", threshold=get_threshold("ml_threshold"))
-        hybrid_res = evaluate_method(chunks, "hybrid_score", threshold=get_threshold("hybrid_threshold"))
-        multiclass_res = evaluate_multiclass(chunks)
+        lexicon_reg = evaluate_regression(chunks, "lexicon_score")
+        roberta_reg = evaluate_regression(chunks, "roberta_score")
+        hybrid_reg = evaluate_regression(chunks, "hybrid_score")
+        
+        lexicon_class = evaluate_multiclass(chunks, "lexicon_predicted_event")
+        roberta_class = evaluate_multiclass(chunks, "roberta_predicted_event")
+        hybrid_class = evaluate_multiclass(chunks, "hybrid_predicted_event")
         
         # Append to DB
         record = {
@@ -143,15 +129,14 @@ def main():
             "timestamp": timestamp,
             "metrics": {
                 "Classification": {
-                    "Lexicon Only": lexicon_res["classification"],
-                    "ML Model Only": roberta_res["classification"],
-                    "Hybrid Model": hybrid_res["classification"],
-                    "Specific Event (Multi-class)": multiclass_res
+                    "Lexicon Only": lexicon_class,
+                    "ML Model Only": roberta_class,
+                    "Hybrid Model": hybrid_class
                 },
                 "Regression": {
-                    "Lexicon Only": lexicon_res["regression"],
-                    "ML Model Only": roberta_res["regression"],
-                    "Hybrid Model": hybrid_res["regression"]
+                    "Lexicon Only": lexicon_reg,
+                    "ML Model Only": roberta_reg,
+                    "Hybrid Model": hybrid_reg
                 }
             }
         }
@@ -159,15 +144,14 @@ def main():
         
         # Accumulate sums for macro-average
         for key in ["precision", "recall", "f1"]:
-            total_metrics["Classification"]["Lexicon Only"][key] += lexicon_res["classification"][key]
-            total_metrics["Classification"]["ML Model Only"][key] += roberta_res["classification"][key]
-            total_metrics["Classification"]["Hybrid Model"][key] += hybrid_res["classification"][key]
-            total_metrics["Classification"]["Specific Event (Multi-class)"][key] += multiclass_res[key]
+            total_metrics["Classification"]["Lexicon Only"][key] += lexicon_class[key]
+            total_metrics["Classification"]["ML Model Only"][key] += roberta_class[key]
+            total_metrics["Classification"]["Hybrid Model"][key] += hybrid_class[key]
             
         for key in ["mse", "mae"]:
-            total_metrics["Regression"]["Lexicon Only"][key] += lexicon_res["regression"][key]
-            total_metrics["Regression"]["ML Model Only"][key] += roberta_res["regression"][key]
-            total_metrics["Regression"]["Hybrid Model"][key] += hybrid_res["regression"][key]
+            total_metrics["Regression"]["Lexicon Only"][key] += lexicon_reg[key]
+            total_metrics["Regression"]["ML Model Only"][key] += roberta_reg[key]
+            total_metrics["Regression"]["Hybrid Model"][key] += hybrid_reg[key]
             
         num_files += 1
         

@@ -79,23 +79,18 @@ def transcribe_audio(audio_path: Path, output_dir: Path, model="large-v3"):
                     break
                 elif status == "failed":
                     raise RuntimeError("Colab Transcription Task Failed.")
+            else:
+                print(f"Colab API Error {stat_res.status_code}: {stat_res.text}", flush=True)
+                raise RuntimeError(f"Colab API returned {stat_res.status_code}. The Colab backend might have crashed.")
         except requests.exceptions.ConnectionError:
             print("Connection error while polling, retrying...", flush=True)
             
-    # Format to VTT
-    vtt_content = "WEBVTT\n\n"
-    for seg in segments:
-        start_time = format_timestamp(seg.get("start", 0))
-        end_time = format_timestamp(seg.get("end", 0))
-        text = seg.get("text", "").strip()
-        vtt_content += f"{start_time} --> {end_time}\n{text}\n\n"
-        
-    # Save VTT file
-    vtt_file = output_dir / audio_path.with_suffix(".vtt").name
-    with open(vtt_file, "w", encoding="utf-8") as f:
-        f.write(vtt_content)
+    # Save JSON file instead of VTT
+    json_file = output_dir / audio_path.with_suffix(".json").name
+    with open(json_file, "w", encoding="utf-8") as f:
+        json.dump(segments, f, indent=2)
     
-    print(f"Transcription saved to {vtt_file}", flush=True)
+    print(f"Transcription saved to {json_file}", flush=True)
 
 import argparse
 
@@ -122,16 +117,16 @@ def main():
 
     for video_file in mp4_files:
         audio_file = video_file.with_suffix(".mp3")
-        vtt_file = video_file.with_suffix(".vtt")
+        json_file = video_file.with_suffix(".json")
 
-        if not vtt_file.exists():
+        if not json_file.exists():
             try:
                 extract_audio(video_file, audio_file)
                 transcribe_audio(audio_file, RAW_DIR)
                 
-                # Check if whisper actually wrote the VTT output or exited 0 quietly
-                if not vtt_file.exists():
-                    raise FileNotFoundError(f"Whisper executed but failed to save {vtt_file.name}. Review Whisper's error logs.")
+                # Check if whisper actually wrote the JSON output or exited 0 quietly
+                if not json_file.exists():
+                    raise FileNotFoundError(f"Whisper executed but failed to save {json_file.name}. Review Whisper's error logs.")
                 
                 # Cleanup the .mp3 file since Whisper is done
                 if audio_file.exists():

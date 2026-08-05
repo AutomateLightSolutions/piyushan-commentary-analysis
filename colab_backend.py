@@ -15,6 +15,7 @@ import nest_asyncio
 from pyngrok import ngrok
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.responses import FileResponse
+from fastapi.encoders import jsonable_encoder
 import uvicorn
 
 import whisper
@@ -178,12 +179,13 @@ def run_transcribe(task_id, file_location):
             condition_on_previous_text=True,
             compression_ratio_threshold=2.4,
             no_speech_threshold=0.6,
+            word_timestamps=True,
             verbose=True # Forces Whisper to print to stdout so we can catch it!
         )
         
         os.remove(file_location)
         tasks[task_id]["status"] = "completed"
-        tasks[task_id]["result_data"] = result["segments"]
+        tasks[task_id]["result_data"] = jsonable_encoder(result["segments"])
         print(f"Task {task_id}: Transcription completed successfully.")
     except Exception as e:
         print(f"Task {task_id} failed: {str(e)}")
