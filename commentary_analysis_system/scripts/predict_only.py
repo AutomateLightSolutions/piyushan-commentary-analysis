@@ -4,6 +4,7 @@ import re
 import sys
 import importlib.util
 import traceback
+from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.append(str(Path(__file__).parent.parent))
@@ -32,9 +33,28 @@ def _load_extract_module():
     return module
 
 
+def _update_meta(job_dir: Path, **fields):
+    """Merge fields into job_dir/meta.json (created by the upload route) so the
+    frontend can list past jobs and their status after a page refresh."""
+    meta_path = job_dir / "meta.json"
+    meta = {}
+    if meta_path.exists():
+        try:
+            with open(meta_path, "r", encoding="utf-8") as f:
+                meta = json.load(f)
+        except Exception:
+            meta = {}
+    meta.update(fields)
+    with open(meta_path, "w", encoding="utf-8") as f:
+        json.dump(meta, f, indent=2)
+
+
 def run(job_id: str, model_name: str, input_path: Path):
     job_dir = JOBS_DIR / job_id
     job_dir.mkdir(parents=True, exist_ok=True)
+
+    _update_meta(job_dir, modelName=model_name, status="running",
+                 startedAt=datetime.now(timezone.utc).isoformat())
 
     extract_mod = _load_extract_module()
 
@@ -63,6 +83,8 @@ def run(job_id: str, model_name: str, input_path: Path):
             json.dump([], f)
         with open(job_dir / "highlight_clips.json", "w", encoding="utf-8") as f:
             json.dump([], f)
+        _update_meta(job_dir, status="done", completedAt=datetime.now(timezone.utc).isoformat(),
+                     windowCount=0, highlightClipCount=0)
         return
 
     # 4. Predict using the selected fine-tuned model
@@ -100,6 +122,9 @@ def run(job_id: str, model_name: str, input_path: Path):
     with open(job_dir / "highlight_clips.json", "w", encoding="utf-8") as f:
         json.dump(highlight_clips, f, indent=2)
 
+    _update_meta(job_dir, status="done", completedAt=datetime.now(timezone.utc).isoformat(),
+                 windowCount=len(chunks), highlightClipCount=len(highlight_clips))
+
     print(f"Prediction complete. {len(chunks)} windows, {len(highlight_clips)} highlight clips.")
 
 
@@ -124,6 +149,8 @@ def main():
     except Exception as e:
         print(f"Error during prediction: {e}")
         print(traceback.format_exc())
+        _update_meta(JOBS_DIR / args.job_id, status="failed", error=str(e),
+                     failedAt=datetime.now(timezone.utc).isoformat())
         sys.exit(1)
 
 

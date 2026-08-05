@@ -83,8 +83,19 @@ export default function PredictPage() {
   const [results, setResults] = useState(null);
   const [showClips, setShowClips] = useState(false);
   const [jobId, setJobId] = useState(null);
+  const [jobHistory, setJobHistory] = useState([]);
+  const [historyLoading, setHistoryLoading] = useState(true);
 
   const abortControllerRef = useRef(null);
+
+  const refreshHistory = () => {
+    setHistoryLoading(true);
+    fetch("/api/predict-jobs")
+      .then((res) => res.json())
+      .then((data) => setJobHistory(data.jobs || []))
+      .catch((err) => console.error("Failed to fetch predict job history", err))
+      .finally(() => setHistoryLoading(false));
+  };
 
   useEffect(() => {
     fetch("/api/predict-models")
@@ -96,6 +107,8 @@ export default function PredictPage() {
       })
       .catch((err) => console.error("Failed to fetch available models", err))
       .finally(() => setModelsLoading(false));
+
+    refreshHistory();
   }, []);
 
   const uploadFile = (jobId, signal) =>
@@ -145,12 +158,28 @@ export default function PredictPage() {
       if (err.name !== "AbortError") setError(err.message);
     } finally {
       setIsProcessing(false);
+      refreshHistory();
     }
   };
 
   const handleStop = () => {
     if (abortControllerRef.current) abortControllerRef.current.abort();
     setIsProcessing(false);
+  };
+
+  const handleLoadJob = async (job) => {
+    if (job.status !== "done") return;
+    setError(null);
+    setLogLines([]);
+    setJobId(job.jobId);
+    try {
+      const res = await fetch(`/api/predict-results?jobId=${job.jobId}`);
+      if (!res.ok) throw new Error("Failed to load prediction results.");
+      const data = await res.json();
+      setResults(data);
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   const handleDownloadCsv = () => {
@@ -239,6 +268,63 @@ export default function PredictPage() {
         {error && <div className="alert alert-error mt-2">{error}</div>}
 
         <LogPanel lines={logLines} active={isProcessing} />
+      </section>
+
+      <section className="glass-card mb-2">
+        <div className="flex-between mb-2">
+          <h2 className="card-title" style={{ margin: 0 }}>🕘 Past Predictions</h2>
+          <button type="button" className="btn btn-secondary" onClick={refreshHistory} disabled={historyLoading}>
+            {historyLoading ? "Refreshing…" : "Refresh"}
+          </button>
+        </div>
+
+        {historyLoading && <p className="mb-0">Loading history...</p>}
+        {!historyLoading && jobHistory.length === 0 && <p className="mb-0">No predictions run yet.</p>}
+        {!historyLoading && jobHistory.length > 0 && (
+          <div className="table-container">
+            <table className="table-modern">
+              <thead>
+                <tr>
+                  <th>Clip</th>
+                  <th>Model</th>
+                  <th>Uploaded</th>
+                  <th>Status</th>
+                  <th>Windows</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {jobHistory.map((job) => (
+                  <tr key={job.jobId} style={{ opacity: job.jobId === jobId ? 1 : 0.85 }}>
+                    <td style={{ maxWidth: "220px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                      {job.originalName || job.jobId}
+                    </td>
+                    <td>{availableModels.find((m) => m.id === job.modelName)?.label || job.modelName || "-"}</td>
+                    <td style={{ whiteSpace: "nowrap" }}>{job.uploadedAt ? new Date(job.uploadedAt).toLocaleString() : "-"}</td>
+                    <td>
+                      {job.status === "done" && <span style={{ color: "var(--success-color)" }}>✅ Done</span>}
+                      {job.status === "running" && <span style={{ color: "var(--primary-color)" }}>⏳ Running</span>}
+                      {job.status === "failed" && <span style={{ color: "var(--error-color)" }} title={job.error}>❌ Failed</span>}
+                      {job.status === "uploaded" && <span>📤 Uploaded</span>}
+                    </td>
+                    <td>{job.status === "done" ? job.windowCount : "-"}</td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-secondary"
+                        onClick={() => handleLoadJob(job)}
+                        disabled={job.status !== "done"}
+                        style={{ padding: "0.4rem 0.9rem", fontSize: "0.85rem" }}
+                      >
+                        View
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </section>
 
       {results && (

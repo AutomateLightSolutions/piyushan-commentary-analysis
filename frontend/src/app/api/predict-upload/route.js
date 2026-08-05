@@ -28,6 +28,14 @@ export async function POST(req) {
     const inputPath = path.join(jobDir, `input${ext}`);
     await writeFile(inputPath, buffer);
 
+    const meta = {
+      jobId,
+      originalName: file.name || "unknown",
+      uploadedAt: new Date().toISOString(),
+      status: "uploaded",
+    };
+    await writeFile(path.join(jobDir, "meta.json"), JSON.stringify(meta, null, 2));
+
     return NextResponse.json({ message: "Upload successful", inputPath: `input${ext}` });
   } catch (err) {
     console.error("Predict upload error:", err);

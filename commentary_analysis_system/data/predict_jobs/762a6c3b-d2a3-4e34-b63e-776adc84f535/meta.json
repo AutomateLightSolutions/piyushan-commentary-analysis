@@ -1,0 +1,11 @@
+{
+  "jobId": "762a6c3b-d2a3-4e34-b63e-776adc84f535",
+  "originalName": "37e0368a-ad84-4b31-b5d4-ca837c050548_ENG_vs_ARG_PoolD_2023.mp4",
+  "uploadedAt": "2026-08-05T17:12:49.695Z",
+  "status": "done",
+  "modelName": "roberta-base",
+  "startedAt": "2026-08-05T17:13:44.728716+00:00",
+  "completedAt": "2026-08-05T17:25:30.930061+00:00",
+  "windowCount": 1368,
+  "highlightClipCount": 150
+}
