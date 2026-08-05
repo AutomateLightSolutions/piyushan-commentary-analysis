@@ -184,8 +184,11 @@ def run_transcribe(task_id, file_location):
         )
         
         os.remove(file_location)
-        tasks[task_id]["status"] = "completed"
+        # Set result_data before status: a poller reading "status: completed" must
+        # never observe a dict where result_data is still missing (see predict_only.py
+        # bug where a completed-but-dataless response wrote a null transcript).
         tasks[task_id]["result_data"] = jsonable_encoder(result["segments"])
+        tasks[task_id]["status"] = "completed"
         print(f"Task {task_id}: Transcription completed successfully.")
     except Exception as e:
         print(f"Task {task_id} failed: {str(e)}")

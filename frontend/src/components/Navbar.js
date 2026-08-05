@@ -68,14 +68,20 @@ export default function Navbar() {
         >
           Weights
         </Link>
-        <Link 
-          href="/compare-models" 
+        <Link
+          href="/compare-models"
           className={`nav-link ${pathname === "/compare-models" ? "active" : ""}`}
         >
           Compare Models
         </Link>
-        <Link 
-          href="/label" 
+        <Link
+          href="/predict"
+          className={`nav-link ${pathname === "/predict" ? "active" : ""}`}
+        >
+          Predict
+        </Link>
+        <Link
+          href="/label"
           className="nav-link-cta"
           onClick={() => setIsOpen(false)}
         >

@@ -75,7 +75,13 @@ def transcribe_audio(audio_path: Path, output_dir: Path, model="large-v3"):
                     
                 status = stat_data.get("status")
                 if status == "completed":
-                    segments = stat_data.get("result_data", [])
+                    result_data = stat_data.get("result_data")
+                    if result_data is None:
+                        # Server marks status "completed" a moment before attaching
+                        # result_data (non-atomic update on the Colab side) — poll
+                        # again shortly instead of treating this as an empty transcript.
+                        continue
+                    segments = result_data
                     break
                 elif status == "failed":
                     raise RuntimeError("Colab Transcription Task Failed.")

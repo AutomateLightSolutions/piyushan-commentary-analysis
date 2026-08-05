@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useState, useRef, useCallback, useEffect } from "react";
+import { streamSSE } from "../lib/sse";
 
 export const PipelineContext = createContext();
 
@@ -56,41 +57,6 @@ export function PipelineProvider({ children }) {
       return { ...s, lines: [...s.lines, { text, type }] };
     }));
   }, []);
-
-  // ── SSE stream consumer ────────────────────────────────────────────────────
-  const streamSSE = async (url, onLine, signal) => {
-    const res = await fetch(url, { method: "POST", signal });
-    if (!res.ok || !res.body) throw new Error(`HTTP ${res.status}`);
-
-    const reader = res.body.getReader();
-    const decoder = new TextDecoder();
-    let buffer = "";
-    let extraData = null;
-
-    try {
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        buffer += decoder.decode(value, { stream: true });
-
-        const events = buffer.split("\n\n");
-        buffer = events.pop(); // keep incomplete tail
-
-        for (const event of events) {
-          const line = event.replace(/^data: /, "").trim();
-          if (!line) continue;
-          if (line === "__DONE__")           return { ok: true, extraData };
-          if (line.startsWith("__ERROR__:")) throw new Error(line.slice(10));
-          if (line.startsWith("__METRICS__:")) { extraData = JSON.parse(line.slice(12)); continue; }
-          onLine(line.startsWith("STDERR:") ? line.slice(7) : line,
-                 line.startsWith("STDERR:") ? "stderr" : "stdout");
-        }
-      }
-    } finally {
-      reader.releaseLock();
-    }
-    return { ok: true, extraData };
-  };
 
   // ── Run one SSE step ───────────────────────────────────────────────────────
   const runStreamStep = async (url, id, setter, signal) => {

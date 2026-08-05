@@ -142,13 +142,15 @@ class TransformerClassifier:
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.label2id, self.id2label = self._load_events()
         self.num_labels = len(self.label2id)
-        
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
         self.model = DualHeadRoBERTa(
-            model_name, 
+            model_name,
             num_labels=self.num_labels,
             id2label=self.id2label,
             label2id=self.label2id
         )
+        self.model.to(self.device)
         
     def prepare_dataset(self, text_list, labels=None):
         encodings = self.tokenizer(text_list, truncation=True, padding=True, max_length=128)
@@ -310,6 +312,7 @@ class TransformerClassifier:
         state_dict = remapped
 
         self.model.load_state_dict(state_dict)
+        self.model.to(self.device)
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
         
     def predict_probs(self, text_list, batch_size=32):
