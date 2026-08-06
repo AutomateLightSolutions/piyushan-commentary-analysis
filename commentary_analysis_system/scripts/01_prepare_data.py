@@ -79,8 +79,8 @@ def main():
     if args.target_file:
         json_files = [RAW_DIR / args.target_file]
         if not json_files[0].exists():
-            print(f"Target file not found: {json_files[0]}")
-            return
+            print(f"ERROR: Target file not found: {json_files[0]}")
+            sys.exit(1)
     else:
         json_files = list(RAW_DIR.glob("*_full.json"))
 

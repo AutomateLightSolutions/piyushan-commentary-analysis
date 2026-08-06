@@ -107,7 +107,7 @@ export function PipelineProvider({ children }) {
     try { await runStreamStep(`/api/extract-videos?filename=${matchId}_full.mp4`, "extract", setSteps, signal); }
     catch (err) { mutateStep(setSteps, "extract", { status: "error", log: err.message }); setIsProcessing(false); return; }
 
-    try { await runStreamStep(`/api/prepare?filename=${matchId}_full.vtt`, "chunk", setSteps, signal); }
+    try { await runStreamStep(`/api/prepare?filename=${matchId}_full.json`, "chunk", setSteps, signal); }
     catch (err) { mutateStep(setSteps, "chunk", { status: "error", log: err.message }); setIsProcessing(false); return; }
 
     if (!signal.aborted) {
@@ -127,7 +127,7 @@ export function PipelineProvider({ children }) {
     try { await runStreamStep(`/api/extract-videos?filename=${matchId}_full.mp4`, "extract", setSteps, signal); }
     catch (err) { mutateStep(setSteps, "extract", { status: "error", log: err.message }); setIsProcessing(false); return; }
 
-    try { await runStreamStep(`/api/prepare?filename=${matchId}_full.vtt`, "chunk", setSteps, signal); }
+    try { await runStreamStep(`/api/prepare?filename=${matchId}_full.json`, "chunk", setSteps, signal); }
     catch (err) { mutateStep(setSteps, "chunk", { status: "error", log: err.message }); setIsProcessing(false); return; }
 
     if (!signal.aborted) {
