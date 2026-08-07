@@ -103,7 +103,13 @@ export default function PredictPage() {
       .then((data) => {
         const models = data.models || [];
         setAvailableModels(models);
-        if (models.length > 0) setSelectedModel(models[0].id);
+        if (models.length > 0) {
+          // Default to the model marked "best" on the Compare Models page,
+          // if one is set and still has a checkpoint on disk; otherwise
+          // fall back to the first available model.
+          const best = models.find((m) => m.isBest);
+          setSelectedModel((best || models[0]).id);
+        }
       })
       .catch((err) => console.error("Failed to fetch available models", err))
       .finally(() => setModelsLoading(false));
@@ -251,7 +257,7 @@ export default function PredictPage() {
               disabled={isProcessing}
             >
               {availableModels.map((m) => (
-                <option key={m.id} value={m.id}>{m.label}</option>
+                <option key={m.id} value={m.id}>{m.label}{m.isBest ? " ★ Best" : ""}</option>
               ))}
             </select>
           )}

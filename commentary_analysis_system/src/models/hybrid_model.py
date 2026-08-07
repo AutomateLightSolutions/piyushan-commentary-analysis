@@ -9,11 +9,23 @@ class HybridModel:
             
         self.lexicon = LexiconModel()
         
-    def predict(self, text_list: list[str], highlight_lexicon_weight=0.3, event_lexicon_weight=0.3, roberta_weight=1.0):
+    def predict(self, text_list: list[str], roberta_text_list: list[str] = None,
+                highlight_lexicon_weight=0.3, event_lexicon_weight=0.3, roberta_weight=1.0):
         """
         Generates combined score using booster formula: min(1.0, (RoBERTa * roberta_weight) + (Lexicon * highlight_lexicon_weight))
+
+        text_list is each chunk's own text - used for lexicon scoring and
+        returned alongside results, so lexicon keywords stay attributed to
+        the chunk they actually appear in.
+
+        roberta_text_list is optional windowed text (see
+        src/data_processing/chunker.py's build_context_windows) fed to the
+        RoBERTa model only, matching how it was trained. Defaults to
+        text_list (no windowing) if not given.
         """
-        roberta_event_probs, roberta_highlight_scores = self.roberta.predict_probs(text_list)
+        if roberta_text_list is None:
+            roberta_text_list = text_list
+        roberta_event_probs, roberta_highlight_scores = self.roberta.predict_probs(roberta_text_list)
         
         results = []
         for text, r_probs, r_h_score in zip(text_list, roberta_event_probs, roberta_highlight_scores):

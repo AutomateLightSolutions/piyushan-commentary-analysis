@@ -10,6 +10,7 @@
 # CELL 2: Imports
 # ============================================================
 import os
+import json
 import glob
 import shutil
 import zipfile
@@ -450,12 +451,26 @@ for param in model.parameters():
 # epoch after trainer_stage1.train() and the best-mse epoch after
 # trainer_stage2.train(). So this is already saving the best event
 # classifier + best highlight scorer, combined into one model.
+#
+# window_size/tokenizer_max_length are saved both on model.config AND as a
+# plain training_meta.json sidecar - config serialization isn't guaranteed
+# to round-trip arbitrary custom attributes across every transformers
+# version, and if that happens, any code loading this model for inference
+# silently falls back to window_size=1 (unwindowed) even though the model
+# was trained on WINDOW_SIZE-chunk context, which badly degrades
+# predictions. The sidecar file is unambiguous either way.
 # ============================================================
+model.config.window_size = WINDOW_SIZE
+model.config.tokenizer_max_length = MAX_LENGTH
+
 best_dir = os.path.join(OUTPUT_DIR, "best")
 os.makedirs(best_dir, exist_ok=True)
 torch.save(model.state_dict(), os.path.join(best_dir, "pytorch_model.bin"))
 model.config.save_pretrained(best_dir)
 tokenizer.save_pretrained(best_dir)
+
+with open(os.path.join(best_dir, "training_meta.json"), "w") as f:
+    json.dump({"window_size": WINDOW_SIZE, "tokenizer_max_length": MAX_LENGTH}, f)
 
 out_zip_base = "/content/trained_model"
 shutil.make_archive(out_zip_base, "zip", best_dir)

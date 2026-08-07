@@ -1,0 +1,152 @@
+[
+  {
+    "start": 0,
+    "end": 80,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 76,
+    "end": 192,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 186,
+    "end": 542,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 536,
+    "end": 634,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 628,
+    "end": 702,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 696,
+    "end": 712,
+    "primary_event": "maul"
+  },
+  {
+    "start": 708,
+    "end": 778,
+    "primary_event": "try"
+  },
+  {
+    "start": 774,
+    "end": 844,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 840,
+    "end": 1394,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 1388,
+    "end": 1538,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 1534,
+    "end": 1670,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 1664,
+    "end": 1888,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 1882,
+    "end": 2068,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 2064,
+    "end": 2456,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 2452,
+    "end": 2476,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 2470,
+    "end": 2740,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 2734,
+    "end": 2978,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 2974,
+    "end": 3130,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 3124,
+    "end": 3688,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 3682,
+    "end": 3744,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 3740,
+    "end": 3758,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 3754,
+    "end": 3884,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 3880,
+    "end": 4456,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 4450,
+    "end": 4556,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 4550,
+    "end": 4828,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 4828,
+    "end": 4980,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 4976,
+    "end": 5170,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 5166,
+    "end": 5178,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 5174,
+    "end": 5516,
+    "primary_event": "try"
+  },
+  {
+    "start": 5512,
+    "end": 5774,
+    "primary_event": "try"
+  }
+]

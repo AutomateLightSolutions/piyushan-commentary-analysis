@@ -11,6 +11,33 @@ export default function CompareModels() {
   const [datasetRows, setDatasetRows] = useState([]);
   const [viewingDatasetList, setViewingDatasetList] = useState(null);
   const [datasetListTitle, setDatasetListTitle] = useState("");
+  const [viewingPerClass, setViewingPerClass] = useState(null);
+  const [perClassMethod, setPerClassMethod] = useState("ML Model Only");
+  const [bestModel, setBestModel] = useState(null);
+
+  const handleViewPerClass = (record) => {
+    setPerClassMethod("ML Model Only");
+    setViewingPerClass(record);
+  };
+
+  const handleSetBest = async (modelName, trainingRound) => {
+    try {
+      const res = await fetch("/api/best-model", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ modelName, trainingRound }),
+      });
+      if (res.ok) {
+        setBestModel(modelName);
+      } else {
+        const error = await res.json();
+        alert(`Failed to set best model: ${error.error || "Unknown error"}`);
+      }
+    } catch (err) {
+      console.error("Failed to set best model", err);
+      alert("Failed to set best model.");
+    }
+  };
 
   const handleViewDataset = async (dsName) => {
     try {
@@ -47,6 +74,11 @@ export default function CompareModels() {
         console.error("Failed to fetch metrics", err);
         setLoading(false);
       });
+
+    fetch("/api/best-model")
+      .then(res => res.json())
+      .then(data => setBestModel(data.modelName || null))
+      .catch(err => console.error("Failed to fetch best model", err));
   }, []);
 
   const handleDelete = async (id) => {
@@ -126,7 +158,8 @@ export default function CompareModels() {
               "Lexicon Only": { mse: 0, mae: 0 },
               "ML Model Only": { mse: 0, mae: 0 },
               "Hybrid Model": { mse: 0, mae: 0 }
-            }
+            },
+            PerClass: {}
           }
         };
       }
@@ -134,7 +167,7 @@ export default function CompareModels() {
       if (new Date(m.timestamp) > new Date(groups[key].timestamp)) {
         groups[key].timestamp = m.timestamp;
       }
-      
+
       const approaches = ["Lexicon Only", "ML Model Only", "Hybrid Model"];
       approaches.forEach(app => {
         if (m.metrics?.Classification?.[app]) {
@@ -146,6 +179,23 @@ export default function CompareModels() {
           groups[key].totals.Regression[app].mse += (m.metrics.Regression[app].mse || 0);
           groups[key].totals.Regression[app].mae += (m.metrics.Regression[app].mae || 0);
         }
+        // PerClass is only present on records evaluated after this feature
+        // was added - older records simply contribute nothing here.
+        const perClass = m.metrics?.PerClass?.[app];
+        if (perClass) {
+          if (!groups[key].totals.PerClass[app]) groups[key].totals.PerClass[app] = {};
+          Object.entries(perClass).forEach(([cls, cm]) => {
+            if (!groups[key].totals.PerClass[app][cls]) {
+              groups[key].totals.PerClass[app][cls] = { p: 0, r: 0, f1: 0, support: 0, n: 0 };
+            }
+            const t = groups[key].totals.PerClass[app][cls];
+            t.p += (cm.precision || 0);
+            t.r += (cm.recall || 0);
+            t.f1 += (cm.f1 || 0);
+            t.support += (cm.support || 0);
+            t.n += 1;
+          });
+        }
       });
     });
 
@@ -156,7 +206,7 @@ export default function CompareModels() {
         evaluation_round: g.evaluation_round,
         timestamp: g.timestamp,
         count: g.count,
-        metrics: { Classification: {}, Regression: {} }
+        metrics: { Classification: {}, Regression: {}, PerClass: {} }
       };
       const approaches = ["Lexicon Only", "ML Model Only", "Hybrid Model"];
       approaches.forEach(app => {
@@ -169,6 +219,15 @@ export default function CompareModels() {
           mse: g.totals.Regression[app].mse / g.count,
           mae: g.totals.Regression[app].mae / g.count
         };
+        avg.metrics.PerClass[app] = {};
+        Object.entries(g.totals.PerClass[app] || {}).forEach(([cls, t]) => {
+          avg.metrics.PerClass[app][cls] = {
+            precision: t.n > 0 ? t.p / t.n : 0,
+            recall: t.n > 0 ? t.r / t.n : 0,
+            f1: t.n > 0 ? t.f1 / t.n : 0,
+            support: t.support
+          };
+        });
       });
       return avg;
     }).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
@@ -214,17 +273,20 @@ export default function CompareModels() {
             <h2 className="card-title">🏆 Automated Comparison Summary</h2>
             <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
               {Object.keys(groupedMetrics).map(model => (
-                <div key={model} style={{ 
-                  flex: "1 1 200px", 
-                  background: "rgba(255,255,255,0.05)", 
-                  padding: "1.5rem", 
+                <div key={model} style={{
+                  flex: "1 1 200px",
+                  background: "rgba(255,255,255,0.05)",
+                  padding: "1.5rem",
                   borderRadius: "8px",
-                  border: "1px solid rgba(255,255,255,0.1)",
+                  border: model === bestModel ? "1px solid rgba(251, 191, 36, 0.5)" : "1px solid rgba(255,255,255,0.1)",
                   textAlign: "center",
                   display: "flex",
                   flexDirection: "column"
                 }}>
-                  <h3 style={{ margin: "0 0 0.5rem 0", fontSize: "1.1rem" }}>{formatModelName(model)}</h3>
+                  <h3 style={{ margin: "0 0 0.5rem 0", fontSize: "1.1rem" }}>
+                    {formatModelName(model)}
+                    {model === bestModel && <span style={{ marginLeft: "0.4rem", color: "#fbbf24", fontSize: "0.85rem" }}>★</span>}
+                  </h3>
                   <div style={{ fontSize: "0.9rem", color: "var(--text-muted)", marginBottom: "1rem" }}>
                     {groupedMetrics[model].length} Run(s)
                   </div>
@@ -384,13 +446,18 @@ export default function CompareModels() {
                           <span style={{ color: "var(--text-muted)" }}>Unknown</span>
                         )}
                       </td>
-                      <td><span style={{ 
-                        background: "rgba(59, 130, 246, 0.2)", 
-                        color: "#93c5fd",
-                        padding: "0.2rem 0.5rem",
-                        borderRadius: "4px",
-                        fontSize: "0.85rem"
-                      }}>{formatModelName(m.model_used)}</span></td>
+                      <td>
+                        <span style={{
+                          background: "rgba(59, 130, 246, 0.2)",
+                          color: "#93c5fd",
+                          padding: "0.2rem 0.5rem",
+                          borderRadius: "4px",
+                          fontSize: "0.85rem"
+                        }}>{formatModelName(m.model_used)}</span>
+                        {bestModel === m.model_used && (
+                          <span style={{ marginLeft: "0.4rem", color: "#fbbf24", fontSize: "0.8rem" }} title="Currently marked as the best model">★ Best</span>
+                        )}
+                      </td>
                       <td>Round {m.training_round}</td>
                       <td>Eval {m.evaluation_round || 1}</td>
                       <td>
@@ -418,23 +485,59 @@ export default function CompareModels() {
                         {new Date(m.timestamp).toLocaleString()}
                       </td>
                       <td>
-                        <button 
-                          onClick={() => handleDelete(m.id)}
-                          style={{
-                            background: "rgba(239, 68, 68, 0.2)",
-                            color: "#f87171",
-                            border: "1px solid rgba(239, 68, 68, 0.3)",
-                            padding: "0.3rem 0.6rem",
-                            borderRadius: "4px",
-                            cursor: "pointer",
-                            fontSize: "0.8rem",
-                            transition: "all 0.2s"
-                          }}
-                          onMouseOver={(e) => { e.currentTarget.style.background = "rgba(239, 68, 68, 0.4)"; }}
-                          onMouseOut={(e) => { e.currentTarget.style.background = "rgba(239, 68, 68, 0.2)"; }}
-                        >
-                          Delete
-                        </button>
+                        <div style={{ display: "flex", gap: "0.4rem" }}>
+                          <button
+                            onClick={() => handleViewPerClass(m)}
+                            style={{
+                              background: "rgba(59, 130, 246, 0.2)",
+                              color: "#93c5fd",
+                              border: "1px solid rgba(59, 130, 246, 0.3)",
+                              padding: "0.3rem 0.6rem",
+                              borderRadius: "4px",
+                              cursor: "pointer",
+                              fontSize: "0.8rem",
+                              whiteSpace: "nowrap"
+                            }}
+                            title="View precision/recall/f1/support broken down by event"
+                          >
+                            📊 Events
+                          </button>
+                          <button
+                            onClick={() => handleSetBest(m.model_used, m.training_round)}
+                            disabled={bestModel === m.model_used}
+                            style={{
+                              background: bestModel === m.model_used ? "rgba(251, 191, 36, 0.1)" : "rgba(251, 191, 36, 0.2)",
+                              color: "#fbbf24",
+                              border: "1px solid rgba(251, 191, 36, 0.3)",
+                              padding: "0.3rem 0.6rem",
+                              borderRadius: "4px",
+                              cursor: bestModel === m.model_used ? "default" : "pointer",
+                              fontSize: "0.8rem",
+                              whiteSpace: "nowrap",
+                              opacity: bestModel === m.model_used ? 0.6 : 1
+                            }}
+                            title="Mark this model as the best one to use for prediction"
+                          >
+                            {bestModel === m.model_used ? "★ Best" : "☆ Set as Best"}
+                          </button>
+                          <button
+                            onClick={() => handleDelete(m.id)}
+                            style={{
+                              background: "rgba(239, 68, 68, 0.2)",
+                              color: "#f87171",
+                              border: "1px solid rgba(239, 68, 68, 0.3)",
+                              padding: "0.3rem 0.6rem",
+                              borderRadius: "4px",
+                              cursor: "pointer",
+                              fontSize: "0.8rem",
+                              transition: "all 0.2s"
+                            }}
+                            onMouseOver={(e) => { e.currentTarget.style.background = "rgba(239, 68, 68, 0.4)"; }}
+                            onMouseOut={(e) => { e.currentTarget.style.background = "rgba(239, 68, 68, 0.2)"; }}
+                          >
+                            Delete
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -455,22 +558,28 @@ export default function CompareModels() {
                       <th className="text-secondary">Model Metrics</th>
                       <th style={{ color: "var(--success-color)" }}>Hybrid Metrics</th>
                       <th>Latest Timestamp</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     {macroAverages.length === 0 ? (
                       <tr>
-                        <td colSpan="8" style={{ textAlign: "center", padding: "2rem" }}>No macro-averaged metrics available.</td>
+                        <td colSpan="9" style={{ textAlign: "center", padding: "2rem" }}>No macro-averaged metrics available.</td>
                       </tr>
                     ) : macroAverages.map((m, idx) => (
                       <tr key={idx}>
-                        <td><span style={{ 
-                          background: "rgba(59, 130, 246, 0.2)", 
-                          color: "#93c5fd",
-                          padding: "0.2rem 0.5rem",
-                          borderRadius: "4px",
-                          fontSize: "0.85rem"
-                        }}>{formatModelName(m.model_used)}</span></td>
+                        <td>
+                          <span style={{
+                            background: "rgba(59, 130, 246, 0.2)",
+                            color: "#93c5fd",
+                            padding: "0.2rem 0.5rem",
+                            borderRadius: "4px",
+                            fontSize: "0.85rem"
+                          }}>{formatModelName(m.model_used)}</span>
+                          {bestModel === m.model_used && (
+                            <span style={{ marginLeft: "0.4rem", color: "#fbbf24", fontSize: "0.8rem" }} title="Currently marked as the best model">★ Best</span>
+                          )}
+                        </td>
                         <td>{m.count} dataset(s)</td>
                         <td>Round {m.training_round}</td>
                         <td>Eval {m.evaluation_round}</td>
@@ -498,6 +607,44 @@ export default function CompareModels() {
                         <td style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
                           {new Date(m.timestamp).toLocaleString()}
                         </td>
+                        <td>
+                          <div style={{ display: "flex", gap: "0.4rem" }}>
+                            <button
+                              onClick={() => handleViewPerClass(m)}
+                              style={{
+                                background: "rgba(59, 130, 246, 0.2)",
+                                color: "#93c5fd",
+                                border: "1px solid rgba(59, 130, 246, 0.3)",
+                                padding: "0.3rem 0.6rem",
+                                borderRadius: "4px",
+                                cursor: "pointer",
+                                fontSize: "0.8rem",
+                                whiteSpace: "nowrap"
+                              }}
+                              title="View precision/recall/f1/support broken down by event"
+                            >
+                              📊 Events
+                            </button>
+                            <button
+                              onClick={() => handleSetBest(m.model_used, m.training_round)}
+                              disabled={bestModel === m.model_used}
+                              style={{
+                                background: bestModel === m.model_used ? "rgba(251, 191, 36, 0.1)" : "rgba(251, 191, 36, 0.2)",
+                                color: "#fbbf24",
+                                border: "1px solid rgba(251, 191, 36, 0.3)",
+                                padding: "0.3rem 0.6rem",
+                                borderRadius: "4px",
+                                cursor: bestModel === m.model_used ? "default" : "pointer",
+                                fontSize: "0.8rem",
+                                whiteSpace: "nowrap",
+                                opacity: bestModel === m.model_used ? 0.6 : 1
+                              }}
+                              title="Mark this model as the best one to use for prediction"
+                            >
+                              {bestModel === m.model_used ? "★ Best" : "☆ Set as Best"}
+                            </button>
+                          </div>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -505,6 +652,71 @@ export default function CompareModels() {
               </div>
             )}
           </section>
+        </div>
+      )}
+
+      {/* Per-Event Breakdown Modal */}
+      {viewingPerClass && (
+        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: "rgba(0,0,0,0.8)", zIndex: 1100, display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <div className="glass-card" style={{ width: "90%", maxWidth: "700px", maxHeight: "85vh", display: "flex", flexDirection: "column", position: "relative", backgroundColor: "#1e293b", padding: "1.5rem" }}>
+            <button onClick={() => setViewingPerClass(null)} style={{ position: "absolute", top: "1rem", right: "1rem", background: "transparent", border: "none", color: "white", fontSize: "1.5rem", cursor: "pointer" }}>×</button>
+            <h3 style={{ margin: "0 0 0.25rem 0" }}>Per-Event Breakdown</h3>
+            <p style={{ margin: "0 0 1rem 0", fontSize: "0.85rem", color: "var(--text-muted)" }}>
+              {formatModelName(viewingPerClass.model_used)} &bull; Round {viewingPerClass.training_round} &bull; Eval {viewingPerClass.evaluation_round || 1}
+              {viewingPerClass.match_id ? <> &bull; {viewingPerClass.match_id}</> : null}
+            </p>
+
+            <div className="tabs-container" style={{ margin: "0 0 1rem 0", padding: 0, background: "transparent", border: "none" }}>
+              {["Lexicon Only", "ML Model Only", "Hybrid Model"].map(method => (
+                <button
+                  key={method}
+                  className={`tab-btn ${perClassMethod === method ? 'active' : ''}`}
+                  onClick={() => setPerClassMethod(method)}
+                  style={{ padding: "0.4rem 0.8rem", fontSize: "0.85rem" }}
+                >
+                  {method}
+                </button>
+              ))}
+            </div>
+
+            <div style={{ overflowY: "auto", flex: 1 }}>
+              {(() => {
+                const perClass = viewingPerClass.metrics?.PerClass?.[perClassMethod];
+                if (!perClass || Object.keys(perClass).length === 0) {
+                  return (
+                    <div style={{ textAlign: "center", padding: "2rem", color: "var(--text-muted)" }}>
+                      No per-event breakdown available for this run — it was evaluated before this feature was added.
+                      Re-run evaluation to see it.
+                    </div>
+                  );
+                }
+                return (
+                  <table className="table-modern" style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem" }}>
+                    <thead style={{ position: "sticky", top: 0, background: "#0f172a" }}>
+                      <tr>
+                        <th style={{ padding: "0.5rem", textAlign: "left" }}>Event</th>
+                        <th style={{ padding: "0.5rem" }}>Precision</th>
+                        <th style={{ padding: "0.5rem" }}>Recall</th>
+                        <th style={{ padding: "0.5rem" }}>F1</th>
+                        <th style={{ padding: "0.5rem" }}>Support</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Object.entries(perClass).map(([cls, m]) => (
+                        <tr key={cls} style={{ borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+                          <td style={{ padding: "0.5rem", fontWeight: cls === "normal_play" ? "normal" : "600" }}>{cls}</td>
+                          <td style={{ padding: "0.5rem", textAlign: "center" }}>{(m.precision ?? 0).toFixed(2)}</td>
+                          <td style={{ padding: "0.5rem", textAlign: "center" }}>{(m.recall ?? 0).toFixed(2)}</td>
+                          <td style={{ padding: "0.5rem", textAlign: "center" }}>{(m.f1 ?? 0).toFixed(2)}</td>
+                          <td style={{ padding: "0.5rem", textAlign: "center", color: "var(--text-muted)" }}>{m.support}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                );
+              })()}
+            </div>
+          </div>
         </div>
       )}
 

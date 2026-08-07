@@ -4,6 +4,7 @@ from pathlib import Path
 from src.models.hybrid_model import HybridModel
 from src.pipeline.merger import merge_chunks
 from src.utils.config import get_threshold
+from src.data_processing.chunker import build_context_windows
 
 PROCESSED_CHUNKS_DIR = Path("data/processed/chunks")
 OUTPUT_DIR = Path("data/output")
@@ -13,8 +14,9 @@ SPLIT_FILE = Path("data/config/split_index.json")
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_name", type=str, default="roberta-base", help="HuggingFace model string")
-    parser.add_argument("--dataset", type=str, default="all", help="Specific dataset to run on, or 'all'")
+    parser.add_argument("--dataset", type=str, default="all", help="Comma-separated dataset(s) to run on, or 'all'")
     args = parser.parse_args()
+    selected_ids = None if args.dataset == "all" else {d.strip() for d in args.dataset.split(",") if d.strip()}
 
     # Load split index for tagging chunks
     split_index = None
@@ -39,8 +41,8 @@ def main():
     
     for chunk_file in PROCESSED_CHUNKS_DIR.glob("*.json"):
         match_id = chunk_file.stem.replace("chunks_", "")
-        
-        if args.dataset != "all" and match_id != args.dataset:
+
+        if selected_ids is not None and match_id not in selected_ids:
             continue
             
         print(f"Running pipeline for {match_id} using {args.model_name}...")
@@ -72,15 +74,20 @@ def main():
                 print(f"Warning: Could not overlay CSV labels for {match_id}: {e}")
             
         texts = [c["text_clean"] for c in chunks]
-        
+
         # 1. Predict
         # Load dynamic weights from configuration
         highlight_lexicon_weight = get_threshold("highlight_lexicon_weight", 0.3)
         event_lexicon_weight = get_threshold("event_lexicon_weight", 0.3)
-        
+
+        # Build the same sliding-window context the model was trained on
+        # (see colab_backend.py's WINDOW_SIZE) - the lexicon still scores
+        # each chunk's own text via `texts`, only RoBERTa's input is windowed.
+        roberta_texts = build_context_windows(texts, hybrid_model.roberta.window_size)
         predictions = hybrid_model.predict(
-            texts, 
-            roberta_weight=1.0, 
+            texts,
+            roberta_text_list=roberta_texts,
+            roberta_weight=1.0,
             highlight_lexicon_weight=highlight_lexicon_weight,
             event_lexicon_weight=event_lexicon_weight
         )

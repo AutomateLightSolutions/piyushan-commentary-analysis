@@ -6,6 +6,7 @@
 
 import os
 import sys
+import glob
 import shutil
 import zipfile
 import json
@@ -19,8 +20,15 @@ from fastapi.encoders import jsonable_encoder
 import uvicorn
 
 import whisper
-from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer, TrainingArguments, AutoModel
-from datasets import Dataset
+from transformers import AutoTokenizer, Trainer, TrainingArguments, AutoModel
+from datasets import Dataset, ClassLabel
+from sklearn.metrics import (
+    accuracy_score,
+    precision_recall_fscore_support,
+    mean_squared_error,
+    mean_absolute_error,
+    classification_report,
+)
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -145,6 +153,126 @@ class CustomTrainer(Trainer):
         return (loss, outputs) if return_outputs else loss
 
 # ==========================================
+# Sliding-window context config
+#
+# WINDOW_SIZE=5 concatenates each row with its 2 neighbors on either
+# side into one training sample, using the CENTER row's label and
+# highlight_score as the target - commentary describing an event
+# (e.g. a try) usually builds across several consecutive lines, so
+# this gives the model that surrounding context instead of judging
+# one isolated line. Persisted into the saved model's config so
+# inference code can read it back instead of hardcoding it.
+# ==========================================
+WINDOW_SIZE = 5
+MAX_LENGTH = 256
+WINDOW_HALF = WINDOW_SIZE // 2
+
+# ==========================================
+# Evaluation metrics
+#
+# Reports both weighted and macro averages for precision/recall/f1.
+# Weighted is dominated by normal_play (the majority class), so a
+# model can look good on it while doing badly on rare events. Macro
+# treats every class equally, which is why Stage 1's best checkpoint
+# is selected by f1_macro instead of the weighted f1.
+# ==========================================
+def compute_metrics(eval_pred):
+    (event_logits, highlight_preds) = eval_pred.predictions
+    (event_labels, highlight_labels) = eval_pred.label_ids
+
+    event_preds = event_logits.argmax(axis=-1)
+    accuracy = accuracy_score(event_labels, event_preds)
+    precision, recall, f1, _ = precision_recall_fscore_support(
+        event_labels, event_preds, average="weighted", zero_division=0
+    )
+    precision_macro, recall_macro, f1_macro, _ = precision_recall_fscore_support(
+        event_labels, event_preds, average="macro", zero_division=0
+    )
+
+    highlight_preds = highlight_preds.reshape(-1)
+    highlight_labels = highlight_labels.reshape(-1)
+    mse = mean_squared_error(highlight_labels, highlight_preds)
+    mae = mean_absolute_error(highlight_labels, highlight_preds)
+
+    return {
+        "accuracy": accuracy,
+        "precision": precision,
+        "recall": recall,
+        "f1": f1,
+        "precision_macro": precision_macro,
+        "recall_macro": recall_macro,
+        "f1_macro": f1_macro,
+        "mse": mse,
+        "mae": mae,
+    }
+
+def build_windowed_dataframe(csv_files, label2id):
+    """
+    Builds sliding-window training rows per CSV file, BEFORE concatenating
+    them together, so a window can never bridge two different uploaded
+    matches. The first and last WINDOW_HALF rows of each file are dropped
+    rather than padded with a shorter window, so every training sample has
+    full context.
+    """
+    windowed_dfs = []
+    for f in csv_files:
+        d = pd.read_csv(f)
+        if 'event_class' in d.columns:
+            d['label'] = d['event_class'].apply(lambda x: label2id.get(str(x).strip(), 0) if pd.notna(x) else 0)
+        elif 'event' in d.columns:
+            d['label'] = d['event'].apply(lambda x: label2id.get(str(x).strip(), 0) if pd.notna(x) else 0)
+
+        if 'highlight_score' in d.columns:
+            d['highlight_label'] = pd.to_numeric(d['highlight_score'], errors='coerce').fillna(0.0)
+        else:
+            d['highlight_label'] = 0.0
+
+        d = d.dropna(subset=['text']).reset_index(drop=True)
+        texts = d['text'].tolist()
+
+        if len(texts) <= 2 * WINDOW_HALF:
+            print(f"Skipping {f}: only {len(texts)} rows, need more than {2 * WINDOW_HALF} for window size {WINDOW_SIZE}")
+            continue
+
+        rows = []
+        for i in range(WINDOW_HALF, len(texts) - WINDOW_HALF):
+            window_text = " ".join(texts[i - WINDOW_HALF : i + WINDOW_HALF + 1])
+            rows.append({
+                'text': window_text,
+                'label': d.loc[i, 'label'],
+                'highlight_label': d.loc[i, 'highlight_label'],
+            })
+        windowed_dfs.append(pd.DataFrame(rows))
+
+    return pd.concat(windowed_dfs, ignore_index=True)
+
+def compute_class_weights(df_balanced, num_labels):
+    total_samples = len(df_balanced)
+    class_counts = df_balanced['label'].value_counts().to_dict()
+    weights = []
+    for i in range(num_labels):
+        count = class_counts.get(i, 0)
+        w = total_samples / (num_labels * count) if count > 0 else 1.0
+        # FocalLoss handles class imbalance automatically.
+        # Do NOT artificially down-weight normal_play here — it causes the model
+        # to treat false positives as acceptable, destroying precision.
+        weights.append(w)
+    return torch.tensor(weights, dtype=torch.float)
+
+def log_stage1_classification_report(trainer_stage1, test_dataset, id2label, num_labels):
+    """Per-class breakdown of the best Stage 1 checkpoint, printed so it
+    shows up in the live log stream the frontend polls."""
+    pred_output = trainer_stage1.predict(test_dataset)
+    event_logits, _ = pred_output.predictions
+    event_labels, _ = pred_output.label_ids
+    event_preds = event_logits.argmax(axis=-1)
+    target_names = [id2label[i] for i in range(num_labels)]
+    print("Stage 1 per-class report on held-out test split:")
+    print(classification_report(
+        event_labels, event_preds, labels=list(range(num_labels)), target_names=target_names, zero_division=0
+    ))
+
+# ==========================================
 # FastAPI Application
 # ==========================================
 app = FastAPI()
@@ -231,49 +359,31 @@ def run_train(task_id, zip_path, model_name):
             model_name, num_labels=num_labels, id2label=id2label, label2id=label2id
         )
 
-        csv_files = [os.path.join(extract_dir, f) for f in os.listdir(extract_dir) if f.endswith('.csv')]
-        dfs = []
-        for f in csv_files:
-            d = pd.read_csv(f)
-            if 'event_class' in d.columns:
-                d['label'] = d['event_class'].apply(lambda x: label2id.get(str(x).strip(), 0) if pd.notna(x) else 0)
-            elif 'event' in d.columns:
-                d['label'] = d['event'].apply(lambda x: label2id.get(str(x).strip(), 0) if pd.notna(x) else 0)
-            
-            if 'highlight_score' in d.columns:
-                d['highlight_label'] = pd.to_numeric(d['highlight_score'], errors='coerce').fillna(0.0)
-            else:
-                d['highlight_label'] = 0.0
-                
-            dfs.append(d)
-            
-        df = pd.concat(dfs, ignore_index=True).dropna(subset=['text'])
+        csv_files = glob.glob(os.path.join(extract_dir, "**", "*.csv"), recursive=True)
+        df = build_windowed_dataframe(csv_files, label2id)
         df_balanced = df.sample(frac=1, random_state=42).reset_index(drop=True)
-        
-        total_samples = len(df_balanced)
-        class_counts = df_balanced['label'].value_counts().to_dict()
-        weights = []
-        for i in range(num_labels):
-            count = class_counts.get(i, 0)
-            w = total_samples / (num_labels * count) if count > 0 else 1.0
-            # FocalLoss handles class imbalance automatically.
-            # Do NOT artificially down-weight normal_play here — it causes the model
-            # to treat false positives as acceptable, destroying precision.
-            weights.append(w)
-            
-        class_weights = torch.tensor(weights, dtype=torch.float)
-        
+        class_weights = compute_class_weights(df_balanced, num_labels)
+
+        # stratify_by_column keeps every event class represented in both the
+        # train and test split, proportional to its overall frequency -
+        # without it, a plain random split can leave a rare class with zero
+        # test rows. train_test_split requires the stratify column to be a
+        # ClassLabel feature, hence the cast.
         dataset = Dataset.from_pandas(df_balanced)
+        dataset = dataset.cast_column(
+            'label', ClassLabel(num_classes=num_labels, names=[id2label[i] for i in range(num_labels)])
+        )
+
         def tokenize_func(examples):
-            tokenized = tokenizer(examples['text'], padding="max_length", truncation=True, max_length=128)
+            tokenized = tokenizer(examples['text'], padding="max_length", truncation=True, max_length=MAX_LENGTH)
             tokenized['labels'] = examples['label']
             tokenized['highlight_labels'] = examples['highlight_label']
             return tokenized
-            
+
         tokenized_datasets = dataset.map(tokenize_func, batched=True)
-        split_datasets = tokenized_datasets.train_test_split(test_size=0.2, seed=42)
-        
-        def get_training_args(output_dir_suffix, epochs=5):
+        split_datasets = tokenized_datasets.train_test_split(test_size=0.2, seed=42, stratify_by_column='label')
+
+        def get_training_args(output_dir_suffix, epochs=5, metric_for_best_model="loss", greater_is_better=None):
             return TrainingArguments(
                 output_dir=f"{output_dir}/{output_dir_suffix}",
                 num_train_epochs=epochs,
@@ -284,48 +394,82 @@ def run_train(task_id, zip_path, model_name):
                 logging_steps=5,
                 save_strategy="epoch",
                 load_best_model_at_end=True,
+                metric_for_best_model=metric_for_best_model,
+                greater_is_better=greater_is_better,
                 disable_tqdm=False, # We want tqdm so we can catch it in stdout!
                 learning_rate=2e-5,
                 warmup_ratio=0.1
             )
-            
+
         print("Starting Stage 1: Training Event Classifier...")
+        # metric_for_best_model="f1_macro" makes load_best_model_at_end restore
+        # the epoch that was actually best at classifying events (weighted
+        # across all classes equally), not just the epoch with the lowest loss.
         trainer_stage1 = CustomTrainer(
             model=model,
-            args=get_training_args("stage1", epochs=5),
+            args=get_training_args("stage1", epochs=5, metric_for_best_model="f1_macro", greater_is_better=True),
             train_dataset=split_datasets['train'],
             eval_dataset=split_datasets['test'],
             class_weights=class_weights,
-            stage=1
+            stage=1,
+            compute_metrics=compute_metrics,
         )
         trainer_stage1.train()
-        
+
+        log_stage1_classification_report(trainer_stage1, split_datasets['test'], id2label, num_labels)
+
         print("Starting Stage 2: Training Highlight Scorer...")
         # Freeze backbone and event classifier for Stage 2
         for name, param in model.named_parameters():
             if 'highlight_scorer' not in name:
                 param.requires_grad = False
-                
+
+        # metric_for_best_model="mse" + greater_is_better=False restores the
+        # epoch with the lowest highlight-score error, same reasoning as
+        # Stage 1's f1_macro choice.
         trainer_stage2 = CustomTrainer(
             model=model,
-            args=get_training_args("stage2", epochs=5),
+            args=get_training_args("stage2", epochs=5, metric_for_best_model="mse", greater_is_better=False),
             train_dataset=split_datasets['train'],
             eval_dataset=split_datasets['test'],
             class_weights=class_weights,
-            stage=2
+            stage=2,
+            compute_metrics=compute_metrics,
         )
         trainer_stage2.train()
-        
+
         # Unfreeze after training
         for param in model.parameters():
             param.requires_grad = True
-        
+
+        # `model` already holds the best checkpoint's weights, not the last
+        # epoch's: load_best_model_at_end restores the best-f1_macro epoch
+        # after trainer_stage1.train() and the best-mse epoch after
+        # trainer_stage2.train(). So this is already the best event
+        # classifier + best highlight scorer, combined into one model.
+        #
+        # window_size/tokenizer_max_length are stashed on the config so
+        # inference code can read back how this model expects its input to
+        # be windowed, instead of hardcoding it separately.
+        model.config.window_size = WINDOW_SIZE
+        model.config.tokenizer_max_length = MAX_LENGTH
+
         # Zip the best model so the frontend can download it locally for predictions.
         best_dir = os.path.join(output_dir, "best")
         os.makedirs(best_dir, exist_ok=True)
         torch.save(model.state_dict(), os.path.join(best_dir, "pytorch_model.bin"))
         model.config.save_pretrained(best_dir)
         tokenizer.save_pretrained(best_dir)
+
+        # Also write window_size/tokenizer_max_length as a plain sidecar file,
+        # not just on model.config. transformers' config serialization is not
+        # guaranteed to round-trip arbitrary custom attributes across every
+        # version - if it silently drops them, inference falls back to
+        # window_size=1 (unwindowed) while the model was actually trained on
+        # WINDOW_SIZE-chunk context, which degrades predictions badly. This
+        # file is unambiguous and always readable regardless of that.
+        with open(os.path.join(best_dir, "training_meta.json"), "w") as f:
+            json.dump({"window_size": WINDOW_SIZE, "tokenizer_max_length": MAX_LENGTH}, f)
 
         out_zip = f"/content/{model_name.replace('/', '_')}_trained.zip"
         shutil.make_archive(out_zip.replace('.zip', ''), 'zip', best_dir)

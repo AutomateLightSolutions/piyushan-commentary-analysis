@@ -11,6 +11,9 @@ function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSe
   const [searchQuery, setSearchQuery] = useState("");
   const [viewingDataset, setViewingDataset] = useState(null);
   const [datasetRows, setDatasetRows] = useState([]);
+  // Datasets checked but not yet confirmed - lets the user pick several
+  // specific matches to train on together, rather than one at a time.
+  const [pendingSelection, setPendingSelection] = useState([]);
 
   useEffect(() => {
     if (isOpen) {
@@ -18,10 +21,26 @@ function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSe
         .then(res => res.json())
         .then(data => setHistory(data))
         .catch(err => console.error(err));
+      // Re-seed the checkboxes from the current selection every time the
+      // modal opens, so it reflects what's actually active.
+      setPendingSelection(selectedDataset === "all" ? [] : selectedDataset.split(",").filter(Boolean));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   if (!isOpen) return null;
+
+  const toggleDataset = (ds) => {
+    setPendingSelection(prev =>
+      prev.includes(ds) ? prev.filter(d => d !== ds) : [...prev, ds]
+    );
+  };
+
+  const confirmSelection = () => {
+    if (pendingSelection.length === 0) return;
+    setSelectedDataset(pendingSelection.join(","));
+    onClose();
+  };
 
   const models = [
     { id: "roberta-base", label: "Roberta" },
@@ -56,7 +75,11 @@ function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSe
         body: JSON.stringify({ matchId: ds, filesToDelete: "all" })
       });
       if (res.ok) {
-        if (selectedDataset === ds) setSelectedDataset("all");
+        if (selectedDataset !== "all" && selectedDataset.split(",").includes(ds)) {
+          const remaining = selectedDataset.split(",").filter(d => d !== ds);
+          setSelectedDataset(remaining.length > 0 ? remaining.join(",") : "all");
+        }
+        setPendingSelection(prev => prev.filter(d => d !== ds));
         if (refreshMatches) refreshMatches();
       } else {
         alert("Failed to delete dataset.");
@@ -123,7 +146,7 @@ function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSe
               </thead>
               <tbody>
                 {filteredDatasets.map(ds => {
-                  const isSelected = selectedDataset === ds;
+                  const isSelected = ds === "all" ? selectedDataset === "all" : pendingSelection.includes(ds);
                   return (
                     <React.Fragment key={ds}>
                       <tr style={{ 
@@ -133,7 +156,19 @@ function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSe
                         transition: "background-color 0.2s"
                       }}>
                         <td style={{ padding: "0.75rem 1rem", fontWeight: "bold", maxWidth: "250px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }} title={ds === "all" ? "All Datasets" : ds}>
-                          {ds === "all" ? "All Datasets" : ds}
+                          {ds === "all" ? (
+                            "All Datasets"
+                          ) : (
+                            <label style={{ display: "flex", alignItems: "center", gap: "0.6rem", cursor: "pointer", fontWeight: "inherit" }}>
+                              <input
+                                type="checkbox"
+                                checked={pendingSelection.includes(ds)}
+                                onChange={() => toggleDataset(ds)}
+                                style={{ width: "16px", height: "16px", cursor: "pointer", flexShrink: 0 }}
+                              />
+                              <span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>{ds}</span>
+                            </label>
+                          )}
                         </td>
                         {models.map(m => {
                           const records = getHistoryFor(ds, m.id);
@@ -175,13 +210,15 @@ function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSe
                         })}
                         <td style={{ padding: "0.75rem 1rem", textAlign: "center" }}>
                           <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center" }}>
-                            <button 
-                              className={`btn ${isSelected ? "btn-primary" : "btn-secondary"}`}
-                              onClick={() => { setSelectedDataset(ds); onClose(); }}
-                              style={{ padding: "0.4rem 0", width: "80px", fontSize: "0.85rem", fontWeight: isSelected ? "bold" : "normal" }}
-                            >
-                              {isSelected ? "Selected ✓" : "Select"}
-                            </button>
+                            {ds === "all" && (
+                              <button
+                                className={`btn ${isSelected ? "btn-primary" : "btn-secondary"}`}
+                                onClick={() => { setSelectedDataset("all"); onClose(); }}
+                                style={{ padding: "0.4rem 0", width: "80px", fontSize: "0.85rem", fontWeight: isSelected ? "bold" : "normal" }}
+                              >
+                                {isSelected ? "Selected ✓" : "Select"}
+                              </button>
+                            )}
                             {ds !== "all" && (
                               <>
                                 <button 
@@ -281,7 +318,33 @@ function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSe
             </table>
           )}
         </div>
-        
+
+        <div style={{
+          display: "flex", justifyContent: "space-between", alignItems: "center",
+          marginTop: "1rem", paddingTop: "1rem", borderTop: "1px solid rgba(255,255,255,0.1)"
+        }}>
+          <span style={{ fontSize: "0.9rem", color: "#a1a1aa" }}>
+            {pendingSelection.length === 0
+              ? "Check one or more datasets above to train on a specific combination."
+              : `${pendingSelection.length} dataset${pendingSelection.length > 1 ? "s" : ""} checked`}
+          </span>
+          <div style={{ display: "flex", gap: "0.5rem" }}>
+            {pendingSelection.length > 0 && (
+              <button className="btn btn-secondary" onClick={() => setPendingSelection([])} style={{ padding: "0.5rem 1rem", fontSize: "0.9rem" }}>
+                Clear
+              </button>
+            )}
+            <button
+              className="btn btn-primary"
+              onClick={confirmSelection}
+              disabled={pendingSelection.length === 0}
+              style={{ padding: "0.5rem 1.2rem", fontSize: "0.9rem", opacity: pendingSelection.length === 0 ? 0.5 : 1, cursor: pendingSelection.length === 0 ? "not-allowed" : "pointer" }}
+            >
+              Train on {pendingSelection.length === 0 ? "Selected" : `${pendingSelection.length} Dataset${pendingSelection.length > 1 ? "s" : ""}`}
+            </button>
+          </div>
+        </div>
+
         {viewingDataset && (
           <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: "rgba(0,0,0,0.8)", zIndex: 1100, display: "flex", justifyContent: "center", alignItems: "center" }}>
             <div className="glass-card" style={{ width: "90%", maxWidth: "900px", maxHeight: "85vh", display: "flex", flexDirection: "column", position: "relative", backgroundColor: "#1e293b", padding: "1.5rem" }}>
@@ -593,13 +656,18 @@ export default function Home() {
               <div className="flex-between mb-3" style={{ flexWrap: "wrap", gap: "1rem", alignItems: "center" }}>
                 <h2 className="card-title" style={{ margin: 0, minWidth: "250px" }}>🧠 3. Advanced ML Execution</h2>
                 <div style={{ display: "flex", gap: "0.75rem", alignItems: "center", flexWrap: "wrap", flex: "1", justifyContent: "flex-end" }}>
-                  <button 
-                    className="btn btn-secondary" 
+                  <button
+                    className="btn btn-secondary"
                     onClick={() => setShowDatasetModal(true)}
                     disabled={isProcessing || isMlProcessing}
+                    title={selectedDataset === "all" ? "All Datasets" : selectedDataset.split(",").join(", ")}
                     style={{ maxWidth: "220px", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}
                   >
-                    Dataset: {selectedDataset === "all" ? "All Datasets" : selectedDataset}
+                    Dataset: {selectedDataset === "all"
+                      ? "All Datasets"
+                      : selectedDataset.split(",").length > 1
+                        ? `${selectedDataset.split(",").length} Datasets`
+                        : selectedDataset}
                   </button>
                   <select 
                     className="form-select" 

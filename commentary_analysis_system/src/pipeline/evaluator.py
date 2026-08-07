@@ -30,6 +30,34 @@ def compute_multiclass_metrics(y_true: list[str], y_pred: list[str]) -> dict:
         "f1": round(macro_f1 / num_classes, 2)
     }
 
+def compute_per_class_metrics(y_true: list[str], y_pred: list[str], all_classes: list[str]) -> dict:
+    """
+    Precision/recall/f1/support for EVERY class in all_classes, including
+    normal_play - unlike compute_multiclass_metrics, which macro-averages
+    only over non-normal_play classes into one aggregate number. Classes
+    with zero true occurrences in this match still get a row (support=0)
+    so a table built from this stays a consistent, complete shape across
+    different matches/models being compared.
+    """
+    result = {}
+    for cls in all_classes:
+        tp = sum(1 for yt, yp in zip(y_true, y_pred) if yt == cls and yp == cls)
+        fp = sum(1 for yt, yp in zip(y_true, y_pred) if yt != cls and yp == cls)
+        fn = sum(1 for yt, yp in zip(y_true, y_pred) if yt == cls and yp != cls)
+        support = sum(1 for yt in y_true if yt == cls)
+
+        p = tp / (tp + fp) if (tp + fp) > 0 else 0.0
+        r = tp / (tp + fn) if (tp + fn) > 0 else 0.0
+        f1 = 2 * p * r / (p + r) if (p + r) > 0 else 0.0
+
+        result[cls] = {
+            "precision": round(p, 2),
+            "recall": round(r, 2),
+            "f1": round(f1, 2),
+            "support": support,
+        }
+    return result
+
 def compute_regression_metrics(y_true: list[float], y_pred: list[float]) -> dict:
     if not y_true or not y_pred:
         return {"mse": 0.0, "mae": 0.0}
@@ -58,3 +86,10 @@ def print_regression_table(eval_results: dict):
     for method, metrics in eval_results.items():
         if "mse" in metrics:
             print(f"{method:<30} | {metrics['mse']:<10} | {metrics['mae']:<10}")
+
+def print_per_class_table(per_class_results: dict, title: str = "Per-Event Breakdown"):
+    print(f"\n--- {title} ---")
+    print(f"{'Event':<20} | {'Precision':<10} | {'Recall':<10} | {'F1':<10} | {'Support':<8}")
+    print("-" * 70)
+    for cls, m in per_class_results.items():
+        print(f"{cls:<20} | {m['precision']:<10} | {m['recall']:<10} | {m['f1']:<10} | {m['support']:<8}")

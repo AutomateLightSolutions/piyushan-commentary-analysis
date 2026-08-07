@@ -10,7 +10,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 
 from src.data_processing.parser import parse_whisper_json
-from src.data_processing.chunker import create_chunks
+from src.data_processing.chunker import create_chunks, build_context_windows
 from src.models.hybrid_model import HybridModel
 from src.pipeline.merger import merge_chunks
 from src.utils.config import get_threshold
@@ -101,8 +101,13 @@ def run(job_id: str, model_name: str, input_path: Path):
     )
 
     texts = [c["text_clean"] for c in chunks]
+    # Build the same sliding-window context the model was trained on (see
+    # colab_backend.py's WINDOW_SIZE) - the lexicon still scores each
+    # chunk's own text via `texts` below, only RoBERTa's input is windowed.
+    roberta_texts = build_context_windows(texts, hybrid_model.roberta.window_size)
     predictions = hybrid_model.predict(
         texts,
+        roberta_text_list=roberta_texts,
         roberta_weight=1.0,
         highlight_lexicon_weight=get_threshold("highlight_lexicon_weight", 0.3),
         event_lexicon_weight=get_threshold("event_lexicon_weight", 0.3),

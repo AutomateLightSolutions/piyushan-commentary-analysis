@@ -143,6 +143,11 @@ class TransformerClassifier:
         self.label2id, self.id2label = self._load_events()
         self.num_labels = len(self.label2id)
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        # Defaults for a checkpoint trained before windowing existed (or no
+        # checkpoint loaded at all) - load_model() overrides these from the
+        # saved config when available.
+        self.window_size = 1
+        self.tokenizer_max_length = 128
 
         self.model = DualHeadRoBERTa(
             model_name,
@@ -291,7 +296,24 @@ class TransformerClassifier:
         self.num_labels = config.num_labels
         self.id2label = config.id2label
         self.label2id = config.label2id
-        
+        # Read back how this checkpoint expects its input windowed/truncated
+        # (set by colab_backend.py's run_train()). Prefer the plain
+        # training_meta.json sidecar over the config attribute - transformers'
+        # config serialization isn't guaranteed to round-trip arbitrary custom
+        # attributes across every version, and silently falling back to
+        # window_size=1 for a model actually trained on multi-chunk context
+        # collapses its predictions (seen in practice: a model that scored
+        # macro-F1 0.48 on its own held-out split predicted a single class for
+        # 100% of inputs once windowing info was lost on the inference side).
+        self.window_size = getattr(config, "window_size", 1)
+        self.tokenizer_max_length = getattr(config, "tokenizer_max_length", 128)
+        meta_path = os.path.join(model_path, "training_meta.json")
+        if os.path.exists(meta_path):
+            with open(meta_path, "r") as f:
+                meta = json.load(f)
+            self.window_size = meta.get("window_size", self.window_size)
+            self.tokenizer_max_length = meta.get("tokenizer_max_length", self.tokenizer_max_length)
+
         # It's a custom model, we extract the base model name from config usually or fall back
         model_name = getattr(config, "_name_or_path", "roberta-base")
         self.model = DualHeadRoBERTa(model_name, self.num_labels, self.id2label, self.label2id)
@@ -325,7 +347,9 @@ class TransformerClassifier:
         
         for i in range(0, len(text_list), batch_size):
             batch_texts = text_list[i:i+batch_size]
-            inputs = self.tokenizer(batch_texts, padding=True, truncation=True, return_tensors="pt")
+            inputs = self.tokenizer(
+                batch_texts, padding=True, truncation=True, max_length=self.tokenizer_max_length, return_tensors="pt"
+            )
             inputs = {k: v.to(device) for k, v in inputs.items()}
             
             with torch.no_grad():
