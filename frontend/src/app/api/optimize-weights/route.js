@@ -16,7 +16,7 @@ export async function POST(req) {
     return new Promise((resolve) => {
       exec(
         `"${venvPython}" "${scriptPath}" --model_name "${modelName}"`,
-        { cwd: SYSTEM_PATH, env: { ...process.env, PYTHONPATH: "." } },
+        { cwd: SYSTEM_PATH, env: { ...process.env, PYTHONPATH: ".", PYTHONIOENCODING: "utf-8" } },
         (error, stdout, stderr) => {
           if (error) {
             console.error("Optimization script error:", stderr);

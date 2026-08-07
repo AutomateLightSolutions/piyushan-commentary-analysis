@@ -484,6 +484,7 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState(1);
   const [showDatasetModal, setShowDatasetModal] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [perClassMethod, setPerClassMethod] = useState("ML Model Only");
 
   const {
     steps,
@@ -493,6 +494,8 @@ export default function Home() {
     setSelectedModel,
     selectedDataset,
     setSelectedDataset,
+    selectedSplit,
+    setSelectedSplit,
     isProcessing,
     isMlProcessing,
     handleProcess,
@@ -682,6 +685,19 @@ export default function Home() {
                     <option value="answerdotai/ModernBERT-base">ModernBERT</option>
                     <option value="bert-base-uncased">BERT</option>
                   </select>
+                  <select
+                    className="form-select"
+                    value={selectedSplit}
+                    onChange={(e) => setSelectedSplit(e.target.value)}
+                    disabled={isProcessing || isMlProcessing}
+                    style={{ maxWidth: "160px", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}
+                    title="Which split role to evaluate against. 'All' includes rows the model was trained on, so it's not a clean held-out measure - use 'Test' for a genuine unseen-data score."
+                  >
+                    <option value="all">Split: All</option>
+                    <option value="train">Split: Train</option>
+                    <option value="val">Split: Val</option>
+                    <option value="test">Split: Test</option>
+                  </select>
                   <button className="btn btn-primary" onClick={handleMlProcess} disabled={isProcessing || isMlProcessing} style={{ whiteSpace: "nowrap" }}>
                     {isMlProcessing ? "Executing..." : "Run ML Sequence"}
                   </button>
@@ -753,6 +769,52 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
+
+                {metricsData.PerClass && (
+                  <div style={{ marginTop: "2rem" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem", borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: "0.5rem" }}>
+                      <h3 style={{ margin: 0, fontSize: "1.1rem", color: "#e2e8f0" }}>
+                        📋 Per-Event Breakdown
+                      </h3>
+                      <div className="tabs-container" style={{ margin: 0, padding: 0, background: "transparent", border: "none" }}>
+                        {["Lexicon Only", "ML Model Only", "Hybrid Model"].map(method => (
+                          <button
+                            key={method}
+                            className={`tab-btn ${perClassMethod === method ? 'active' : ''}`}
+                            onClick={() => setPerClassMethod(method)}
+                            style={{ padding: "0.4rem 0.8rem", fontSize: "0.85rem" }}
+                          >
+                            {method}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="table-container">
+                      <table className="table-modern">
+                        <thead>
+                          <tr>
+                            <th style={{ textAlign: "left" }}>Event</th>
+                            <th className="text-primary">Precision</th>
+                            <th className="text-secondary">Recall</th>
+                            <th style={{ color: "var(--success-color)" }}>F1</th>
+                            <th>Support</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {Object.entries(metricsData.PerClass[perClassMethod] || {}).map(([cls, m]) => (
+                            <tr key={cls}>
+                              <td style={{ fontWeight: cls === "normal_play" ? "normal" : "600" }}>{cls}</td>
+                              <td>{(m.precision ?? 0).toFixed(2)}</td>
+                              <td>{(m.recall ?? 0).toFixed(2)}</td>
+                              <td style={{ fontWeight: "bold" }}>{(m.f1 ?? 0).toFixed(2)}</td>
+                              <td style={{ color: "var(--text-muted)" }}>{m.support}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
               </section>
             )}
           </>

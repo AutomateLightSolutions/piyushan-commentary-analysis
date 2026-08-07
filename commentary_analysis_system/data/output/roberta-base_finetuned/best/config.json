@@ -45,8 +45,10 @@
   "num_hidden_layers": 12,
   "pad_token_id": 1,
   "tie_word_embeddings": true,
+  "tokenizer_max_length": 256,
   "transformers_version": "5.13.1",
   "type_vocab_size": 1,
   "use_cache": false,
-  "vocab_size": 50265
+  "vocab_size": 50265,
+  "window_size": 5
 }

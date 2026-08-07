@@ -23,7 +23,7 @@ export async function POST(req) {
 
       const proc = spawn(venvPython, [scriptPath, "--model_name", modelName, "--dataset", dataset], {
         cwd: SYSTEM_PATH,
-        env: { ...process.env, PYTHONPATH: ".", PYTHONUNBUFFERED: "1" },
+        env: { ...process.env, PYTHONPATH: ".", PYTHONUNBUFFERED: "1", PYTHONIOENCODING: "utf-8" },
       });
 
       registerProc(PROC_ID, proc);

@@ -45,7 +45,10 @@ export async function POST(request) {
     // Execute the Python script
     const command = `"${PYTHON_EXEC}" "${SCRIPT_PATH}" --dataset "${dataset}"`;
     
-    const { stdout, stderr } = await execPromise(command, { cwd: BACKEND_DIR });
+    const { stdout, stderr } = await execPromise(command, {
+      cwd: BACKEND_DIR,
+      env: { ...process.env, PYTHONIOENCODING: "utf-8" },
+    });
     
     // Parse the JSON output from the python script
     let result;

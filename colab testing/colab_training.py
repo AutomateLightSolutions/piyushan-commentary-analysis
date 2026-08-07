@@ -2,8 +2,8 @@
 # ============================================================
 # CELL 1: Install dependencies
 # ============================================================
-# !pip install -U transformers datasets fsspec
-# !pip install pandas scikit-learn
+!pip install -U transformers datasets fsspec
+!pip install pandas scikit-learn
 
 
 # ============================================================
@@ -65,10 +65,7 @@ print(f"Total rows: {len(df_preview)}")
 
 # ============================================================
 # CELL 5: Build label maps
-#
-# normal_play is pinned to id 0 - CELL 11 defaults any blank or
-# unrecognized event_class value to label 0, so 0 must stay
-# normal_play regardless of where it sits in EVENT_CLASSES.
+# normal_play is pinned to id 0
 # ============================================================
 EVENT_CLASSES = [
     "try",
@@ -93,7 +90,7 @@ print("Labels:", label2id)
 
 
 # ============================================================
-# CELL 6: Model definition - DualHeadRoBERTa
+# CELL 6: Model definition - DualHeadModel
 #   - event_classifier: predicts the event type (try, penalty, ...)
 #   - highlight_scorer: predicts a 0-1 "how exciting is this" score
 # ============================================================
@@ -206,50 +203,46 @@ class CustomTrainer(Trainer):
 # ============================================================
 # CELL 9: Evaluation metrics
 #
-# The model has two label columns (labels, highlight_labels), so
-# Trainer passes both heads' predictions/targets here once per
-# evaluation pass (each epoch, since eval_strategy="epoch"). This
-# reports classification metrics for the event head AND regression
-# metrics (mse, mae) for the highlight head, in every epoch's
-# validation row - even though only one head is actively training
-# per stage.
-#
-# Both weighted and macro averages are reported for precision/
-# recall/f1. Weighted is dominated by normal_play (the majority
-# class), so a model can look good on it while doing badly on rare
-# events like try/maul. Macro treats every class equally, which is
-# why CELL 13 selects the best Stage 1 checkpoint by f1_macro
-# instead of the weighted f1.
+# The model always returns both heads' outputs, but only one head is
+# actually being trained per stage - the other one's weights are
+# frozen (or not yet trained), so its predictions are meaningless
+# noise for that stage. make_compute_metrics only computes the
+# metrics that correspond to the stage actually being trained.
 # ============================================================
-def compute_metrics(eval_pred):
-    (event_logits, highlight_preds) = eval_pred.predictions
-    (event_labels, highlight_labels) = eval_pred.label_ids
+def make_compute_metrics(stage):
+    def compute_metrics(eval_pred):
+        (event_logits, highlight_preds) = eval_pred.predictions
+        (event_labels, highlight_labels) = eval_pred.label_ids
 
-    event_preds = event_logits.argmax(axis=-1)
-    accuracy = accuracy_score(event_labels, event_preds)
-    precision, recall, f1, _ = precision_recall_fscore_support(
-        event_labels, event_preds, average="weighted", zero_division=0
-    )
-    precision_macro, recall_macro, f1_macro, _ = precision_recall_fscore_support(
-        event_labels, event_preds, average="macro", zero_division=0
-    )
+        if stage == 1:
+            event_preds = event_logits.argmax(axis=-1)
+            accuracy = accuracy_score(event_labels, event_preds)
+            precision, recall, f1, _ = precision_recall_fscore_support(
+                event_labels, event_preds, average="weighted", zero_division=0
+            )
+            precision_macro, recall_macro, f1_macro, _ = precision_recall_fscore_support(
+                event_labels, event_preds, average="macro", zero_division=0
+            )
+            return {
+                "accuracy": accuracy,
+                "precision": precision,
+                "recall": recall,
+                "f1": f1,
+                "precision_macro": precision_macro,
+                "recall_macro": recall_macro,
+                "f1_macro": f1_macro,
+            }
+        else:
+            highlight_preds = highlight_preds.reshape(-1)
+            highlight_labels = highlight_labels.reshape(-1)
+            mse = mean_squared_error(highlight_labels, highlight_preds)
+            mae = mean_absolute_error(highlight_labels, highlight_preds)
+            return {
+                "mse": mse,
+                "mae": mae,
+            }
 
-    highlight_preds = highlight_preds.reshape(-1)
-    highlight_labels = highlight_labels.reshape(-1)
-    mse = mean_squared_error(highlight_labels, highlight_preds)
-    mae = mean_absolute_error(highlight_labels, highlight_preds)
-
-    return {
-        "accuracy": accuracy,
-        "precision": precision,
-        "recall": recall,
-        "f1": f1,
-        "precision_macro": precision_macro,
-        "recall_macro": recall_macro,
-        "f1_macro": f1_macro,
-        "mse": mse,
-        "mae": mae,
-    }
+    return compute_metrics
 
 
 # ============================================================
@@ -267,15 +260,9 @@ model = DualHeadRoBERTa(MODEL_NAME, num_labels=num_labels, id2label=id2label, la
 # highlight_score as the target. Commentary describing an event (e.g.
 # a try) usually builds across several consecutive lines, so this
 # gives the model that surrounding context instead of judging one
-# isolated line. MAX_LENGTH is bumped 128 -> 256 (CELL 12) to fit the
-# longer windowed text.
+# isolated line. 
 #
-# Windowing runs per CSV file, BEFORE concatenating them together, so
-# a window can never bridge two different uploaded matches. The first
-# and last WINDOW_SIZE//2 rows of each file are dropped rather than
-# padded with a shorter window, so every sample has full context.
-#
-# Note for later: any inference code must build the same 5-line
+# any inference code must build the same 5-line
 # window around a line before classifying it - feeding a single raw
 # line to this model would not match what it was trained on.
 # ============================================================
@@ -331,13 +318,7 @@ print("Class weights:", class_weights)
 
 # ============================================================
 # CELL 12: Tokenize and split into train/test
-#
-# stratify_by_column="label" keeps every event class represented in
-# both the train and test split, proportional to its overall
-# frequency. Without it, a plain random split can leave a rare class
-# (e.g. try, maul) with zero test rows - which is exactly what broke
-# CELL 14's classification_report earlier. train_test_split requires
-# the stratify column to be a ClassLabel feature, hence the cast.
+# stratify_by_column
 # ============================================================
 dataset = Dataset.from_pandas(df_balanced)
 dataset = dataset.cast_column(
@@ -379,11 +360,7 @@ def get_training_args(output_dir_suffix, epochs=5, metric_for_best_model="loss",
 # ============================================================
 # CELL 13: Stage 1 - Train the event classifier
 #
-# metric_for_best_model="f1_macro" makes load_best_model_at_end
-# restore the epoch that was actually best at classifying events
-# (weighted across all classes equally), not just the epoch with
-# the lowest FocalLoss - so `model` holds the best checkpoint's
-# weights, not simply the last epoch's, once training finishes.
+# metric_for_best_model="f1_macro" 
 # ============================================================
 trainer_stage1 = CustomTrainer(
     model=model,
@@ -392,7 +369,7 @@ trainer_stage1 = CustomTrainer(
     eval_dataset=split_datasets["test"],
     class_weights=class_weights,
     stage=1,
-    compute_metrics=compute_metrics,
+    compute_metrics=make_compute_metrics(1),
 )
 trainer_stage1.train()
 
@@ -401,9 +378,7 @@ trainer_stage1.train()
 # CELL 14: Per-class classification report (event head)
 #
 # compute_metrics only reports weighted-average precision/recall/f1
-# each epoch. This runs one prediction pass over the held-out test
-# set and prints sklearn's full per-class breakdown, like:
-#   precision  recall  f1-score  support   (one row per event)
+# each epoch. 
 # ============================================================
 pred_output = trainer_stage1.predict(split_datasets["test"])
 event_logits, _ = pred_output.predictions
@@ -419,10 +394,6 @@ print(classification_report(
 # ============================================================
 # CELL 15: Stage 2 - Train the highlight scorer
 # (backbone + event head are frozen so stage 1 knowledge is kept)
-#
-# metric_for_best_model="mse" + greater_is_better=False restores the
-# epoch with the lowest highlight-score error at the end of training,
-# same reasoning as Stage 1's f1_macro choice.
 # ============================================================
 for name, param in model.named_parameters():
     if "highlight_scorer" not in name:
@@ -435,7 +406,7 @@ trainer_stage2 = CustomTrainer(
     eval_dataset=split_datasets["test"],
     class_weights=class_weights,
     stage=2,
-    compute_metrics=compute_metrics,
+    compute_metrics=make_compute_metrics(2),
 )
 trainer_stage2.train()
 
@@ -445,20 +416,6 @@ for param in model.parameters():
 
 # ============================================================
 # CELL 16: Save the best model and zip it
-#
-# `model` already holds the best checkpoint's weights, not the last
-# epoch's: load_best_model_at_end (CELL 12) restores the best-f1_macro
-# epoch after trainer_stage1.train() and the best-mse epoch after
-# trainer_stage2.train(). So this is already saving the best event
-# classifier + best highlight scorer, combined into one model.
-#
-# window_size/tokenizer_max_length are saved both on model.config AND as a
-# plain training_meta.json sidecar - config serialization isn't guaranteed
-# to round-trip arbitrary custom attributes across every transformers
-# version, and if that happens, any code loading this model for inference
-# silently falls back to window_size=1 (unwindowed) even though the model
-# was trained on WINDOW_SIZE-chunk context, which badly degrades
-# predictions. The sidecar file is unambiguous either way.
 # ============================================================
 model.config.window_size = WINDOW_SIZE
 model.config.tokenizer_max_length = MAX_LENGTH

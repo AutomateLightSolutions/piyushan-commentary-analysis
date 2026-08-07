@@ -1,12 +1,32 @@
 
-def compute_multiclass_metrics(y_true: list[str], y_pred: list[str]) -> dict:
-    classes = set(y_true + y_pred)
-    if "normal_play" in classes:
-        classes.remove("normal_play")
-        
+def compute_multiclass_metrics(y_true: list[str], y_pred: list[str], all_classes: list[str] = None) -> dict:
+    """
+    Macro-averaged precision/recall/f1 over event classes (excluding
+    normal_play).
+
+    Pass all_classes (the full configured event list) to average over a
+    FIXED class set - matching sklearn's `labels=` behavior, and what
+    Colab's own classification_report uses. Without it, the class set is
+    inferred as whatever appears in y_true/y_pred for THIS match, which
+    means a model that scatters false positives across many different
+    wrong classes gets an inflated denominator (each noisy class drags the
+    average down as its own near-zero-precision "class"), and the result
+    isn't comparable across matches/methods since the denominator itself
+    changes. This was found to be a real, separate contributor to local
+    evaluation numbers reading far worse than Colab's own held-out report,
+    on top of any model/data issue - fix the model, and this formula was
+    still going to understate it.
+    """
+    if all_classes is not None:
+        classes = [c for c in all_classes if c != "normal_play"]
+    else:
+        classes = set(y_true + y_pred)
+        if "normal_play" in classes:
+            classes.remove("normal_play")
+
     if not classes:
         return {"precision": 0.0, "recall": 0.0, "f1": 0.0}
-        
+
     macro_p, macro_r, macro_f1 = 0.0, 0.0, 0.0
     
     for cls in classes:

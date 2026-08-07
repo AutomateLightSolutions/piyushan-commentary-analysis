@@ -3055,5 +3055,2598 @@
                 }
             }
         }
+    },
+    {
+        "id": "match_1_Geo_vs_POR_WCA_2023_9_4_1786093663",
+        "match_id": "match_1_Geo_vs_POR_WCA_2023",
+        "dataset_name": "dataset_match_1_Geo_vs_POR_WCA_2023",
+        "training_round": 9,
+        "training_datasets": [
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023"
+        ],
+        "evaluation_round": 4,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-07T14:37:43.211254",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "precision": 0.11,
+                    "recall": 0.22,
+                    "f1": 0.12
+                },
+                "ML Model Only": {
+                    "precision": 0.14,
+                    "recall": 0.3,
+                    "f1": 0.16
+                },
+                "Hybrid Model": {
+                    "precision": 0.14,
+                    "recall": 0.3,
+                    "f1": 0.16
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.2494,
+                    "mae": 0.3963
+                },
+                "ML Model Only": {
+                    "mse": 0.0976,
+                    "mae": 0.2539
+                },
+                "Hybrid Model": {
+                    "mse": 0.2958,
+                    "mae": 0.4537
+                }
+            },
+            "PerClass": {
+                "Lexicon Only": {
+                    "normal_play": {
+                        "precision": 0.82,
+                        "recall": 0.29,
+                        "f1": 0.42,
+                        "support": 202
+                    },
+                    "try": {
+                        "precision": 0.31,
+                        "recall": 0.4,
+                        "f1": 0.35,
+                        "support": 10
+                    },
+                    "goal_kick": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 9
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.4,
+                        "recall": 0.22,
+                        "f1": 0.29,
+                        "support": 27
+                    },
+                    "maul": {
+                        "precision": 0.02,
+                        "recall": 0.14,
+                        "f1": 0.03,
+                        "support": 7
+                    },
+                    "lineout": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 10
+                    },
+                    "kick_off": {
+                        "precision": 0.14,
+                        "recall": 0.43,
+                        "f1": 0.21,
+                        "support": 7
+                    },
+                    "tmo_replay": {
+                        "precision": 0.05,
+                        "recall": 0.4,
+                        "f1": 0.09,
+                        "support": 5
+                    },
+                    "penalty": {
+                        "precision": 0.06,
+                        "recall": 0.4,
+                        "f1": 0.11,
+                        "support": 5
+                    }
+                },
+                "ML Model Only": {
+                    "normal_play": {
+                        "precision": 0.8,
+                        "recall": 0.16,
+                        "f1": 0.27,
+                        "support": 202
+                    },
+                    "try": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 10
+                    },
+                    "goal_kick": {
+                        "precision": 0.07,
+                        "recall": 0.44,
+                        "f1": 0.11,
+                        "support": 9
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.18,
+                        "recall": 0.33,
+                        "f1": 0.23,
+                        "support": 27
+                    },
+                    "maul": {
+                        "precision": 0.56,
+                        "recall": 0.71,
+                        "f1": 0.63,
+                        "support": 7
+                    },
+                    "lineout": {
+                        "precision": 0.06,
+                        "recall": 0.3,
+                        "f1": 0.11,
+                        "support": 10
+                    },
+                    "kick_off": {
+                        "precision": 0.25,
+                        "recall": 0.14,
+                        "f1": 0.18,
+                        "support": 7
+                    },
+                    "tmo_replay": {
+                        "precision": 0.06,
+                        "recall": 0.6,
+                        "f1": 0.11,
+                        "support": 5
+                    },
+                    "penalty": {
+                        "precision": 0.06,
+                        "recall": 0.2,
+                        "f1": 0.1,
+                        "support": 5
+                    }
+                },
+                "Hybrid Model": {
+                    "normal_play": {
+                        "precision": 0.78,
+                        "recall": 0.17,
+                        "f1": 0.28,
+                        "support": 202
+                    },
+                    "try": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 10
+                    },
+                    "goal_kick": {
+                        "precision": 0.05,
+                        "recall": 0.33,
+                        "f1": 0.09,
+                        "support": 9
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.19,
+                        "recall": 0.33,
+                        "f1": 0.24,
+                        "support": 27
+                    },
+                    "maul": {
+                        "precision": 0.43,
+                        "recall": 0.43,
+                        "f1": 0.43,
+                        "support": 7
+                    },
+                    "lineout": {
+                        "precision": 0.06,
+                        "recall": 0.3,
+                        "f1": 0.1,
+                        "support": 10
+                    },
+                    "kick_off": {
+                        "precision": 0.33,
+                        "recall": 0.29,
+                        "f1": 0.31,
+                        "support": 7
+                    },
+                    "tmo_replay": {
+                        "precision": 0.06,
+                        "recall": 0.6,
+                        "f1": 0.11,
+                        "support": 5
+                    },
+                    "penalty": {
+                        "precision": 0.11,
+                        "recall": 0.4,
+                        "f1": 0.17,
+                        "support": 5
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": "match_2_NZ_vs_ITA_WCA_2023_9_4_1786093663",
+        "match_id": "match_2_NZ_vs_ITA_WCA_2023",
+        "dataset_name": "dataset_match_2_NZ_vs_ITA_WCA_2023",
+        "training_round": 9,
+        "training_datasets": [
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023"
+        ],
+        "evaluation_round": 4,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-07T14:37:43.211254",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "precision": 0.11,
+                    "recall": 0.21,
+                    "f1": 0.12
+                },
+                "ML Model Only": {
+                    "precision": 0.13,
+                    "recall": 0.45,
+                    "f1": 0.18
+                },
+                "Hybrid Model": {
+                    "precision": 0.12,
+                    "recall": 0.45,
+                    "f1": 0.17
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.2877,
+                    "mae": 0.4262
+                },
+                "ML Model Only": {
+                    "mse": 0.1105,
+                    "mae": 0.2743
+                },
+                "Hybrid Model": {
+                    "mse": 0.3596,
+                    "mae": 0.5108
+                }
+            },
+            "PerClass": {
+                "Lexicon Only": {
+                    "normal_play": {
+                        "precision": 0.81,
+                        "recall": 0.27,
+                        "f1": 0.4,
+                        "support": 212
+                    },
+                    "try": {
+                        "precision": 0.04,
+                        "recall": 0.2,
+                        "f1": 0.07,
+                        "support": 10
+                    },
+                    "goal_kick": {
+                        "precision": 0.38,
+                        "recall": 0.38,
+                        "f1": 0.38,
+                        "support": 8
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.31,
+                        "recall": 0.33,
+                        "f1": 0.32,
+                        "support": 15
+                    },
+                    "maul": {
+                        "precision": 0.07,
+                        "recall": 0.4,
+                        "f1": 0.12,
+                        "support": 5
+                    },
+                    "lineout": {
+                        "precision": 0.18,
+                        "recall": 0.12,
+                        "f1": 0.14,
+                        "support": 17
+                    },
+                    "kick_off": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 4
+                    },
+                    "tmo_replay": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 2
+                    },
+                    "penalty": {
+                        "precision": 0.05,
+                        "recall": 0.5,
+                        "f1": 0.1,
+                        "support": 4
+                    }
+                },
+                "ML Model Only": {
+                    "normal_play": {
+                        "precision": 0.88,
+                        "recall": 0.17,
+                        "f1": 0.28,
+                        "support": 212
+                    },
+                    "try": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 10
+                    },
+                    "goal_kick": {
+                        "precision": 0.11,
+                        "recall": 1.0,
+                        "f1": 0.2,
+                        "support": 8
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.24,
+                        "recall": 0.67,
+                        "f1": 0.35,
+                        "support": 15
+                    },
+                    "maul": {
+                        "precision": 0.4,
+                        "recall": 0.4,
+                        "f1": 0.4,
+                        "support": 5
+                    },
+                    "lineout": {
+                        "precision": 0.18,
+                        "recall": 0.53,
+                        "f1": 0.27,
+                        "support": 17
+                    },
+                    "kick_off": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 4
+                    },
+                    "tmo_replay": {
+                        "precision": 0.02,
+                        "recall": 0.5,
+                        "f1": 0.05,
+                        "support": 2
+                    },
+                    "penalty": {
+                        "precision": 0.1,
+                        "recall": 0.5,
+                        "f1": 0.17,
+                        "support": 4
+                    }
+                },
+                "Hybrid Model": {
+                    "normal_play": {
+                        "precision": 0.87,
+                        "recall": 0.16,
+                        "f1": 0.26,
+                        "support": 212
+                    },
+                    "try": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 10
+                    },
+                    "goal_kick": {
+                        "precision": 0.12,
+                        "recall": 1.0,
+                        "f1": 0.21,
+                        "support": 8
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.23,
+                        "recall": 0.67,
+                        "f1": 0.34,
+                        "support": 15
+                    },
+                    "maul": {
+                        "precision": 0.33,
+                        "recall": 0.4,
+                        "f1": 0.36,
+                        "support": 5
+                    },
+                    "lineout": {
+                        "precision": 0.17,
+                        "recall": 0.53,
+                        "f1": 0.25,
+                        "support": 17
+                    },
+                    "kick_off": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 4
+                    },
+                    "tmo_replay": {
+                        "precision": 0.02,
+                        "recall": 0.5,
+                        "f1": 0.05,
+                        "support": 2
+                    },
+                    "penalty": {
+                        "precision": 0.1,
+                        "recall": 0.5,
+                        "f1": 0.16,
+                        "support": 4
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": "match_1_Geo_vs_POR_WCA_2023_9_6_1786095285",
+        "match_id": "match_1_Geo_vs_POR_WCA_2023",
+        "dataset_name": "dataset_match_1_Geo_vs_POR_WCA_2023",
+        "training_round": 9,
+        "training_datasets": [
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023"
+        ],
+        "evaluation_round": 6,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-07T15:04:45.348785",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "precision": 0.11,
+                    "recall": 0.22,
+                    "f1": 0.12
+                },
+                "ML Model Only": {
+                    "precision": 0.15,
+                    "recall": 0.43,
+                    "f1": 0.21
+                },
+                "Hybrid Model": {
+                    "precision": 0.14,
+                    "recall": 0.42,
+                    "f1": 0.19
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.2494,
+                    "mae": 0.3963
+                },
+                "ML Model Only": {
+                    "mse": 0.0884,
+                    "mae": 0.2476
+                },
+                "Hybrid Model": {
+                    "mse": 0.2716,
+                    "mae": 0.4318
+                }
+            },
+            "PerClass": {
+                "Lexicon Only": {
+                    "normal_play": {
+                        "precision": 0.82,
+                        "recall": 0.29,
+                        "f1": 0.42,
+                        "support": 202
+                    },
+                    "try": {
+                        "precision": 0.31,
+                        "recall": 0.4,
+                        "f1": 0.35,
+                        "support": 10
+                    },
+                    "goal_kick": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 9
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.4,
+                        "recall": 0.22,
+                        "f1": 0.29,
+                        "support": 27
+                    },
+                    "maul": {
+                        "precision": 0.02,
+                        "recall": 0.14,
+                        "f1": 0.03,
+                        "support": 7
+                    },
+                    "lineout": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 10
+                    },
+                    "kick_off": {
+                        "precision": 0.14,
+                        "recall": 0.43,
+                        "f1": 0.21,
+                        "support": 7
+                    },
+                    "tmo_replay": {
+                        "precision": 0.05,
+                        "recall": 0.4,
+                        "f1": 0.09,
+                        "support": 5
+                    },
+                    "penalty": {
+                        "precision": 0.06,
+                        "recall": 0.4,
+                        "f1": 0.11,
+                        "support": 5
+                    }
+                },
+                "ML Model Only": {
+                    "normal_play": {
+                        "precision": 0.72,
+                        "recall": 0.19,
+                        "f1": 0.3,
+                        "support": 202
+                    },
+                    "try": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 10
+                    },
+                    "goal_kick": {
+                        "precision": 0.2,
+                        "recall": 0.44,
+                        "f1": 0.28,
+                        "support": 9
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.22,
+                        "recall": 0.63,
+                        "f1": 0.33,
+                        "support": 27
+                    },
+                    "maul": {
+                        "precision": 0.5,
+                        "recall": 0.71,
+                        "f1": 0.59,
+                        "support": 7
+                    },
+                    "lineout": {
+                        "precision": 0.08,
+                        "recall": 0.5,
+                        "f1": 0.14,
+                        "support": 10
+                    },
+                    "kick_off": {
+                        "precision": 0.12,
+                        "recall": 0.14,
+                        "f1": 0.13,
+                        "support": 7
+                    },
+                    "tmo_replay": {
+                        "precision": 0.15,
+                        "recall": 1.0,
+                        "f1": 0.26,
+                        "support": 5
+                    },
+                    "penalty": {
+                        "precision": 0.11,
+                        "recall": 0.4,
+                        "f1": 0.17,
+                        "support": 5
+                    }
+                },
+                "Hybrid Model": {
+                    "normal_play": {
+                        "precision": 0.79,
+                        "recall": 0.17,
+                        "f1": 0.28,
+                        "support": 202
+                    },
+                    "try": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 10
+                    },
+                    "goal_kick": {
+                        "precision": 0.1,
+                        "recall": 0.22,
+                        "f1": 0.14,
+                        "support": 9
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.22,
+                        "recall": 0.63,
+                        "f1": 0.33,
+                        "support": 27
+                    },
+                    "maul": {
+                        "precision": 0.42,
+                        "recall": 0.71,
+                        "f1": 0.53,
+                        "support": 7
+                    },
+                    "lineout": {
+                        "precision": 0.12,
+                        "recall": 0.7,
+                        "f1": 0.2,
+                        "support": 10
+                    },
+                    "kick_off": {
+                        "precision": 0.12,
+                        "recall": 0.14,
+                        "f1": 0.13,
+                        "support": 7
+                    },
+                    "tmo_replay": {
+                        "precision": 0.14,
+                        "recall": 1.0,
+                        "f1": 0.25,
+                        "support": 5
+                    },
+                    "penalty": {
+                        "precision": 0.1,
+                        "recall": 0.4,
+                        "f1": 0.15,
+                        "support": 5
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": "match_2_NZ_vs_ITA_WCA_2023_9_6_1786095285",
+        "match_id": "match_2_NZ_vs_ITA_WCA_2023",
+        "dataset_name": "dataset_match_2_NZ_vs_ITA_WCA_2023",
+        "training_round": 9,
+        "training_datasets": [
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023"
+        ],
+        "evaluation_round": 6,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-07T15:04:45.348785",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "precision": 0.11,
+                    "recall": 0.21,
+                    "f1": 0.12
+                },
+                "ML Model Only": {
+                    "precision": 0.15,
+                    "recall": 0.58,
+                    "f1": 0.23
+                },
+                "Hybrid Model": {
+                    "precision": 0.15,
+                    "recall": 0.58,
+                    "f1": 0.23
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.2877,
+                    "mae": 0.4262
+                },
+                "ML Model Only": {
+                    "mse": 0.0845,
+                    "mae": 0.2476
+                },
+                "Hybrid Model": {
+                    "mse": 0.3203,
+                    "mae": 0.4745
+                }
+            },
+            "PerClass": {
+                "Lexicon Only": {
+                    "normal_play": {
+                        "precision": 0.81,
+                        "recall": 0.27,
+                        "f1": 0.4,
+                        "support": 212
+                    },
+                    "try": {
+                        "precision": 0.04,
+                        "recall": 0.2,
+                        "f1": 0.07,
+                        "support": 10
+                    },
+                    "goal_kick": {
+                        "precision": 0.38,
+                        "recall": 0.38,
+                        "f1": 0.38,
+                        "support": 8
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.31,
+                        "recall": 0.33,
+                        "f1": 0.32,
+                        "support": 15
+                    },
+                    "maul": {
+                        "precision": 0.07,
+                        "recall": 0.4,
+                        "f1": 0.12,
+                        "support": 5
+                    },
+                    "lineout": {
+                        "precision": 0.18,
+                        "recall": 0.12,
+                        "f1": 0.14,
+                        "support": 17
+                    },
+                    "kick_off": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 4
+                    },
+                    "tmo_replay": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 2
+                    },
+                    "penalty": {
+                        "precision": 0.05,
+                        "recall": 0.5,
+                        "f1": 0.1,
+                        "support": 4
+                    }
+                },
+                "ML Model Only": {
+                    "normal_play": {
+                        "precision": 0.85,
+                        "recall": 0.31,
+                        "f1": 0.46,
+                        "support": 212
+                    },
+                    "try": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 10
+                    },
+                    "goal_kick": {
+                        "precision": 0.23,
+                        "recall": 0.75,
+                        "f1": 0.35,
+                        "support": 8
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.18,
+                        "recall": 0.8,
+                        "f1": 0.3,
+                        "support": 15
+                    },
+                    "maul": {
+                        "precision": 0.21,
+                        "recall": 0.6,
+                        "f1": 0.32,
+                        "support": 5
+                    },
+                    "lineout": {
+                        "precision": 0.19,
+                        "recall": 0.53,
+                        "f1": 0.28,
+                        "support": 17
+                    },
+                    "kick_off": {
+                        "precision": 0.18,
+                        "recall": 0.5,
+                        "f1": 0.27,
+                        "support": 4
+                    },
+                    "tmo_replay": {
+                        "precision": 0.11,
+                        "recall": 1.0,
+                        "f1": 0.19,
+                        "support": 2
+                    },
+                    "penalty": {
+                        "precision": 0.25,
+                        "recall": 1.0,
+                        "f1": 0.4,
+                        "support": 4
+                    }
+                },
+                "Hybrid Model": {
+                    "normal_play": {
+                        "precision": 0.85,
+                        "recall": 0.32,
+                        "f1": 0.47,
+                        "support": 212
+                    },
+                    "try": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 10
+                    },
+                    "goal_kick": {
+                        "precision": 0.24,
+                        "recall": 0.75,
+                        "f1": 0.36,
+                        "support": 8
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.19,
+                        "recall": 0.8,
+                        "f1": 0.3,
+                        "support": 15
+                    },
+                    "maul": {
+                        "precision": 0.21,
+                        "recall": 0.6,
+                        "f1": 0.32,
+                        "support": 5
+                    },
+                    "lineout": {
+                        "precision": 0.2,
+                        "recall": 0.53,
+                        "f1": 0.29,
+                        "support": 17
+                    },
+                    "kick_off": {
+                        "precision": 0.17,
+                        "recall": 0.5,
+                        "f1": 0.25,
+                        "support": 4
+                    },
+                    "tmo_replay": {
+                        "precision": 0.11,
+                        "recall": 1.0,
+                        "f1": 0.19,
+                        "support": 2
+                    },
+                    "penalty": {
+                        "precision": 0.24,
+                        "recall": 1.0,
+                        "f1": 0.38,
+                        "support": 4
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": "match_3_Aus_vs_Fij_WCA_2023_9_8_1786108704",
+        "match_id": "match_3_Aus_vs_Fij_WCA_2023",
+        "dataset_name": "dataset_match_3_Aus_vs_Fij_WCA_2023",
+        "training_round": 9,
+        "training_datasets": [
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023"
+        ],
+        "evaluation_round": 8,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-07T18:48:23.925553",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "precision": 0.05,
+                    "recall": 0.09,
+                    "f1": 0.06
+                },
+                "ML Model Only": {
+                    "precision": 0.18,
+                    "recall": 0.52,
+                    "f1": 0.23
+                },
+                "Hybrid Model": {
+                    "precision": 0.18,
+                    "recall": 0.52,
+                    "f1": 0.23
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.3487,
+                    "mae": 0.45
+                },
+                "ML Model Only": {
+                    "mse": 0.0922,
+                    "mae": 0.2892
+                },
+                "Hybrid Model": {
+                    "mse": 0.435,
+                    "mae": 0.5925
+                }
+            },
+            "PerClass": {
+                "Lexicon Only": {
+                    "normal_play": {
+                        "precision": 0.85,
+                        "recall": 0.33,
+                        "f1": 0.48,
+                        "support": 225
+                    },
+                    "try": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 1
+                    },
+                    "goal_kick": {
+                        "precision": 0.25,
+                        "recall": 0.21,
+                        "f1": 0.23,
+                        "support": 14
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.08,
+                        "recall": 0.08,
+                        "f1": 0.08,
+                        "support": 12
+                    },
+                    "maul": {
+                        "precision": 0.03,
+                        "recall": 0.33,
+                        "f1": 0.05,
+                        "support": 3
+                    },
+                    "lineout": {
+                        "precision": 0.11,
+                        "recall": 0.2,
+                        "f1": 0.14,
+                        "support": 10
+                    },
+                    "kick_off": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 4
+                    },
+                    "tmo_replay": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 1
+                    },
+                    "penalty": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 4
+                    }
+                },
+                "ML Model Only": {
+                    "normal_play": {
+                        "precision": 0.97,
+                        "recall": 0.38,
+                        "f1": 0.55,
+                        "support": 225
+                    },
+                    "try": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 1
+                    },
+                    "goal_kick": {
+                        "precision": 0.38,
+                        "recall": 0.79,
+                        "f1": 0.51,
+                        "support": 14
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.17,
+                        "recall": 0.83,
+                        "f1": 0.28,
+                        "support": 12
+                    },
+                    "maul": {
+                        "precision": 0.19,
+                        "recall": 1.0,
+                        "f1": 0.32,
+                        "support": 3
+                    },
+                    "lineout": {
+                        "precision": 0.15,
+                        "recall": 0.8,
+                        "f1": 0.25,
+                        "support": 10
+                    },
+                    "kick_off": {
+                        "precision": 0.5,
+                        "recall": 0.25,
+                        "f1": 0.33,
+                        "support": 4
+                    },
+                    "tmo_replay": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 1
+                    },
+                    "penalty": {
+                        "precision": 0.25,
+                        "recall": 1.0,
+                        "f1": 0.4,
+                        "support": 4
+                    }
+                },
+                "Hybrid Model": {
+                    "normal_play": {
+                        "precision": 0.97,
+                        "recall": 0.38,
+                        "f1": 0.55,
+                        "support": 225
+                    },
+                    "try": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 1
+                    },
+                    "goal_kick": {
+                        "precision": 0.4,
+                        "recall": 0.86,
+                        "f1": 0.55,
+                        "support": 14
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.16,
+                        "recall": 0.75,
+                        "f1": 0.26,
+                        "support": 12
+                    },
+                    "maul": {
+                        "precision": 0.16,
+                        "recall": 1.0,
+                        "f1": 0.27,
+                        "support": 3
+                    },
+                    "lineout": {
+                        "precision": 0.15,
+                        "recall": 0.8,
+                        "f1": 0.25,
+                        "support": 10
+                    },
+                    "kick_off": {
+                        "precision": 0.5,
+                        "recall": 0.25,
+                        "f1": 0.33,
+                        "support": 4
+                    },
+                    "tmo_replay": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 1
+                    },
+                    "penalty": {
+                        "precision": 0.25,
+                        "recall": 1.0,
+                        "f1": 0.4,
+                        "support": 4
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": "match_1_Geo_vs_POR_WCA_2023_10_1_1786116942",
+        "match_id": "match_1_Geo_vs_POR_WCA_2023",
+        "dataset_name": "dataset_match_1_Geo_vs_POR_WCA_2023",
+        "training_round": 10,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+            "dataset_match_5_Ire_vs_Scot_poolB_2023",
+            "dataset_match_6_SA_vs_IRE_WCA_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-07T21:05:41.974013",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "precision": 0.07,
+                    "recall": 0.22,
+                    "f1": 0.1
+                },
+                "ML Model Only": {
+                    "precision": 0.53,
+                    "recall": 0.54,
+                    "f1": 0.52
+                },
+                "Hybrid Model": {
+                    "precision": 0.53,
+                    "recall": 0.55,
+                    "f1": 0.52
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.2631,
+                    "mae": 0.4079
+                },
+                "ML Model Only": {
+                    "mse": 0.0608,
+                    "mae": 0.2118
+                },
+                "Hybrid Model": {
+                    "mse": 0.2635,
+                    "mae": 0.4125
+                }
+            },
+            "PerClass": {
+                "Lexicon Only": {
+                    "normal_play": {
+                        "precision": 0.81,
+                        "recall": 0.27,
+                        "f1": 0.41,
+                        "support": 2152
+                    },
+                    "try": {
+                        "precision": 0.08,
+                        "recall": 0.28,
+                        "f1": 0.13,
+                        "support": 40
+                    },
+                    "goal_kick": {
+                        "precision": 0.05,
+                        "recall": 0.03,
+                        "f1": 0.04,
+                        "support": 121
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.21,
+                        "recall": 0.19,
+                        "f1": 0.2,
+                        "support": 149
+                    },
+                    "maul": {
+                        "precision": 0.03,
+                        "recall": 0.25,
+                        "f1": 0.05,
+                        "support": 44
+                    },
+                    "lineout": {
+                        "precision": 0.11,
+                        "recall": 0.2,
+                        "f1": 0.14,
+                        "support": 111
+                    },
+                    "kick_off": {
+                        "precision": 0.06,
+                        "recall": 0.27,
+                        "f1": 0.1,
+                        "support": 52
+                    },
+                    "tmo_replay": {
+                        "precision": 0.06,
+                        "recall": 0.42,
+                        "f1": 0.1,
+                        "support": 62
+                    },
+                    "penalty": {
+                        "precision": 0.07,
+                        "recall": 0.37,
+                        "f1": 0.11,
+                        "support": 54
+                    }
+                },
+                "ML Model Only": {
+                    "normal_play": {
+                        "precision": 0.91,
+                        "recall": 0.86,
+                        "f1": 0.88,
+                        "support": 2152
+                    },
+                    "try": {
+                        "precision": 0.79,
+                        "recall": 0.47,
+                        "f1": 0.59,
+                        "support": 40
+                    },
+                    "goal_kick": {
+                        "precision": 0.49,
+                        "recall": 0.8,
+                        "f1": 0.61,
+                        "support": 121
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.82,
+                        "recall": 0.68,
+                        "f1": 0.74,
+                        "support": 149
+                    },
+                    "maul": {
+                        "precision": 0.61,
+                        "recall": 0.5,
+                        "f1": 0.55,
+                        "support": 44
+                    },
+                    "lineout": {
+                        "precision": 0.37,
+                        "recall": 0.62,
+                        "f1": 0.47,
+                        "support": 111
+                    },
+                    "kick_off": {
+                        "precision": 0.52,
+                        "recall": 0.67,
+                        "f1": 0.59,
+                        "support": 52
+                    },
+                    "tmo_replay": {
+                        "precision": 0.8,
+                        "recall": 0.65,
+                        "f1": 0.71,
+                        "support": 62
+                    },
+                    "penalty": {
+                        "precision": 0.39,
+                        "recall": 0.5,
+                        "f1": 0.44,
+                        "support": 54
+                    }
+                },
+                "Hybrid Model": {
+                    "normal_play": {
+                        "precision": 0.91,
+                        "recall": 0.85,
+                        "f1": 0.88,
+                        "support": 2152
+                    },
+                    "try": {
+                        "precision": 0.83,
+                        "recall": 0.47,
+                        "f1": 0.6,
+                        "support": 40
+                    },
+                    "goal_kick": {
+                        "precision": 0.48,
+                        "recall": 0.8,
+                        "f1": 0.6,
+                        "support": 121
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.81,
+                        "recall": 0.67,
+                        "f1": 0.74,
+                        "support": 149
+                    },
+                    "maul": {
+                        "precision": 0.61,
+                        "recall": 0.5,
+                        "f1": 0.55,
+                        "support": 44
+                    },
+                    "lineout": {
+                        "precision": 0.37,
+                        "recall": 0.62,
+                        "f1": 0.46,
+                        "support": 111
+                    },
+                    "kick_off": {
+                        "precision": 0.53,
+                        "recall": 0.71,
+                        "f1": 0.61,
+                        "support": 52
+                    },
+                    "tmo_replay": {
+                        "precision": 0.75,
+                        "recall": 0.65,
+                        "f1": 0.7,
+                        "support": 62
+                    },
+                    "penalty": {
+                        "precision": 0.36,
+                        "recall": 0.5,
+                        "f1": 0.42,
+                        "support": 54
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": "match_2_NZ_vs_ITA_WCA_2023_10_1_1786116942",
+        "match_id": "match_2_NZ_vs_ITA_WCA_2023",
+        "dataset_name": "dataset_match_2_NZ_vs_ITA_WCA_2023",
+        "training_round": 10,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+            "dataset_match_5_Ire_vs_Scot_poolB_2023",
+            "dataset_match_6_SA_vs_IRE_WCA_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-07T21:05:41.974013",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "precision": 0.07,
+                    "recall": 0.24,
+                    "f1": 0.1
+                },
+                "ML Model Only": {
+                    "precision": 0.48,
+                    "recall": 0.54,
+                    "f1": 0.49
+                },
+                "Hybrid Model": {
+                    "precision": 0.48,
+                    "recall": 0.54,
+                    "f1": 0.48
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.3171,
+                    "mae": 0.4539
+                },
+                "ML Model Only": {
+                    "mse": 0.0781,
+                    "mae": 0.2389
+                },
+                "Hybrid Model": {
+                    "mse": 0.3345,
+                    "mae": 0.4849
+                }
+            },
+            "PerClass": {
+                "Lexicon Only": {
+                    "normal_play": {
+                        "precision": 0.79,
+                        "recall": 0.26,
+                        "f1": 0.39,
+                        "support": 2078
+                    },
+                    "try": {
+                        "precision": 0.07,
+                        "recall": 0.28,
+                        "f1": 0.11,
+                        "support": 130
+                    },
+                    "goal_kick": {
+                        "precision": 0.17,
+                        "recall": 0.18,
+                        "f1": 0.18,
+                        "support": 111
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.11,
+                        "recall": 0.09,
+                        "f1": 0.1,
+                        "support": 106
+                    },
+                    "maul": {
+                        "precision": 0.04,
+                        "recall": 0.42,
+                        "f1": 0.07,
+                        "support": 26
+                    },
+                    "lineout": {
+                        "precision": 0.08,
+                        "recall": 0.09,
+                        "f1": 0.09,
+                        "support": 95
+                    },
+                    "kick_off": {
+                        "precision": 0.05,
+                        "recall": 0.18,
+                        "f1": 0.08,
+                        "support": 51
+                    },
+                    "tmo_replay": {
+                        "precision": 0.06,
+                        "recall": 0.45,
+                        "f1": 0.11,
+                        "support": 47
+                    },
+                    "penalty": {
+                        "precision": 0.08,
+                        "recall": 0.48,
+                        "f1": 0.14,
+                        "support": 54
+                    }
+                },
+                "ML Model Only": {
+                    "normal_play": {
+                        "precision": 0.89,
+                        "recall": 0.83,
+                        "f1": 0.86,
+                        "support": 2078
+                    },
+                    "try": {
+                        "precision": 0.57,
+                        "recall": 0.56,
+                        "f1": 0.57,
+                        "support": 130
+                    },
+                    "goal_kick": {
+                        "precision": 0.4,
+                        "recall": 0.66,
+                        "f1": 0.5,
+                        "support": 111
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.71,
+                        "recall": 0.46,
+                        "f1": 0.56,
+                        "support": 106
+                    },
+                    "maul": {
+                        "precision": 0.88,
+                        "recall": 0.88,
+                        "f1": 0.88,
+                        "support": 26
+                    },
+                    "lineout": {
+                        "precision": 0.38,
+                        "recall": 0.73,
+                        "f1": 0.5,
+                        "support": 95
+                    },
+                    "kick_off": {
+                        "precision": 0.45,
+                        "recall": 0.67,
+                        "f1": 0.54,
+                        "support": 51
+                    },
+                    "tmo_replay": {
+                        "precision": 0.4,
+                        "recall": 0.13,
+                        "f1": 0.19,
+                        "support": 47
+                    },
+                    "penalty": {
+                        "precision": 0.53,
+                        "recall": 0.76,
+                        "f1": 0.63,
+                        "support": 54
+                    }
+                },
+                "Hybrid Model": {
+                    "normal_play": {
+                        "precision": 0.89,
+                        "recall": 0.83,
+                        "f1": 0.86,
+                        "support": 2078
+                    },
+                    "try": {
+                        "precision": 0.57,
+                        "recall": 0.56,
+                        "f1": 0.56,
+                        "support": 130
+                    },
+                    "goal_kick": {
+                        "precision": 0.4,
+                        "recall": 0.66,
+                        "f1": 0.5,
+                        "support": 111
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.7,
+                        "recall": 0.47,
+                        "f1": 0.56,
+                        "support": 106
+                    },
+                    "maul": {
+                        "precision": 0.88,
+                        "recall": 0.88,
+                        "f1": 0.88,
+                        "support": 26
+                    },
+                    "lineout": {
+                        "precision": 0.37,
+                        "recall": 0.73,
+                        "f1": 0.49,
+                        "support": 95
+                    },
+                    "kick_off": {
+                        "precision": 0.46,
+                        "recall": 0.67,
+                        "f1": 0.54,
+                        "support": 51
+                    },
+                    "tmo_replay": {
+                        "precision": 0.38,
+                        "recall": 0.13,
+                        "f1": 0.19,
+                        "support": 47
+                    },
+                    "penalty": {
+                        "precision": 0.53,
+                        "recall": 0.76,
+                        "f1": 0.62,
+                        "support": 54
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": "match_3_Aus_vs_Fij_WCA_2023_10_1_1786116943",
+        "match_id": "match_3_Aus_vs_Fij_WCA_2023",
+        "dataset_name": "dataset_match_3_Aus_vs_Fij_WCA_2023",
+        "training_round": 10,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+            "dataset_match_5_Ire_vs_Scot_poolB_2023",
+            "dataset_match_6_SA_vs_IRE_WCA_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-07T21:05:41.974013",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "precision": 0.06,
+                    "recall": 0.25,
+                    "f1": 0.08
+                },
+                "ML Model Only": {
+                    "precision": 0.44,
+                    "recall": 0.55,
+                    "f1": 0.45
+                },
+                "Hybrid Model": {
+                    "precision": 0.43,
+                    "recall": 0.56,
+                    "f1": 0.45
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.3938,
+                    "mae": 0.4944
+                },
+                "ML Model Only": {
+                    "mse": 0.086,
+                    "mae": 0.2758
+                },
+                "Hybrid Model": {
+                    "mse": 0.47,
+                    "mae": 0.6158
+                }
+            },
+            "PerClass": {
+                "Lexicon Only": {
+                    "normal_play": {
+                        "precision": 0.81,
+                        "recall": 0.26,
+                        "f1": 0.39,
+                        "support": 2196
+                    },
+                    "try": {
+                        "precision": 0.02,
+                        "recall": 0.09,
+                        "f1": 0.03,
+                        "support": 23
+                    },
+                    "goal_kick": {
+                        "precision": 0.09,
+                        "recall": 0.11,
+                        "f1": 0.1,
+                        "support": 109
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.1,
+                        "recall": 0.11,
+                        "f1": 0.1,
+                        "support": 102
+                    },
+                    "maul": {
+                        "precision": 0.07,
+                        "recall": 0.6,
+                        "f1": 0.13,
+                        "support": 52
+                    },
+                    "lineout": {
+                        "precision": 0.14,
+                        "recall": 0.18,
+                        "f1": 0.16,
+                        "support": 130
+                    },
+                    "kick_off": {
+                        "precision": 0.05,
+                        "recall": 0.29,
+                        "f1": 0.09,
+                        "support": 38
+                    },
+                    "tmo_replay": {
+                        "precision": 0.02,
+                        "recall": 0.46,
+                        "f1": 0.03,
+                        "support": 13
+                    },
+                    "penalty": {
+                        "precision": 0.05,
+                        "recall": 0.39,
+                        "f1": 0.09,
+                        "support": 57
+                    }
+                },
+                "ML Model Only": {
+                    "normal_play": {
+                        "precision": 0.91,
+                        "recall": 0.85,
+                        "f1": 0.88,
+                        "support": 2196
+                    },
+                    "try": {
+                        "precision": 0.27,
+                        "recall": 0.65,
+                        "f1": 0.38,
+                        "support": 23
+                    },
+                    "goal_kick": {
+                        "precision": 0.51,
+                        "recall": 0.84,
+                        "f1": 0.63,
+                        "support": 109
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.64,
+                        "recall": 0.6,
+                        "f1": 0.62,
+                        "support": 102
+                    },
+                    "maul": {
+                        "precision": 0.9,
+                        "recall": 0.37,
+                        "f1": 0.52,
+                        "support": 52
+                    },
+                    "lineout": {
+                        "precision": 0.45,
+                        "recall": 0.52,
+                        "f1": 0.49,
+                        "support": 130
+                    },
+                    "kick_off": {
+                        "precision": 0.41,
+                        "recall": 0.61,
+                        "f1": 0.49,
+                        "support": 38
+                    },
+                    "tmo_replay": {
+                        "precision": 0.43,
+                        "recall": 1.0,
+                        "f1": 0.6,
+                        "support": 13
+                    },
+                    "penalty": {
+                        "precision": 0.3,
+                        "recall": 0.4,
+                        "f1": 0.35,
+                        "support": 57
+                    }
+                },
+                "Hybrid Model": {
+                    "normal_play": {
+                        "precision": 0.91,
+                        "recall": 0.85,
+                        "f1": 0.88,
+                        "support": 2196
+                    },
+                    "try": {
+                        "precision": 0.28,
+                        "recall": 0.65,
+                        "f1": 0.39,
+                        "support": 23
+                    },
+                    "goal_kick": {
+                        "precision": 0.5,
+                        "recall": 0.83,
+                        "f1": 0.63,
+                        "support": 109
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.64,
+                        "recall": 0.61,
+                        "f1": 0.62,
+                        "support": 102
+                    },
+                    "maul": {
+                        "precision": 0.9,
+                        "recall": 0.37,
+                        "f1": 0.52,
+                        "support": 52
+                    },
+                    "lineout": {
+                        "precision": 0.43,
+                        "recall": 0.52,
+                        "f1": 0.47,
+                        "support": 130
+                    },
+                    "kick_off": {
+                        "precision": 0.42,
+                        "recall": 0.61,
+                        "f1": 0.49,
+                        "support": 38
+                    },
+                    "tmo_replay": {
+                        "precision": 0.38,
+                        "recall": 1.0,
+                        "f1": 0.55,
+                        "support": 13
+                    },
+                    "penalty": {
+                        "precision": 0.3,
+                        "recall": 0.42,
+                        "f1": 0.35,
+                        "support": 57
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": "match_4_Eng_vs_Arg_PoolD_WCA_2023_10_1_1786116943",
+        "match_id": "match_4_Eng_vs_Arg_PoolD_WCA_2023",
+        "dataset_name": "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+        "training_round": 10,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+            "dataset_match_5_Ire_vs_Scot_poolB_2023",
+            "dataset_match_6_SA_vs_IRE_WCA_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-07T21:05:41.974013",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "precision": 0.08,
+                    "recall": 0.37,
+                    "f1": 0.11
+                },
+                "ML Model Only": {
+                    "precision": 0.55,
+                    "recall": 0.61,
+                    "f1": 0.55
+                },
+                "Hybrid Model": {
+                    "precision": 0.54,
+                    "recall": 0.61,
+                    "f1": 0.55
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.3269,
+                    "mae": 0.4585
+                },
+                "ML Model Only": {
+                    "mse": 0.0691,
+                    "mae": 0.2364
+                },
+                "Hybrid Model": {
+                    "mse": 0.3447,
+                    "mae": 0.4894
+                }
+            },
+            "PerClass": {
+                "Lexicon Only": {
+                    "normal_play": {
+                        "precision": 0.81,
+                        "recall": 0.25,
+                        "f1": 0.38,
+                        "support": 2205
+                    },
+                    "try": {
+                        "precision": 0.03,
+                        "recall": 0.5,
+                        "f1": 0.06,
+                        "support": 4
+                    },
+                    "goal_kick": {
+                        "precision": 0.22,
+                        "recall": 0.29,
+                        "f1": 0.25,
+                        "support": 153
+                    },
+                    "card_event": {
+                        "precision": 0.05,
+                        "recall": 0.9,
+                        "f1": 0.1,
+                        "support": 21
+                    },
+                    "scrum": {
+                        "precision": 0.07,
+                        "recall": 0.06,
+                        "f1": 0.06,
+                        "support": 87
+                    },
+                    "maul": {
+                        "precision": 0.04,
+                        "recall": 0.57,
+                        "f1": 0.08,
+                        "support": 28
+                    },
+                    "lineout": {
+                        "precision": 0.1,
+                        "recall": 0.08,
+                        "f1": 0.09,
+                        "support": 75
+                    },
+                    "kick_off": {
+                        "precision": 0.06,
+                        "recall": 0.29,
+                        "f1": 0.1,
+                        "support": 65
+                    },
+                    "tmo_replay": {
+                        "precision": 0.04,
+                        "recall": 0.32,
+                        "f1": 0.07,
+                        "support": 50
+                    },
+                    "penalty": {
+                        "precision": 0.09,
+                        "recall": 0.33,
+                        "f1": 0.14,
+                        "support": 63
+                    }
+                },
+                "ML Model Only": {
+                    "normal_play": {
+                        "precision": 0.93,
+                        "recall": 0.85,
+                        "f1": 0.89,
+                        "support": 2205
+                    },
+                    "try": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 4
+                    },
+                    "goal_kick": {
+                        "precision": 0.53,
+                        "recall": 0.76,
+                        "f1": 0.63,
+                        "support": 153
+                    },
+                    "card_event": {
+                        "precision": 0.9,
+                        "recall": 0.9,
+                        "f1": 0.9,
+                        "support": 21
+                    },
+                    "scrum": {
+                        "precision": 0.54,
+                        "recall": 0.54,
+                        "f1": 0.54,
+                        "support": 87
+                    },
+                    "maul": {
+                        "precision": 0.92,
+                        "recall": 0.43,
+                        "f1": 0.59,
+                        "support": 28
+                    },
+                    "lineout": {
+                        "precision": 0.33,
+                        "recall": 0.67,
+                        "f1": 0.44,
+                        "support": 75
+                    },
+                    "kick_off": {
+                        "precision": 0.54,
+                        "recall": 0.57,
+                        "f1": 0.56,
+                        "support": 65
+                    },
+                    "tmo_replay": {
+                        "precision": 0.66,
+                        "recall": 0.94,
+                        "f1": 0.78,
+                        "support": 50
+                    },
+                    "penalty": {
+                        "precision": 0.48,
+                        "recall": 0.67,
+                        "f1": 0.56,
+                        "support": 63
+                    }
+                },
+                "Hybrid Model": {
+                    "normal_play": {
+                        "precision": 0.93,
+                        "recall": 0.85,
+                        "f1": 0.89,
+                        "support": 2205
+                    },
+                    "try": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 4
+                    },
+                    "goal_kick": {
+                        "precision": 0.53,
+                        "recall": 0.79,
+                        "f1": 0.64,
+                        "support": 153
+                    },
+                    "card_event": {
+                        "precision": 0.86,
+                        "recall": 0.9,
+                        "f1": 0.88,
+                        "support": 21
+                    },
+                    "scrum": {
+                        "precision": 0.54,
+                        "recall": 0.54,
+                        "f1": 0.54,
+                        "support": 87
+                    },
+                    "maul": {
+                        "precision": 0.92,
+                        "recall": 0.43,
+                        "f1": 0.59,
+                        "support": 28
+                    },
+                    "lineout": {
+                        "precision": 0.33,
+                        "recall": 0.67,
+                        "f1": 0.44,
+                        "support": 75
+                    },
+                    "kick_off": {
+                        "precision": 0.56,
+                        "recall": 0.57,
+                        "f1": 0.56,
+                        "support": 65
+                    },
+                    "tmo_replay": {
+                        "precision": 0.66,
+                        "recall": 0.96,
+                        "f1": 0.78,
+                        "support": 50
+                    },
+                    "penalty": {
+                        "precision": 0.48,
+                        "recall": 0.67,
+                        "f1": 0.56,
+                        "support": 63
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": "match_5_Ire_vs_Scot_poolB_2023_10_1_1786116943",
+        "match_id": "match_5_Ire_vs_Scot_poolB_2023",
+        "dataset_name": "dataset_match_5_Ire_vs_Scot_poolB_2023",
+        "training_round": 10,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+            "dataset_match_5_Ire_vs_Scot_poolB_2023",
+            "dataset_match_6_SA_vs_IRE_WCA_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-07T21:05:41.974013",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "precision": 0.07,
+                    "recall": 0.31,
+                    "f1": 0.1
+                },
+                "ML Model Only": {
+                    "precision": 0.11,
+                    "recall": 0.1,
+                    "f1": 0.1
+                },
+                "Hybrid Model": {
+                    "precision": 0.11,
+                    "recall": 0.1,
+                    "f1": 0.1
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.2885,
+                    "mae": 0.4165
+                },
+                "ML Model Only": {
+                    "mse": 0.0852,
+                    "mae": 0.251
+                },
+                "Hybrid Model": {
+                    "mse": 0.3196,
+                    "mae": 0.473
+                }
+            },
+            "PerClass": {
+                "Lexicon Only": {
+                    "normal_play": {
+                        "precision": 0.83,
+                        "recall": 0.31,
+                        "f1": 0.45,
+                        "support": 2261
+                    },
+                    "try": {
+                        "precision": 0.09,
+                        "recall": 0.4,
+                        "f1": 0.14,
+                        "support": 86
+                    },
+                    "goal_kick": {
+                        "precision": 0.12,
+                        "recall": 0.16,
+                        "f1": 0.14,
+                        "support": 92
+                    },
+                    "card_event": {
+                        "precision": 0.02,
+                        "recall": 0.25,
+                        "f1": 0.03,
+                        "support": 8
+                    },
+                    "scrum": {
+                        "precision": 0.06,
+                        "recall": 0.04,
+                        "f1": 0.04,
+                        "support": 80
+                    },
+                    "maul": {
+                        "precision": 0.05,
+                        "recall": 0.43,
+                        "f1": 0.08,
+                        "support": 28
+                    },
+                    "lineout": {
+                        "precision": 0.07,
+                        "recall": 0.06,
+                        "f1": 0.06,
+                        "support": 89
+                    },
+                    "kick_off": {
+                        "precision": 0.05,
+                        "recall": 0.31,
+                        "f1": 0.09,
+                        "support": 36
+                    },
+                    "tmo_replay": {
+                        "precision": 0.08,
+                        "recall": 0.66,
+                        "f1": 0.14,
+                        "support": 44
+                    },
+                    "penalty": {
+                        "precision": 0.09,
+                        "recall": 0.47,
+                        "f1": 0.15,
+                        "support": 60
+                    }
+                },
+                "ML Model Only": {
+                    "normal_play": {
+                        "precision": 0.82,
+                        "recall": 0.85,
+                        "f1": 0.84,
+                        "support": 2261
+                    },
+                    "try": {
+                        "precision": 0.24,
+                        "recall": 0.14,
+                        "f1": 0.18,
+                        "support": 86
+                    },
+                    "goal_kick": {
+                        "precision": 0.18,
+                        "recall": 0.25,
+                        "f1": 0.21,
+                        "support": 92
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 8
+                    },
+                    "scrum": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 80
+                    },
+                    "maul": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 28
+                    },
+                    "lineout": {
+                        "precision": 0.04,
+                        "recall": 0.04,
+                        "f1": 0.04,
+                        "support": 89
+                    },
+                    "kick_off": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 36
+                    },
+                    "tmo_replay": {
+                        "precision": 0.16,
+                        "recall": 0.11,
+                        "f1": 0.13,
+                        "support": 44
+                    },
+                    "penalty": {
+                        "precision": 0.37,
+                        "recall": 0.33,
+                        "f1": 0.35,
+                        "support": 60
+                    }
+                },
+                "Hybrid Model": {
+                    "normal_play": {
+                        "precision": 0.82,
+                        "recall": 0.85,
+                        "f1": 0.84,
+                        "support": 2261
+                    },
+                    "try": {
+                        "precision": 0.24,
+                        "recall": 0.15,
+                        "f1": 0.19,
+                        "support": 86
+                    },
+                    "goal_kick": {
+                        "precision": 0.18,
+                        "recall": 0.26,
+                        "f1": 0.21,
+                        "support": 92
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 8
+                    },
+                    "scrum": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 80
+                    },
+                    "maul": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 28
+                    },
+                    "lineout": {
+                        "precision": 0.04,
+                        "recall": 0.04,
+                        "f1": 0.04,
+                        "support": 89
+                    },
+                    "kick_off": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 36
+                    },
+                    "tmo_replay": {
+                        "precision": 0.17,
+                        "recall": 0.14,
+                        "f1": 0.15,
+                        "support": 44
+                    },
+                    "penalty": {
+                        "precision": 0.36,
+                        "recall": 0.33,
+                        "f1": 0.35,
+                        "support": 60
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": "match_6_SA_vs_IRE_WCA_2023_10_1_1786116943",
+        "match_id": "match_6_SA_vs_IRE_WCA_2023",
+        "dataset_name": "dataset_match_6_SA_vs_IRE_WCA_2023",
+        "training_round": 10,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+            "dataset_match_5_Ire_vs_Scot_poolB_2023",
+            "dataset_match_6_SA_vs_IRE_WCA_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-07T21:05:41.974013",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "precision": 0.03,
+                    "recall": 0.05,
+                    "f1": 0.03
+                },
+                "ML Model Only": {
+                    "precision": 0.05,
+                    "recall": 0.05,
+                    "f1": 0.05
+                },
+                "Hybrid Model": {
+                    "precision": 0.05,
+                    "recall": 0.05,
+                    "f1": 0.05
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 2796155.186,
+                    "mae": 694.4666
+                },
+                "ML Model Only": {
+                    "mse": 2796301.0005,
+                    "mae": 694.3612
+                },
+                "Hybrid Model": {
+                    "mse": 2795891.1317,
+                    "mae": 694.4629
+                }
+            },
+            "PerClass": {
+                "Lexicon Only": {
+                    "normal_play": {
+                        "precision": 0.6,
+                        "recall": 0.3,
+                        "f1": 0.4,
+                        "support": 1628
+                    },
+                    "try": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 15
+                    },
+                    "goal_kick": {
+                        "precision": 0.02,
+                        "recall": 0.02,
+                        "f1": 0.02,
+                        "support": 85
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.09,
+                        "recall": 0.09,
+                        "f1": 0.09,
+                        "support": 123
+                    },
+                    "maul": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 14
+                    },
+                    "lineout": {
+                        "precision": 0.07,
+                        "recall": 0.07,
+                        "f1": 0.07,
+                        "support": 98
+                    },
+                    "kick_off": {
+                        "precision": 0.01,
+                        "recall": 0.08,
+                        "f1": 0.02,
+                        "support": 36
+                    },
+                    "tmo_replay": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "penalty": {
+                        "precision": 0.03,
+                        "recall": 0.17,
+                        "f1": 0.06,
+                        "support": 72
+                    }
+                },
+                "ML Model Only": {
+                    "normal_play": {
+                        "precision": 0.6,
+                        "recall": 0.83,
+                        "f1": 0.7,
+                        "support": 1628
+                    },
+                    "try": {
+                        "precision": 0.06,
+                        "recall": 0.13,
+                        "f1": 0.08,
+                        "support": 15
+                    },
+                    "goal_kick": {
+                        "precision": 0.03,
+                        "recall": 0.05,
+                        "f1": 0.04,
+                        "support": 85
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.12,
+                        "recall": 0.08,
+                        "f1": 0.1,
+                        "support": 123
+                    },
+                    "maul": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 14
+                    },
+                    "lineout": {
+                        "precision": 0.09,
+                        "recall": 0.1,
+                        "f1": 0.09,
+                        "support": 98
+                    },
+                    "kick_off": {
+                        "precision": 0.13,
+                        "recall": 0.06,
+                        "f1": 0.08,
+                        "support": 36
+                    },
+                    "tmo_replay": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "penalty": {
+                        "precision": 0.04,
+                        "recall": 0.03,
+                        "f1": 0.03,
+                        "support": 72
+                    }
+                },
+                "Hybrid Model": {
+                    "normal_play": {
+                        "precision": 0.6,
+                        "recall": 0.83,
+                        "f1": 0.7,
+                        "support": 1628
+                    },
+                    "try": {
+                        "precision": 0.06,
+                        "recall": 0.13,
+                        "f1": 0.08,
+                        "support": 15
+                    },
+                    "goal_kick": {
+                        "precision": 0.03,
+                        "recall": 0.05,
+                        "f1": 0.04,
+                        "support": 85
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.12,
+                        "recall": 0.08,
+                        "f1": 0.1,
+                        "support": 123
+                    },
+                    "maul": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 14
+                    },
+                    "lineout": {
+                        "precision": 0.09,
+                        "recall": 0.1,
+                        "f1": 0.1,
+                        "support": 98
+                    },
+                    "kick_off": {
+                        "precision": 0.12,
+                        "recall": 0.06,
+                        "f1": 0.08,
+                        "support": 36
+                    },
+                    "tmo_replay": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "penalty": {
+                        "precision": 0.05,
+                        "recall": 0.04,
+                        "f1": 0.05,
+                        "support": 72
+                    }
+                }
+            }
+        }
     }
 ]

@@ -1,9 +1,15 @@
-# Run this script in a Google Colab Notebook cell:
-# 
+# ============================================================
+# SECTION 1: Setup - run this script in a Google Colab Notebook cell
+#
 # !pip install pyngrok fastapi uvicorn python-multipart openai-whisper pydantic nest-asyncio transformers datasets torch pandas scikit-learn
-# 
+#
 # Paste the following code into the next cell and run it.
+# ============================================================
 
+
+# ============================================================
+# SECTION 2: Imports
+# ============================================================
 import os
 import sys
 import glob
@@ -36,9 +42,15 @@ import pandas as pd
 
 nest_asyncio.apply()
 
-# ==========================================
-# stdout / stderr Catcher for Live Logs
-# ==========================================
+
+# ============================================================
+# SECTION 3: stdout / stderr Catcher for Live Logs
+#
+# Wraps stdout/stderr so every print() (including tqdm/Trainer
+# logging) is also buffered into `catcher.logs`, which the
+# /status/{task_id} endpoint drains and returns to the frontend
+# as a live log stream.
+# ============================================================
 class LogCatcher:
     def __init__(self):
         self.logs = []
@@ -62,9 +74,15 @@ sys.stderr = catcher
 
 tasks = {} # Store task state: {"status": "running|completed|failed", "result_file": str, "result_data": any}
 
-# ==========================================
-# Transformer Classifier Logic
-# ==========================================
+
+# ============================================================
+# SECTION 4: Transformer Classifier Logic
+#   - DualHeadRoBERTa: backbone + two heads
+#       - event_classifier: predicts the event type (try, penalty, ...)
+#       - highlight_scorer: predicts a 0-1 "how exciting is this" score
+#   - FocalLoss / WeightedMSELoss: losses for each head
+#   - CustomTrainer: switches between the two losses via `stage`
+# ============================================================
 
 from transformers.modeling_outputs import ModelOutput
 from dataclasses import dataclass
@@ -101,6 +119,8 @@ class DualHeadRoBERTa(nn.Module):
         highlight_score = torch.sigmoid(self.highlight_scorer(pooled_output))
         
         return DualHeadRoBERTaOutput(logits=event_logits, highlight_scores=highlight_score)
+
+
 class FocalLoss(nn.Module):
     def __init__(self, alpha=None, gamma=2.0, reduction='mean'):
         super(FocalLoss, self).__init__()
@@ -128,6 +148,7 @@ class WeightedMSELoss(nn.Module):
         weights = torch.where(targets > self.threshold, self.high_score_weight, self.base_weight)
         return (mse * weights).mean()
 
+
 class CustomTrainer(Trainer):
     def __init__(self, *args, class_weights=None, stage=1, **kwargs):
         super().__init__(*args, **kwargs)
@@ -152,8 +173,9 @@ class CustomTrainer(Trainer):
             
         return (loss, outputs) if return_outputs else loss
 
-# ==========================================
-# Sliding-window context config
+
+# ============================================================
+# SECTION 5: Sliding-Window Context Config
 #
 # WINDOW_SIZE=5 concatenates each row with its 2 neighbors on either
 # side into one training sample, using the CENTER row's label and
@@ -162,50 +184,72 @@ class CustomTrainer(Trainer):
 # this gives the model that surrounding context instead of judging
 # one isolated line. Persisted into the saved model's config so
 # inference code can read it back instead of hardcoding it.
-# ==========================================
+# ============================================================
 WINDOW_SIZE = 5
 MAX_LENGTH = 256
 WINDOW_HALF = WINDOW_SIZE // 2
 
-# ==========================================
-# Evaluation metrics
+
+# ============================================================
+# SECTION 6: Evaluation Metrics
 #
 # Reports both weighted and macro averages for precision/recall/f1.
 # Weighted is dominated by normal_play (the majority class), so a
 # model can look good on it while doing badly on rare events. Macro
 # treats every class equally, which is why Stage 1's best checkpoint
 # is selected by f1_macro instead of the weighted f1.
-# ==========================================
-def compute_metrics(eval_pred):
-    (event_logits, highlight_preds) = eval_pred.predictions
-    (event_labels, highlight_labels) = eval_pred.label_ids
+#
+# The model always returns both heads' outputs, but only one head is
+# actually being trained per stage - the other one's weights are
+# frozen (or not yet trained), so its predictions are meaningless
+# noise for that stage. Reporting classification metrics on a frozen
+# classifier (Stage 2) or MSE/MAE on an untrained regressor (Stage 1)
+# is misleading, so make_compute_metrics only computes the metrics
+# that correspond to the stage actually being trained.
+# ============================================================
+def make_compute_metrics(stage):
+    def compute_metrics(eval_pred):
+        (event_logits, highlight_preds) = eval_pred.predictions
+        (event_labels, highlight_labels) = eval_pred.label_ids
 
-    event_preds = event_logits.argmax(axis=-1)
-    accuracy = accuracy_score(event_labels, event_preds)
-    precision, recall, f1, _ = precision_recall_fscore_support(
-        event_labels, event_preds, average="weighted", zero_division=0
-    )
-    precision_macro, recall_macro, f1_macro, _ = precision_recall_fscore_support(
-        event_labels, event_preds, average="macro", zero_division=0
-    )
+        if stage == 1:
+            event_preds = event_logits.argmax(axis=-1)
+            accuracy = accuracy_score(event_labels, event_preds)
+            precision, recall, f1, _ = precision_recall_fscore_support(
+                event_labels, event_preds, average="weighted", zero_division=0
+            )
+            precision_macro, recall_macro, f1_macro, _ = precision_recall_fscore_support(
+                event_labels, event_preds, average="macro", zero_division=0
+            )
+            return {
+                "accuracy": accuracy,
+                "precision": precision,
+                "recall": recall,
+                "f1": f1,
+                "precision_macro": precision_macro,
+                "recall_macro": recall_macro,
+                "f1_macro": f1_macro,
+            }
+        else:
+            highlight_preds = highlight_preds.reshape(-1)
+            highlight_labels = highlight_labels.reshape(-1)
+            mse = mean_squared_error(highlight_labels, highlight_preds)
+            mae = mean_absolute_error(highlight_labels, highlight_preds)
+            return {
+                "mse": mse,
+                "mae": mae,
+            }
 
-    highlight_preds = highlight_preds.reshape(-1)
-    highlight_labels = highlight_labels.reshape(-1)
-    mse = mean_squared_error(highlight_labels, highlight_preds)
-    mae = mean_absolute_error(highlight_labels, highlight_preds)
+    return compute_metrics
 
-    return {
-        "accuracy": accuracy,
-        "precision": precision,
-        "recall": recall,
-        "f1": f1,
-        "precision_macro": precision_macro,
-        "recall_macro": recall_macro,
-        "f1_macro": f1_macro,
-        "mse": mse,
-        "mae": mae,
-    }
 
+# ============================================================
+# SECTION 7: Data Preprocessing Helpers
+#
+# Turns uploaded CSVs into windowed training rows, computes
+# per-class loss weights, and logs a per-class breakdown of the
+# best Stage 1 checkpoint. Used by run_train() below.
+# ============================================================
 def build_windowed_dataframe(csv_files, label2id):
     """
     Builds sliding-window training rows per CSV file, BEFORE concatenating
@@ -272,15 +316,20 @@ def log_stage1_classification_report(trainer_stage1, test_dataset, id2label, num
         event_labels, event_preds, labels=list(range(num_labels)), target_names=target_names, zero_division=0
     ))
 
-# ==========================================
-# FastAPI Application
-# ==========================================
+
+# ============================================================
+# SECTION 8: FastAPI Application & Whisper Model
+# ============================================================
 app = FastAPI()
 
 print("Loading Whisper model (medium) ...")
 whisper_model = whisper.load_model("medium")
 print("Whisper model loaded!")
 
+
+# ============================================================
+# SECTION 9: Transcription Endpoint
+# ============================================================
 def run_transcribe(task_id, file_location):
     try:
         print(f"Task {task_id}: Starting Whisper Transcription...")
@@ -325,6 +374,14 @@ async def transcribe_audio(file: UploadFile = File(...)):
     threading.Thread(target=run_transcribe, args=(task_id, file_location)).start()
     return {"task_id": task_id}
 
+
+# ============================================================
+# SECTION 10: Training Endpoint
+#
+# Runs the Stage 1 (event classifier) + Stage 2 (highlight scorer)
+# training pipeline on the uploaded CSVs, then zips the best model
+# so the frontend can download it for local predictions.
+# ============================================================
 def run_train(task_id, zip_path, model_name):
     try:
         print(f"Task {task_id}: Starting Training for {model_name}...")
@@ -407,12 +464,12 @@ def run_train(task_id, zip_path, model_name):
         # across all classes equally), not just the epoch with the lowest loss.
         trainer_stage1 = CustomTrainer(
             model=model,
-            args=get_training_args("stage1", epochs=5, metric_for_best_model="f1_macro", greater_is_better=True),
+            args=get_training_args("stage1", epochs=10, metric_for_best_model="f1_macro", greater_is_better=True),
             train_dataset=split_datasets['train'],
             eval_dataset=split_datasets['test'],
             class_weights=class_weights,
             stage=1,
-            compute_metrics=compute_metrics,
+            compute_metrics=make_compute_metrics(1),
         )
         trainer_stage1.train()
 
@@ -434,7 +491,7 @@ def run_train(task_id, zip_path, model_name):
             eval_dataset=split_datasets['test'],
             class_weights=class_weights,
             stage=2,
-            compute_metrics=compute_metrics,
+            compute_metrics=make_compute_metrics(2),
         )
         trainer_stage2.train()
 
@@ -496,6 +553,10 @@ async def train_model(file: UploadFile = File(...), model_name: str = Form(...))
     threading.Thread(target=run_train, args=(task_id, zip_path, model_name)).start()
     return {"task_id": task_id}
 
+
+# ============================================================
+# SECTION 11: Status & Download Endpoints
+# ============================================================
 @app.get("/status/{task_id}")
 async def get_status(task_id: str):
     if task_id not in tasks:
@@ -521,8 +582,10 @@ async def download_result(task_id: str):
     return FileResponse(file_path, media_type="application/zip", filename=os.path.basename(file_path))
 
 
-# Start server
-NGROK_TOKEN = "3GwEt4nSMyyoJasWtZ7aOR6Uf89_5pWtkqYXVtPwUsxc4yJYM" # <-- PASTE YOUR NGROK TOKEN HERE
+# ============================================================
+# SECTION 12: Server Startup (ngrok tunnel + uvicorn)
+# ============================================================
+NGROK_TOKEN = "3HaGzT01qmCqQsQt9O4XeApdUo4_7hTA4NQeb6jCiHP3JagCx" # <-- PASTE YOUR NGROK TOKEN HERE
 ngrok.set_auth_token(NGROK_TOKEN)
 ngrok.kill()
 public_url = ngrok.connect(8000).public_url

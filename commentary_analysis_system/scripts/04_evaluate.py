@@ -47,9 +47,9 @@ def evaluate_regression(chunks: list[dict], score_key: str) -> dict:
 
     return compute_regression_metrics(y_true_reg, y_pred_reg)
 
-def evaluate_multiclass(chunks: list[dict], prediction_key: str) -> dict:
+def evaluate_multiclass(chunks: list[dict], prediction_key: str, all_classes: list[str]) -> dict:
     y_true, y_pred = _extract_labels(chunks, prediction_key)
-    return compute_multiclass_metrics(y_true, y_pred)
+    return compute_multiclass_metrics(y_true, y_pred, all_classes)
 
 def evaluate_per_class(chunks: list[dict], prediction_key: str, all_classes: list[str]) -> dict:
     y_true, y_pred = _extract_labels(chunks, prediction_key)
@@ -139,7 +139,7 @@ def main():
             if not filtered:
                 print(f"  WARNING: No chunks with split='{args.split}' in {pred_file.name}. Skipping.")
                 continue
-            print(f"  {pred_file.name}: {len(chunks)} total → {len(filtered)} '{args.split}' chunks")
+            print(f"  {pred_file.name}: {len(chunks)} total -> {len(filtered)} '{args.split}' chunks")
             chunks = filtered
             
         # Evaluate for single match
@@ -147,9 +147,9 @@ def main():
         roberta_reg = evaluate_regression(chunks, "roberta_score")
         hybrid_reg = evaluate_regression(chunks, "hybrid_score")
         
-        lexicon_class = evaluate_multiclass(chunks, "lexicon_predicted_event")
-        roberta_class = evaluate_multiclass(chunks, "roberta_predicted_event")
-        hybrid_class = evaluate_multiclass(chunks, "hybrid_predicted_event")
+        lexicon_class = evaluate_multiclass(chunks, "lexicon_predicted_event", all_classes)
+        roberta_class = evaluate_multiclass(chunks, "roberta_predicted_event", all_classes)
+        hybrid_class = evaluate_multiclass(chunks, "hybrid_predicted_event", all_classes)
 
         lexicon_per_class = evaluate_per_class(chunks, "lexicon_predicted_event", all_classes)
         roberta_per_class = evaluate_per_class(chunks, "roberta_predicted_event", all_classes)

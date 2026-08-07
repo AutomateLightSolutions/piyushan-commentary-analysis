@@ -48,7 +48,7 @@ export async function POST(req) {
         [scriptPath, "--job-id", jobId, "--model-name", modelName, "--input", inputPath],
         {
           cwd: SYSTEM_PATH,
-          env: { ...process.env, PYTHONPATH: ".", PYTHONUNBUFFERED: "1" },
+          env: { ...process.env, PYTHONPATH: ".", PYTHONUNBUFFERED: "1", PYTHONIOENCODING: "utf-8" },
         }
       );
 
