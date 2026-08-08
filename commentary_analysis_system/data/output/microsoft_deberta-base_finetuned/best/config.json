@@ -50,8 +50,10 @@
   "position_biased_input": false,
   "relative_attention": true,
   "tie_word_embeddings": true,
+  "tokenizer_max_length": 256,
   "transformers_version": "5.13.1",
   "type_vocab_size": 0,
   "use_cache": false,
-  "vocab_size": 50265
+  "vocab_size": 50265,
+  "window_size": 5
 }

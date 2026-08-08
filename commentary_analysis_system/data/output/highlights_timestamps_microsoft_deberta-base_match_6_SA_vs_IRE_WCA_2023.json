@@ -1,0 +1,1037 @@
+[
+  {
+    "start": 94,
+    "end": 110,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 104,
+    "end": 116,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 112,
+    "end": 124,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 198,
+    "end": 210,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 212,
+    "end": 226,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 272,
+    "end": 292,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 288,
+    "end": 298,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 300,
+    "end": 312,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 316,
+    "end": 326,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 322,
+    "end": 332,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 330,
+    "end": 344,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 360,
+    "end": 372,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 374,
+    "end": 388,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 396,
+    "end": 406,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 400,
+    "end": 410,
+    "primary_event": "try"
+  },
+  {
+    "start": 404,
+    "end": 414,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 460,
+    "end": 470,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 472,
+    "end": 482,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 478,
+    "end": 492,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 538,
+    "end": 548,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 556,
+    "end": 566,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 560,
+    "end": 580,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 576,
+    "end": 592,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 594,
+    "end": 606,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 600,
+    "end": 610,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 692,
+    "end": 718,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 720,
+    "end": 730,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 724,
+    "end": 734,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 748,
+    "end": 758,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 792,
+    "end": 802,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 832,
+    "end": 842,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 836,
+    "end": 854,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 916,
+    "end": 930,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 928,
+    "end": 940,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 934,
+    "end": 944,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 950,
+    "end": 966,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 1002,
+    "end": 1018,
+    "primary_event": "try"
+  },
+  {
+    "start": 1052,
+    "end": 1062,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 1100,
+    "end": 1112,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 1126,
+    "end": 1138,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 1138,
+    "end": 1148,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 1168,
+    "end": 1180,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 1194,
+    "end": 1204,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 1238,
+    "end": 1262,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 1290,
+    "end": 1308,
+    "primary_event": "maul"
+  },
+  {
+    "start": 1312,
+    "end": 1322,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 1328,
+    "end": 1338,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 1338,
+    "end": 1348,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 1342,
+    "end": 1352,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 1346,
+    "end": 1368,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 1376,
+    "end": 1386,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 1382,
+    "end": 1392,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 1406,
+    "end": 1428,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 1432,
+    "end": 1442,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 1440,
+    "end": 1454,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 1450,
+    "end": 1460,
+    "primary_event": "try"
+  },
+  {
+    "start": 1460,
+    "end": 1472,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 1484,
+    "end": 1494,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 1496,
+    "end": 1512,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 1506,
+    "end": 1516,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 1514,
+    "end": 1526,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 1530,
+    "end": 1540,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 1534,
+    "end": 1546,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 1632,
+    "end": 1642,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 1652,
+    "end": 1662,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 1664,
+    "end": 1676,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 1766,
+    "end": 1778,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 1830,
+    "end": 1840,
+    "primary_event": "try"
+  },
+  {
+    "start": 1846,
+    "end": 1858,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 1864,
+    "end": 1874,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 1884,
+    "end": 1894,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 1940,
+    "end": 1950,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 1962,
+    "end": 1972,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 2004,
+    "end": 2014,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 2008,
+    "end": 2018,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 2044,
+    "end": 2054,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 2058,
+    "end": 2072,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 2100,
+    "end": 2110,
+    "primary_event": "try"
+  },
+  {
+    "start": 2104,
+    "end": 2116,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 2124,
+    "end": 2134,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 2128,
+    "end": 2138,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 2146,
+    "end": 2158,
+    "primary_event": "try"
+  },
+  {
+    "start": 2164,
+    "end": 2174,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 2172,
+    "end": 2184,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 2184,
+    "end": 2196,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 2270,
+    "end": 2280,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 2326,
+    "end": 2346,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 2342,
+    "end": 2352,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 2406,
+    "end": 2422,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 2428,
+    "end": 2442,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 2510,
+    "end": 2520,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 2516,
+    "end": 2528,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 2594,
+    "end": 2626,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 2630,
+    "end": 2640,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 2656,
+    "end": 2668,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 2662,
+    "end": 2682,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 2688,
+    "end": 2698,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 2702,
+    "end": 2712,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 2748,
+    "end": 2768,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 2770,
+    "end": 2784,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 2836,
+    "end": 2850,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 2872,
+    "end": 2882,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 2912,
+    "end": 2924,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 2952,
+    "end": 2966,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 2970,
+    "end": 2980,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 2988,
+    "end": 3008,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 3038,
+    "end": 3050,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 3044,
+    "end": 3054,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 3048,
+    "end": 3064,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 3160,
+    "end": 3170,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 3172,
+    "end": 3182,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 3178,
+    "end": 3192,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 3186,
+    "end": 3198,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 3194,
+    "end": 3204,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 3206,
+    "end": 3216,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 3210,
+    "end": 3220,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 3234,
+    "end": 3244,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 3280,
+    "end": 3290,
+    "primary_event": "try"
+  },
+  {
+    "start": 3290,
+    "end": 3304,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 3316,
+    "end": 3326,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 3350,
+    "end": 3360,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 3386,
+    "end": 3406,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 3400,
+    "end": 3412,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 3450,
+    "end": 3462,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 3484,
+    "end": 3500,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 3496,
+    "end": 3506,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 3504,
+    "end": 3518,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 3520,
+    "end": 3532,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 3526,
+    "end": 3536,
+    "primary_event": "try"
+  },
+  {
+    "start": 3590,
+    "end": 3614,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 3626,
+    "end": 3638,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 3632,
+    "end": 3642,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 3656,
+    "end": 3670,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 3672,
+    "end": 3682,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 3688,
+    "end": 3700,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 3834,
+    "end": 3844,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 3838,
+    "end": 3862,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 3888,
+    "end": 3900,
+    "primary_event": "try"
+  },
+  {
+    "start": 3974,
+    "end": 3988,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 3998,
+    "end": 4016,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 4044,
+    "end": 4054,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 4048,
+    "end": 4064,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 4080,
+    "end": 4094,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 4108,
+    "end": 4120,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 4138,
+    "end": 4148,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 4208,
+    "end": 4220,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 4222,
+    "end": 4232,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 4246,
+    "end": 4256,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 4250,
+    "end": 4260,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 4254,
+    "end": 4288,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 4326,
+    "end": 4340,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 4354,
+    "end": 4364,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 4364,
+    "end": 4376,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 4390,
+    "end": 4404,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 4398,
+    "end": 4416,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 4434,
+    "end": 4444,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 4472,
+    "end": 4482,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 4490,
+    "end": 4500,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 4554,
+    "end": 4566,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 4592,
+    "end": 4602,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 4602,
+    "end": 4620,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 4666,
+    "end": 4676,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 4670,
+    "end": 4680,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 4680,
+    "end": 4694,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 4708,
+    "end": 4718,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 4714,
+    "end": 4726,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 4742,
+    "end": 4752,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 4786,
+    "end": 4796,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 4800,
+    "end": 4816,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 4890,
+    "end": 4900,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 4916,
+    "end": 4926,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 4928,
+    "end": 4944,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 4938,
+    "end": 4958,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 5042,
+    "end": 5052,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 5060,
+    "end": 5074,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 5068,
+    "end": 5078,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 5072,
+    "end": 5084,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 5078,
+    "end": 5088,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 5096,
+    "end": 5106,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 5100,
+    "end": 5110,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 5104,
+    "end": 5114,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 5136,
+    "end": 5146,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 5142,
+    "end": 5154,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 5160,
+    "end": 5174,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 5168,
+    "end": 5178,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 5216,
+    "end": 5226,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 5220,
+    "end": 5230,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 5260,
+    "end": 5270,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 5298,
+    "end": 5314,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 5330,
+    "end": 5342,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 5350,
+    "end": 5360,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 5354,
+    "end": 5372,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 5366,
+    "end": 5380,
+    "primary_event": "penalty"
+  },
+  {
+    "start": 5382,
+    "end": 5400,
+    "primary_event": "tmo_replay"
+  },
+  {
+    "start": 5434,
+    "end": 5456,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 5450,
+    "end": 5460,
+    "primary_event": "kick_off"
+  },
+  {
+    "start": 5458,
+    "end": 5468,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 5508,
+    "end": 5518,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 5514,
+    "end": 5528,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 5522,
+    "end": 5534,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 5532,
+    "end": 5542,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 5536,
+    "end": 5548,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 5612,
+    "end": 5622,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 5616,
+    "end": 5640,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 5668,
+    "end": 5684,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 5694,
+    "end": 5706,
+    "primary_event": "goal_kick"
+  },
+  {
+    "start": 5700,
+    "end": 5710,
+    "primary_event": "goal_kick"
+  }
+]
