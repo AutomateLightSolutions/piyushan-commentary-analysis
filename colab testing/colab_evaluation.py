@@ -511,7 +511,7 @@ def print_per_class_table(title, per_class_by_approach, event_names):
 # Computes per-match metrics for all 3 approaches, then pools
 # predictions across every match for a combined/aggregate result.
 # ============================================================
-CLASSIFICATION_KEYS = ["accuracy", "precision", "recall", "f1", "precision_macro", "recall_macro", "f1_macro"]
+CLASSIFICATION_KEYS = ["accuracy", "precision", "recall", "f1"]  # TODO: re-add precision_macro, recall_macro, f1_macro
 REGRESSION_KEYS = ["mse", "mae"]
 APPROACH_NAMES = ["ML Model Only", "Lexicon Only", "Hybrid Model"]
 

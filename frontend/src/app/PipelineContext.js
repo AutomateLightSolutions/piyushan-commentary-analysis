@@ -25,10 +25,6 @@ export function PipelineProvider({ children }) {
   const [selectedModel, setSelectedModel] = useState("roberta-base");
   
   const [selectedDataset, setSelectedDataset] = useState("all");
-  // Which split role to evaluate against - "all" mixes in rows the model was
-  // actually trained on, so it's not a clean held-out measure; "test" is the
-  // rows 02_train.py excluded from what got sent to Colab for training.
-  const [selectedSplit, setSelectedSplit] = useState("all");
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [isMlProcessing, setIsMlProcessing] = useState(false);
@@ -148,7 +144,6 @@ export function PipelineProvider({ children }) {
     const signal = abortControllerRef.current.signal;
     
     const params = `?modelName=${encodeURIComponent(selectedModel)}&dataset=${encodeURIComponent(selectedDataset)}`;
-    const evalParams = `${params}&split=${encodeURIComponent(selectedSplit)}`;
 
     try { await runStreamStep(`/api/train${params}`, "train", setMlSteps, signal); }
     catch (err) { mutateStep(setMlSteps, "train", { status: "error", log: err.message }); setIsMlProcessing(false); return; }
@@ -157,7 +152,7 @@ export function PipelineProvider({ children }) {
     catch (err) { mutateStep(setMlSteps, "predict", { status: "error", log: err.message }); setIsMlProcessing(false); return; }
 
     try {
-      const result = await runStreamStep(`/api/evaluate${evalParams}`, "evaluate", setMlSteps, signal);
+      const result = await runStreamStep(`/api/evaluate${params}`, "evaluate", setMlSteps, signal);
       if (result?.extraData && !signal.aborted) setMetricsData(result.extraData);
     } catch (err) { mutateStep(setMlSteps, "evaluate", { status: "error", log: err.message }); setIsMlProcessing(false); return; }
 
@@ -172,7 +167,6 @@ export function PipelineProvider({ children }) {
     const signal = abortControllerRef.current.signal;
 
     const params = `?modelName=${encodeURIComponent(selectedModel)}&dataset=${encodeURIComponent(selectedDataset)}`;
-    const evalParams = `${params}&split=${encodeURIComponent(selectedSplit)}`;
 
     mutateStep(setMlSteps, "train", { status: "done", log: "Skipped training step." });
 
@@ -180,7 +174,7 @@ export function PipelineProvider({ children }) {
     catch (err) { mutateStep(setMlSteps, "predict", { status: "error", log: err.message }); setIsMlProcessing(false); return; }
 
     try {
-      const result = await runStreamStep(`/api/evaluate${evalParams}`, "evaluate", setMlSteps, signal);
+      const result = await runStreamStep(`/api/evaluate${params}`, "evaluate", setMlSteps, signal);
       if (result?.extraData && !signal.aborted) setMetricsData(result.extraData);
     } catch (err) { mutateStep(setMlSteps, "evaluate", { status: "error", log: err.message }); setIsMlProcessing(false); return; }
 
@@ -212,8 +206,6 @@ export function PipelineProvider({ children }) {
     setSelectedModel,
     selectedDataset,
     setSelectedDataset,
-    selectedSplit,
-    setSelectedSplit,
     isProcessing,
     isMlProcessing,
     handleProcess,

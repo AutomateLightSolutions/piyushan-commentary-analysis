@@ -494,8 +494,6 @@ export default function Home() {
     setSelectedModel,
     selectedDataset,
     setSelectedDataset,
-    selectedSplit,
-    setSelectedSplit,
     isProcessing,
     isMlProcessing,
     handleProcess,
@@ -684,19 +682,6 @@ export default function Home() {
                     <option value="microsoft/deberta-base">DeBERTa</option>
                     <option value="answerdotai/ModernBERT-base">ModernBERT</option>
                     <option value="bert-base-uncased">BERT</option>
-                  </select>
-                  <select
-                    className="form-select"
-                    value={selectedSplit}
-                    onChange={(e) => setSelectedSplit(e.target.value)}
-                    disabled={isProcessing || isMlProcessing}
-                    style={{ maxWidth: "160px", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}
-                    title="Which split role to evaluate against. 'All' includes rows the model was trained on, so it's not a clean held-out measure - use 'Test' for a genuine unseen-data score."
-                  >
-                    <option value="all">Split: All</option>
-                    <option value="train">Split: Train</option>
-                    <option value="val">Split: Val</option>
-                    <option value="test">Split: Test</option>
                   </select>
                   <button className="btn btn-primary" onClick={handleMlProcess} disabled={isProcessing || isMlProcessing} style={{ whiteSpace: "nowrap" }}>
                     {isMlProcessing ? "Executing..." : "Run ML Sequence"}
