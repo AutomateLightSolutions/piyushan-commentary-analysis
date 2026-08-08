@@ -1,0 +1,69 @@
+{
+  "_comment": "Curated ground-truth vocabulary per event, provided by the user. These terms are always kept in lexicon.json (weight 1.0, manual) and are never filtered out of auto-extraction candidates. Hyphens/apostrophes are normalized to spaces since ASR transcripts contain no punctuation.",
+  "try": [
+    "try", "tries", "scored", "touched down", "touch down", "grounded",
+    "dotted down", "dot down", "five pointer", "over the line",
+    "crossed the line", "dives over", "stretches over", "reaches the line",
+    "in for a try", "converted try", "unconverted try", "penalty try",
+    "hat trick", "disallowed try", "no try", "held up over the line"
+  ],
+  "goal_kick": [
+    "conversion", "kicks at goal", "kicking tee", "off the tee",
+    "lines it up", "between the posts", "over the bar", "splits the posts",
+    "sails over", "drop goal", "drop kick", "successful kick", "missed kick",
+    "wide of the posts", "hooks it", "slices it", "two points", "three points",
+    "place kick", "kicker steps up"
+  ],
+  "card_event": [
+    "yellow card", "red card", "sin bin", "sin binned", "binned", "carded",
+    "cited", "citing", "dangerous tackle", "high tackle", "foul play",
+    "illegal tackle", "spear tackle", "tip tackle", "professional foul",
+    "cynical play", "sent off", "ordered off", "ten minutes", "disciplinary",
+    "referee shows"
+  ],
+  "scrum": [
+    "scrum", "scrummage", "pack", "front row", "hooker", "prop", "tighthead",
+    "loosehead", "crouch bind set", "put in", "feed", "collapse",
+    "collapsed scrum", "reset scrum", "scrum penalty", "hooking",
+    "strike against the head", "scrum wheel", "wheeled", "pushover try",
+    "dominant scrum", "held up scrum"
+  ],
+  "maul": [
+    "maul", "mauling", "driving maul", "rolling maul", "drive",
+    "pick and drive", "maul collapses", "maul held up", "obstruction",
+    "maul penalty", "truck and trailer", "latch on", "joins the maul",
+    "maul stopped", "maul defence"
+  ],
+  "lineout": [
+    "lineout", "line out", "throw in", "jumper", "jumps", "lifting pod",
+    "hookers throw", "crooked throw", "not straight", "tail of the lineout",
+    "front of the lineout", "catch and drive", "lineout steal", "steal",
+    "won their own ball", "lost their own ball", "overthrow", "lineout maul",
+    "quick throw in"
+  ],
+  "kick_off": [
+    "kickoff", "kick off", "restart", "kicks it deep", "kicks long",
+    "receives the kickoff", "chases the kick", "chip kick", "fields the kick",
+    "catches the kickoff", "kicks it out on the full", "22 drop out",
+    "drop out"
+  ],
+  "tmo_replay": [
+    "tmo", "television match official", "checking the replay",
+    "going upstairs", "referral", "on field decision", "reviewing", "replay",
+    "big screen", "camera angle", "confirms the try", "overturned",
+    "decision stands", "checking for foul play", "checking grounding"
+  ],
+  "penalty": [
+    "penalty", "penalty kick", "awarded a penalty", "penalised", "offside",
+    "not releasing", "holding on", "ruck infringement", "breakdown penalty",
+    "penalty advantage", "advantage", "kickable penalty",
+    "penalty to the corner", "tap penalty", "quick tap", "free kick",
+    "knock on"
+  ],
+  "normal_play": [
+    "phase play", "phases", "ruck", "breakdown", "recycled", "quick ball",
+    "slow ball", "offload", "tackle", "tackled", "carries", "runs it",
+    "line break", "kick and chase", "box kick", "up and under", "possession",
+    "territory", "open play", "general play"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "_comment": "Shared exclusion lists used by lexicon_builder.py (Python) and auto-lexicon/route.js (Node) so both stages agree on what counts as noise. Terms here are common across ALL event categories (nations mentioned in every match, pronouns/fillers used in every commentary sentence) so they carry no event-discriminative signal, unlike genuine rugby vocabulary.",
+  "nations_and_teams": [
+    "new", "zealand", "new zealand", "ireland", "scotland", "italy", "england",
+    "australia", "wales", "france", "argentina", "japan", "fiji", "samoa",
+    "tonga", "georgia", "usa", "canada", "uruguay", "romania", "chile",
+    "portugal", "namibia", "south", "africa", "south africa", "nz", "rsa"
+  ],
+  "generic_fillers": [
+    "hes", "shes", "theyve", "theyre", "weve", "youve", "youre", "dont",
+    "cant", "wont", "thats", "theres", "im", "its", "got", "get", "gone",
+    "going", "going to", "one", "two", "three", "first", "second", "back",
+    "the back", "right", "the right", "little", "a little", "open", "hands",
+    "away", "inside", "good", "a good", "great", "think", "i think", "come",
+    "see", "look", "please", "okay", "way", "side", "bit", "bit of", "game",
+    "use", "use it", "to use", "to use it", "still", "though", "agree",
+    "i agree", "captain", "captain please", "card and"
+  ]
+}

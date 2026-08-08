@@ -14,17 +14,57 @@ class LexiconBuilder:
         if runs_dir is None:
             base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
             runs_dir = os.path.join(base_dir, "data", "lexicon_runs")
-        
+            config_dir = os.path.join(base_dir, "data", "config")
+        else:
+            config_dir = os.path.join(os.path.dirname(os.path.dirname(runs_dir)), "data", "config")
+
         self.runs_dir = runs_dir
         os.makedirs(self.runs_dir, exist_ok=True)
-        
+
         self.frequencies = defaultdict(lambda: defaultdict(int))
         self._ensure_nltk_data()
-        
+
         # Load English stopwords
         self.stop_words = set(stopwords.words('english'))
         # Add custom rugby/commentary specific stopwords if needed
         self.stop_words.update(['well', 'oh', 'ah', 'yeah', 'yes', 'no', 'just', 'like'])
+
+        # Nation/team names and generic filler words carry no event-discriminative
+        # signal (they're common across every event in the commentary), so they're
+        # excluded from candidate keyword extraction entirely.
+        self.seed_allowlist = self._load_word_set(config_dir, "seed_lexicon.json")
+        blocklist = self._load_filters(config_dir)
+        self.stop_words.update(blocklist - self.seed_allowlist)
+
+    def _load_filters(self, config_dir):
+        """Loads the shared nation/team + generic-filler blocklist (single words only)."""
+        path = os.path.join(config_dir, "lexicon_filters.json")
+        words = set()
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            for group in ("nations_and_teams", "generic_fillers"):
+                for term in data.get(group, []):
+                    words.update(term.split())
+        except (FileNotFoundError, json.JSONDecodeError):
+            pass
+        return words
+
+    def _load_word_set(self, config_dir, filename):
+        """Flattens all single words out of the seed lexicon so they're never blocked."""
+        path = os.path.join(config_dir, filename)
+        words = set()
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            for terms in data.values():
+                if not isinstance(terms, list):
+                    continue
+                for term in terms:
+                    words.update(term.split())
+        except (FileNotFoundError, json.JSONDecodeError):
+            pass
+        return words
 
     def _ensure_nltk_data(self):
         """Ensure NLTK datasets are downloaded."""
