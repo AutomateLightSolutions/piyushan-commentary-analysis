@@ -20,17 +20,17 @@
     "primary_event": "penalty"
   },
   {
-    "start": 80,
-    "end": 90,
-    "primary_event": "lineout"
-  },
-  {
     "start": 86,
     "end": 106,
     "primary_event": "lineout"
   },
   {
     "start": 100,
+    "end": 110,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 104,
     "end": 124,
     "primary_event": "penalty"
   },
@@ -46,7 +46,7 @@
   },
   {
     "start": 166,
-    "end": 216,
+    "end": 214,
     "primary_event": "goal_kick"
   },
   {
@@ -65,7 +65,7 @@
     "primary_event": "goal_kick"
   },
   {
-    "start": 328,
+    "start": 330,
     "end": 340,
     "primary_event": "tmo_replay"
   },
@@ -105,11 +105,6 @@
     "primary_event": "penalty"
   },
   {
-    "start": 642,
-    "end": 652,
-    "primary_event": "tmo_replay"
-  },
-  {
     "start": 674,
     "end": 696,
     "primary_event": "goal_kick"
@@ -132,11 +127,6 @@
   {
     "start": 820,
     "end": 834,
-    "primary_event": "tmo_replay"
-  },
-  {
-    "start": 880,
-    "end": 890,
     "primary_event": "tmo_replay"
   },
   {
@@ -176,13 +166,8 @@
   },
   {
     "start": 1028,
-    "end": 1050,
-    "primary_event": "lineout"
-  },
-  {
-    "start": 1044,
     "end": 1054,
-    "primary_event": "try"
+    "primary_event": "lineout"
   },
   {
     "start": 1084,
@@ -230,11 +215,6 @@
     "primary_event": "goal_kick"
   },
   {
-    "start": 1446,
-    "end": 1456,
-    "primary_event": "lineout"
-  },
-  {
     "start": 1452,
     "end": 1464,
     "primary_event": "goal_kick"
@@ -271,7 +251,7 @@
   },
   {
     "start": 1770,
-    "end": 1814,
+    "end": 1816,
     "primary_event": "goal_kick"
   },
   {
@@ -310,7 +290,7 @@
     "primary_event": "goal_kick"
   },
   {
-    "start": 2154,
+    "start": 2152,
     "end": 2172,
     "primary_event": "kick_off"
   },
@@ -325,17 +305,7 @@
     "primary_event": "try"
   },
   {
-    "start": 2266,
-    "end": 2276,
-    "primary_event": "lineout"
-  },
-  {
     "start": 2290,
-    "end": 2300,
-    "primary_event": "goal_kick"
-  },
-  {
-    "start": 2294,
     "end": 2306,
     "primary_event": "goal_kick"
   },
@@ -395,14 +365,19 @@
     "primary_event": "scrum"
   },
   {
-    "start": 2620,
+    "start": 2608,
+    "end": 2618,
+    "primary_event": "lineout"
+  },
+  {
+    "start": 2618,
     "end": 2638,
     "primary_event": "lineout"
   },
   {
     "start": 2688,
     "end": 2714,
-    "primary_event": "lineout"
+    "primary_event": "kick_off"
   },
   {
     "start": 2728,
@@ -415,7 +390,7 @@
     "primary_event": "lineout"
   },
   {
-    "start": 2862,
+    "start": 2864,
     "end": 2874,
     "primary_event": "goal_kick"
   },
@@ -431,11 +406,6 @@
   },
   {
     "start": 3000,
-    "end": 3024,
-    "primary_event": "goal_kick"
-  },
-  {
-    "start": 3018,
     "end": 3050,
     "primary_event": "goal_kick"
   },
@@ -466,7 +436,7 @@
   },
   {
     "start": 3198,
-    "end": 3214,
+    "end": 3212,
     "primary_event": "lineout"
   },
   {
@@ -481,7 +451,7 @@
   },
   {
     "start": 3292,
-    "end": 3304,
+    "end": 3306,
     "primary_event": "scrum"
   },
   {
@@ -497,11 +467,11 @@
   {
     "start": 3384,
     "end": 3426,
-    "primary_event": "kick_off"
+    "primary_event": "goal_kick"
   },
   {
     "start": 3424,
-    "end": 3434,
+    "end": 3436,
     "primary_event": "tmo_replay"
   },
   {
@@ -531,17 +501,12 @@
   },
   {
     "start": 3694,
-    "end": 3704,
+    "end": 3706,
     "primary_event": "lineout"
   },
   {
     "start": 3780,
     "end": 3794,
-    "primary_event": "lineout"
-  },
-  {
-    "start": 3788,
-    "end": 3798,
     "primary_event": "lineout"
   },
   {
@@ -565,17 +530,17 @@
     "primary_event": "try"
   },
   {
-    "start": 3942,
+    "start": 3944,
     "end": 3954,
     "primary_event": "penalty"
   },
   {
-    "start": 4016,
+    "start": 4018,
     "end": 4032,
     "primary_event": "scrum"
   },
   {
-    "start": 4060,
+    "start": 4062,
     "end": 4076,
     "primary_event": "scrum"
   },
@@ -598,6 +563,11 @@
     "start": 4196,
     "end": 4208,
     "primary_event": "lineout"
+  },
+  {
+    "start": 4212,
+    "end": 4222,
+    "primary_event": "goal_kick"
   },
   {
     "start": 4258,
@@ -661,13 +631,18 @@
   },
   {
     "start": 4606,
-    "end": 4624,
+    "end": 4622,
     "primary_event": "penalty"
   },
   {
     "start": 4670,
     "end": 4694,
     "primary_event": "penalty"
+  },
+  {
+    "start": 4696,
+    "end": 4706,
+    "primary_event": "goal_kick"
   },
   {
     "start": 4746,
@@ -707,7 +682,7 @@
   {
     "start": 4908,
     "end": 4934,
-    "primary_event": "lineout"
+    "primary_event": "maul"
   },
   {
     "start": 4932,
@@ -726,7 +701,7 @@
   },
   {
     "start": 5076,
-    "end": 5088,
+    "end": 5090,
     "primary_event": "lineout"
   },
   {
@@ -737,11 +712,6 @@
   {
     "start": 5126,
     "end": 5138,
-    "primary_event": "try"
-  },
-  {
-    "start": 5138,
-    "end": 5148,
     "primary_event": "try"
   },
   {
@@ -805,11 +775,6 @@
     "primary_event": "try"
   },
   {
-    "start": 5424,
-    "end": 5434,
-    "primary_event": "tmo_replay"
-  },
-  {
     "start": 5454,
     "end": 5468,
     "primary_event": "scrum"
@@ -861,13 +826,13 @@
   },
   {
     "start": 5684,
-    "end": 5694,
+    "end": 5696,
     "primary_event": "scrum"
   },
   {
     "start": 5690,
     "end": 5702,
-    "primary_event": "scrum"
+    "primary_event": "lineout"
   },
   {
     "start": 5720,
@@ -877,11 +842,6 @@
   {
     "start": 5730,
     "end": 5740,
-    "primary_event": "goal_kick"
-  },
-  {
-    "start": 5734,
-    "end": 5744,
     "primary_event": "goal_kick"
   }
 ]

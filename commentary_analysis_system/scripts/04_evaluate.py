@@ -97,30 +97,18 @@ def main():
 
     all_classes = load_all_event_classes()
 
-    total_metrics = {
-        "Classification": {
-            method: {"accuracy": 0.0, "precision": 0.0, "recall": 0.0, "f1": 0.0} for method in METHODS
-        },
-        "Regression": {
-            method: {"mse": 0.0, "mae": 0.0} for method in METHODS
-        },
-        "PerClass": {
-            method: {cls: {"precision": 0.0, "recall": 0.0, "f1": 0.0, "support": 0} for cls in all_classes}
-            for method in METHODS
-        }
-    }
-
     num_files = 0
     timestamp = datetime.now().isoformat()
 
-    # Pooled across every evaluated match, for a statistically sound
-    # "Combined" figure - mirrors colab_evaluation.py's COMBINED section,
-    # which concatenates raw predictions across matches before scoring
-    # rather than averaging already-computed per-match rates (as
-    # total_metrics below does). Averaging per-match rates directly
-    # distorts rare classes: a class with 0-3 samples in a given match
-    # still counts as one full, equally-weighted data point in that
-    # average, regardless of how little evidence it represents.
+    # Pooled across every evaluated match - mirrors colab_evaluation.py's
+    # COMBINED section, which concatenates raw predictions across matches
+    # before scoring once, rather than averaging already-computed per-match
+    # rates. Averaging per-match rates directly distorts rare classes: a
+    # class with 0-3 samples in a given match still counts as one full,
+    # equally-weighted data point in that average, regardless of how little
+    # evidence it represents. Pooling first is the only overall summary
+    # reported - per-match numbers are still stored per-record in the DB
+    # below for the match-by-match view.
     pooled_true_event = []
     pooled_pred_event = {method: [] for method in METHODS}
     pooled_true_score = []
@@ -178,18 +166,6 @@ def main():
         }
         metrics_db.append(record)
 
-        # Accumulate sums for the per-match-averaged summary
-        for method in METHODS:
-            for key in ["accuracy", "precision", "recall", "f1"]:
-                total_metrics["Classification"][method][key] += classification_metrics[method][key]
-            for key in ["mse", "mae"]:
-                total_metrics["Regression"][method][key] += regression_metrics[method][key]
-            for cls, m in per_class_metrics[method].items():
-                total_metrics["PerClass"][method][cls]["precision"] += m["precision"]
-                total_metrics["PerClass"][method][cls]["recall"] += m["recall"]
-                total_metrics["PerClass"][method][cls]["f1"] += m["f1"]
-                total_metrics["PerClass"][method][cls]["support"] += m["support"]
-
         num_files += 1
 
     # Save DB
@@ -197,27 +173,9 @@ def main():
         json.dump(metrics_db, f, indent=4)
 
     if num_files > 0:
-        # Average Classification
-        for method in total_metrics["Classification"]:
-            for key in ["accuracy", "precision", "recall", "f1"]:
-                total_metrics["Classification"][method][key] = round(total_metrics["Classification"][method][key] / num_files, 2)
-
-        # Average Regression
-        for method in total_metrics["Regression"]:
-            for key in ["mse", "mae"]:
-                total_metrics["Regression"][method][key] = round(total_metrics["Regression"][method][key] / num_files, 4)
-
-        # Average PerClass (precision/recall/f1 averaged across matches;
-        # support stays summed - it's a real total count, not a rate)
-        for method in total_metrics["PerClass"]:
-            for cls in total_metrics["PerClass"][method]:
-                for key in ["precision", "recall", "f1"]:
-                    total_metrics["PerClass"][method][cls][key] = round(
-                        total_metrics["PerClass"][method][cls][key] / num_files, 2
-                    )
-
-        # Combined: pool raw predictions across every evaluated match and
-        # score once - see the note above pooled_true_event.
+        # Pool raw predictions across every evaluated match and score once
+        # - see the note above pooled_true_event. This is the only overall
+        # summary reported (no separate per-match-averaged figure).
         combined_classification, combined_per_class, combined_regression = {}, {}, {}
         for method in METHODS:
             combined_classification[method] = compute_multiclass_metrics(
@@ -230,15 +188,10 @@ def main():
                 pooled_true_score, pooled_pred_score[method]
             )
 
-        print(f"--- Macro-Averaged Evaluation over {num_files} matches for {args.model_name} (Training Round {current_training_round}, Eval {current_eval_round}) ---")
-        print_classification_table(total_metrics["Classification"])
-        print_regression_table(total_metrics["Regression"])
-        print_per_class_table(total_metrics["PerClass"]["ML Model Only"], title="Event Detection Per-Event Breakdown (ML Model)")
-
-        print(f"\n--- Combined (pooled across all {num_files} matches) for {args.model_name} ---")
+        print(f"--- Combined Evaluation (pooled across {num_files} matches) for {args.model_name} (Training Round {current_training_round}, Eval {current_eval_round}) ---")
         print_classification_table(combined_classification)
         print_regression_table(combined_regression)
-        print_per_class_table(combined_per_class["ML Model Only"], title="Combined Per-Event Breakdown (ML Model)")
+        print_per_class_table(combined_per_class["ML Model Only"], title="Event Detection Per-Event Breakdown (ML Model)")
 
         for method in METHODS:
             for key in ["accuracy", "precision", "recall", "f1"]:
@@ -249,7 +202,7 @@ def main():
                 for key in ["precision", "recall", "f1"]:
                     combined_per_class[method][cls][key] = round(combined_per_class[method][cls][key], 2)
 
-        total_metrics["Combined"] = {
+        total_metrics = {
             "Classification": combined_classification,
             "Regression": combined_regression,
             "PerClass": combined_per_class,
