@@ -33,8 +33,10 @@ from sklearn.metrics import (
     precision_recall_fscore_support,
     mean_squared_error,
     mean_absolute_error,
+    r2_score,
     classification_report,
 )
+from scipy.stats import pearsonr
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -235,9 +237,18 @@ def make_compute_metrics(stage):
             highlight_labels = highlight_labels.reshape(-1)
             mse = mean_squared_error(highlight_labels, highlight_preds)
             mae = mean_absolute_error(highlight_labels, highlight_preds)
+            r2 = r2_score(highlight_labels, highlight_preds)
+            # pearsonr is undefined (nan) when either side is constant (zero
+            # variance) - e.g. an eval split with no highlight-worthy rows at all.
+            if len(set(highlight_labels.tolist())) < 2 or len(set(highlight_preds.tolist())) < 2:
+                pearson_r = float("nan")
+            else:
+                pearson_r, _ = pearsonr(highlight_labels, highlight_preds)
             return {
                 "mse": mse,
                 "mae": mae,
+                "r2": r2,
+                "pearson_r": pearson_r,
             }
 
     return compute_metrics
