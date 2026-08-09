@@ -107,9 +107,20 @@
                 "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
                 "dataset_match_5_Ire_vs_Scot_poolB_2023",
                 "dataset_match_6_SA_vs_IRE_WCA_2023"
+            ],
+            "11": [
+                "dataset_match_1_Geo_vs_POR_WCA_2023",
+                "dataset_match_2_NZ_vs_ITA_WCA_2023",
+                "dataset_match_3_Aus_vs_Fij_WCA_2023",
+                "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+                "dataset_match_5_Ire_vs_Scot_poolB_2023",
+                "dataset_match_6_SA_vs_IRE_WCA_2023",
+                "dataset_match_7_jpn_vs_sam_ZRWC_2023",
+                "dataset_match_8_Fra_vs_NZL_RWC_2023",
+                "dataset_match_9_Jpn_vs_Arg_RWC_2023"
             ]
         },
-        "training_round": 10
+        "training_round": 11
     },
     "microsoft/deberta-base": {
         "history": {

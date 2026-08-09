@@ -1,0 +1,185 @@
+Event,Keyword,Count_in_Event,Sum_All_Keywords_in_Event,Score
+try,try,81,102,0.794118
+try,tries,0,102,0
+try,scored,5,102,0.04902
+try,touched down,0,102,0
+try,touch down,0,102,0
+try,grounded,4,102,0.039216
+try,dotted down,0,102,0
+try,dot down,0,102,0
+try,five-pointer,0,102,0
+try,over the line,6,102,0.058824
+try,crossed the line,0,102,0
+try,dives over,0,102,0
+try,stretches over,0,102,0
+try,reaches the line,0,102,0
+try,in for a try,0,102,0
+try,converted try,0,102,0
+try,unconverted try,0,102,0
+try,penalty try,0,102,0
+try,hat-trick,2,102,0.019608
+try,disallowed try,0,102,0
+try,no try,2,102,0.019608
+try,held up over the line,2,102,0.019608
+goal_kick,conversion,4,8,0.5
+goal_kick,kicks at goal,0,8,0
+goal_kick,kicking tee,0,8,0
+goal_kick,off the tee,2,8,0.25
+goal_kick,lines it up,0,8,0
+goal_kick,between the posts,0,8,0
+goal_kick,over the bar,0,8,0
+goal_kick,splits the posts,0,8,0
+goal_kick,sails over,0,8,0
+goal_kick,drop goal,0,8,0
+goal_kick,drop kick,0,8,0
+goal_kick,successful kick,0,8,0
+goal_kick,missed kick,0,8,0
+goal_kick,wide of the posts,0,8,0
+goal_kick,hooks it,0,8,0
+goal_kick,slices it,0,8,0
+goal_kick,two points,0,8,0
+goal_kick,three points,2,8,0.25
+goal_kick,place kick,0,8,0
+goal_kick,kicker steps up,0,8,0
+card_event,yellow card,6,24,0.25
+card_event,red card,4,24,0.166667
+card_event,sin bin,0,24,0
+card_event,sin-binned,0,24,0
+card_event,binned,0,24,0
+card_event,carded,0,24,0
+card_event,cited,0,24,0
+card_event,citing,0,24,0
+card_event,dangerous tackle,0,24,0
+card_event,high tackle,10,24,0.416667
+card_event,foul play,2,24,0.083333
+card_event,illegal tackle,0,24,0
+card_event,spear tackle,0,24,0
+card_event,tip tackle,0,24,0
+card_event,professional foul,0,24,0
+card_event,cynical play,0,24,0
+card_event,sent off,0,24,0
+card_event,ordered off,0,24,0
+card_event,ten minutes,2,24,0.083333
+card_event,disciplinary,0,24,0
+card_event,referee shows [color] card,0,24,0
+scrum,scrum,98,147,0.666667
+scrum,scrummage,0,147,0
+scrum,pack,12,147,0.081633
+scrum,front row,12,147,0.081633
+scrum,hooker,6,147,0.040816
+scrum,prop,7,147,0.047619
+scrum,tighthead,0,147,0
+scrum,loosehead,0,147,0
+scrum,crouch bind set,0,147,0
+scrum,put-in,4,147,0.027211
+scrum,feed,4,147,0.027211
+scrum,collapse,0,147,0
+scrum,collapsed scrum,0,147,0
+scrum,reset scrum,0,147,0
+scrum,scrum penalty,4,147,0.027211
+scrum,hooking,0,147,0
+scrum,strike against the head,0,147,0
+scrum,scrum wheel,0,147,0
+scrum,wheeled,0,147,0
+scrum,pushover try,0,147,0
+scrum,dominant scrum,0,147,0
+scrum,held up scrum,0,147,0
+maul,maul,0,14,0
+maul,mauling,0,14,0
+maul,driving maul,0,14,0
+maul,rolling maul,0,14,0
+maul,drive,10,14,0.714286
+maul,pick and drive,0,14,0
+maul,maul collapses,0,14,0
+maul,maul held up,0,14,0
+maul,obstruction,4,14,0.285714
+maul,maul penalty,0,14,0
+maul,truck and trailer,0,14,0
+maul,latch on,0,14,0
+maul,joins the maul,0,14,0
+maul,maul stopped,0,14,0
+maul,maul defence,0,14,0
+lineout,lineout,0,42,0
+lineout,line-out,26,42,0.619048
+lineout,throw in,4,42,0.095238
+lineout,jumper,0,42,0
+lineout,jumps,0,42,0
+lineout,lifting pod,0,42,0
+lineout,hooker's throw,0,42,0
+lineout,crooked throw,0,42,0
+lineout,not straight,0,42,0
+lineout,tail of the lineout,0,42,0
+lineout,front of the lineout,0,42,0
+lineout,catch and drive,0,42,0
+lineout,lineout steal,0,42,0
+lineout,steal,9,42,0.214286
+lineout,won their own ball,0,42,0
+lineout,lost their own ball,0,42,0
+lineout,overthrow,3,42,0.071429
+lineout,lineout maul,0,42,0
+lineout,quick throw-in,0,42,0
+kick_off,kickoff,3,25,0.12
+kick_off,kick off,2,25,0.08
+kick_off,restart,12,25,0.48
+kick_off,kicks it deep,0,25,0
+kick_off,kicks long,0,25,0
+kick_off,receives the kickoff,0,25,0
+kick_off,chases the kick,0,25,0
+kick_off,chip kick,0,25,0
+kick_off,fields the kick,0,25,0
+kick_off,catches the kickoff,0,25,0
+kick_off,kicks it out on the full,0,25,0
+kick_off,22 drop-out,0,25,0
+kick_off,drop-out,8,25,0.32
+tmo_replay,tmo,11,16,0.6875
+tmo_replay,television match official,0,16,0
+tmo_replay,checking the replay,0,16,0
+tmo_replay,going upstairs,0,16,0
+tmo_replay,referral,0,16,0
+tmo_replay,on-field decision,0,16,0
+tmo_replay,reviewing,0,16,0
+tmo_replay,replay,3,16,0.1875
+tmo_replay,big screen,2,16,0.125
+tmo_replay,camera angle,0,16,0
+tmo_replay,confirms the try,0,16,0
+tmo_replay,overturned,0,16,0
+tmo_replay,decision stands,0,16,0
+tmo_replay,checking for foul play,0,16,0
+tmo_replay,checking grounding,0,16,0
+penalty,penalty,98,205,0.478049
+penalty,penalty kick,0,205,0
+penalty,awarded a penalty,0,205,0
+penalty,penalised,0,205,0
+penalty,offside,11,205,0.053659
+penalty,not releasing,2,205,0.009756
+penalty,holding on,4,205,0.019512
+penalty,ruck infringement,0,205,0
+penalty,breakdown penalty,0,205,0
+penalty,penalty advantage,22,205,0.107317
+penalty,advantage,36,205,0.17561
+penalty,kickable penalty,2,205,0.009756
+penalty,penalty to the corner,0,205,0
+penalty,tap penalty,0,205,0
+penalty,quick tap,4,205,0.019512
+penalty,free kick,6,205,0.029268
+penalty,knock-on,20,205,0.097561
+normal_play,phase play,2,174,0.011494
+normal_play,phases,9,174,0.051724
+normal_play,ruck,2,174,0.011494
+normal_play,breakdown,8,174,0.045977
+normal_play,recycled,0,174,0
+normal_play,quick ball,6,174,0.034483
+normal_play,slow ball,0,174,0
+normal_play,offload,10,174,0.057471
+normal_play,tackle,87,174,0.5
+normal_play,tackled,0,174,0
+normal_play,carries,4,174,0.022989
+normal_play,runs it,0,174,0
+normal_play,line break,0,174,0
+normal_play,kick and chase,0,174,0
+normal_play,box kick,2,174,0.011494
+normal_play,up and under,0,174,0
+normal_play,possession,31,174,0.178161
+normal_play,territory,13,174,0.074713
+normal_play,open play,0,174,0
+normal_play,general play,0,174,0
