@@ -96,7 +96,9 @@
   "sparse_pred_ignore_index": -100,
   "sparse_prediction": false,
   "tie_word_embeddings": true,
+  "tokenizer_max_length": 256,
   "transformers_version": "5.13.1",
   "use_cache": false,
-  "vocab_size": 50368
+  "vocab_size": 50368,
+  "window_size": 5
 }

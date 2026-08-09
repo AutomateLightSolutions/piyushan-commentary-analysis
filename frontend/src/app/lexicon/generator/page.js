@@ -12,7 +12,7 @@ export default function AutoLexiconGenerator() {
   const [message, setMessage] = useState({ type: "", text: "" });
   const [selectedRun, setSelectedRun] = useState('cumulative');
   const [datasets, setDatasets] = useState([]);
-  const [selectedDataset, setSelectedDataset] = useState("");
+  const [selectedDatasets, setSelectedDatasets] = useState([]);
 
   // Structure: { [eventId]: { weight: 0.1, topN: 30, selectedTerms: Set() } }
   const [configState, setConfigState] = useState({});
@@ -31,37 +31,60 @@ export default function AutoLexiconGenerator() {
           const data = await res.json();
           if (data.datasets) {
               setDatasets(data.datasets);
-              if (data.datasets.length > 0) setSelectedDataset(data.datasets[0]);
+              if (data.datasets.length > 0) setSelectedDatasets([data.datasets[0]]);
           }
       } catch (err) {
           console.error("Failed to fetch datasets", err);
       }
   };
 
+  const toggleDataset = (dataset) => {
+      setSelectedDatasets(prev =>
+          prev.includes(dataset) ? prev.filter(d => d !== dataset) : [...prev, dataset]
+      );
+  };
+
   const handleRunExtraction = async () => {
-      if (!selectedDataset) return;
+      if (selectedDatasets.length === 0) return;
       setExtracting(true);
       setMessage({ type: "", text: "" });
-      try {
-          const res = await fetch('/api/run-extraction', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ dataset: selectedDataset })
-          });
-          const result = await res.json();
-          
-          if (!res.ok) throw new Error(result.error || "Failed to extract");
-          
-          setMessage({ type: "success", text: `Successfully extracted keywords from ${result.source}` });
-          // Refresh the cumulative view to include the new run
-          setSelectedRun('cumulative');
-          await fetchAutoLexicon('cumulative');
-      } catch (err) {
-          console.error(err);
-          setMessage({ type: "error", text: `Extraction failed: ${err.message}` });
-      } finally {
-          setExtracting(false);
+
+      const succeeded = [];
+      const failed = [];
+
+      for (let i = 0; i < selectedDatasets.length; i++) {
+          const dataset = selectedDatasets[i];
+          setMessage({ type: "", text: `Extracting ${i + 1}/${selectedDatasets.length}: ${dataset}...` });
+          try {
+              const res = await fetch('/api/run-extraction', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ dataset })
+              });
+              const result = await res.json();
+
+              if (!res.ok) throw new Error(result.error || "Failed to extract");
+              succeeded.push(dataset);
+          } catch (err) {
+              console.error(err);
+              failed.push({ dataset, error: err.message });
+          }
       }
+
+      setExtracting(false);
+
+      if (failed.length === 0) {
+          setMessage({ type: "success", text: `Successfully extracted keywords from ${succeeded.length} dataset${succeeded.length !== 1 ? "s" : ""}.` });
+      } else {
+          setMessage({
+              type: "error",
+              text: `Extracted ${succeeded.length} of ${selectedDatasets.length}. Failed: ${failed.map(f => `${f.dataset} (${f.error})`).join(", ")}`
+          });
+      }
+
+      // Refresh the cumulative view to include the new runs
+      setSelectedRun('cumulative');
+      await fetchAutoLexicon('cumulative');
   };
 
   const fetchAutoLexicon = async (runId) => {
@@ -203,27 +226,62 @@ export default function AutoLexiconGenerator() {
           <p style={{ color: "var(--text-muted)", marginBottom: "1rem" }}>
               Select a processed match dataset to run the NLP keyword extraction algorithm on it. The keywords will automatically be added to your cumulative totals.
           </p>
-          <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-              <select 
-                  className="form-input" 
-                  style={{ width: "400px" }}
-                  value={selectedDataset}
-                  onChange={(e) => setSelectedDataset(e.target.value)}
-                  disabled={extracting}
-              >
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+              <div style={{ display: "flex", gap: "0.5rem" }}>
+                  <button
+                      className="btn btn-secondary"
+                      onClick={() => setSelectedDatasets(datasets)}
+                      disabled={extracting || datasets.length === 0}
+                  >
+                      Select All
+                  </button>
+                  <button
+                      className="btn btn-secondary"
+                      onClick={() => setSelectedDatasets([])}
+                      disabled={extracting || selectedDatasets.length === 0}
+                  >
+                      Clear
+                  </button>
+              </div>
+
+              <div style={{
+                  maxHeight: "220px",
+                  overflowY: "auto",
+                  border: "1px solid var(--glass-border)",
+                  borderRadius: "8px",
+                  padding: "0.75rem",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.5rem",
+                  width: "400px"
+              }}>
                   {datasets.length === 0 ? (
-                      <option value="">No datasets found in data/processed/datasets/lexicon/</option>
+                      <span style={{ fontStyle: "italic", color: "var(--text-muted)" }}>No datasets found in data/processed/datasets/lexicon/</span>
                   ) : (
-                      datasets.map(ds => <option key={ds} value={ds}>{ds}</option>)
+                      datasets.map(ds => (
+                          <label key={ds} style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: "pointer" }}>
+                              <input
+                                  type="checkbox"
+                                  checked={selectedDatasets.includes(ds)}
+                                  onChange={() => toggleDataset(ds)}
+                                  disabled={extracting}
+                                  style={{ cursor: "pointer" }}
+                              />
+                              <span>{ds}</span>
+                          </label>
+                      ))
                   )}
-              </select>
-              <button 
-                  className="btn btn-primary" 
+              </div>
+
+              <button
+                  className="btn btn-primary"
                   onClick={handleRunExtraction}
-                  disabled={extracting || datasets.length === 0}
-                  style={{ background: "var(--accent-color)" }}
+                  disabled={extracting || selectedDatasets.length === 0}
+                  style={{ background: "var(--accent-color)", alignSelf: "flex-start" }}
               >
-                  {extracting ? "Extracting Keywords..." : "Extract Keywords"}
+                  {extracting
+                      ? "Extracting Keywords..."
+                      : `Extract Keywords${selectedDatasets.length > 1 ? ` (${selectedDatasets.length})` : ""}`}
               </button>
           </div>
       </div>

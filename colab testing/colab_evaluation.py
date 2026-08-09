@@ -15,7 +15,7 @@
 #                   event classes) — the pooled precision/recall/f1
 #                   above blends all classes together and hides how
 #                   any single event class performs.
-#   Regression:     MSE, MAE, R^2, Pearson correlation
+#   Regression:     MSE, MAE
 #
 # This script is self-contained (no import of the local repo's `src/`
 # package) so it runs standalone in Colab. It mirrors the model
@@ -54,10 +54,8 @@ from sklearn.metrics import (
     precision_recall_fscore_support,
     mean_squared_error,
     mean_absolute_error,
-    r2_score,
     classification_report,
 )
-from scipy.stats import pearsonr
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {DEVICE}")
@@ -162,7 +160,7 @@ print(f"Lexicon config: {LEXICON_JSON_PATH}")
 
 
 # ============================================================
-# CELL 5: DualHeadRoBERTa model definition
+# CELL 5: DualHead model definition
 #
 # Plain nn.Linear heads — matches colab_backend.py / colab
 # testing/colab_training.py (the scripts that actually produced every
@@ -440,8 +438,7 @@ def load_dataset_csv(csv_path: str, label2id: dict):
 #
 # Mirrors make_compute_metrics() in colab_backend.py / colab
 # testing/colab_training.py — sklearn weighted + macro averages over
-# all classes (including normal_play), plus MSE/MAE/R^2/Pearson r for
-# regression.
+# all classes (including normal_play), plus MSE/MAE for regression.
 # ============================================================
 def compute_classification_metrics(y_true, y_pred):
     accuracy = accuracy_score(y_true, y_pred)
@@ -463,17 +460,9 @@ def compute_classification_metrics(y_true, y_pred):
 
 
 def compute_regression_metrics(y_true, y_pred):
-    # pearsonr is undefined (nan) when either side is constant (zero variance) -
-    # e.g. a match with no highlight-worthy moments at all, so true_score is all 0s.
-    if len(set(y_true)) < 2 or len(set(y_pred)) < 2:
-        pearson_r = float("nan")
-    else:
-        pearson_r, _ = pearsonr(y_true, y_pred)
     return {
         "mse": mean_squared_error(y_true, y_pred),
         "mae": mean_absolute_error(y_true, y_pred),
-        "r2": r2_score(y_true, y_pred),
-        "pearson_r": pearson_r,
     }
 
 
@@ -523,7 +512,7 @@ def print_per_class_table(title, per_class_by_approach, event_names):
 # predictions across every match for a combined/aggregate result.
 # ============================================================
 CLASSIFICATION_KEYS = ["accuracy", "precision", "recall", "f1"]  # TODO: re-add precision_macro, recall_macro, f1_macro
-REGRESSION_KEYS = ["mse", "mae", "r2", "pearson_r"]
+REGRESSION_KEYS = ["mse", "mae"]
 APPROACH_NAMES = ["ML Model Only", "Lexicon Only", "Hybrid Model"]
 
 EVENT_NAMES = [loaded_model.id2label[i] for i in sorted(loaded_model.id2label.keys())]
