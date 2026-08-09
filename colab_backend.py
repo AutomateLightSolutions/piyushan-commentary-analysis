@@ -464,7 +464,7 @@ def run_train(task_id, zip_path, model_name):
         # across all classes equally), not just the epoch with the lowest loss.
         trainer_stage1 = CustomTrainer(
             model=model,
-            args=get_training_args("stage1", epochs=15, metric_for_best_model="f1_macro", greater_is_better=True),
+            args=get_training_args("stage1", epochs=25, metric_for_best_model="f1_macro", greater_is_better=True),
             train_dataset=split_datasets['train'],
             eval_dataset=split_datasets['test'],
             class_weights=class_weights,

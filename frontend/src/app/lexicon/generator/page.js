@@ -172,6 +172,19 @@ export default function AutoLexiconGenerator() {
 
         const finalTerms = event.scores.filter(s => eventConfig.selectedTerms.has(s.text));
 
+        // Preserve manually-added terms (weight >= 1.0, per the same convention
+        // used when deleting a run) that aren't already covered by the
+        // auto-extracted selection, so re-exporting doesn't wipe them out.
+        const existingCat = currentLexicon.categories.find(c => c.id === event.id);
+        if (existingCat) {
+          const selectedTexts = new Set(finalTerms.map(t => t.text));
+          existingCat.terms.forEach(term => {
+            if (term.weight >= 1.0 && !selectedTexts.has(term.text)) {
+              finalTerms.push(term);
+            }
+          });
+        }
+
         newCategories.push({
           id: event.id,
           name: event.name,

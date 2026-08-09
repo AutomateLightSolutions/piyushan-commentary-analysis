@@ -48,7 +48,11 @@ export async function POST(request) {
     });
 
     if (stdout.includes("SUCCESS")) {
-        return NextResponse.json({ message: "Labels successfully imported and mapped for both ML and Lexicon." });
+        const warningMatch = stdout.match(/WARNING: (.+)/);
+        const message = warningMatch
+            ? `Labels successfully imported and mapped for both ML and Lexicon. ${warningMatch[1]}`
+            : "Labels successfully imported and mapped for both ML and Lexicon.";
+        return NextResponse.json({ message });
     } else {
         console.error("Python script failed:", stderr || stdout);
         return NextResponse.json({ message: "Failed to map labels.", error: stderr || stdout }, { status: 500 });
