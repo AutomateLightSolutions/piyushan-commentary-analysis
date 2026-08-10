@@ -10,7 +10,7 @@ class HybridModel:
         self.lexicon = LexiconModel()
         
     def predict(self, text_list: list[str], roberta_text_list: list[str] = None,
-                highlight_lexicon_weight=0.3, event_lexicon_weight=0.3, roberta_weight=1.0):
+                highlight_lexicon_weight=0.75, event_lexicon_weight=0.35, roberta_weight=1.0):
         """
         Generates combined score using booster formula: min(1.0, (RoBERTa * roberta_weight) + (Lexicon * highlight_lexicon_weight))
 
