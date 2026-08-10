@@ -1,39 +1,8 @@
 # ============================================================
-# Colab weight-optimization script — run each CELL below in its own
-# Colab cell, in order, top to bottom.
-#
-# Purpose: sweep the two lexicon-boost weights used by the hybrid
-# score/event equations in commentary_analysis_system/src/models/hybrid_model.py:
-#
-#   hybrid_score  = min(1, roberta_highlight_score * ROBERTA_WEIGHT
-#                          + lexicon_score          * HIGHLIGHT_LEXICON_WEIGHT)
-#
-#   hybrid_event  = argmax_i [ roberta_event_prob[i] * ROBERTA_WEIGHT
-#                               + normalized_lexicon_event_score[i] * EVENT_LEXICON_WEIGHT ]
-#
-# ...against one or more dataset_match_*.csv files, and report which
-# weight value maximizes F1 (highlight boost) / accuracy (event boost),
-# so you have a reproducible, data-backed justification for the values
-# set in commentary_analysis_system/data/config/settings.json.
-#
-# This mirrors the local pipeline's scripts/06_optimize_weights.py and
-# scripts/07_optimize_event_weights.py, but runs the transformer itself
-# (they only re-score already-cached local predictions), and pulls the
-# trained checkpoint straight from Google Drive the same way
-# colab_evaluation.py does — see CELL 3 below, ported unchanged from
-# there.
-#
-# Outputs (see CELL 12): a JSON with the full sweep curves + best
-# weights, two CSVs (one per sweep) for easy spreadsheet/plotting use,
-# and two PNG plots — all zipped and downloaded to your browser so you
-# have durable evidence for how the weights were chosen.
-# ============================================================
-
-
-# ============================================================
 # CELL 1: Install dependencies
 # ============================================================
-# !pip install -q transformers torch pandas scikit-learn matplotlib
+!pip install -q transformers torch pandas scikit-learn matplotlib
+
 
 
 # ============================================================
@@ -61,6 +30,8 @@ from sklearn.metrics import (
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {DEVICE}")
+
+
 
 
 # ============================================================
@@ -121,6 +92,8 @@ assert os.path.exists(os.path.join(MODEL_DIR, "config.json")), (
 print(f"Model checkpoint ready at: {MODEL_DIR}")
 
 
+
+
 # ============================================================
 # CELL 4: Upload dataset CSV(s) and lexicon.json
 #
@@ -151,6 +124,8 @@ assert LEXICON_JSON_PATH, (
 )
 print(f"Datasets ({len(DATASET_CSV_PATHS)}): {DATASET_CSV_PATHS}")
 print(f"Lexicon config: {LEXICON_JSON_PATH}")
+
+
 
 
 # ============================================================
@@ -190,6 +165,8 @@ class DualHeadRoBERTa(nn.Module):
         highlight_score = torch.sigmoid(self.highlight_scorer(pooled_output))
 
         return DualHeadRoBERTaOutput(logits=event_logits, highlight_scores=highlight_score)
+
+
 
 
 # ============================================================
@@ -248,6 +225,8 @@ print(f"Loaded model: num_labels={loaded_model.num_labels}, "
 print(f"id2label: {loaded_model.id2label}")
 
 
+
+
 # ============================================================
 # CELL 7: Sliding-window context builder
 #
@@ -262,6 +241,8 @@ def build_context_windows(texts: list[str], window_size: int) -> list[str]:
         " ".join(texts[max(0, i - half): min(n, i + half + 1)])
         for i in range(n)
     ]
+
+
 
 
 # ============================================================
@@ -330,6 +311,8 @@ lexicon_model = LexiconModel(LEXICON_JSON_PATH)
 print(f"Loaded lexicon with {len(lexicon_model.config.get('categories', []))} categories.")
 
 
+
+
 # ============================================================
 # CELL 9: Ground-truth extraction from a dataset CSV
 #
@@ -350,6 +333,8 @@ def load_dataset_csv(csv_path: str, label2id: dict):
     df["true_score"] = pd.to_numeric(df[score_col], errors="coerce").fillna(0.0)
 
     return df
+
+
 
 
 # ============================================================
@@ -395,74 +380,54 @@ for csv_path in DATASET_CSV_PATHS:
 print(f"\nTotal cached rows across {len(DATASET_CSV_PATHS)} matches: {len(records)}")
 
 
+
 # ============================================================
-# CELL 11: Weight sweeps
+# CELL 11: Weight sweep — event classification (+ highlight score)
 #
 # Formulas ported verbatim from
 # commentary_analysis_system/src/models/hybrid_model.py's
-# HybridModel.predict(). Current production defaults (data/config/
-# settings.json) are marked in the results as the baseline to compare
+# HybridModel.predict(). Current production default (data/config/
+# settings.json) is marked in the results as the baseline to compare
 # the sweep's recommendation against.
 # ============================================================
 ROBERTA_WEIGHT = 1.0
-HYBRID_THRESHOLD = 0.34          # data/config/settings.json -> hybrid_threshold
-CURRENT_HIGHLIGHT_LEXICON_WEIGHT = 0.75  # data/config/settings.json -> highlight_lexicon_weight
 CURRENT_EVENT_LEXICON_WEIGHT = 0.35      # data/config/settings.json -> event_lexicon_weight
 
-WEIGHT_STEPS = [w / 100.0 for w in range(0, 105, 5)]  # 0.00 .. 1.00 step 0.05
+# Fine resolution 0.00 -> 1.00 in steps of 0.05, then coarse resolution
+# 1 -> 50 in steps of 2 (covers the case where the optimal weight lies
+# well above 1.0). Deduplicated and sorted into one sweep.
+WEIGHT_STEPS = sorted(set(
+    [round(w / 100.0, 2) for w in range(0, 105, 5)] +      # 0.00, 0.05, ..., 1.00
+    [float(w) for w in range(1, 51, 2)]                    # 1, 3, 5, ..., 49
+))
 
-# --- Ground truth used by the highlight-boost sweep: any non-normal_play
-# event counts as a highlight, matching scripts/06_optimize_weights.py's
-# label derivation (event != normal_play -> 1).
 NORMAL_PLAY_ID = loaded_model.label2id.get("normal_play", 0)
-y_true_highlight = [1 if r["true_event_id"] != NORMAL_PLAY_ID else 0 for r in records]
 
-
-def sweep_highlight_lexicon_weight():
-    """Mirrors scripts/06_optimize_weights.py: sweeps the weight that
-    boosts RoBERTa's highlight score with the lexicon's overall score,
-    scored by binary precision/recall/F1 against a fixed threshold."""
-    results = []
-    for weight in WEIGHT_STEPS:
-        y_pred = []
-        for r in records:
-            hybrid_score = min(1.0, (r["roberta_highlight_score"] * ROBERTA_WEIGHT)
-                                + (r["lexicon_score"] * weight))
-            y_pred.append(1 if hybrid_score >= HYBRID_THRESHOLD else 0)
-
-        precision, recall, f1, _ = precision_recall_fscore_support(
-            y_true_highlight, y_pred, average="binary", zero_division=0
-        )
-        accuracy = accuracy_score(y_true_highlight, y_pred)
-        results.append({
-            "lexicon_weight": weight,
-            "accuracy": accuracy,
-            "precision": precision,
-            "recall": recall,
-            "f1": f1,
-        })
-
-    best = max(results, key=lambda x: x["f1"])
-    for r in results:
-        r["is_best"] = (r["lexicon_weight"] == best["lexicon_weight"])
-        r["is_current_default"] = abs(r["lexicon_weight"] - CURRENT_HIGHLIGHT_LEXICON_WEIGHT) < 1e-9
-    return results, best
+CATEGORY_WEIGHTS = {c["id"]: c["weight"] for c in lexicon_model.config["categories"]}
 
 
 def sweep_event_lexicon_weight():
     """Mirrors scripts/07_optimize_event_weights.py: sweeps the weight
     that boosts each event's RoBERTa probability with that event's
-    normalized lexicon score, scored by multiclass accuracy."""
+    normalized, category-weighted lexicon score, scored by multiclass
+    accuracy.
+
+    For each weight, also computes a continuous highlight score per
+    record (1 - hybrid P(normal_play)) instead of a binary highlight
+    flag, since no binary highlight/not-highlight decision is needed
+    here."""
     id2label = loaded_model.id2label
     results = []
+
     for weight in WEIGHT_STEPS:
         y_pred = []
+
         for r in records:
             max_hybrid_prob, predicted_event_id = -1.0, 0
             for i, p in enumerate(r["roberta_probs"]):
                 event_name = id2label.get(i, "normal_play")
                 l_for_event = r["lexicon_features"].get(event_name, 0.0)
-                l_normalized = min(1.0, float(l_for_event) * 100.0)
+                l_normalized = min(1.0, float(l_for_event) * 100.0) * CATEGORY_WEIGHTS.get(event_name, 1.0)
                 event_hybrid_prob = (p * ROBERTA_WEIGHT) + (l_normalized * weight)
                 if event_hybrid_prob > max_hybrid_prob:
                     max_hybrid_prob, predicted_event_id = event_hybrid_prob, i
@@ -483,50 +448,57 @@ def sweep_event_lexicon_weight():
     for r in results:
         r["is_best"] = (r["lexicon_weight"] == best["lexicon_weight"])
         r["is_current_default"] = abs(r["lexicon_weight"] - CURRENT_EVENT_LEXICON_WEIGHT) < 1e-9
-    return results, best
+
+    # Re-run once at the best weight to capture per-record event +
+    # continuous highlight score (1 - hybrid P(normal_play)).
+    per_record = []
+    for r in records:
+        max_hybrid_prob, predicted_event_id = -1.0, 0
+        normal_play_hybrid_prob = 0.0
+        for i, p in enumerate(r["roberta_probs"]):
+            event_name = id2label.get(i, "normal_play")
+            l_for_event = r["lexicon_features"].get(event_name, 0.0)
+            l_normalized = min(1.0, float(l_for_event) * 100.0) * CATEGORY_WEIGHTS.get(event_name, 1.0)
+            event_hybrid_prob = (p * ROBERTA_WEIGHT) + (l_normalized * best["lexicon_weight"])
+            if i == NORMAL_PLAY_ID:
+                normal_play_hybrid_prob = event_hybrid_prob
+            if event_hybrid_prob > max_hybrid_prob:
+                max_hybrid_prob, predicted_event_id = event_hybrid_prob, i
+        per_record.append({
+            "match": r["match"],
+            "text": r["text"],
+            "predicted_event_id": predicted_event_id,
+            "predicted_event": id2label.get(predicted_event_id, "normal_play"),
+            "true_event_id": r["true_event_id"],
+            "highlight_score": max(0.0, 1.0 - normal_play_hybrid_prob),
+        })
+
+    return results, best, per_record
 
 
-print("Sweeping highlight_lexicon_weight (hybrid highlight score)...")
-highlight_results, highlight_best = sweep_highlight_lexicon_weight()
-print(f"  Best: weight={highlight_best['lexicon_weight']:.2f}  "
-      f"F1={highlight_best['f1']:.4f}  precision={highlight_best['precision']:.4f}  "
-      f"recall={highlight_best['recall']:.4f}")
-
-print("\nSweeping event_lexicon_weight (hybrid event classification)...")
-event_results, event_best = sweep_event_lexicon_weight()
+print(f"Sweeping event_lexicon_weight over {len(WEIGHT_STEPS)} values "
+      f"({WEIGHT_STEPS[0]:.2f} .. {WEIGHT_STEPS[-1]:.2f})...")
+event_results, event_best, event_predictions_at_best = sweep_event_lexicon_weight()
 print(f"  Best: weight={event_best['lexicon_weight']:.2f}  "
       f"accuracy={event_best['accuracy']:.4f}  f1_macro={event_best['f1_macro']:.4f}")
-
+print(f"  (current production default weight = {CURRENT_EVENT_LEXICON_WEIGHT})")
 
 # ============================================================
-# CELL 12: Plots — visual proof of the sweep curves
+# CELL 12: Plot — visual proof of the sweep curve
+#
+# Weight axis spans two very different scales (0-1 fine steps, 1-50
+# coarse steps), so it's plotted on a symlog x-axis to keep the 0-1
+# region readable instead of being crushed against the left edge.
 # ============================================================
-def plot_highlight_sweep(results, best, current, path):
-    weights = [r["lexicon_weight"] for r in results]
-    fig, ax = plt.subplots(figsize=(8, 5))
-    ax.plot(weights, [r["precision"] for r in results], label="Precision", marker="o", markersize=3)
-    ax.plot(weights, [r["recall"] for r in results], label="Recall", marker="o", markersize=3)
-    ax.plot(weights, [r["f1"] for r in results], label="F1", marker="o", markersize=3, linewidth=2)
-    ax.axvline(best["lexicon_weight"], color="green", linestyle="--", label=f"Best F1 @ {best['lexicon_weight']:.2f}")
-    ax.axvline(current, color="gray", linestyle=":", label=f"Current default @ {current:.2f}")
-    ax.set_xlabel("highlight_lexicon_weight")
-    ax.set_ylabel("score")
-    ax.set_title("Highlight-boost weight sweep (hybrid_score threshold)")
-    ax.legend()
-    ax.grid(alpha=0.3)
-    fig.tight_layout()
-    fig.savefig(path, dpi=150)
-    plt.close(fig)
-
-
 def plot_event_sweep(results, best, current, path):
     weights = [r["lexicon_weight"] for r in results]
-    fig, ax = plt.subplots(figsize=(8, 5))
+    fig, ax = plt.subplots(figsize=(9, 5))
     ax.plot(weights, [r["accuracy"] for r in results], label="Accuracy", marker="o", markersize=3, linewidth=2)
     ax.plot(weights, [r["f1_macro"] for r in results], label="F1 (macro)", marker="o", markersize=3)
     ax.axvline(best["lexicon_weight"], color="green", linestyle="--", label=f"Best accuracy @ {best['lexicon_weight']:.2f}")
     ax.axvline(current, color="gray", linestyle=":", label=f"Current default @ {current:.2f}")
-    ax.set_xlabel("event_lexicon_weight")
+    ax.set_xscale("symlog", linthresh=1.0)
+    ax.set_xlabel("event_lexicon_weight (symlog scale)")
     ax.set_ylabel("score")
     ax.set_title("Event-boost weight sweep (per-event hybrid classification)")
     ax.legend()
@@ -539,21 +511,18 @@ def plot_event_sweep(results, best, current, path):
 OUT_DIR = "/content/optimization_results"
 os.makedirs(OUT_DIR, exist_ok=True)
 
-plot_highlight_sweep(highlight_results, highlight_best, CURRENT_HIGHLIGHT_LEXICON_WEIGHT,
-                      os.path.join(OUT_DIR, "highlight_lexicon_weight_sweep.png"))
 plot_event_sweep(event_results, event_best, CURRENT_EVENT_LEXICON_WEIGHT,
                   os.path.join(OUT_DIR, "event_lexicon_weight_sweep.png"))
-print(f"Saved plots to {OUT_DIR}")
-
+print(f"Saved plot to {OUT_DIR}")
 
 # ============================================================
 # CELL 13: Export sweep data (JSON + CSV) and download
 #
-# Produces the artifacts that justify the chosen weights:
-#   - optimization_sweep.json : full curves + best/current-default markers
-#   - highlight_lexicon_weight_sweep.csv
+# Produces the artifacts that justify the chosen weight:
+#   - optimization_sweep.json      : full curve + best/current-default markers
 #   - event_lexicon_weight_sweep.csv
-#   - the two PNG plots from CELL 12
+#   - event_predictions_at_best.csv : per-record event + highlight_score at best weight
+#   - event_lexicon_weight_sweep.png
 # All zipped together and downloaded to your browser.
 # ============================================================
 from datetime import datetime, timezone
@@ -565,13 +534,8 @@ summary = {
     "timestamp": datetime.now(timezone.utc).isoformat(),
     "fixed_params": {
         "roberta_weight": ROBERTA_WEIGHT,
-        "hybrid_threshold": HYBRID_THRESHOLD,
     },
-    "highlight_lexicon_weight_sweep": {
-        "results": highlight_results,
-        "best": highlight_best,
-        "current_default": CURRENT_HIGHLIGHT_LEXICON_WEIGHT,
-    },
+    "weight_steps": WEIGHT_STEPS,
     "event_lexicon_weight_sweep": {
         "results": event_results,
         "best": event_best,
@@ -583,11 +547,11 @@ json_path = os.path.join(OUT_DIR, "optimization_sweep.json")
 with open(json_path, "w") as f:
     json.dump(summary, f, indent=2)
 
-pd.DataFrame(highlight_results).to_csv(
-    os.path.join(OUT_DIR, "highlight_lexicon_weight_sweep.csv"), index=False
-)
 pd.DataFrame(event_results).to_csv(
     os.path.join(OUT_DIR, "event_lexicon_weight_sweep.csv"), index=False
+)
+pd.DataFrame(event_predictions_at_best).to_csv(
+    os.path.join(OUT_DIR, "event_predictions_at_best.csv"), index=False
 )
 
 ZIP_PATH = "/content/optimization_results.zip"
