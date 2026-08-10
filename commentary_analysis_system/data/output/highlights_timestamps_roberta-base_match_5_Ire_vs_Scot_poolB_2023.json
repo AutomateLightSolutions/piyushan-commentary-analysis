@@ -45,7 +45,7 @@
     "primary_event": "penalty"
   },
   {
-    "start": 744,
+    "start": 746,
     "end": 764,
     "primary_event": "lineout"
   },
@@ -71,7 +71,7 @@
   },
   {
     "start": 1082,
-    "end": 1098,
+    "end": 1100,
     "primary_event": "try"
   },
   {
@@ -426,7 +426,7 @@
   },
   {
     "start": 5610,
-    "end": 5630,
+    "end": 5632,
     "primary_event": "scrum"
   },
   {

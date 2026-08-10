@@ -470,6 +470,11 @@
     "primary_event": "lineout"
   },
   {
+    "start": 5148,
+    "end": 5158,
+    "primary_event": "scrum"
+  },
+  {
     "start": 5268,
     "end": 5280,
     "primary_event": "goal_kick"

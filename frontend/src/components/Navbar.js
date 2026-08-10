@@ -56,24 +56,6 @@ export default function Navbar() {
         >
           Datasets
         </Link>
-        <Link 
-          href="/manage-thresholds" 
-          className={`nav-link ${pathname === "/manage-thresholds" ? "active" : ""}`}
-        >
-          Thresholds
-        </Link>
-        <Link 
-          href="/optimize-weights" 
-          className={`nav-link ${pathname === "/optimize-weights" ? "active" : ""}`}
-        >
-          Weights
-        </Link>
-        <Link
-          href="/compare-models"
-          className={`nav-link ${pathname === "/compare-models" ? "active" : ""}`}
-        >
-          Compare Models
-        </Link>
         <Link
           href="/predict"
           className={`nav-link ${pathname === "/predict" ? "active" : ""}`}

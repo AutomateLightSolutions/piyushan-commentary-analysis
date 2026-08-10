@@ -15,7 +15,7 @@
     "primary_event": "penalty"
   },
   {
-    "start": 162,
+    "start": 164,
     "end": 180,
     "primary_event": "lineout"
   },
@@ -31,13 +31,8 @@
   },
   {
     "start": 410,
-    "end": 422,
-    "primary_event": "try"
-  },
-  {
-    "start": 416,
     "end": 426,
-    "primary_event": "kick_off"
+    "primary_event": "try"
   },
   {
     "start": 432,
@@ -106,7 +101,7 @@
   },
   {
     "start": 972,
-    "end": 1012,
+    "end": 1014,
     "primary_event": "maul"
   },
   {
@@ -125,7 +120,7 @@
     "primary_event": "kick_off"
   },
   {
-    "start": 1122,
+    "start": 1124,
     "end": 1138,
     "primary_event": "try"
   },
@@ -187,7 +182,7 @@
   {
     "start": 1612,
     "end": 1636,
-    "primary_event": "try"
+    "primary_event": "maul"
   },
   {
     "start": 1694,
@@ -351,11 +346,6 @@
   },
   {
     "start": 3296,
-    "end": 3310,
-    "primary_event": "lineout"
-  },
-  {
-    "start": 3304,
     "end": 3318,
     "primary_event": "penalty"
   },
@@ -427,6 +417,11 @@
   {
     "start": 3836,
     "end": 3858,
+    "primary_event": "try"
+  },
+  {
+    "start": 3854,
+    "end": 3864,
     "primary_event": "try"
   },
   {
@@ -505,7 +500,7 @@
     "primary_event": "lineout"
   },
   {
-    "start": 4600,
+    "start": 4602,
     "end": 4616,
     "primary_event": "try"
   },
@@ -548,11 +543,6 @@
     "start": 4908,
     "end": 4918,
     "primary_event": "goal_kick"
-  },
-  {
-    "start": 4940,
-    "end": 4952,
-    "primary_event": "try"
   },
   {
     "start": 4988,

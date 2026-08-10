@@ -67,7 +67,7 @@
   {
     "start": 840,
     "end": 868,
-    "primary_event": "lineout"
+    "primary_event": "maul"
   },
   {
     "start": 938,
@@ -222,7 +222,7 @@
   {
     "start": 2314,
     "end": 2354,
-    "primary_event": "try"
+    "primary_event": "goal_kick"
   },
   {
     "start": 2354,
@@ -285,7 +285,7 @@
     "primary_event": "goal_kick"
   },
   {
-    "start": 2940,
+    "start": 2942,
     "end": 2958,
     "primary_event": "scrum"
   },
@@ -445,6 +445,11 @@
     "primary_event": "lineout"
   },
   {
+    "start": 4576,
+    "end": 4586,
+    "primary_event": "lineout"
+  },
+  {
     "start": 4622,
     "end": 4638,
     "primary_event": "penalty"
@@ -505,6 +510,11 @@
     "primary_event": "lineout"
   },
   {
+    "start": 5222,
+    "end": 5232,
+    "primary_event": "goal_kick"
+  },
+  {
     "start": 5266,
     "end": 5276,
     "primary_event": "scrum"
@@ -512,7 +522,7 @@
   {
     "start": 5416,
     "end": 5434,
-    "primary_event": "goal_kick"
+    "primary_event": "lineout"
   },
   {
     "start": 5428,
@@ -528,6 +538,11 @@
     "start": 5520,
     "end": 5530,
     "primary_event": "scrum"
+  },
+  {
+    "start": 5556,
+    "end": 5566,
+    "primary_event": "goal_kick"
   },
   {
     "start": 5560,

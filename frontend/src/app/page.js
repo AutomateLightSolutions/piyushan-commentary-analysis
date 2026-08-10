@@ -386,7 +386,7 @@ function DatasetModal({ isOpen, onClose, existingMatches, selectedDataset, setSe
   );
 }
 
-function StepItem({ step, activeColor, handleMlProcessSkipTrain, isProcessing, isMlProcessing }) {
+function StepItem({ step, activeColor }) {
   const logRef = useRef(null);
   const hasLiveLines = step.lines && step.lines.length > 0;
   const showBox = hasLiveLines || step.log || step.status === "active";
@@ -412,16 +412,6 @@ function StepItem({ step, activeColor, handleMlProcessSkipTrain, isProcessing, i
       <div className="flex-between" style={{ fontWeight: "600", fontSize: "1.1rem", alignItems: "center" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
           <span>{step.name}</span>
-          {step.id === "predict" && (
-            <button 
-              className="btn btn-secondary" 
-              onClick={handleMlProcessSkipTrain} 
-              disabled={isProcessing || isMlProcessing}
-              style={{ padding: "0.25rem 0.75rem", fontSize: "0.85rem" }}
-            >
-              {isMlProcessing ? "Executing..." : "Run Steps 7-12"}
-            </button>
-          )}
         </div>
         <span style={{ fontSize: "1rem" }}>
           {step.status === "done"   && "✅"}
@@ -484,12 +474,10 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState(1);
   const [showDatasetModal, setShowDatasetModal] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
-  const [perClassMethod, setPerClassMethod] = useState("ML Model Only");
 
   const {
     steps,
     mlSteps,
-    metricsData,
     selectedModel,
     setSelectedModel,
     selectedDataset,
@@ -499,7 +487,6 @@ export default function Home() {
     handleProcess,
     handleResume,
     handleMlProcess,
-    handleMlProcessSkipTrain,
     handleStop
   } = useContext(PipelineContext);
 
@@ -645,7 +632,7 @@ export default function Home() {
           <section className="glass-card">
             <h2 className="card-title">⚙️ 2. Data Pipeline Progress</h2>
             <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-              {steps.map(s => <StepItem key={s.id} step={s} activeColor="var(--primary-color)" handleMlProcessSkipTrain={handleMlProcessSkipTrain} isProcessing={isProcessing} isMlProcessing={isMlProcessing} />)}
+              {steps.map(s => <StepItem key={s.id} step={s} activeColor="var(--primary-color)" />)}
             </div>
           </section>
         )}
@@ -684,124 +671,14 @@ export default function Home() {
                     <option value="bert-base-uncased">BERT</option>
                   </select>
                   <button className="btn btn-primary" onClick={handleMlProcess} disabled={isProcessing || isMlProcessing} style={{ whiteSpace: "nowrap" }}>
-                    {isMlProcessing ? "Executing..." : "Run ML Sequence"}
+                    {isMlProcessing ? "Executing..." : "Train Classifier"}
                   </button>
                 </div>
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-                {mlSteps.map(s => <StepItem key={s.id} step={s} activeColor="var(--secondary-color)" handleMlProcessSkipTrain={handleMlProcessSkipTrain} isProcessing={isProcessing} isMlProcessing={isMlProcessing} />)}
+                {mlSteps.map(s => <StepItem key={s.id} step={s} activeColor="var(--secondary-color)" />)}
               </div>
             </section>
-
-            {metricsData && metricsData.Classification && (
-              <section className="glass-card">
-                <h2 className="card-title">📊 Final Evaluation Metrics</h2>
-                
-                <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
-                  <div style={{ flex: "1 1 45%" }}>
-                    <h3 style={{ margin: "0 0 1rem 0", fontSize: "1.1rem", color: "#e2e8f0", borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: "0.5rem" }}>
-                      🎯 Event Detection (Classification)
-                    </h3>
-                    <div className="table-container">
-                      <table className="table-modern">
-                        <thead>
-                          <tr>
-                            <th>Model Approach</th>
-                            <th className="text-primary">Precision</th>
-                            <th className="text-secondary">Recall</th>
-                            <th style={{ color: "var(--success-color)" }}>F1 Score</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {Object.entries(metricsData.Classification).map(([model, metrics]) => (
-                            <tr key={model}>
-                              <td style={{ fontWeight: "600" }}>{model}</td>
-                              <td>{metrics.precision?.toFixed(2) || "0.00"}</td>
-                              <td>{metrics.recall?.toFixed(2) || "0.00"}</td>
-                              <td style={{ fontWeight: "bold", textShadow: "0 0 10px rgba(16,185,129,0.3)" }}>
-                                {metrics.f1?.toFixed(2) || "0.00"}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-
-                  <div style={{ flex: "1 1 45%" }}>
-                    <h3 style={{ margin: "0 0 1rem 0", fontSize: "1.1rem", color: "#e2e8f0", borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: "0.5rem" }}>
-                      📈 Highlight Scoring (Regression)
-                    </h3>
-                    <div className="table-container">
-                      <table className="table-modern">
-                        <thead>
-                          <tr>
-                            <th>Model Approach</th>
-                            <th style={{ color: "#fca5a5" }}>MSE (Mean Squared Error)</th>
-                            <th style={{ color: "#fca5a5" }}>MAE (Mean Absolute Error)</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {Object.entries(metricsData.Regression).map(([model, metrics]) => (
-                            <tr key={model}>
-                              <td style={{ fontWeight: "600" }}>{model}</td>
-                              <td style={{ color: "#fca5a5" }}>{metrics.mse?.toFixed(4) || "0.0000"}</td>
-                              <td style={{ color: "#fca5a5" }}>{metrics.mae?.toFixed(4) || "0.0000"}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-
-                {metricsData.PerClass && (
-                  <div style={{ marginTop: "2rem" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem", borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: "0.5rem" }}>
-                      <h3 style={{ margin: 0, fontSize: "1.1rem", color: "#e2e8f0" }}>
-                        📋 Per-Event Breakdown
-                      </h3>
-                      <div className="tabs-container" style={{ margin: 0, padding: 0, background: "transparent", border: "none" }}>
-                        {["Lexicon Only", "ML Model Only", "Hybrid Model"].map(method => (
-                          <button
-                            key={method}
-                            className={`tab-btn ${perClassMethod === method ? 'active' : ''}`}
-                            onClick={() => setPerClassMethod(method)}
-                            style={{ padding: "0.4rem 0.8rem", fontSize: "0.85rem" }}
-                          >
-                            {method}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="table-container">
-                      <table className="table-modern">
-                        <thead>
-                          <tr>
-                            <th style={{ textAlign: "left" }}>Event</th>
-                            <th className="text-primary">Precision</th>
-                            <th className="text-secondary">Recall</th>
-                            <th style={{ color: "var(--success-color)" }}>F1</th>
-                            <th>Support</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {Object.entries(metricsData.PerClass[perClassMethod] || {}).map(([cls, m]) => (
-                            <tr key={cls}>
-                              <td style={{ fontWeight: cls === "normal_play" ? "normal" : "600" }}>{cls}</td>
-                              <td>{(m.precision ?? 0).toFixed(2)}</td>
-                              <td>{(m.recall ?? 0).toFixed(2)}</td>
-                              <td style={{ fontWeight: "bold" }}>{(m.f1 ?? 0).toFixed(2)}</td>
-                              <td style={{ color: "var(--text-muted)" }}>{m.support}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                )}
-              </section>
-            )}
           </>
         )}
 

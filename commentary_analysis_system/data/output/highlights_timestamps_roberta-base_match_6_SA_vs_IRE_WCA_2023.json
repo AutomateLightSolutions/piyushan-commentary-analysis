@@ -65,7 +65,7 @@
     "primary_event": "penalty"
   },
   {
-    "start": 706,
+    "start": 704,
     "end": 720,
     "primary_event": "scrum"
   },
@@ -320,6 +320,11 @@
     "primary_event": "scrum"
   },
   {
+    "start": 3274,
+    "end": 3284,
+    "primary_event": "try"
+  },
+  {
     "start": 3288,
     "end": 3298,
     "primary_event": "lineout"
@@ -348,6 +353,11 @@
     "start": 3446,
     "end": 3456,
     "primary_event": "tmo_replay"
+  },
+  {
+    "start": 3488,
+    "end": 3498,
+    "primary_event": "scrum"
   },
   {
     "start": 3506,

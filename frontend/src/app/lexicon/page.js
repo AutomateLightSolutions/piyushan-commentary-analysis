@@ -135,7 +135,7 @@ export default function LexiconManagement() {
         </div>
         <a href="/lexicon/generator" style={{ textDecoration: "none" }}>
           <button className="btn btn-primary" style={{ background: "var(--accent-color)" }}>
-            ✨ Auto-Generate Lexicon
+            Auto-Generate Lexicon
           </button>
         </a>
       </header>

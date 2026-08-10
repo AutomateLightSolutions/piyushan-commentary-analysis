@@ -4,7 +4,7 @@
     "chunk_overlap_lexicon": 0.5,
     "lexicon_threshold": 0.35,
     "ml_threshold": 0.1,
-    "hybrid_threshold": 0.1,
+    "hybrid_threshold": 0.34,
     "merger_threshold": 0.1,
     "labeller_threshold": 0.4,
     "highlight_lexicon_weight": 0.75,

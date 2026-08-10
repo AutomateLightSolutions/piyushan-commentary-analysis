@@ -15128,5 +15128,2201 @@
                 }
             }
         }
+    },
+    {
+        "id": "match_1_Geo_vs_POR_WCA_2023_11_1_1786298452",
+        "match_id": "match_1_Geo_vs_POR_WCA_2023",
+        "dataset_name": "dataset_match_1_Geo_vs_POR_WCA_2023",
+        "training_round": 11,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+            "dataset_match_5_Ire_vs_Scot_poolB_2023",
+            "dataset_match_6_SA_vs_IRE_WCA_2023",
+            "dataset_match_7_jpn_vs_sam_ZRWC_2023",
+            "dataset_match_8_Fra_vs_NZL_RWC_2023",
+            "dataset_match_9_Jpn_vs_Arg_RWC_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-09T23:30:52.332493",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "accuracy": 0.622262118491921,
+                    "precision": 0.2090832792095012,
+                    "recall": 0.19214403507332284,
+                    "f1": 0.17909474072736256
+                },
+                "ML Model Only": {
+                    "accuracy": 0.8624775583482944,
+                    "precision": 0.7142980683922902,
+                    "recall": 0.5150608376768073,
+                    "f1": 0.5835364005688051
+                },
+                "Hybrid Model": {
+                    "accuracy": 0.8614003590664273,
+                    "precision": 0.7120976586580239,
+                    "recall": 0.5169565758840149,
+                    "f1": 0.5840271576997106
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.15683527284889767,
+                    "mae": 0.28961459587791744
+                },
+                "ML Model Only": {
+                    "mse": 0.05918997258877485,
+                    "mae": 0.20824120819295544
+                },
+                "Hybrid Model": {
+                    "mse": 0.1008474877054753,
+                    "mae": 0.24935501837609483
+                }
+            },
+            "PerClass": {
+                "Lexicon Only": {
+                    "normal_play": {
+                        "precision": 0.7862266857962698,
+                        "recall": 0.7639405204460966,
+                        "f1": 0.7749234032524157,
+                        "support": 2152
+                    },
+                    "try": {
+                        "precision": 0.057692307692307696,
+                        "recall": 0.15,
+                        "f1": 0.08333333333333334,
+                        "support": 40
+                    },
+                    "goal_kick": {
+                        "precision": 0.2777777777777778,
+                        "recall": 0.08264462809917356,
+                        "f1": 0.12738853503184713,
+                        "support": 121
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.17777777777777778,
+                        "recall": 0.1610738255033557,
+                        "f1": 0.16901408450704225,
+                        "support": 149
+                    },
+                    "maul": {
+                        "precision": 0.075,
+                        "recall": 0.13636363636363635,
+                        "f1": 0.09677419354838708,
+                        "support": 44
+                    },
+                    "lineout": {
+                        "precision": 0.1553398058252427,
+                        "recall": 0.14414414414414414,
+                        "f1": 0.1495327102803738,
+                        "support": 111
+                    },
+                    "kick_off": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 52
+                    },
+                    "tmo_replay": {
+                        "precision": 0.4117647058823529,
+                        "recall": 0.11290322580645161,
+                        "f1": 0.17721518987341772,
+                        "support": 62
+                    },
+                    "penalty": {
+                        "precision": 0.14925373134328357,
+                        "recall": 0.37037037037037035,
+                        "f1": 0.21276595744680848,
+                        "support": 54
+                    }
+                },
+                "ML Model Only": {
+                    "normal_play": {
+                        "precision": 0.8886472379295346,
+                        "recall": 0.9493494423791822,
+                        "f1": 0.9179959559649518,
+                        "support": 2152
+                    },
+                    "try": {
+                        "precision": 0.9333333333333333,
+                        "recall": 0.35,
+                        "f1": 0.5090909090909091,
+                        "support": 40
+                    },
+                    "goal_kick": {
+                        "precision": 0.6890756302521008,
+                        "recall": 0.6776859504132231,
+                        "f1": 0.6833333333333333,
+                        "support": 121
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.8899082568807339,
+                        "recall": 0.6510067114093959,
+                        "f1": 0.751937984496124,
+                        "support": 149
+                    },
+                    "maul": {
+                        "precision": 0.8275862068965517,
+                        "recall": 0.5454545454545454,
+                        "f1": 0.6575342465753425,
+                        "support": 44
+                    },
+                    "lineout": {
+                        "precision": 0.5575221238938053,
+                        "recall": 0.5675675675675675,
+                        "f1": 0.5625,
+                        "support": 111
+                    },
+                    "kick_off": {
+                        "precision": 0.7631578947368421,
+                        "recall": 0.5576923076923077,
+                        "f1": 0.6444444444444444,
+                        "support": 52
+                    },
+                    "tmo_replay": {
+                        "precision": 1.0,
+                        "recall": 0.5,
+                        "f1": 0.6666666666666666,
+                        "support": 62
+                    },
+                    "penalty": {
+                        "precision": 0.59375,
+                        "recall": 0.35185185185185186,
+                        "f1": 0.4418604651162791,
+                        "support": 54
+                    }
+                },
+                "Hybrid Model": {
+                    "normal_play": {
+                        "precision": 0.8888404533565823,
+                        "recall": 0.9474907063197026,
+                        "f1": 0.9172289698605487,
+                        "support": 2152
+                    },
+                    "try": {
+                        "precision": 0.9333333333333333,
+                        "recall": 0.35,
+                        "f1": 0.5090909090909091,
+                        "support": 40
+                    },
+                    "goal_kick": {
+                        "precision": 0.6776859504132231,
+                        "recall": 0.6776859504132231,
+                        "f1": 0.6776859504132231,
+                        "support": 121
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.8807339449541285,
+                        "recall": 0.6442953020134228,
+                        "f1": 0.7441860465116278,
+                        "support": 149
+                    },
+                    "maul": {
+                        "precision": 0.8275862068965517,
+                        "recall": 0.5454545454545454,
+                        "f1": 0.6575342465753425,
+                        "support": 44
+                    },
+                    "lineout": {
+                        "precision": 0.5614035087719298,
+                        "recall": 0.5765765765765766,
+                        "f1": 0.568888888888889,
+                        "support": 111
+                    },
+                    "kick_off": {
+                        "precision": 0.7631578947368421,
+                        "recall": 0.5576923076923077,
+                        "f1": 0.6444444444444444,
+                        "support": 52
+                    },
+                    "tmo_replay": {
+                        "precision": 1.0,
+                        "recall": 0.5,
+                        "f1": 0.6666666666666666,
+                        "support": 62
+                    },
+                    "penalty": {
+                        "precision": 0.5882352941176471,
+                        "recall": 0.37037037037037035,
+                        "f1": 0.45454545454545453,
+                        "support": 54
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": "match_2_NZ_vs_ITA_WCA_2023_11_1_1786298452",
+        "match_id": "match_2_NZ_vs_ITA_WCA_2023",
+        "dataset_name": "dataset_match_2_NZ_vs_ITA_WCA_2023",
+        "training_round": 11,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+            "dataset_match_5_Ire_vs_Scot_poolB_2023",
+            "dataset_match_6_SA_vs_IRE_WCA_2023",
+            "dataset_match_7_jpn_vs_sam_ZRWC_2023",
+            "dataset_match_8_Fra_vs_NZL_RWC_2023",
+            "dataset_match_9_Jpn_vs_Arg_RWC_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-09T23:30:52.332493",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "accuracy": 0.6360266864343959,
+                    "precision": 0.27642192641069047,
+                    "recall": 0.2353994408148826,
+                    "f1": 0.21294743629752033
+                },
+                "ML Model Only": {
+                    "accuracy": 0.8524833209785025,
+                    "precision": 0.6639635810582372,
+                    "recall": 0.5373187369030855,
+                    "f1": 0.5718080158516028
+                },
+                "Hybrid Model": {
+                    "accuracy": 0.8502594514455152,
+                    "precision": 0.6557690996094436,
+                    "recall": 0.5374450686721912,
+                    "f1": 0.5679521967373656
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.16866077161465864,
+                    "mae": 0.2831450085248332
+                },
+                "ML Model Only": {
+                    "mse": 0.07445351833208164,
+                    "mae": 0.23403794293092567
+                },
+                "Hybrid Model": {
+                    "mse": 0.11483625652508611,
+                    "mae": 0.26810038187987867
+                }
+            },
+            "PerClass": {
+                "Lexicon Only": {
+                    "normal_play": {
+                        "precision": 0.7963238946845504,
+                        "recall": 0.7714148219441771,
+                        "f1": 0.7836714739672452,
+                        "support": 2078
+                    },
+                    "try": {
+                        "precision": 0.15609756097560976,
+                        "recall": 0.24615384615384617,
+                        "f1": 0.19104477611940296,
+                        "support": 130
+                    },
+                    "goal_kick": {
+                        "precision": 0.3125,
+                        "recall": 0.13513513513513514,
+                        "f1": 0.18867924528301885,
+                        "support": 111
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.23404255319148937,
+                        "recall": 0.20754716981132076,
+                        "f1": 0.22,
+                        "support": 106
+                    },
+                    "maul": {
+                        "precision": 0.16,
+                        "recall": 0.46153846153846156,
+                        "f1": 0.2376237623762376,
+                        "support": 26
+                    },
+                    "lineout": {
+                        "precision": 0.060810810810810814,
+                        "recall": 0.09473684210526316,
+                        "f1": 0.07407407407407408,
+                        "support": 95
+                    },
+                    "kick_off": {
+                        "precision": 0.2727272727272727,
+                        "recall": 0.058823529411764705,
+                        "f1": 0.0967741935483871,
+                        "support": 51
+                    },
+                    "tmo_replay": {
+                        "precision": 0.6,
+                        "recall": 0.06382978723404255,
+                        "f1": 0.11538461538461536,
+                        "support": 47
+                    },
+                    "penalty": {
+                        "precision": 0.1717171717171717,
+                        "recall": 0.3148148148148148,
+                        "f1": 0.22222222222222224,
+                        "support": 54
+                    }
+                },
+                "ML Model Only": {
+                    "normal_play": {
+                        "precision": 0.8805031446540881,
+                        "recall": 0.9432146294513956,
+                        "f1": 0.9107806691449815,
+                        "support": 2078
+                    },
+                    "try": {
+                        "precision": 0.7422680412371134,
+                        "recall": 0.5538461538461539,
+                        "f1": 0.6343612334801763,
+                        "support": 130
+                    },
+                    "goal_kick": {
+                        "precision": 0.6836734693877551,
+                        "recall": 0.6036036036036037,
+                        "f1": 0.6411483253588517,
+                        "support": 111
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.8032786885245902,
+                        "recall": 0.46226415094339623,
+                        "f1": 0.5868263473053892,
+                        "support": 106
+                    },
+                    "maul": {
+                        "precision": 0.8148148148148148,
+                        "recall": 0.8461538461538461,
+                        "f1": 0.830188679245283,
+                        "support": 26
+                    },
+                    "lineout": {
+                        "precision": 0.6559139784946236,
+                        "recall": 0.6421052631578947,
+                        "f1": 0.6489361702127658,
+                        "support": 95
+                    },
+                    "kick_off": {
+                        "precision": 0.7857142857142857,
+                        "recall": 0.6470588235294118,
+                        "f1": 0.7096774193548386,
+                        "support": 51
+                    },
+                    "tmo_replay": {
+                        "precision": 0.6,
+                        "recall": 0.06382978723404255,
+                        "f1": 0.11538461538461536,
+                        "support": 47
+                    },
+                    "penalty": {
+                        "precision": 0.673469387755102,
+                        "recall": 0.6111111111111112,
+                        "f1": 0.6407766990291262,
+                        "support": 54
+                    }
+                },
+                "Hybrid Model": {
+                    "normal_play": {
+                        "precision": 0.8809738503155996,
+                        "recall": 0.9403272377285852,
+                        "f1": 0.9096834264432029,
+                        "support": 2078
+                    },
+                    "try": {
+                        "precision": 0.7291666666666666,
+                        "recall": 0.5384615384615384,
+                        "f1": 0.6194690265486725,
+                        "support": 130
+                    },
+                    "goal_kick": {
+                        "precision": 0.68,
+                        "recall": 0.6126126126126126,
+                        "f1": 0.6445497630331753,
+                        "support": 111
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.8032786885245902,
+                        "recall": 0.46226415094339623,
+                        "f1": 0.5868263473053892,
+                        "support": 106
+                    },
+                    "maul": {
+                        "precision": 0.8148148148148148,
+                        "recall": 0.8461538461538461,
+                        "f1": 0.830188679245283,
+                        "support": 26
+                    },
+                    "lineout": {
+                        "precision": 0.6526315789473685,
+                        "recall": 0.6526315789473685,
+                        "f1": 0.6526315789473685,
+                        "support": 95
+                    },
+                    "kick_off": {
+                        "precision": 0.7857142857142857,
+                        "recall": 0.6470588235294118,
+                        "f1": 0.7096774193548386,
+                        "support": 51
+                    },
+                    "tmo_replay": {
+                        "precision": 0.6,
+                        "recall": 0.06382978723404255,
+                        "f1": 0.11538461538461536,
+                        "support": 47
+                    },
+                    "penalty": {
+                        "precision": 0.6111111111111112,
+                        "recall": 0.6111111111111112,
+                        "f1": 0.6111111111111112,
+                        "support": 54
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": "match_3_Aus_vs_Fij_WCA_2023_11_1_1786298452",
+        "match_id": "match_3_Aus_vs_Fij_WCA_2023",
+        "dataset_name": "dataset_match_3_Aus_vs_Fij_WCA_2023",
+        "training_round": 11,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+            "dataset_match_5_Ire_vs_Scot_poolB_2023",
+            "dataset_match_6_SA_vs_IRE_WCA_2023",
+            "dataset_match_7_jpn_vs_sam_ZRWC_2023",
+            "dataset_match_8_Fra_vs_NZL_RWC_2023",
+            "dataset_match_9_Jpn_vs_Arg_RWC_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-09T23:30:52.332493",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "accuracy": 0.6496323529411765,
+                    "precision": 0.18075915641465473,
+                    "recall": 0.1989480189787764,
+                    "f1": 0.17814346092781902
+                },
+                "ML Model Only": {
+                    "accuracy": 0.8753676470588235,
+                    "precision": 0.6814664927725764,
+                    "recall": 0.5762514727529962,
+                    "f1": 0.6047143550864083
+                },
+                "Hybrid Model": {
+                    "accuracy": 0.875,
+                    "precision": 0.6780454589736242,
+                    "recall": 0.5796790622754872,
+                    "f1": 0.6063733069151364
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.08079138500139264,
+                    "mae": 0.12994387352941178
+                },
+                "ML Model Only": {
+                    "mse": 0.07937725156820938,
+                    "mae": 0.2680234281849598
+                },
+                "Hybrid Model": {
+                    "mse": 0.13434050094412311,
+                    "mae": 0.32380549754272664
+                }
+            },
+            "PerClass": {
+                "Lexicon Only": {
+                    "normal_play": {
+                        "precision": 0.8234718826405868,
+                        "recall": 0.7668488160291439,
+                        "f1": 0.7941523225654327,
+                        "support": 2196
+                    },
+                    "try": {
+                        "precision": 0.0297029702970297,
+                        "recall": 0.13043478260869565,
+                        "f1": 0.04838709677419355,
+                        "support": 23
+                    },
+                    "goal_kick": {
+                        "precision": 0.13333333333333333,
+                        "recall": 0.07339449541284404,
+                        "f1": 0.09467455621301776,
+                        "support": 109
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.10975609756097561,
+                        "recall": 0.08823529411764706,
+                        "f1": 0.09782608695652174,
+                        "support": 102
+                    },
+                    "maul": {
+                        "precision": 0.26582278481012656,
+                        "recall": 0.40384615384615385,
+                        "f1": 0.32061068702290074,
+                        "support": 52
+                    },
+                    "lineout": {
+                        "precision": 0.13186813186813187,
+                        "recall": 0.18461538461538463,
+                        "f1": 0.15384615384615385,
+                        "support": 130
+                    },
+                    "kick_off": {
+                        "precision": 0.2,
+                        "recall": 0.07894736842105263,
+                        "f1": 0.11320754716981134,
+                        "support": 38
+                    },
+                    "tmo_replay": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 13
+                    },
+                    "penalty": {
+                        "precision": 0.11363636363636363,
+                        "recall": 0.2631578947368421,
+                        "f1": 0.15873015873015872,
+                        "support": 57
+                    }
+                },
+                "ML Model Only": {
+                    "normal_play": {
+                        "precision": 0.9063588850174216,
+                        "recall": 0.947632058287796,
+                        "f1": 0.9265360641139804,
+                        "support": 2196
+                    },
+                    "try": {
+                        "precision": 0.7142857142857143,
+                        "recall": 0.6521739130434783,
+                        "f1": 0.6818181818181819,
+                        "support": 23
+                    },
+                    "goal_kick": {
+                        "precision": 0.7130434782608696,
+                        "recall": 0.7522935779816514,
+                        "f1": 0.7321428571428571,
+                        "support": 109
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.7972972972972973,
+                        "recall": 0.5784313725490197,
+                        "f1": 0.6704545454545454,
+                        "support": 102
+                    },
+                    "maul": {
+                        "precision": 0.9473684210526315,
+                        "recall": 0.34615384615384615,
+                        "f1": 0.5070422535211268,
+                        "support": 52
+                    },
+                    "lineout": {
+                        "precision": 0.6194690265486725,
+                        "recall": 0.5384615384615384,
+                        "f1": 0.5761316872427983,
+                        "support": 130
+                    },
+                    "kick_off": {
+                        "precision": 0.88,
+                        "recall": 0.5789473684210527,
+                        "f1": 0.6984126984126985,
+                        "support": 38
+                    },
+                    "tmo_replay": {
+                        "precision": 0.6842105263157895,
+                        "recall": 1.0,
+                        "f1": 0.8125000000000001,
+                        "support": 13
+                    },
+                    "penalty": {
+                        "precision": 0.5526315789473685,
+                        "recall": 0.3684210526315789,
+                        "f1": 0.4421052631578947,
+                        "support": 57
+                    }
+                },
+                "Hybrid Model": {
+                    "normal_play": {
+                        "precision": 0.907383136740935,
+                        "recall": 0.9458105646630237,
+                        "f1": 0.9261984392419176,
+                        "support": 2196
+                    },
+                    "try": {
+                        "precision": 0.7142857142857143,
+                        "recall": 0.6521739130434783,
+                        "f1": 0.6818181818181819,
+                        "support": 23
+                    },
+                    "goal_kick": {
+                        "precision": 0.7155172413793104,
+                        "recall": 0.7614678899082569,
+                        "f1": 0.7377777777777778,
+                        "support": 109
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.7866666666666666,
+                        "recall": 0.5784313725490197,
+                        "f1": 0.6666666666666666,
+                        "support": 102
+                    },
+                    "maul": {
+                        "precision": 0.95,
+                        "recall": 0.36538461538461536,
+                        "f1": 0.5277777777777778,
+                        "support": 52
+                    },
+                    "lineout": {
+                        "precision": 0.6173913043478261,
+                        "recall": 0.5461538461538461,
+                        "f1": 0.5795918367346938,
+                        "support": 130
+                    },
+                    "kick_off": {
+                        "precision": 0.88,
+                        "recall": 0.5789473684210527,
+                        "f1": 0.6984126984126985,
+                        "support": 38
+                    },
+                    "tmo_replay": {
+                        "precision": 0.6842105263157895,
+                        "recall": 1.0,
+                        "f1": 0.8125000000000001,
+                        "support": 13
+                    },
+                    "penalty": {
+                        "precision": 0.525,
+                        "recall": 0.3684210526315789,
+                        "f1": 0.4329896907216495,
+                        "support": 57
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": "match_4_Eng_vs_Arg_PoolD_WCA_2023_11_1_1786298452",
+        "match_id": "match_4_Eng_vs_Arg_PoolD_WCA_2023",
+        "dataset_name": "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+        "training_round": 11,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+            "dataset_match_5_Ire_vs_Scot_poolB_2023",
+            "dataset_match_6_SA_vs_IRE_WCA_2023",
+            "dataset_match_7_jpn_vs_sam_ZRWC_2023",
+            "dataset_match_8_Fra_vs_NZL_RWC_2023",
+            "dataset_match_9_Jpn_vs_Arg_RWC_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-09T23:30:52.332493",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "accuracy": 0.6728462377317339,
+                    "precision": 0.2474906603618267,
+                    "recall": 0.26702336885240396,
+                    "f1": 0.21023794526413875
+                },
+                "ML Model Only": {
+                    "accuracy": 0.88113413304253,
+                    "precision": 0.7165588840281475,
+                    "recall": 0.6053440049759958,
+                    "f1": 0.6460195114839234
+                },
+                "Hybrid Model": {
+                    "accuracy": 0.88113413304253,
+                    "precision": 0.7159086245696371,
+                    "recall": 0.6081739369487849,
+                    "f1": 0.6473247064424503
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.1422054992503297,
+                    "mae": 0.25040826063249727
+                },
+                "ML Model Only": {
+                    "mse": 0.06504435063874855,
+                    "mae": 0.231121007451661
+                },
+                "Hybrid Model": {
+                    "mse": 0.1011550596343533,
+                    "mae": 0.2615466239433455
+                }
+            },
+            "PerClass": {
+                "Lexicon Only": {
+                    "normal_play": {
+                        "precision": 0.8160442600276625,
+                        "recall": 0.8027210884353742,
+                        "f1": 0.8093278463648834,
+                        "support": 2205
+                    },
+                    "try": {
+                        "precision": 0.023809523809523808,
+                        "recall": 0.5,
+                        "f1": 0.04545454545454545,
+                        "support": 4
+                    },
+                    "goal_kick": {
+                        "precision": 0.30666666666666664,
+                        "recall": 0.1503267973856209,
+                        "f1": 0.20175438596491227,
+                        "support": 153
+                    },
+                    "card_event": {
+                        "precision": 0.2564102564102564,
+                        "recall": 0.47619047619047616,
+                        "f1": 0.3333333333333333,
+                        "support": 21
+                    },
+                    "scrum": {
+                        "precision": 0.05405405405405406,
+                        "recall": 0.04597701149425287,
+                        "f1": 0.049689440993788817,
+                        "support": 87
+                    },
+                    "maul": {
+                        "precision": 0.023809523809523808,
+                        "recall": 0.07142857142857142,
+                        "f1": 0.03571428571428571,
+                        "support": 28
+                    },
+                    "lineout": {
+                        "precision": 0.10869565217391304,
+                        "recall": 0.13333333333333333,
+                        "f1": 0.11976047904191617,
+                        "support": 75
+                    },
+                    "kick_off": {
+                        "precision": 0.16666666666666666,
+                        "recall": 0.07692307692307693,
+                        "f1": 0.10526315789473684,
+                        "support": 65
+                    },
+                    "tmo_replay": {
+                        "precision": 0.5,
+                        "recall": 0.08,
+                        "f1": 0.13793103448275865,
+                        "support": 50
+                    },
+                    "penalty": {
+                        "precision": 0.21875,
+                        "recall": 0.3333333333333333,
+                        "f1": 0.2641509433962264,
+                        "support": 63
+                    }
+                },
+                "ML Model Only": {
+                    "normal_play": {
+                        "precision": 0.9123191582639193,
+                        "recall": 0.943764172335601,
+                        "f1": 0.9277753009362462,
+                        "support": 2205
+                    },
+                    "try": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 4
+                    },
+                    "goal_kick": {
+                        "precision": 0.7397260273972602,
+                        "recall": 0.7058823529411765,
+                        "f1": 0.7224080267558528,
+                        "support": 153
+                    },
+                    "card_event": {
+                        "precision": 0.9473684210526315,
+                        "recall": 0.8571428571428571,
+                        "f1": 0.9,
+                        "support": 21
+                    },
+                    "scrum": {
+                        "precision": 0.7586206896551724,
+                        "recall": 0.5057471264367817,
+                        "f1": 0.6068965517241379,
+                        "support": 87
+                    },
+                    "maul": {
+                        "precision": 0.9230769230769231,
+                        "recall": 0.42857142857142855,
+                        "f1": 0.5853658536585366,
+                        "support": 28
+                    },
+                    "lineout": {
+                        "precision": 0.5294117647058824,
+                        "recall": 0.6,
+                        "f1": 0.5625,
+                        "support": 75
+                    },
+                    "kick_off": {
+                        "precision": 0.7142857142857143,
+                        "recall": 0.46153846153846156,
+                        "f1": 0.5607476635514019,
+                        "support": 65
+                    },
+                    "tmo_replay": {
+                        "precision": 0.9574468085106383,
+                        "recall": 0.9,
+                        "f1": 0.9278350515463918,
+                        "support": 50
+                    },
+                    "penalty": {
+                        "precision": 0.6833333333333333,
+                        "recall": 0.6507936507936508,
+                        "f1": 0.6666666666666666,
+                        "support": 63
+                    }
+                },
+                "Hybrid Model": {
+                    "normal_play": {
+                        "precision": 0.9130434782608695,
+                        "recall": 0.9428571428571428,
+                        "f1": 0.927710843373494,
+                        "support": 2205
+                    },
+                    "try": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 4
+                    },
+                    "goal_kick": {
+                        "precision": 0.7346938775510204,
+                        "recall": 0.7058823529411765,
+                        "f1": 0.7200000000000001,
+                        "support": 153
+                    },
+                    "card_event": {
+                        "precision": 0.9473684210526315,
+                        "recall": 0.8571428571428571,
+                        "f1": 0.9,
+                        "support": 21
+                    },
+                    "scrum": {
+                        "precision": 0.7457627118644068,
+                        "recall": 0.5057471264367817,
+                        "f1": 0.6027397260273973,
+                        "support": 87
+                    },
+                    "maul": {
+                        "precision": 0.9230769230769231,
+                        "recall": 0.42857142857142855,
+                        "f1": 0.5853658536585366,
+                        "support": 28
+                    },
+                    "lineout": {
+                        "precision": 0.5348837209302325,
+                        "recall": 0.6133333333333333,
+                        "f1": 0.5714285714285714,
+                        "support": 75
+                    },
+                    "kick_off": {
+                        "precision": 0.7142857142857143,
+                        "recall": 0.46153846153846156,
+                        "f1": 0.5607476635514019,
+                        "support": 65
+                    },
+                    "tmo_replay": {
+                        "precision": 0.9574468085106383,
+                        "recall": 0.9,
+                        "f1": 0.9278350515463918,
+                        "support": 50
+                    },
+                    "penalty": {
+                        "precision": 0.6885245901639344,
+                        "recall": 0.6666666666666666,
+                        "f1": 0.6774193548387096,
+                        "support": 63
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": "match_5_Ire_vs_Scot_poolB_2023_11_1_1786298452",
+        "match_id": "match_5_Ire_vs_Scot_poolB_2023",
+        "dataset_name": "dataset_match_5_Ire_vs_Scot_poolB_2023",
+        "training_round": 11,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+            "dataset_match_5_Ire_vs_Scot_poolB_2023",
+            "dataset_match_6_SA_vs_IRE_WCA_2023",
+            "dataset_match_7_jpn_vs_sam_ZRWC_2023",
+            "dataset_match_8_Fra_vs_NZL_RWC_2023",
+            "dataset_match_9_Jpn_vs_Arg_RWC_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-09T23:30:52.332493",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "accuracy": 0.6842672413793104,
+                    "precision": 0.25049390792763504,
+                    "recall": 0.29413742737723675,
+                    "f1": 0.2532655095628682
+                },
+                "ML Model Only": {
+                    "accuracy": 0.774066091954023,
+                    "precision": 0.17472260981361876,
+                    "recall": 0.1358087310554499,
+                    "f1": 0.1426910148584787
+                },
+                "Hybrid Model": {
+                    "accuracy": 0.774066091954023,
+                    "precision": 0.18069351750719678,
+                    "recall": 0.1406760464026414,
+                    "f1": 0.14883607941832755
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.14496582598812213,
+                    "mae": 0.24708108477011495
+                },
+                "ML Model Only": {
+                    "mse": 0.08172648969554801,
+                    "mae": 0.24582937166618887
+                },
+                "Hybrid Model": {
+                    "mse": 0.12333693812793987,
+                    "mae": 0.2831088526737464
+                }
+            },
+            "PerClass": {
+                "Lexicon Only": {
+                    "normal_play": {
+                        "precision": 0.8292794860027536,
+                        "recall": 0.799203892083149,
+                        "f1": 0.8139639639639639,
+                        "support": 2261
+                    },
+                    "try": {
+                        "precision": 0.06299212598425197,
+                        "recall": 0.09302325581395349,
+                        "f1": 0.07511737089201878,
+                        "support": 86
+                    },
+                    "goal_kick": {
+                        "precision": 0.3018867924528302,
+                        "recall": 0.17391304347826086,
+                        "f1": 0.2206896551724138,
+                        "support": 92
+                    },
+                    "card_event": {
+                        "precision": 0.15384615384615385,
+                        "recall": 0.5,
+                        "f1": 0.23529411764705882,
+                        "support": 8
+                    },
+                    "scrum": {
+                        "precision": 0.06172839506172839,
+                        "recall": 0.0625,
+                        "f1": 0.062111801242236024,
+                        "support": 80
+                    },
+                    "maul": {
+                        "precision": 0.175,
+                        "recall": 0.25,
+                        "f1": 0.20588235294117646,
+                        "support": 28
+                    },
+                    "lineout": {
+                        "precision": 0.11607142857142858,
+                        "recall": 0.14606741573033707,
+                        "f1": 0.12935323383084577,
+                        "support": 89
+                    },
+                    "kick_off": {
+                        "precision": 0.25,
+                        "recall": 0.08333333333333333,
+                        "f1": 0.125,
+                        "support": 36
+                    },
+                    "tmo_replay": {
+                        "precision": 0.3188405797101449,
+                        "recall": 0.5,
+                        "f1": 0.3893805309734513,
+                        "support": 44
+                    },
+                    "penalty": {
+                        "precision": 0.23529411764705882,
+                        "recall": 0.3333333333333333,
+                        "f1": 0.27586206896551724,
+                        "support": 60
+                    }
+                },
+                "ML Model Only": {
+                    "normal_play": {
+                        "precision": 0.8175858079444659,
+                        "recall": 0.9376382131800088,
+                        "f1": 0.8735063864853729,
+                        "support": 2261
+                    },
+                    "try": {
+                        "precision": 0.2222222222222222,
+                        "recall": 0.046511627906976744,
+                        "f1": 0.07692307692307693,
+                        "support": 86
+                    },
+                    "goal_kick": {
+                        "precision": 0.2753623188405797,
+                        "recall": 0.20652173913043478,
+                        "f1": 0.23602484472049687,
+                        "support": 92
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 8
+                    },
+                    "scrum": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 80
+                    },
+                    "maul": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 28
+                    },
+                    "lineout": {
+                        "precision": 0.14634146341463414,
+                        "recall": 0.06741573033707865,
+                        "f1": 0.0923076923076923,
+                        "support": 89
+                    },
+                    "kick_off": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 36
+                    },
+                    "tmo_replay": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 44
+                    },
+                    "penalty": {
+                        "precision": 0.2857142857142857,
+                        "recall": 0.1,
+                        "f1": 0.14814814814814817,
+                        "support": 60
+                    }
+                },
+                "Hybrid Model": {
+                    "normal_play": {
+                        "precision": 0.8186388244392885,
+                        "recall": 0.9363113666519239,
+                        "f1": 0.8735300185681865,
+                        "support": 2261
+                    },
+                    "try": {
+                        "precision": 0.21052631578947367,
+                        "recall": 0.046511627906976744,
+                        "f1": 0.0761904761904762,
+                        "support": 86
+                    },
+                    "goal_kick": {
+                        "precision": 0.2714285714285714,
+                        "recall": 0.20652173913043478,
+                        "f1": 0.23456790123456792,
+                        "support": 92
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 8
+                    },
+                    "scrum": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 80
+                    },
+                    "maul": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 28
+                    },
+                    "lineout": {
+                        "precision": 0.14634146341463414,
+                        "recall": 0.06741573033707865,
+                        "f1": 0.0923076923076923,
+                        "support": 89
+                    },
+                    "kick_off": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 36
+                    },
+                    "tmo_replay": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 44
+                    },
+                    "penalty": {
+                        "precision": 0.36,
+                        "recall": 0.15,
+                        "f1": 0.21176470588235294,
+                        "support": 60
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": "match_6_SA_vs_IRE_WCA_2023_11_1_1786298452",
+        "match_id": "match_6_SA_vs_IRE_WCA_2023",
+        "dataset_name": "dataset_match_6_SA_vs_IRE_WCA_2023",
+        "training_round": 11,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+            "dataset_match_5_Ire_vs_Scot_poolB_2023",
+            "dataset_match_6_SA_vs_IRE_WCA_2023",
+            "dataset_match_7_jpn_vs_sam_ZRWC_2023",
+            "dataset_match_8_Fra_vs_NZL_RWC_2023",
+            "dataset_match_9_Jpn_vs_Arg_RWC_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-09T23:30:52.332493",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "accuracy": 0.696969696969697,
+                    "precision": 0.1194807598129886,
+                    "recall": 0.11222217961476219,
+                    "f1": 0.1147662246352887
+                },
+                "ML Model Only": {
+                    "accuracy": 0.7838137472283814,
+                    "precision": 0.19588931064675003,
+                    "recall": 0.12020223437013919,
+                    "f1": 0.12749987866777607
+                },
+                "Hybrid Model": {
+                    "accuracy": 0.7827050997782705,
+                    "precision": 0.20170016640378066,
+                    "recall": 0.12218318574173863,
+                    "f1": 0.13038830601465912
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 2796668.027493334,
+                    "mae": 694.4166503791574
+                },
+                "ML Model Only": {
+                    "mse": 2796309.5407135254,
+                    "mae": 694.3610815257247
+                },
+                "Hybrid Model": {
+                    "mse": 2796260.8829811728,
+                    "mae": 694.3706353423994
+                }
+            },
+            "PerClass": {
+                "Lexicon Only": {
+                    "normal_play": {
+                        "precision": 0.8431818181818181,
+                        "recall": 0.8197083517454706,
+                        "f1": 0.8312794084696393,
+                        "support": 2263
+                    },
+                    "try": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 15
+                    },
+                    "goal_kick": {
+                        "precision": 0.06557377049180328,
+                        "recall": 0.047058823529411764,
+                        "f1": 0.0547945205479452,
+                        "support": 85
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.18518518518518517,
+                        "recall": 0.12195121951219512,
+                        "f1": 0.14705882352941174,
+                        "support": 123
+                    },
+                    "maul": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 14
+                    },
+                    "lineout": {
+                        "precision": 0.06382978723404255,
+                        "recall": 0.09183673469387756,
+                        "f1": 0.07531380753138076,
+                        "support": 98
+                    },
+                    "kick_off": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 36
+                    },
+                    "tmo_replay": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "penalty": {
+                        "precision": 0.037037037037037035,
+                        "recall": 0.041666666666666664,
+                        "f1": 0.03921568627450981,
+                        "support": 72
+                    }
+                },
+                "ML Model Only": {
+                    "normal_play": {
+                        "precision": 0.8379131819992035,
+                        "recall": 0.9297392841361025,
+                        "f1": 0.8814411395056557,
+                        "support": 2263
+                    },
+                    "try": {
+                        "precision": 0.07692307692307693,
+                        "recall": 0.06666666666666667,
+                        "f1": 0.07142857142857144,
+                        "support": 15
+                    },
+                    "goal_kick": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 85
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.11627906976744186,
+                        "recall": 0.04065040650406504,
+                        "f1": 0.06024096385542169,
+                        "support": 123
+                    },
+                    "maul": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 14
+                    },
+                    "lineout": {
+                        "precision": 0.17777777777777778,
+                        "recall": 0.08163265306122448,
+                        "f1": 0.11188811188811187,
+                        "support": 98
+                    },
+                    "kick_off": {
+                        "precision": 0.75,
+                        "recall": 0.08333333333333333,
+                        "f1": 0.15,
+                        "support": 36
+                    },
+                    "tmo_replay": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "penalty": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 72
+                    }
+                },
+                "Hybrid Model": {
+                    "normal_play": {
+                        "precision": 0.8385936875749102,
+                        "recall": 0.927529827662395,
+                        "f1": 0.8808224926563155,
+                        "support": 2263
+                    },
+                    "try": {
+                        "precision": 0.07142857142857142,
+                        "recall": 0.06666666666666667,
+                        "f1": 0.0689655172413793,
+                        "support": 15
+                    },
+                    "goal_kick": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 85
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "scrum": {
+                        "precision": 0.13043478260869565,
+                        "recall": 0.04878048780487805,
+                        "f1": 0.07100591715976332,
+                        "support": 123
+                    },
+                    "maul": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 14
+                    },
+                    "lineout": {
+                        "precision": 0.17391304347826086,
+                        "recall": 0.08163265306122448,
+                        "f1": 0.11111111111111112,
+                        "support": 98
+                    },
+                    "kick_off": {
+                        "precision": 0.75,
+                        "recall": 0.08333333333333333,
+                        "f1": 0.15,
+                        "support": 36
+                    },
+                    "tmo_replay": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 0
+                    },
+                    "penalty": {
+                        "precision": 0.05263157894736842,
+                        "recall": 0.013888888888888888,
+                        "f1": 0.021978021978021976,
+                        "support": 72
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": "match_7_jpn_vs_sam_ZRWC_2023_11_1_1786298452",
+        "match_id": "match_7_jpn_vs_sam_ZRWC_2023",
+        "dataset_name": "dataset_match_7_jpn_vs_sam_ZRWC_2023",
+        "training_round": 11,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+            "dataset_match_5_Ire_vs_Scot_poolB_2023",
+            "dataset_match_6_SA_vs_IRE_WCA_2023",
+            "dataset_match_7_jpn_vs_sam_ZRWC_2023",
+            "dataset_match_8_Fra_vs_NZL_RWC_2023",
+            "dataset_match_9_Jpn_vs_Arg_RWC_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-09T23:30:52.332493",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "accuracy": 0.6193342776203966,
+                    "precision": 0.20201472801256176,
+                    "recall": 0.2027420955154382,
+                    "f1": 0.18621654252935008
+                },
+                "ML Model Only": {
+                    "accuracy": 0.7379603399433428,
+                    "precision": 0.19684255655784771,
+                    "recall": 0.13282141992098906,
+                    "f1": 0.1434607138699882
+                },
+                "Hybrid Model": {
+                    "accuracy": 0.7368980169971672,
+                    "precision": 0.19971572406405164,
+                    "recall": 0.13442515058522925,
+                    "f1": 0.14568403771320154
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.14942767157765013,
+                    "mae": 0.24435406657223796
+                },
+                "ML Model Only": {
+                    "mse": 0.08501764792006829,
+                    "mae": 0.2526335311094526
+                },
+                "Hybrid Model": {
+                    "mse": 0.1377032779690241,
+                    "mae": 0.301509027721734
+                }
+            },
+            "PerClass": {
+                "Lexicon Only": {
+                    "normal_play": {
+                        "precision": 0.7961904761904762,
+                        "recall": 0.7606915377616015,
+                        "f1": 0.7780362959516055,
+                        "support": 2198
+                    },
+                    "try": {
+                        "precision": 0.013986013986013986,
+                        "recall": 0.043478260869565216,
+                        "f1": 0.021164021164021166,
+                        "support": 46
+                    },
+                    "goal_kick": {
+                        "precision": 0.175,
+                        "recall": 0.109375,
+                        "f1": 0.1346153846153846,
+                        "support": 128
+                    },
+                    "card_event": {
+                        "precision": 0.140625,
+                        "recall": 0.3,
+                        "f1": 0.19148936170212766,
+                        "support": 30
+                    },
+                    "scrum": {
+                        "precision": 0.08888888888888889,
+                        "recall": 0.05555555555555555,
+                        "f1": 0.06837606837606838,
+                        "support": 144
+                    },
+                    "maul": {
+                        "precision": 0.04878048780487805,
+                        "recall": 0.11428571428571428,
+                        "f1": 0.06837606837606838,
+                        "support": 35
+                    },
+                    "lineout": {
+                        "precision": 0.12962962962962962,
+                        "recall": 0.1590909090909091,
+                        "f1": 0.14285714285714285,
+                        "support": 88
+                    },
+                    "kick_off": {
+                        "precision": 0.2222222222222222,
+                        "recall": 0.08333333333333333,
+                        "f1": 0.12121212121212122,
+                        "support": 48
+                    },
+                    "tmo_replay": {
+                        "precision": 0.2631578947368421,
+                        "recall": 0.09803921568627451,
+                        "f1": 0.14285714285714285,
+                        "support": 51
+                    },
+                    "penalty": {
+                        "precision": 0.14166666666666666,
+                        "recall": 0.30357142857142855,
+                        "f1": 0.19318181818181815,
+                        "support": 56
+                    }
+                },
+                "ML Model Only": {
+                    "normal_play": {
+                        "precision": 0.7862624712202609,
+                        "recall": 0.9322111010009099,
+                        "f1": 0.8530391340549542,
+                        "support": 2198
+                    },
+                    "try": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 46
+                    },
+                    "goal_kick": {
+                        "precision": 0.3902439024390244,
+                        "recall": 0.125,
+                        "f1": 0.1893491124260355,
+                        "support": 128
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 30
+                    },
+                    "scrum": {
+                        "precision": 0.1388888888888889,
+                        "recall": 0.034722222222222224,
+                        "f1": 0.055555555555555566,
+                        "support": 144
+                    },
+                    "maul": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 35
+                    },
+                    "lineout": {
+                        "precision": 0.05,
+                        "recall": 0.045454545454545456,
+                        "f1": 0.04761904761904762,
+                        "support": 88
+                    },
+                    "kick_off": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 48
+                    },
+                    "tmo_replay": {
+                        "precision": 0.4666666666666667,
+                        "recall": 0.13725490196078433,
+                        "f1": 0.21212121212121213,
+                        "support": 51
+                    },
+                    "penalty": {
+                        "precision": 0.13636363636363635,
+                        "recall": 0.05357142857142857,
+                        "f1": 0.07692307692307691,
+                        "support": 56
+                    }
+                },
+                "Hybrid Model": {
+                    "normal_play": {
+                        "precision": 0.786236063052672,
+                        "recall": 0.9303912647861693,
+                        "f1": 0.8522608876849344,
+                        "support": 2198
+                    },
+                    "try": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 46
+                    },
+                    "goal_kick": {
+                        "precision": 0.4,
+                        "recall": 0.125,
+                        "f1": 0.19047619047619047,
+                        "support": 128
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 30
+                    },
+                    "scrum": {
+                        "precision": 0.1282051282051282,
+                        "recall": 0.034722222222222224,
+                        "f1": 0.05464480874316941,
+                        "support": 144
+                    },
+                    "maul": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 35
+                    },
+                    "lineout": {
+                        "precision": 0.04938271604938271,
+                        "recall": 0.045454545454545456,
+                        "f1": 0.047337278106508875,
+                        "support": 88
+                    },
+                    "kick_off": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 48
+                    },
+                    "tmo_replay": {
+                        "precision": 0.4666666666666667,
+                        "recall": 0.13725490196078433,
+                        "f1": 0.21212121212121213,
+                        "support": 51
+                    },
+                    "penalty": {
+                        "precision": 0.16666666666666666,
+                        "recall": 0.07142857142857142,
+                        "f1": 0.1,
+                        "support": 56
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": "match_8_Fra_vs_NZL_RWC_2023_11_1_1786298452",
+        "match_id": "match_8_Fra_vs_NZL_RWC_2023",
+        "dataset_name": "dataset_match_8_Fra_vs_NZL_RWC_2023",
+        "training_round": 11,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+            "dataset_match_5_Ire_vs_Scot_poolB_2023",
+            "dataset_match_6_SA_vs_IRE_WCA_2023",
+            "dataset_match_7_jpn_vs_sam_ZRWC_2023",
+            "dataset_match_8_Fra_vs_NZL_RWC_2023",
+            "dataset_match_9_Jpn_vs_Arg_RWC_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-09T23:30:52.332493",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "accuracy": 0.6588541666666666,
+                    "precision": 0.20342584371961198,
+                    "recall": 0.20637085539866265,
+                    "f1": 0.1856829937649987
+                },
+                "ML Model Only": {
+                    "accuracy": 0.7715773809523809,
+                    "precision": 0.24203485483053516,
+                    "recall": 0.1632654091979068,
+                    "f1": 0.1750714256186224
+                },
+                "Hybrid Model": {
+                    "accuracy": 0.7700892857142857,
+                    "precision": 0.23675369174774136,
+                    "recall": 0.16368845189153616,
+                    "f1": 0.17474594745278682
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.14504283167662538,
+                    "mae": 0.23497133816964288
+                },
+                "ML Model Only": {
+                    "mse": 0.08592547626939823,
+                    "mae": 0.2618711433060645
+                },
+                "Hybrid Model": {
+                    "mse": 0.1338146808959478,
+                    "mae": 0.3035772232894621
+                }
+            },
+            "PerClass": {
+                "Lexicon Only": {
+                    "normal_play": {
+                        "precision": 0.8132559264634737,
+                        "recall": 0.7895725692813528,
+                        "f1": 0.8012392755004767,
+                        "support": 2129
+                    },
+                    "try": {
+                        "precision": 0.05172413793103448,
+                        "recall": 0.11538461538461539,
+                        "f1": 0.07142857142857144,
+                        "support": 52
+                    },
+                    "goal_kick": {
+                        "precision": 0.4,
+                        "recall": 0.25,
+                        "f1": 0.3076923076923077,
+                        "support": 152
+                    },
+                    "card_event": {
+                        "precision": 0.021739130434782608,
+                        "recall": 0.25,
+                        "f1": 0.04,
+                        "support": 4
+                    },
+                    "scrum": {
+                        "precision": 0.15151515151515152,
+                        "recall": 0.15306122448979592,
+                        "f1": 0.15228426395939085,
+                        "support": 98
+                    },
+                    "maul": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 28
+                    },
+                    "lineout": {
+                        "precision": 0.1590909090909091,
+                        "recall": 0.16666666666666666,
+                        "f1": 0.1627906976744186,
+                        "support": 84
+                    },
+                    "kick_off": {
+                        "precision": 0.20689655172413793,
+                        "recall": 0.1016949152542373,
+                        "f1": 0.13636363636363635,
+                        "support": 59
+                    },
+                    "tmo_replay": {
+                        "precision": 0.15384615384615385,
+                        "recall": 0.05128205128205128,
+                        "f1": 0.07692307692307693,
+                        "support": 39
+                    },
+                    "penalty": {
+                        "precision": 0.0761904761904762,
+                        "recall": 0.18604651162790697,
+                        "f1": 0.10810810810810811,
+                        "support": 43
+                    }
+                },
+                "ML Model Only": {
+                    "normal_play": {
+                        "precision": 0.8144666939109113,
+                        "recall": 0.9361202442461249,
+                        "f1": 0.8710664335664337,
+                        "support": 2129
+                    },
+                    "try": {
+                        "precision": 0.08695652173913043,
+                        "recall": 0.038461538461538464,
+                        "f1": 0.05333333333333333,
+                        "support": 52
+                    },
+                    "goal_kick": {
+                        "precision": 0.49122807017543857,
+                        "recall": 0.3684210526315789,
+                        "f1": 0.42105263157894735,
+                        "support": 152
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 4
+                    },
+                    "scrum": {
+                        "precision": 0.5,
+                        "recall": 0.07142857142857142,
+                        "f1": 0.125,
+                        "support": 98
+                    },
+                    "maul": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 28
+                    },
+                    "lineout": {
+                        "precision": 0.24074074074074073,
+                        "recall": 0.15476190476190477,
+                        "f1": 0.18840579710144928,
+                        "support": 84
+                    },
+                    "kick_off": {
+                        "precision": 0.2,
+                        "recall": 0.01694915254237288,
+                        "f1": 0.03125,
+                        "support": 59
+                    },
+                    "tmo_replay": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 39
+                    },
+                    "penalty": {
+                        "precision": 0.08695652173913043,
+                        "recall": 0.046511627906976744,
+                        "f1": 0.06060606060606061,
+                        "support": 43
+                    }
+                },
+                "Hybrid Model": {
+                    "normal_play": {
+                        "precision": 0.8147540983606557,
+                        "recall": 0.9337717238139972,
+                        "f1": 0.8702123002845262,
+                        "support": 2129
+                    },
+                    "try": {
+                        "precision": 0.08333333333333333,
+                        "recall": 0.038461538461538464,
+                        "f1": 0.05263157894736842,
+                        "support": 52
+                    },
+                    "goal_kick": {
+                        "precision": 0.49137931034482757,
+                        "recall": 0.375,
+                        "f1": 0.42537313432835816,
+                        "support": 152
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 4
+                    },
+                    "scrum": {
+                        "precision": 0.4666666666666667,
+                        "recall": 0.07142857142857142,
+                        "f1": 0.12389380530973451,
+                        "support": 98
+                    },
+                    "maul": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 28
+                    },
+                    "lineout": {
+                        "precision": 0.22807017543859648,
+                        "recall": 0.15476190476190477,
+                        "f1": 0.18439716312056736,
+                        "support": 84
+                    },
+                    "kick_off": {
+                        "precision": 0.2,
+                        "recall": 0.01694915254237288,
+                        "f1": 0.03125,
+                        "support": 59
+                    },
+                    "tmo_replay": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 39
+                    },
+                    "penalty": {
+                        "precision": 0.08333333333333333,
+                        "recall": 0.046511627906976744,
+                        "f1": 0.059701492537313425,
+                        "support": 43
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": "match_9_Jpn_vs_Arg_RWC_2023_11_1_1786298453",
+        "match_id": "match_9_Jpn_vs_Arg_RWC_2023",
+        "dataset_name": "dataset_match_9_Jpn_vs_Arg_RWC_2023",
+        "training_round": 11,
+        "training_datasets": [
+            "dataset_match_1_Geo_vs_POR_WCA_2023",
+            "dataset_match_2_NZ_vs_ITA_WCA_2023",
+            "dataset_match_3_Aus_vs_Fij_WCA_2023",
+            "dataset_match_4_Eng_vs_Arg_PoolD_WCA_2023",
+            "dataset_match_5_Ire_vs_Scot_poolB_2023",
+            "dataset_match_6_SA_vs_IRE_WCA_2023",
+            "dataset_match_7_jpn_vs_sam_ZRWC_2023",
+            "dataset_match_8_Fra_vs_NZL_RWC_2023",
+            "dataset_match_9_Jpn_vs_Arg_RWC_2023"
+        ],
+        "evaluation_round": 1,
+        "model_used": "roberta-base",
+        "timestamp": "2026-08-09T23:30:52.332493",
+        "metrics": {
+            "Classification": {
+                "Lexicon Only": {
+                    "accuracy": 0.6598926380368099,
+                    "precision": 0.19699720251345582,
+                    "recall": 0.2446233185971048,
+                    "f1": 0.17889112986565966
+                },
+                "ML Model Only": {
+                    "accuracy": 0.7599693251533742,
+                    "precision": 0.24088704273184186,
+                    "recall": 0.1653298904310158,
+                    "f1": 0.17692490432968236
+                },
+                "Hybrid Model": {
+                    "accuracy": 0.7611196319018405,
+                    "precision": 0.24234282317332118,
+                    "recall": 0.16615119316775762,
+                    "f1": 0.17817623240000743
+                }
+            },
+            "Regression": {
+                "Lexicon Only": {
+                    "mse": 0.1550019107298317,
+                    "mae": 0.24941775096625765
+                },
+                "ML Model Only": {
+                    "mse": 0.09246006329911557,
+                    "mae": 0.26967736928977665
+                },
+                "Hybrid Model": {
+                    "mse": 0.13720924533429663,
+                    "mae": 0.30712534722194923
+                }
+            },
+            "PerClass": {
+                "Lexicon Only": {
+                    "normal_play": {
+                        "precision": 0.8077110785749146,
+                        "recall": 0.7999033349444176,
+                        "f1": 0.8037882467217096,
+                        "support": 2069
+                    },
+                    "try": {
+                        "precision": 0.04201680672268908,
+                        "recall": 0.058823529411764705,
+                        "f1": 0.049019607843137254,
+                        "support": 85
+                    },
+                    "goal_kick": {
+                        "precision": 0.25396825396825395,
+                        "recall": 0.13559322033898305,
+                        "f1": 0.17679558011049726,
+                        "support": 118
+                    },
+                    "card_event": {
+                        "precision": 0.08333333333333333,
+                        "recall": 0.6666666666666666,
+                        "f1": 0.14814814814814814,
+                        "support": 6
+                    },
+                    "scrum": {
+                        "precision": 0.3170731707317073,
+                        "recall": 0.09420289855072464,
+                        "f1": 0.14525139664804468,
+                        "support": 138
+                    },
+                    "maul": {
+                        "precision": 0.08108108108108109,
+                        "recall": 0.15,
+                        "f1": 0.10526315789473685,
+                        "support": 20
+                    },
+                    "lineout": {
+                        "precision": 0.07339449541284404,
+                        "recall": 0.1568627450980392,
+                        "f1": 0.1,
+                        "support": 51
+                    },
+                    "kick_off": {
+                        "precision": 0.1875,
+                        "recall": 0.05084745762711865,
+                        "f1": 0.08,
+                        "support": 59
+                    },
+                    "tmo_replay": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 20
+                    },
+                    "penalty": {
+                        "precision": 0.12389380530973451,
+                        "recall": 0.3333333333333333,
+                        "f1": 0.18064516129032257,
+                        "support": 42
+                    }
+                },
+                "ML Model Only": {
+                    "normal_play": {
+                        "precision": 0.8104245481294662,
+                        "recall": 0.931851135814403,
+                        "f1": 0.8669064748201438,
+                        "support": 2069
+                    },
+                    "try": {
+                        "precision": 0.46153846153846156,
+                        "recall": 0.07058823529411765,
+                        "f1": 0.12244897959183675,
+                        "support": 85
+                    },
+                    "goal_kick": {
+                        "precision": 0.27358490566037735,
+                        "recall": 0.2457627118644068,
+                        "f1": 0.2589285714285714,
+                        "support": 118
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 6
+                    },
+                    "scrum": {
+                        "precision": 0.3225806451612903,
+                        "recall": 0.07246376811594203,
+                        "f1": 0.1183431952662722,
+                        "support": 138
+                    },
+                    "maul": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 20
+                    },
+                    "lineout": {
+                        "precision": 0.06521739130434782,
+                        "recall": 0.058823529411764705,
+                        "f1": 0.06185567010309278,
+                        "support": 51
+                    },
+                    "kick_off": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 59
+                    },
+                    "tmo_replay": {
+                        "precision": 0.38461538461538464,
+                        "recall": 0.25,
+                        "f1": 0.30303030303030304,
+                        "support": 20
+                    },
+                    "penalty": {
+                        "precision": 0.09090909090909091,
+                        "recall": 0.023809523809523808,
+                        "f1": 0.03773584905660377,
+                        "support": 42
+                    }
+                },
+                "Hybrid Model": {
+                    "normal_play": {
+                        "precision": 0.8112652374947457,
+                        "recall": 0.9328177863702272,
+                        "f1": 0.8678057553956834,
+                        "support": 2069
+                    },
+                    "try": {
+                        "precision": 0.46153846153846156,
+                        "recall": 0.07058823529411765,
+                        "f1": 0.12244897959183675,
+                        "support": 85
+                    },
+                    "goal_kick": {
+                        "precision": 0.27358490566037735,
+                        "recall": 0.2457627118644068,
+                        "f1": 0.2589285714285714,
+                        "support": 118
+                    },
+                    "card_event": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 6
+                    },
+                    "scrum": {
+                        "precision": 0.3333333333333333,
+                        "recall": 0.07971014492753623,
+                        "f1": 0.1286549707602339,
+                        "support": 138
+                    },
+                    "maul": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 20
+                    },
+                    "lineout": {
+                        "precision": 0.06818181818181818,
+                        "recall": 0.058823529411764705,
+                        "f1": 0.0631578947368421,
+                        "support": 51
+                    },
+                    "kick_off": {
+                        "precision": 0.0,
+                        "recall": 0.0,
+                        "f1": 0.0,
+                        "support": 59
+                    },
+                    "tmo_replay": {
+                        "precision": 0.38461538461538464,
+                        "recall": 0.25,
+                        "f1": 0.30303030303030304,
+                        "support": 20
+                    },
+                    "penalty": {
+                        "precision": 0.09090909090909091,
+                        "recall": 0.023809523809523808,
+                        "f1": 0.03773584905660377,
+                        "support": 42
+                    }
+                }
+            }
+        }
     }
 ]

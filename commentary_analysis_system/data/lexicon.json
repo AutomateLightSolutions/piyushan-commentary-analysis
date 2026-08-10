@@ -15,39 +15,51 @@
         },
         {
           "text": "yellow card",
-          "weight": 0.0092
+          "weight": 0.25
         },
         {
           "text": "a red",
-          "weight": 0.007
+          "weight": 0.42
         },
         {
           "text": "red",
-          "weight": 0.007
+          "weight": 0.57
         },
         {
           "text": "mitigation",
-          "weight": 0.0057
+          "weight": 0.0257
         },
         {
           "text": "foul",
-          "weight": 0.0057
+          "weight": 0.0157
         },
         {
           "text": "no mitigation",
-          "weight": 0.0047
+          "weight": 0.047
         },
         {
           "text": "upgraded",
-          "weight": 0.0038
-        },
-        {
-          "text": "blues",
-          "weight": 0.0025
+          "weight": 0.0338
         },
         {
           "text": "to worse",
-          "weight": 0.0022
+          "weight": 0.321
+        },
+        {
+          "text": "red card",
+          "weight": 0.366667
+        },
+        {
+          "text": "high tackle",
+          "weight": 0.416667
+        },
+        {
+          "text": "foul play",
+          "weight": 0.083333
+        },
+        {
+          "text": "ten minutes",
+          "weight": 0.083333
         }
       ]
     },
@@ -57,64 +69,52 @@
       "weight": 0.7814,
       "terms": [
         {
-          "text": "points",
-          "weight": 0.005
-        },
-        {
-          "text": "points to",
-          "weight": 0.002
-        },
-        {
-          "text": "lead",
-          "weight": 0.0017
-        },
-        {
-          "text": "clock",
-          "weight": 0.0011
-        },
-        {
           "text": "conversion",
-          "weight": 0.0009
+          "weight": 0.5
         },
         {
           "text": "shot clock",
-          "weight": 0.0008
+          "weight": 0.321
         },
         {
           "text": "tee",
-          "weight": 0.0007
-        },
-        {
-          "text": "the tee",
-          "weight": 0.0007
-        },
-        {
-          "text": "from wide",
-          "weight": 0.0006
+          "weight": 0.258
         },
         {
           "text": "the shot clock",
-          "weight": 0.0006
+          "weight": 0.06
         },
         {
           "text": "drop goal",
-          "weight": 0.0006
+          "weight": 0.165
         },
         {
           "text": "the shot",
-          "weight": 0.0006
+          "weight": 0.16
         },
         {
           "text": "off the tee",
-          "weight": 0.0004
+          "weight": 0.25
         },
         {
           "text": "long range",
-          "weight": 0.0004
+          "weight": 0.31
         },
         {
           "text": "the conversion",
-          "weight": 0.0004
+          "weight": 0.6134
+        },
+        {
+          "text": "three points",
+          "weight": 0.25
+        },
+        {
+          "text": "from wide angle",
+          "weight": 0.09
+        },
+        {
+          "text": "angle",
+          "weight": 0.632
         }
       ]
     },
@@ -125,31 +125,35 @@
       "terms": [
         {
           "text": "drop",
-          "weight": 0.0016
+          "weight": 0.0516
         },
         {
           "text": "drop out",
-          "weight": 0.0011
+          "weight": 0.32
         },
         {
           "text": "restart",
-          "weight": 0.0011
+          "weight": 0.48
         },
         {
           "text": "kick off",
-          "weight": 0.0009
-        },
-        {
-          "text": "giving away penalty",
-          "weight": 0.0005
-        },
-        {
-          "text": "away penalty",
-          "weight": 0.0005
+          "weight": 0.28
         },
         {
           "text": "drop out to",
-          "weight": 0.0003
+          "weight": 0.032
+        },
+        {
+          "text": "kickoff",
+          "weight": 0.12
+        },
+        {
+          "text": "kick deep",
+          "weight": 0.15
+        },
+        {
+          "text": "receiving",
+          "weight": 0.062
         }
       ]
     },
@@ -160,63 +164,47 @@
       "terms": [
         {
           "text": "line",
-          "weight": 0.0057
+          "weight": 0.057
         },
         {
           "text": "line out",
-          "weight": 0.0033
+          "weight": 0.619048
         },
         {
           "text": "throw",
-          "weight": 0.0017
+          "weight": 0.318
         },
         {
           "text": "the line out",
-          "weight": 0.001
+          "weight": 0.215
         },
         {
           "text": "first throw",
-          "weight": 0.0005
-        },
-        {
-          "text": "first line",
-          "weight": 0.0004
+          "weight": 0.051
         },
         {
           "text": "throw for",
-          "weight": 0.0003
-        },
-        {
-          "text": "first throw for",
-          "weight": 0.0003
-        },
-        {
-          "text": "shortened line",
-          "weight": 0.0003
-        },
-        {
-          "text": "shortened line out",
-          "weight": 0.0003
-        },
-        {
-          "text": "in this opening",
-          "weight": 0.0003
-        },
-        {
-          "text": "shortened",
-          "weight": 0.0003
-        },
-        {
-          "text": "this opening",
-          "weight": 0.0003
-        },
-        {
-          "text": "inside line",
-          "weight": 0.0002
+          "weight": 0.053
         },
         {
           "text": "throw ahead",
-          "weight": 0.0002
+          "weight": 0.08
+        },
+        {
+          "text": "throw in",
+          "weight": 0.095238
+        },
+        {
+          "text": "steal",
+          "weight": 0.214286
+        },
+        {
+          "text": "overthrow",
+          "weight": 0.071429
+        },
+        {
+          "text": "not straight",
+          "weight": 0.321
         }
       ]
     },
@@ -227,51 +215,43 @@
       "terms": [
         {
           "text": "forward",
-          "weight": 0.0048
+          "weight": 0.034
         },
         {
           "text": "drive",
-          "weight": 0.0033
+          "weight": 0.714286
         },
         {
           "text": "backwards",
-          "weight": 0.0016
+          "weight": 0.131
         },
         {
           "text": "rolling",
-          "weight": 0.0014
-        },
-        {
-          "text": "piling",
-          "weight": 0.0013
-        },
-        {
-          "text": "line its",
-          "weight": 0.0012
+          "weight": 0.024
         },
         {
           "text": "in the back",
-          "weight": 0.0011
+          "weight": 0.0511
         },
         {
           "text": "set the drive",
-          "weight": 0.0011
+          "weight": 0.311
         },
         {
           "text": "closer to the",
-          "weight": 0.001
+          "weight": 0.021
         },
         {
           "text": "tucked",
-          "weight": 0.0009
+          "weight": 0.01509
         },
         {
-          "text": "its tucked",
-          "weight": 0.0009
+          "text": "obstruction",
+          "weight": 0.285714
         },
         {
-          "text": "driving more",
-          "weight": 0.0008
+          "text": "driving maul",
+          "weight": 0.753
         }
       ]
     },
@@ -298,7 +278,7 @@
         },
         {
           "text": "offload",
-          "weight": 0.0002
+          "weight": 0.057471
         },
         {
           "text": "needed",
@@ -331,6 +311,30 @@
         {
           "text": "around the fringes",
           "weight": 0.0001
+        },
+        {
+          "text": "phase play",
+          "weight": 0.011494
+        },
+        {
+          "text": "quick ball",
+          "weight": 0.034483
+        },
+        {
+          "text": "carries",
+          "weight": 0.022989
+        },
+        {
+          "text": "box kick",
+          "weight": 0.011494
+        },
+        {
+          "text": "possession",
+          "weight": 0.178161
+        },
+        {
+          "text": "territory",
+          "weight": 0.074713
         }
       ]
     },
@@ -341,47 +345,59 @@
       "terms": [
         {
           "text": "penalty",
-          "weight": 0.0127
+          "weight": 0.478049
         },
         {
           "text": "offside",
-          "weight": 0.0014
+          "weight": 0.053659
         },
         {
           "text": "its a penalty",
-          "weight": 0.0011
+          "weight": 0.0811
         },
         {
           "text": "scrum penalty",
-          "weight": 0.0009
-        },
-        {
-          "text": "over the ball",
-          "weight": 0.0008
+          "weight": 0.092
         },
         {
           "text": "neck roll",
-          "weight": 0.0007
+          "weight": 0.035
         },
         {
           "text": "the scrum penalty",
-          "weight": 0.0006
-        },
-        {
-          "text": "pounding away",
-          "weight": 0.0005
+          "weight": 0.0706
         },
         {
           "text": "penalty goes",
-          "weight": 0.0005
+          "weight": 0.348
         },
         {
           "text": "getting a penalty",
-          "weight": 0.0004
+          "weight": 0.421
         },
         {
-          "text": "referee there",
-          "weight": 0.0004
+          "text": "not releasing",
+          "weight": 0.23
+        },
+        {
+          "text": "holding on",
+          "weight": 0.119512
+        },
+        {
+          "text": "penalty advantage",
+          "weight": 0.107317
+        },
+        {
+          "text": "advantage",
+          "weight": 0.17561
+        },
+        {
+          "text": "kickable penalty",
+          "weight": 0.08756
+        },
+        {
+          "text": "quick tap",
+          "weight": 0.019512
         }
       ]
     },
@@ -392,19 +408,51 @@
       "terms": [
         {
           "text": "scrum",
-          "weight": 0.004
-        },
-        {
-          "text": "teams",
-          "weight": 0.0012
+          "weight": 0.666667
         },
         {
           "text": "crouch",
-          "weight": 0.0006
+          "weight": 0.51
         },
         {
           "text": "scrum for",
-          "weight": 0.0004
+          "weight": 0.094
+        },
+        {
+          "text": "front row",
+          "weight": 0.081633
+        },
+        {
+          "text": "hooker",
+          "weight": 0.040816
+        },
+        {
+          "text": "prop",
+          "weight": 0.047619
+        },
+        {
+          "text": "put in",
+          "weight": 0.027211
+        },
+        {
+          "text": "feed",
+          "weight": 0.027211
+        },
+        {
+          "text": "scrum penalty",
+          "weight": 0.027211
+        },
+        {
+          "text": "bind",
+          "weight": 0.32
+        },
+        {
+          "text": "set",
+          "weight": 0.02
+        },
+        {
+          "text": "collapse",
+          "weight": 0.08
         }
       ]
     },
@@ -414,28 +462,20 @@
       "weight": 0.75,
       "terms": [
         {
-          "text": "blue",
-          "weight": 0.004
-        },
-        {
           "text": "yellow",
-          "weight": 0.004
+          "weight": 0.04
         },
         {
           "text": "yellow card",
-          "weight": 0.0038
+          "weight": 0.038
         },
         {
           "text": "screen",
-          "weight": 0.0025
-        },
-        {
-          "text": "green",
-          "weight": 0.002
+          "weight": 0.025
         },
         {
           "text": "tmo",
-          "weight": 0.0015
+          "weight": 0.6875
         },
         {
           "text": "camera angle",
@@ -443,19 +483,27 @@
         },
         {
           "text": "screen now",
-          "weight": 0.001
+          "weight": 0.01
         },
         {
           "text": "first camera",
-          "weight": 0.0008
+          "weight": 0.03108
         },
         {
           "text": "on screen",
-          "weight": 0.0008
+          "weight": 0.1818
         },
         {
           "text": "on screen now",
-          "weight": 0.0008
+          "weight": 0.21008
+        },
+        {
+          "text": "replay",
+          "weight": 0.1875
+        },
+        {
+          "text": "big screen",
+          "weight": 0.125
         }
       ]
     },
@@ -466,31 +514,43 @@
       "terms": [
         {
           "text": "try",
-          "weight": 0.004
+          "weight": 0.794118
         },
         {
           "text": "corner",
-          "weight": 0.0028
+          "weight": 0.0328
         },
         {
           "text": "the corner",
-          "weight": 0.0024
+          "weight": 0.038
         },
         {
           "text": "for the corner",
-          "weight": 0.0011
+          "weight": 0.021
         },
         {
           "text": "hes made",
-          "weight": 0.0006
-        },
-        {
-          "text": "looking for possession",
-          "weight": 0.0004
+          "weight": 0.015
         },
         {
           "text": "for the try",
-          "weight": 0.0004
+          "weight": 0.54
+        },
+        {
+          "text": "scored",
+          "weight": 0.4902
+        },
+        {
+          "text": "grounded",
+          "weight": 0.39216
+        },
+        {
+          "text": "over the line",
+          "weight": 0.58824
+        },
+        {
+          "text": "hat trick",
+          "weight": 0.19608
         }
       ]
     }

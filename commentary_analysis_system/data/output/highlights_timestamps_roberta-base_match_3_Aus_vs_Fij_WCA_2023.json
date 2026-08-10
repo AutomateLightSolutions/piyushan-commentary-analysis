@@ -15,7 +15,7 @@
     "primary_event": "maul"
   },
   {
-    "start": 112,
+    "start": 110,
     "end": 124,
     "primary_event": "penalty"
   },
@@ -217,7 +217,7 @@
   {
     "start": 2036,
     "end": 2072,
-    "primary_event": "penalty"
+    "primary_event": "maul"
   },
   {
     "start": 2108,
@@ -347,6 +347,11 @@
   {
     "start": 3898,
     "end": 3908,
+    "primary_event": "scrum"
+  },
+  {
+    "start": 4020,
+    "end": 4030,
     "primary_event": "scrum"
   },
   {

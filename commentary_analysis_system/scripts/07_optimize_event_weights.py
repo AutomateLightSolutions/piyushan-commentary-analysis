@@ -6,7 +6,6 @@ import sys
 # Ensure we can import from src
 sys.path.append(str(Path(__file__).parent.parent))
 
-from src.pipeline.evaluator import compute_metrics
 from src.models.transformer_classifier import TransformerClassifier
 
 OUTPUT_DIR = Path("data/output")
