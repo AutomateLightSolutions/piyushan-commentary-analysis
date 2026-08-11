@@ -94,7 +94,12 @@ def clean_text(text: str) -> str:
     text = text.lower()
     
     # remove filler words
-    fillers = ["uh", "umm", "um", "ah", "oh"]
+    fillers = [
+        "uh", "umm", "um", "ah", "oh",
+        "erm", "err", "uhh", "ahh",
+        "hmm", "hm", "mm", "mmm", "mhm",
+        "huh", "eh",
+    ]
     for w in fillers:
         text = re.sub(rf"\b{w}\b", "", text)
 
